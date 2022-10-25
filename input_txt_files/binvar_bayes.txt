@@ -1,0 +1,4 @@
+output_binvar/bayes_binvaroption1_2284.root Option1
+output_binvar/bayes_binvaroption2_2284.root Option2
+output_binvar/bayes_binvaroption3_2284.root Option3
+output_binvar/bayes_binvaroption4_2284.root Option4

@@ -1,0 +1,4 @@
+output_truncation/bayes_trunc_lowerloose_2284.root LowerLoose
+output_truncation/bayes_trunc_lowerstrong_2284.root LowerStrong
+output_truncation/bayes_trunc_upperloose_2284.root UpperLoose
+output_truncation/bayes_trunc_upperstrong_2284.root UpperStrong

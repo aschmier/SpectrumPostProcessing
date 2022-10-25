@@ -1,0 +1,3 @@
+output_truncation/svd_trunc_lowerloose.root LowerLoose
+output_truncation/svd_trunc_upperloose.root UpperLoose
+output_truncation/svd_trunc_upperstrong.root UpperStrong

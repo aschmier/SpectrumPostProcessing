@@ -1,0 +1,4 @@
+/home/austin/alice/unfoldingResults/output_triggerswap/bayes_LowTriggerSwapLow_2296.root (25GeV,60GeV)
+/home/austin/alice/unfoldingResults/output_triggerswap/bayes_LowTriggerSwapHigh_2296.root (35GeV,60GeV)
+/home/austin/alice/unfoldingResults/output_triggerswap/bayes_HighTriggerSwapLow_2296.root (30GeV,55GeV)
+/home/austin/alice/unfoldingResults/output_triggerswap/bayes_HighTriggerSwapHigh_2296.root (30GeV,65GeV)
