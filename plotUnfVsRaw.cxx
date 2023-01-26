@@ -55,7 +55,7 @@ void plotUnfVsRaw(TString unfoldingFile, TString type, TString output, TString f
         for(int reg = 0; reg < 9; reg++){
             vecSpectra[radius-minradius].at(reg)->Divide( vecSpectra[radius-minradius].at(reg), specRaw[radius-minradius], 1, 1, "b" );
             vecSpectra[radius-minradius].at(reg)->GetXaxis()->SetRangeUser(20,320);
-            //vecSpectra[radius-minradius].at(reg)->GetYaxis()->SetRangeUser(0.945,1.055);
+            //vecSpectra[radius-minradius].at(reg)->GetYaxis()->SetRangeUser(0.1,1.2);
             SetStyleHistoTH1ForGraphs(vecSpectra[radius-minradius].at(reg),"","#it{p}_{T} (GeV/#it{c})","#it{reg}=#it{x} / raw",textSize,0.04,textSize,0.04,1,1.2);
             vecSpectra[radius-minradius].at(reg)->SetFillColor(colors[reg]);
             vecSpectra[radius-minradius].at(reg)->SetMarkerStyle(styles[reg]);

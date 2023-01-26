@@ -107,10 +107,16 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
     gStyle->SetOptStat(0);
 
     TLegend *legend =  GetAndSetLegend2(0.1,0.65,0.4,0.65+((3)*textSize*1.5),textSize);
+    bool draw   = false;
+    int drawnum = 0;
 
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int binPt = 0; binPt < nPtBins; binPt++){
+            drawnum = 0;
             for(int trigger = 0; trigger < triggers.size(); trigger++){
+                if(triggers.at(trigger) == "INT7" && binsPt[binPt] >= 60) draw = false;
+                else if(triggers.at(trigger) == "EMC7" && binsPt[binPt] >= 100) draw = false;
+                else draw = true;
                 TH1D *tempNEF = vecNEF[radius-minradius].at(trigger)->ProjectionY(Form("hNEF_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 TH1D *tempNEF_MC = vecNEF_MC[radius-minradius].at(trigger)->ProjectionY(Form("hNEF_MC_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 TH1D *hNEF = (TH1D*)tempNEF->Rebin(detLevelRebin.size()-1, Form("hNEF_R0%i_%s_ptBin%i",radius,triggers.at(trigger).Data(),binPt), detLevelRebin.data());
@@ -124,7 +130,7 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
                 hNEF->SetMarkerStyle(styles[trigger]);
                 hNEF->SetMarkerColor(colors[trigger]);
                 hNEF->SetLineColor(colors[trigger]);
-                if(trigger==0) hNEF->Draw("p,e");
+                if(draw == true && drawnum++ == 0) hNEF->Draw("p,e");
                 else hNEF->Draw("p,e,same");
                 legend->AddEntry(hNEF,triggers.at(trigger).Data(),"p");
             }
@@ -137,7 +143,11 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
 
             legend->Clear();
 
+            drawnum = 0;
             for(int trigger = 0; trigger < triggers.size(); trigger++){
+                if(triggers.at(trigger) == "INT7" && binsPt[binPt] >= 60) draw = false;
+                else if(triggers.at(trigger) == "EMC7" && binsPt[binPt] >= 100) draw = false;
+                else draw = true;
                 TH1D *tempZch = vecZch[radius-minradius].at(trigger)->ProjectionY(Form("hZch_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 TH1D *tempZch_MC = vecZch_MC[radius-minradius].at(trigger)->ProjectionY(Form("hZch_MC_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 TH1D *hZch = (TH1D*)tempZch->Rebin(detLevelRebin.size()-1, Form("hZch_R0%i_%s_ptBin%i",radius,triggers.at(trigger).Data(),binPt), detLevelRebin.data());
@@ -163,7 +173,11 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
 
             legend->Clear();
 
+            drawnum = 0;
             for(int trigger = 0; trigger < triggers.size(); trigger++){
+                if(triggers.at(trigger) == "INT7" && binsPt[binPt] >= 60) draw = false;
+                else if(triggers.at(trigger) == "EMC7" && binsPt[binPt] >= 100) draw = false;
+                else draw = true;
                 TH1D *tempZne = vecZne[radius-minradius].at(trigger)->ProjectionY(Form("hZne_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 TH1D *tempZne_MC = vecZne_MC[radius-minradius].at(trigger)->ProjectionY(Form("hZne_MC_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 TH1D *hZne = (TH1D*)tempZne->Rebin(detLevelRebin.size()-1, Form("hZne_R0%i_%s_ptBin%i",radius,triggers.at(trigger).Data(),binPt), detLevelRebin.data());

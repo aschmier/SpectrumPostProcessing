@@ -10,7 +10,7 @@
 #include "TPaveText.h"
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 
-void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileType, int rmin, int rmax, int regnum)
+void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileType, int rmin = 2, int rmax = 6, int regnum = 6)
 {
     // Define variables
     double textSize     = 0.03;

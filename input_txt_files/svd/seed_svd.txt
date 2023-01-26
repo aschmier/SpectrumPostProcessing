@@ -1,2 +1,2 @@
-/home/austin/alice/unfoldingResults/output_seed/svd_sysSeedE275.root SeedE275
-/home/austin/alice/unfoldingResults/output_seed/svd_sysSeedE350.root SeedE350
+output_seed/svd_sysSeedE275.root SeedE275
+output_seed/svd_sysSeedE350.root SeedE350

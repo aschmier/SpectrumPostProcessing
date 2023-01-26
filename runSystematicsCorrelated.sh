@@ -10,5 +10,5 @@ out="/home/austin/alice/AnalysisNote_pp_8TeV/618164481744be1fd5ef7dfe/figures"
 
 for (( r=2; r<=6; r++ ))
 do
-  root -x -q -l -b 'plotSystematics.cxx("'$fSysConfig'","'$fFinConfig'","'$type'",'$r',"'$filetype'","'$out'")'
+  root -x -q -l -b 'plotSystematicsCorrelated.cxx("'$fSysConfig'","'$fFinConfig'","'$type'",'$r',"'$filetype'","'$out'")'
 done

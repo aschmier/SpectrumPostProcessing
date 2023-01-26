@@ -11,7 +11,7 @@
 
 namespace fs = std::filesystem;
 
-void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t radius, TString fileType, TString out)
+void plotSystematicsCorrelated(TString fSysConfig, TString fFinConfig, TString type, Int_t radius, TString fileType, TString out)
 {
     //////////////////////////// Define Variables //////////////////////////////
 
@@ -27,7 +27,7 @@ void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 14;
+    int varNSys = 10;
     if(radius != 2) varNSys = varNSys - 2;
     const int nSys = varNSys;
     vector<TString> plot_names;
@@ -36,17 +36,16 @@ void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t
     vector<TString> fitfunc;
 
     if(radius == 2){
-        plot_names.insert(plot_names.end(), {"Regularization","Bin Variation","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Priors","Trigger Swap p_{T}","RF Binning","RF Fit","Unfolding Method","Truncation"});
-        systematics_names.insert(systematics_names.end(), {"reg","binvar","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","priors","triggerswap","rfbinvar","rffit","unfoldingtype","truncation"});
-        variation_original.insert(variation_original.end(), {Form("reg=%i",regnumBayes),"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","default","(30GeV,60GeV)","(Low=default,High=default)","(Low=1.5GeV,High=6GeV)","Bayes","Default"});
-        fitfunc.insert(fitfunc.end(), {"pol0","pol0","pol1","binwise","binwise","pol1","pol0","binwise","pol1","binwise","pol1","pol1","pol0","pol0"});
+        plot_names.insert(plot_names.end(), {"Unfolding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","RF Binning","RF Fit"});
+        systematics_names.insert(systematics_names.end(), {"allunfolding","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap","rfbinvar","rffit"});
+        variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)","(Low=default,High=default)","(Low=1.5GeV,High=6GeV)"});
+        fitfunc.insert(fitfunc.end(), {"pol1","pol1","binwise","binwise","pol1","pol0","binwise","binwise","pol1","pol1"});
     }else{
-        plot_names.insert(plot_names.end(), {"Regularization","Bin Variation","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Priors","Trigger Swap p_{T}","Unfolding Method","Truncation"});
-        systematics_names.insert(systematics_names.end(), {"reg","binvar","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","priors","triggerswap","unfoldingtype","truncation"});
-        variation_original.insert(variation_original.end(), {Form("reg=%i",regnumBayes),"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","default","(30GeV,60GeV)","Bayes","Default"});
-        fitfunc.insert(fitfunc.end(), {"pol0","pol0","pol1","binwise","binwise","pol1","pol0","binwise","pol1","binwise","pol0","pol0"});
+        plot_names.insert(plot_names.end(), {"Unfolding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}"});
+        systematics_names.insert(systematics_names.end(), {"allunfolding","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap"});
+        variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)"});
+        fitfunc.insert(fitfunc.end(), {"pol1","pol1","binwise","binwise","pol1","pol0","binwise","binwise"});
     }
-    cout << plot_names.size() << " " << systematics_names.size() << " " << variation_original.size() << " " << fitfunc.size() << " " << endl;
 
     TString systematicsFile;
 
@@ -90,14 +89,14 @@ void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t
     TDirectory* dRegOrig_low  = (TDirectory*)dRadOrig->Get(Form("reg%i",regnumBayes-1));
     TH1D *specOrig_low       = (TH1D*)dRegOrig_low->Get(Form("normalized_reg%i",regnumBayes-1));
 
-    files[0].push_back(fSysConfig);
+    //files[0].push_back(fSysConfig);
     variations[0].push_back(Form("reg=%i",regnumBayes+1));
     variations[0].push_back(Form("reg=%i",regnumBayes-1));
     syshistos[0].push_back(specOrig_high);
     syshistos[0].push_back(specOrig_low);
 
     // Save the file names and variations for each uncertainty into vectors
-    for(int name=1; name<nSys; name++){
+    for(int name=0; name<nSys; name++){
         if(systematics_names[name].Contains("rf")){
             if(radius == 2) systematicsFile = Form("input_txt_files/%s_%s.txt", systematics_names.at(name).Data(), type.Data());
             else continue;
@@ -115,7 +114,7 @@ void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t
     }
 
     // Get the variation histos for all systematics
-    for(int name=1; name<nSys; name++){
+    for(int name=0; name<nSys; name++){
         for(int i = 0; i < files[name].size(); i++){
             TFile *fVar = TFile::Open(files[name].at(i));
             if(!fVar || fVar->IsZombie()){
@@ -125,7 +124,7 @@ void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t
             TDirectory *regDirSys = (TDirectory*)fVar->Get(Form("R0%i",radius));
             TDirectory *regSys;
             TH1D *normUnfoldedSys;
-            if(systematics_names[name] == "unfoldingtype"){
+            if(systematics_names[name] == "allunfolding" && variations[name].at(i).Contains("SVD")){
                 regSys    = (TDirectory*)regDirSys->Get(Form("reg%i",regnumSVD));
                 normUnfoldedSys = (TH1D*)regSys->Get(Form("normalized_reg%i",regnumSVD));
             }else{
@@ -324,7 +323,7 @@ void plotSystematics(TString fSysConfig, TString fFinConfig, TString type, Int_t
             else if(fitfunc[name] == "exp0") sysFit = (TF1*)exp0->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "binwise") cout << "Using binwise errors for " << systematics_names[name] << endl;
             else{ cout << "Invalid fit function!" << endl; return; }
-            sysFit->SetLineColor(colors[name+1]);
+            sysFit->SetLineColor((Color_t)colors[name+1]);
 
             smooth = (TH1D*)sysAvg->Clone(Form("smooth_%s",systematics_names[name].Data()));
             if(fitfunc[name] != "binwise"){

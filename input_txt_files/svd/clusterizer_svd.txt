@@ -1,2 +1,2 @@
-/home/austin/alice/unfoldingResults/output_clusterizer/svd_sys3x3.root 3x3
-/home/austin/alice/unfoldingResults/output_clusterizer/svd_sys5x5.root 5x5
+output_clusterizer/svd_sys3x3.root 3x3
+output_clusterizer/svd_sys5x5.root 5x5

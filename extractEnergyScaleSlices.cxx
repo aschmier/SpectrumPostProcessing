@@ -55,23 +55,28 @@ void extractEnergyScaleSlices(TString file, TString outputdir, TString fileType)
     l1->SetLineWidth(3);
     l1->SetLineStyle(7);
 
-    for(int radius = minradius; radius <= maxradius; radius++){
-        for(int binPt = 0; binPt < nPtBins; binPt++){
+    TLegend *legend =  GetAndSetLegend2(0.11,0.68,0.31,0.68+(maxradius-minradius+1)*textSize/1.5,textSize,2);
+
+    for(int binPt = 0; binPt < nPtBins; binPt++){
+        legend->Clear();
+        for(int radius = minradius; radius <= maxradius; radius++){
             TH1D *tempSlice = vecSlices[radius-minradius].at(binPt);
             tempSlice->Rebin(4);
             tempSlice->Scale(1/tempSlice->Integral());
             tempSlice->GetXaxis()->SetRangeUser(-1,0.4);
             tempSlice->GetYaxis()->SetRangeUser(0,0.3);
             SetStyleHistoTH1ForGraphs(tempSlice,"","<(#it{p}_{T}^{det} - #it{p}_{T}^{part})/#it{p}_{T}^{part}","Prob/Bin(0.04)",0.03,0.04,0.03,0.04,1,0.85);
-            tempSlice->SetMarkerColor(colors[0]);
-            tempSlice->SetLineColor(colors[0]);
-            tempSlice->SetMarkerStyle(styles[0]);
-            tempSlice->Draw("p,e");
-            l1->Draw("same");
-            drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
-            drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.12,0.84, 0.03, false, false, false);
-            drawLatexAdd(Form("#it{p}_{T}^{part} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03,false, false, false);
-            canvas->SaveAs(Form("%s/EnergyScale/Slices/%s.%s", outputdir.Data(),tempSlice->GetName(),fileType.Data()));
+            tempSlice->SetMarkerColor(colors[radius-minradius]);
+            tempSlice->SetLineColor(colors[radius-minradius]);
+            tempSlice->SetMarkerStyle(styles[radius-minradius]);
+            if(radius == minradius) tempSlice->Draw("p,e");
+            else tempSlice->Draw("p,e,same");
+            legend->AddEntry(tempSlice, Form("#it{R} = 0.%i",radius), "p");
         }
+        legend->Draw("same");
+        l1->Draw("same");
+        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
+        drawLatexAdd(Form("#it{p}_{T}^{part} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.84, 0.03,false, false, false);
+        canvas->SaveAs(Form("%s/EnergyScale/Slices/AllRadii/EnergyScale_AllRadii_%i-%iGeV.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],fileType.Data()));
     }
 }

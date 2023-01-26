@@ -12,7 +12,7 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D_rf.C"
-#include "/home/austin/alice/unfoldingResults/makeRejectionFactor.cpp"
+#include "/home/austin/alice/SpectrumPostProcessing/makeRejectionFactor.cpp"
 
 void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TString output, Int_t rad, TString fileType)
 {

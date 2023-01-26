@@ -1,2 +1,2 @@
-/home/austin/alice/unfoldingResults/output_seed/bayes_Seed275_2230.root SeedE=275MeV
-/home/austin/alice/unfoldingResults/output_seed/bayes_Seed350_2231.root SeedE=350MeV
+output_seed/bayes_Seed275_2230.root SeedE=275MeV
+output_seed/bayes_Seed350_2231.root SeedE=350MeV

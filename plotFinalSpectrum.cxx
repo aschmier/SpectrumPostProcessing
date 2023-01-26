@@ -110,7 +110,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     gStyle->SetOptStat(0);
     c->SetLogy();
 
-    TLegend *legend =  GetAndSetLegend2(0.53,0.6,0.93,0.6+(maxradius-minradius)*textSize*1.5,textSize,2);
+    TLegend *legend =  GetAndSetLegend2(0.53,0.68,0.93,0.68+(maxradius-minradius)*textSize,textSize,2);
     TLegend *legendSysE =  GetAndSetLegend2(0.15,0.15,0.35,0.15+((2)*textSize*1.5)/2,textSize);
 
     for(int radius = minradius; radius <= maxradius; radius++){
@@ -169,12 +169,49 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendSysE->AddEntry(vecSpectra.at(0), "Statistical Uncertainty", "f");
     legendSysE->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.83, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.79, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.89, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.85, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
 
     c->SaveAs(Form("%s/FinalResults/%s_reg%i.%s",output.Data(),type.Data(),regnum,fileType.Data()));
+    c->SetLogx(1);
+    c->SaveAs(Form("%s/FinalResults/%s_reg%i_logx.%s",output.Data(),type.Data(),regnum,fileType.Data()));
+    c->SetLogx(0);
+
+    legend->Clear();
+    legendSysE->Clear();
+
+    for(int radius = minradius; radius <= maxradius; radius++){
+        vecSpectra.at(radius-minradius)->Scale(1/(double)scale[radius-minradius]);
+        vecSpectraSysE.at(radius-minradius)->Scale(1/(double)scale[radius-minradius]);
+        vecSpectraSysE_graph.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
+
+        legend->AddEntry(vecSpectra.at(radius-minradius), Form("#it{R} = 0.%i",radius), "p");
+        if(radius==minradius){
+          vecSpectra.at(radius-minradius)->Draw("p,e2");
+          vecSpectraSysE_graph.at(radius-minradius)->Draw("e2,same");
+        }else{
+          vecSpectra.at(radius-minradius)->Draw("p,e2,same");
+          vecSpectraSysE_graph.at(radius-minradius)->Draw("e2,same");
+        }
+    }
+
+    legend->Draw("same");
+
+    legendSysE->AddEntry(vecSpectraSysE.at(0), "Systematic Uncertainty", "f");
+    legendSysE->AddEntry(vecSpectra.at(0), "Statistical Uncertainty", "f");
+    legendSysE->Draw("same");
+
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.89, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.85, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
+
+    c->SaveAs(Form("%s/FinalResults/%s_reg%i_unscaled.%s",output.Data(),type.Data(),regnum,fileType.Data()));
+    c->SetLogx(1);
+    c->SaveAs(Form("%s/FinalResults/%s_reg%i_logx_unscaled.%s",output.Data(),type.Data(),regnum,fileType.Data()));
+    c->SetLogx(0);
 
     TCanvas *c2   = new TCanvas("c2", "", 800, 800);
     DrawPaperCanvasSettings(c2,0.15,0.025,0.025,0.1);
@@ -182,11 +219,11 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     //c2->SetLogx();
 
     TLegend *legend2     =  GetAndSetLegend2(0.47,0.15,0.95,0.15+((maxradius-minradius+1)*textSize*1.5)/2,textSize,2);
-    TLegend *legendSysE2 =  GetAndSetLegend2(0.19,0.65,0.39,0.65+((2)*textSize*1.5),textSize);
+    TLegend *legendSysE2 =  GetAndSetLegend2(0.47,0.27,0.95,0.27+((2)*textSize*1.5),textSize);
 
     for(int radius = minradius+1; radius <= maxradius; radius++){
       //vecRatio.at(radius-(minradius+1))->GetYaxis()->SetRangeUser(0,1.4);
-      vecRatio.at(radius-(minradius+1))->GetYaxis()->SetRangeUser(-1,3);
+      vecRatio.at(radius-(minradius+1))->GetYaxis()->SetRangeUser(0,1.4);
       vecRatio.at(radius-(minradius+1))->GetXaxis()->SetRangeUser(20,320);
       SetStyleHistoTH1ForGraphs(vecRatio.at(radius-(minradius+1)),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{#it{R}=0.2}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{#it{R}=0.#it{X}}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
       vecRatio.at(radius-(minradius+1))->SetFillColor(colors[radius-(minradius+1)]);
@@ -211,7 +248,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
       }
     }
 
-    TLine * l1 = new TLine (15,1,320,1);
+    TLine * l1 = new TLine (20,1,320,1);
     l1->SetLineColor(14);
     l1->SetLineWidth(3);
     l1->SetLineStyle(7);
@@ -238,8 +275,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     TLegend *legendsim     =  GetAndSetLegend2(0.55,0.67,0.95,0.67+((2)*textSize*1.5),textSize);
 
     for(int radius = minradius; radius <= maxradius; radius++){
-      vecSpectra.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
-      vecSpectraSysE_graph.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
+      //vecSpectra.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
+      //vecSpectraSysE_graph.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
       SetStyleHistoTH1ForGraphs(vecSpectra.at(radius-minradius),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.6);
       for(int outlier = 0; outlier < nOutlier; outlier++){
         vecSpectra.at(radius-minradius)->Draw("p,e2");
@@ -261,12 +298,12 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     DrawPaperCanvasSettings(c4,0.15,0.025,0.025,0.1);
     gStyle->SetOptStat(0);
 
-    TLine * l2 = new TLine (15,1,320,1);
+    TLine * l2 = new TLine (20,1,320,1);
     l2->SetLineColor(14);
     l2->SetLineWidth(3);
     l2->SetLineStyle(7);
 
-    TLegend *legendsimratio = GetAndSetLegend2(0.19,0.65,0.39,0.65+((2)*textSize*1.5),textSize);
+    TLegend *legendsimratio = GetAndSetLegend2(0.65,0.15,0.95,0.15+((2)*textSize*1.5),textSize);
 
     for(int radius = minradius; radius < maxradius; radius++){
       SetStyleHistoTH1ForGraphs(vecRatio.at(radius-minradius),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{#it{R}=0.2}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{#it{R}=0.#it{X}}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
@@ -290,31 +327,31 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         legendsimratio->Clear();
       }
     }
-/*
+
     TCanvas *c5   = new TCanvas("c5", "", 800, 800);
     DrawPaperCanvasSettings(c5,0.15,0.025,0.025,0.1);
     gStyle->SetOptStat(0);
 
-    TLine * l3 = new TLine (15,1,320,1);
+    TLine * l3 = new TLine (20,1,320,1);
     l3->SetLineColor(14);
     l3->SetLineWidth(3);
     l3->SetLineStyle(7);
 
-    for(int radius = minradius; radius < maxradius; radius++){
+    for(int radius = minradius; radius <= maxradius; radius++){
       for(int outlier = 0; outlier < nOutlier; outlier++){
         TH1D *ratiosimdata = (TH1D*)vecSpectra.at(radius-minradius)->Clone(Form("ratiosimdata_%i_%i",radius,outlier));
         ratiosimdata->Divide(vecSpectraSim[outlier].at(radius-minradius), vecSpectra.at(radius-minradius),1,1,"b");
         SetStyleHistoTH1ForGraphs(ratiosimdata,"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{sim}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
-        ratiosimdata->GetYaxis()->SetRangeUser(0.96,1.6);
+        ratiosimdata->GetYaxis()->SetRangeUser(0.96,2.4);
         ratiosimdata->Draw("p,e");
         l2->Draw("same");
 
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.51, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.19,0.47, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.43, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.19,0.39, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.3, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.19,0.26, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.22, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.19,0.18, textSize,kFALSE, kFALSE, false);
 
         c5->SaveAs(Form("%s/MCGen/ratioDataMC/ratio_simdata_R0%i_%s.%s",output.Data(),radius,outliers[outlier].Data(),fileType.Data()));
       }
-    }*/
+    }
 }

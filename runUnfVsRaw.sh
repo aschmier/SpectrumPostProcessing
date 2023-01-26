@@ -1,8 +1,8 @@
 #!/bin/bash
 
-svdinput=/home/austin/alice/unfoldingResults/output_default/svd_default_2284.root
-bayesinput=/home/austin/alice/unfoldingResults/output_default/bayes_default_2284.root
-out="/home/austin/alice/AnalysisNote_pp_8TeV/618164481744be1fd5ef7dfe/figures"
+svdinput=/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_final_2294.root
+bayesinput=/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_final_2294.root
+output="/home/austin/alice/AnalysisNote_pp_8TeV/618164481744be1fd5ef7dfe/figures"
 filetype="pdf"
 
 [ -d $output ] || mkdir $output

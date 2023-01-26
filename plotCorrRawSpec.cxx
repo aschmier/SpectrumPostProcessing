@@ -22,6 +22,7 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
 
     int styles[10] = {8,21,33,34,41,43,45,47,48,49};
     int colors[10] = {1,2,4,8,9,30,40,41,46,49};
+    double xsec = 55.8;
 
     vector<TH1D*> vecMB;
     vector<TH1D*> vecEMC7;
@@ -39,9 +40,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
         TH1D *emc7rebinned   = (TH1D*)rawlevel->Get("emc7rebinned");
         TH1D *ejerebinned    = (TH1D*)rawlevel->Get("ejerebinned");
         TH1D *combined       = (TH1D*)rawlevel->Get(Form("hraw_R0%i",radius));
-        mbrebinned->Scale(1.,"width");
-        emc7rebinned->Scale(1.,"width");
-        ejerebinned->Scale(1.,"width");
+        mbrebinned->Scale(xsec,"width");
+        emc7rebinned->Scale(xsec,"width");
+        ejerebinned->Scale(xsec,"width");
         combined->Scale(1.,"width");
         vecMB.push_back(mbrebinned);
         vecEMC7.push_back(emc7rebinned);
@@ -60,19 +61,26 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
 
     TLegend *legend =  GetAndSetLegend2(0.81,(0.76-(maxradius-minradius+1)*textSize),0.96,0.76,textSize,2);
 
+    TH1D *dummy = (TH1D*)vecMB.at(0)->Clone("dummy");
+    dummy->GetXaxis()->SetRangeUser(0,350);
+    dummy->GetYaxis()->SetRangeUser(1e-12,2e-2);
+    SetStyleHistoTH1ForGraphs(dummy,"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+
     for(int radius = minradius; radius <= maxradius; radius++){
-        if(radius==minradius){
-            //vecMB.at(radius-minradius)->GetXaxis()->SetRangeUser(0,280);
-            vecMB.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
-            SetStyleHistoTH1ForGraphs(vecMB.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        }
+        //if(radius==minradius){
+            vecMB.at(radius-minradius)->GetXaxis()->SetRangeUser(0,30);
+            //vecMB.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
+            //SetStyleHistoTH1ForGraphs(vecMB.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+        //}
         vecMB.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
         vecMB.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecMB.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
 
         legend->AddEntry(vecMB.at(radius-minradius), Form("R=0.%i", radius), "p");
 
-        vecMB.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        //vecMB.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        if(radius == minradius) dummy->Draw("AXIS");
+        vecMB.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
     drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
@@ -82,18 +90,20 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
     legend->Clear();
 
     for(int radius = minradius; radius <= maxradius; radius++){
-        if(radius==minradius){
-            //vecEMC7.at(radius-minradius)->GetXaxis()->SetRangeUser(0,280);
-            vecEMC7.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
-            SetStyleHistoTH1ForGraphs(vecEMC7.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        }
+        //if(radius==minradius){
+            vecEMC7.at(radius-minradius)->GetXaxis()->SetRangeUser(30,60);
+        //    vecEMC7.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
+        //    SetStyleHistoTH1ForGraphs(vecEMC7.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+        //}
         vecEMC7.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
         vecEMC7.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecEMC7.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
 
         legend->AddEntry(vecEMC7.at(radius-minradius), Form("R=0.%i", radius), "p");
 
-        vecEMC7.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        //vecEMC7.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        if(radius == minradius) dummy->Draw("AXIS");
+        vecEMC7.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
     drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
@@ -103,18 +113,20 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
     legend->Clear();
 
     for(int radius = minradius; radius <= maxradius; radius++){
-        if(radius==minradius){
-            //vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(0,280);
-            vecEJE.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
-            SetStyleHistoTH1ForGraphs(vecEJE.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        }
+        //if(radius==minradius){
+            vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,240);
+        //    vecEJE.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
+        //    SetStyleHistoTH1ForGraphs(vecEJE.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+        //}
         vecEJE.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
         vecEJE.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecEJE.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
 
         legend->AddEntry(vecEJE.at(radius-minradius), Form("R=0.%i", radius), "p");
 
-        vecEJE.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        //vecEJE.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        if(radius == minradius) dummy->Draw("AXIS");
+        vecEJE.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
     drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
@@ -125,8 +137,8 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
 
     for(int radius = minradius; radius <= maxradius; radius++){
         if(radius==minradius){
-            vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,320);
-            vecCombined.at(radius-minradius)->GetYaxis()->SetRangeUser(3e-10,2e-3);
+            vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
+            //vecCombined.at(radius-minradius)->GetYaxis()->SetRangeUser(3e-10,2e-3);
             SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
         }
         vecCombined.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
@@ -135,7 +147,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
 
         legend->AddEntry(vecCombined.at(radius-minradius), Form("R=0.%i", radius), "p");
 
-        vecCombined.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        //vecCombined.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
+        if(radius == minradius) dummy->Draw("AXIS");
+        vecCombined.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
     drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);

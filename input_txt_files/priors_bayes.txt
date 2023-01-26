@@ -1,1 +1,1 @@
-/home/austin/alice/unfoldingResults/output_priors/bayes_priors_2284.root Variation
+output_priors/bayes_priors_2284.root Variation

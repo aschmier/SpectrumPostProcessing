@@ -19,7 +19,7 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     ////////////////////////////////////////////////////////////////////////////
 
     // Define variables
-    Double_t textSize     = 0.03;
+    Double_t textSize     = 0.04;
     Int_t radius          = rad;
     Int_t regnum          = 7;
     TString baseDirectory = "/home/austin/alice/RpA_results";
@@ -125,7 +125,7 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     RpA_raw->Sumw2();
     RpA_raw->Draw();
 
-    TLine * l2 = new TLine (0,1,280,1);
+    TLine * l2 = new TLine (20,1,320,1);
     l2->SetLineColor(14);
     l2->SetLineWidth(3);
     l2->SetLineStyle(7);
@@ -135,6 +135,9 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Raw (No Unfolding)",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Triggers combined using RFs",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("(Not yet optimized for pPb)",0.95,0.75, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Scaled by x-secs and 1/208",0.95,0.71, 0.03,kFALSE, kFALSE, kTRUE);
 
     c->SaveAs(Form("%s/RpA_raw_R0%i.%s",output.Data(),radius,fileType.Data()));
 

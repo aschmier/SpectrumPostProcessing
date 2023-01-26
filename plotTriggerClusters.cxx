@@ -75,7 +75,7 @@ void plotTriggerClusters(TString mb_file, TString emc7_file, TString eje_file, T
                 rebinnedClusters->SetMarkerStyle(styles[trigger]);
                 rebinnedClusters->SetMarkerColor(colors[trigger]);
                 rebinnedClusters->SetLineColor(colors[trigger]);
-                rebinnedClusters->GetXaxis()->SetRangeUser(20,320);
+                rebinnedClusters->GetXaxis()->SetRangeUser(20,200);
                 rebinnedClusters->GetYaxis()->SetRangeUser(1e-9,1);
                 SetStyleHistoTH1ForGraphs(rebinnedClusters,"","E^{cluster}","#frac{1}{N^{trig}} #frac{dN}{dE^{cluster}}",0.03,0.04,0.03,0.04,1,1.1);
                 rebinnedClusters->Draw(trigger==0? "p,e" : "p,e,same");
