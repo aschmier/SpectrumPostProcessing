@@ -49,6 +49,10 @@ void plotTriggerClusters(TString mb_file, TString emc7_file, TString eje_file, T
         for(int trigger = 0; trigger < triggers.size(); trigger++){
             TString dirname = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers.at(trigger).Data());
             TDirectory *dir = (TDirectory*)files.at(trigger)->Get(dirname.Data());
+            if(!dir){
+                dirname     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, triggers.at(trigger).Data());
+                dir = (TDirectory*)files.at(trigger)->Get(dirname.Data());
+            }
             TList *list = (TList*)dir->Get(dirname.Data());
             TH1D *events = (TH1D*)list->FindObject("hClusterCounter");
             TH1D *clusters = (TH1D*)list->FindObject("hClusterEnergy1D");

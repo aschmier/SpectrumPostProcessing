@@ -71,11 +71,15 @@ void plotJESComp(TString jesfile0, TString jesfile1, TString outputdir, TString 
     // Mean of JES
     TH1D *dummyMean   = (TH1D*)vecMean0.at(0)->GetHistogram();
     dummyMean->GetYaxis()->SetRangeUser(-0.35,-0.23);
-    dummyMean->GetXaxis()->SetRangeUser(20,320);
+    dummyMean->GetXaxis()->SetRangeUser(20,240);
     SetStyleHistoTH1ForGraphs(dummyMean,"","p_{T}^{part} [GeV/c]","<(p_{T}^{det}-p_{T}^{part})/p_{T}^{part}>",0.03,0.04,0.03,0.04,1,1.2);
     dummyMean->Draw();
 
     for(int radius = minradius; radius <= maxradius; radius++){
+        if(radius==2 || radius==3 || radius==4) vecMean0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
+        if(radius==5) vecMean0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
+        if(radius==6) vecMean0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,130);
+
         vecMean0.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
         vecMean0.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecMean0.at(radius-minradius)->SetMarkerStyle(styles_empty[radius-minradius]);
@@ -98,11 +102,15 @@ void plotJESComp(TString jesfile0, TString jesfile1, TString outputdir, TString 
     // Median of JES
     TH1D *dummyMedian   = (TH1D*)vecMedian0.at(0)->GetHistogram();
     dummyMedian->GetYaxis()->SetRangeUser(-0.35,-0.22);
-    dummyMedian->GetXaxis()->SetRangeUser(20,320);
+    dummyMedian->GetXaxis()->SetRangeUser(20,240);
     SetStyleHistoTH1ForGraphs(dummyMedian,"","p_{T}^{part} [GeV/c]","<(p_{T}^{det}-p_{T}^{part})/p_{T}^{part}>",0.03,0.04,0.03,0.04,1,1.2);
     dummyMedian->Draw();
 
     for(int radius = minradius; radius <= maxradius; radius++){
+        if(radius==2 || radius==3 || radius==4) vecMedian0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
+        if(radius==5) vecMedian0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
+        if(radius==6) vecMedian0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,130);
+
         vecMedian0.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
         vecMedian0.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecMedian0.at(radius-minradius)->SetMarkerStyle(styles_empty[radius-minradius]);
@@ -124,11 +132,15 @@ void plotJESComp(TString jesfile0, TString jesfile1, TString outputdir, TString 
     // Width of JES
     TH1D *dummyWidth   = (TH1D*)vecWidth0.at(0)->GetHistogram();
     dummyWidth->GetYaxis()->SetRangeUser(0.15,0.28);
-    dummyWidth->GetXaxis()->SetRangeUser(20,320);
+    dummyWidth->GetXaxis()->SetRangeUser(20,240);
     SetStyleHistoTH1ForGraphs(dummyWidth,"","p_{T}^{part} [GeV/c]","#sigma((p_{T}^{det}-p_{T}^{part})/p_{T}^{part})",0.03,0.04,0.03,0.04,1,1.2);
     dummyWidth->Draw();
 
     for(int radius = minradius; radius <= maxradius; radius++){
+        if(radius==2 || radius==3 || radius==4) vecWidth0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
+        if(radius==5) vecWidth0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
+        if(radius==6) vecWidth0.at(radius-minradius)->GetXaxis()->SetRangeUser(20,130);
+
         vecWidth0.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
         vecWidth0.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecWidth0.at(radius-minradius)->SetMarkerStyle(styles_empty[radius-minradius]);

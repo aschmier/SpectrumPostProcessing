@@ -1,0 +1,1486 @@
+
+Processing getBinContentsResponse.cxx("/home/austin/alice/SpectrumPostProcessing/bayes_default_2423_MinBiasEdit.root")...
+Det level bin: 10 - 15
+Part level bin: 80 - 120
+Bin contents: 3.92805
+
+Det level bin: 10 - 15
+Part level bin: 120 - 160
+Bin contents: 0.272182
+
+Det level bin: 10 - 15
+Part level bin: 160 - 300
+Bin contents: 0.0658013
+
+Det level bin: 15 - 20
+Part level bin: 80 - 120
+Bin contents: 6.41903
+
+Det level bin: 15 - 20
+Part level bin: 120 - 160
+Bin contents: 0.448907
+
+Det level bin: 15 - 20
+Part level bin: 160 - 300
+Bin contents: 0.0977109
+
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 1.82045
+
+Det level bin: 20 - 25
+Part level bin: 80 - 120
+Bin contents: 10.0913
+
+Det level bin: 20 - 25
+Part level bin: 120 - 160
+Bin contents: 0.67988
+
+Det level bin: 20 - 25
+Part level bin: 160 - 300
+Bin contents: 0.142408
+
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.324155
+
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 3.70545
+
+Det level bin: 25 - 30
+Part level bin: 120 - 160
+Bin contents: 0.959328
+
+Det level bin: 25 - 30
+Part level bin: 160 - 300
+Bin contents: 0.184563
+
+Det level bin: 30 - 35
+Part level bin: 0 - 5
+Bin contents: 0.124495
+
+Det level bin: 30 - 35
+Part level bin: 5 - 10
+Bin contents: 0.536444
+
+Det level bin: 30 - 35
+Part level bin: 120 - 160
+Bin contents: 1.28233
+
+Det level bin: 30 - 35
+Part level bin: 160 - 300
+Bin contents: 0.25077
+
+Det level bin: 35 - 40
+Part level bin: 0 - 5
+Bin contents: 0.0231177
+
+Det level bin: 35 - 40
+Part level bin: 5 - 10
+Bin contents: 0.145372
+
+Det level bin: 35 - 40
+Part level bin: 10 - 20
+Bin contents: 2.78501
+
+Det level bin: 35 - 40
+Part level bin: 120 - 160
+Bin contents: 1.68775
+
+Det level bin: 35 - 40
+Part level bin: 160 - 300
+Bin contents: 0.326868
+
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.0176349
+
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.066282
+
+Det level bin: 40 - 50
+Part level bin: 10 - 20
+Bin contents: 0.821437
+
+Det level bin: 40 - 50
+Part level bin: 20 - 30
+Bin contents: 9.06988
+
+Det level bin: 40 - 50
+Part level bin: 120 - 160
+Bin contents: 4.87082
+
+Det level bin: 40 - 50
+Part level bin: 160 - 300
+Bin contents: 0.884912
+
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.00625657
+
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.00986353
+
+Det level bin: 50 - 60
+Part level bin: 10 - 20
+Bin contents: 0.079162
+
+Det level bin: 50 - 60
+Part level bin: 20 - 30
+Bin contents: 0.462694
+
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 4.70038
+
+Det level bin: 50 - 60
+Part level bin: 120 - 160
+Bin contents: 7.39181
+
+Det level bin: 50 - 60
+Part level bin: 160 - 300
+Bin contents: 1.27323
+
+Det level bin: 60 - 80
+Part level bin: 0 - 5
+Bin contents: 0.00345243
+
+Det level bin: 60 - 80
+Part level bin: 5 - 10
+Bin contents: 0.0054334
+
+Det level bin: 60 - 80
+Part level bin: 10 - 20
+Bin contents: 0.0191701
+
+Det level bin: 60 - 80
+Part level bin: 20 - 30
+Bin contents: 0.106388
+
+Det level bin: 60 - 80
+Part level bin: 30 - 40
+Bin contents: 1.09261
+
+Det level bin: 60 - 80
+Part level bin: 160 - 300
+Bin contents: 4.10046
+
+Det level bin: 80 - 100
+Part level bin: 0 - 5
+Bin contents: 0.000318072
+
+Det level bin: 80 - 100
+Part level bin: 5 - 10
+Bin contents: 0.00120734
+
+Det level bin: 80 - 100
+Part level bin: 10 - 20
+Bin contents: 0.00229431
+
+Det level bin: 80 - 100
+Part level bin: 20 - 30
+Bin contents: 0.00414312
+
+Det level bin: 80 - 100
+Part level bin: 30 - 40
+Bin contents: 0.118814
+
+Det level bin: 80 - 100
+Part level bin: 40 - 60
+Bin contents: 0.636219
+
+Det level bin: 80 - 100
+Part level bin: 160 - 300
+Bin contents: 6.59227
+
+Det level bin: 100 - 120
+Part level bin: 0 - 5
+Bin contents: 0.000201991
+
+Det level bin: 100 - 120
+Part level bin: 5 - 10
+Bin contents: 0.000117845
+
+Det level bin: 100 - 120
+Part level bin: 10 - 20
+Bin contents: 0.000504886
+
+Det level bin: 100 - 120
+Part level bin: 20 - 30
+Bin contents: 0.000488362
+
+Det level bin: 100 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0678783
+
+Det level bin: 100 - 120
+Part level bin: 40 - 60
+Bin contents: 0.176539
+
+Det level bin: 100 - 120
+Part level bin: 60 - 80
+Bin contents: 0.321176
+
+Det level bin: 100 - 120
+Part level bin: 160 - 300
+Bin contents: 9.06122
+
+Det level bin: 120 - 160
+Part level bin: 0 - 5
+Bin contents: 0.000123865
+
+Det level bin: 120 - 160
+Part level bin: 5 - 10
+Bin contents: 3.07676e-05
+
+Det level bin: 120 - 160
+Part level bin: 10 - 20
+Bin contents: 0.000187841
+
+Det level bin: 120 - 160
+Part level bin: 20 - 30
+Bin contents: 0.00016811
+
+Det level bin: 120 - 160
+Part level bin: 30 - 40
+Bin contents: 0.000407171
+
+Det level bin: 120 - 160
+Part level bin: 40 - 60
+Bin contents: 0.103095
+
+Det level bin: 120 - 160
+Part level bin: 60 - 80
+Bin contents: 0.141908
+
+Det level bin: 120 - 160
+Part level bin: 80 - 120
+Bin contents: 1.83165
+
+Det level bin: 10 - 15
+Part level bin: 80 - 120
+Bin contents: 2.29779
+
+Det level bin: 10 - 15
+Part level bin: 120 - 160
+Bin contents: 0.16377
+
+Det level bin: 10 - 15
+Part level bin: 160 - 300
+Bin contents: 0.0385074
+
+Det level bin: 15 - 20
+Part level bin: 0 - 5
+Bin contents: 10.0398
+
+Det level bin: 15 - 20
+Part level bin: 80 - 120
+Bin contents: 4.32121
+
+Det level bin: 15 - 20
+Part level bin: 120 - 160
+Bin contents: 0.273701
+
+Det level bin: 15 - 20
+Part level bin: 160 - 300
+Bin contents: 0.0583952
+
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.940407
+
+Det level bin: 20 - 25
+Part level bin: 80 - 120
+Bin contents: 7.25064
+
+Det level bin: 20 - 25
+Part level bin: 120 - 160
+Bin contents: 0.440119
+
+Det level bin: 20 - 25
+Part level bin: 160 - 300
+Bin contents: 0.0912097
+
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.144932
+
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 1.02883
+
+Det level bin: 25 - 30
+Part level bin: 80 - 120
+Bin contents: 10.6642
+
+Det level bin: 25 - 30
+Part level bin: 120 - 160
+Bin contents: 0.669892
+
+Det level bin: 25 - 30
+Part level bin: 160 - 300
+Bin contents: 0.123477
+
+Det level bin: 30 - 35
+Part level bin: 0 - 5
+Bin contents: 0.0385733
+
+Det level bin: 30 - 35
+Part level bin: 5 - 10
+Bin contents: 0.25544
+
+Det level bin: 30 - 35
+Part level bin: 10 - 20
+Bin contents: 7.18169
+
+Det level bin: 30 - 35
+Part level bin: 120 - 160
+Bin contents: 0.888117
+
+Det level bin: 30 - 35
+Part level bin: 160 - 300
+Bin contents: 0.165624
+
+Det level bin: 35 - 40
+Part level bin: 0 - 5
+Bin contents: 0.0192024
+
+Det level bin: 35 - 40
+Part level bin: 5 - 10
+Bin contents: 0.0798035
+
+Det level bin: 35 - 40
+Part level bin: 10 - 20
+Bin contents: 1.78791
+
+Det level bin: 35 - 40
+Part level bin: 120 - 160
+Bin contents: 1.22
+
+Det level bin: 35 - 40
+Part level bin: 160 - 300
+Bin contents: 0.222334
+
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.0195682
+
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.0541888
+
+Det level bin: 40 - 50
+Part level bin: 10 - 20
+Bin contents: 0.327361
+
+Det level bin: 40 - 50
+Part level bin: 20 - 30
+Bin contents: 5.17601
+
+Det level bin: 40 - 50
+Part level bin: 120 - 160
+Bin contents: 3.65179
+
+Det level bin: 40 - 50
+Part level bin: 160 - 300
+Bin contents: 0.619145
+
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.00315564
+
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.0114685
+
+Det level bin: 50 - 60
+Part level bin: 10 - 20
+Bin contents: 0.0340853
+
+Det level bin: 50 - 60
+Part level bin: 20 - 30
+Bin contents: 0.312062
+
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 2.87726
+
+Det level bin: 50 - 60
+Part level bin: 120 - 160
+Bin contents: 5.86993
+
+Det level bin: 50 - 60
+Part level bin: 160 - 300
+Bin contents: 0.93913
+
+Det level bin: 60 - 80
+Part level bin: 0 - 5
+Bin contents: 0.00211409
+
+Det level bin: 60 - 80
+Part level bin: 5 - 10
+Bin contents: 0.00359789
+
+Det level bin: 60 - 80
+Part level bin: 10 - 20
+Bin contents: 0.0127316
+
+Det level bin: 60 - 80
+Part level bin: 20 - 30
+Bin contents: 0.036984
+
+Det level bin: 60 - 80
+Part level bin: 30 - 40
+Bin contents: 0.807015
+
+Det level bin: 60 - 80
+Part level bin: 160 - 300
+Bin contents: 3.12988
+
+Det level bin: 80 - 100
+Part level bin: 0 - 5
+Bin contents: 0.000369901
+
+Det level bin: 80 - 100
+Part level bin: 5 - 10
+Bin contents: 0.000805822
+
+Det level bin: 80 - 100
+Part level bin: 10 - 20
+Bin contents: 0.00174807
+
+Det level bin: 80 - 100
+Part level bin: 20 - 30
+Bin contents: 0.00159264
+
+Det level bin: 80 - 100
+Part level bin: 30 - 40
+Bin contents: 0.00916961
+
+Det level bin: 80 - 100
+Part level bin: 40 - 60
+Bin contents: 0.583652
+
+Det level bin: 80 - 100
+Part level bin: 60 - 80
+Bin contents: 7.46169
+
+Det level bin: 80 - 100
+Part level bin: 160 - 300
+Bin contents: 5.40585
+
+Det level bin: 100 - 120
+Part level bin: 0 - 5
+Bin contents: 5.86423e-05
+
+Det level bin: 100 - 120
+Part level bin: 5 - 10
+Bin contents: 0.000145013
+
+Det level bin: 100 - 120
+Part level bin: 10 - 20
+Bin contents: 0.000339799
+
+Det level bin: 100 - 120
+Part level bin: 20 - 30
+Bin contents: 0.000778749
+
+Det level bin: 100 - 120
+Part level bin: 30 - 40
+Bin contents: 0.065033
+
+Det level bin: 100 - 120
+Part level bin: 40 - 60
+Bin contents: 0.155478
+
+Det level bin: 100 - 120
+Part level bin: 60 - 80
+Bin contents: 0.2391
+
+Det level bin: 100 - 120
+Part level bin: 160 - 300
+Bin contents: 7.84918
+
+Det level bin: 120 - 160
+Part level bin: 0 - 5
+Bin contents: 3.35099e-05
+
+Det level bin: 120 - 160
+Part level bin: 5 - 10
+Bin contents: 2.51324e-05
+
+Det level bin: 120 - 160
+Part level bin: 10 - 20
+Bin contents: 0.000105074
+
+Det level bin: 120 - 160
+Part level bin: 20 - 30
+Bin contents: 8.66676e-05
+
+Det level bin: 120 - 160
+Part level bin: 30 - 40
+Bin contents: 0.000123714
+
+Det level bin: 120 - 160
+Part level bin: 40 - 60
+Bin contents: 0.090555
+
+Det level bin: 120 - 160
+Part level bin: 60 - 80
+Bin contents: 0.0848471
+
+Det level bin: 120 - 160
+Part level bin: 80 - 120
+Bin contents: 1.3026
+
+Det level bin: 10 - 15
+Part level bin: 60 - 80
+Bin contents: 6.78927
+
+Det level bin: 10 - 15
+Part level bin: 80 - 120
+Bin contents: 1.05381
+
+Det level bin: 10 - 15
+Part level bin: 120 - 160
+Bin contents: 0.0767263
+
+Det level bin: 10 - 15
+Part level bin: 160 - 300
+Bin contents: 0.0165694
+
+Det level bin: 15 - 20
+Part level bin: 0 - 5
+Bin contents: 6.32465
+
+Det level bin: 15 - 20
+Part level bin: 80 - 120
+Bin contents: 2.10627
+
+Det level bin: 15 - 20
+Part level bin: 120 - 160
+Bin contents: 0.138277
+
+Det level bin: 15 - 20
+Part level bin: 160 - 300
+Bin contents: 0.0269631
+
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.316381
+
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 9.38018
+
+Det level bin: 20 - 25
+Part level bin: 80 - 120
+Bin contents: 3.88182
+
+Det level bin: 20 - 25
+Part level bin: 120 - 160
+Bin contents: 0.216068
+
+Det level bin: 20 - 25
+Part level bin: 160 - 300
+Bin contents: 0.0421549
+
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.0625761
+
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 0.909051
+
+Det level bin: 25 - 30
+Part level bin: 80 - 120
+Bin contents: 6.13231
+
+Det level bin: 25 - 30
+Part level bin: 120 - 160
+Bin contents: 0.324413
+
+Det level bin: 25 - 30
+Part level bin: 160 - 300
+Bin contents: 0.0590925
+
+Det level bin: 30 - 35
+Part level bin: 0 - 5
+Bin contents: 0.0404843
+
+Det level bin: 30 - 35
+Part level bin: 5 - 10
+Bin contents: 0.120036
+
+Det level bin: 30 - 35
+Part level bin: 10 - 20
+Bin contents: 4.8762
+
+Det level bin: 30 - 35
+Part level bin: 80 - 120
+Bin contents: 9.62339
+
+Det level bin: 30 - 35
+Part level bin: 120 - 160
+Bin contents: 0.450819
+
+Det level bin: 30 - 35
+Part level bin: 160 - 300
+Bin contents: 0.0812738
+
+Det level bin: 35 - 40
+Part level bin: 0 - 5
+Bin contents: 0.0101381
+
+Det level bin: 35 - 40
+Part level bin: 5 - 10
+Bin contents: 0.0469581
+
+Det level bin: 35 - 40
+Part level bin: 10 - 20
+Bin contents: 0.530623
+
+Det level bin: 35 - 40
+Part level bin: 120 - 160
+Bin contents: 0.645748
+
+Det level bin: 35 - 40
+Part level bin: 160 - 300
+Bin contents: 0.110242
+
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.0173387
+
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.0190728
+
+Det level bin: 40 - 50
+Part level bin: 10 - 20
+Bin contents: 0.123319
+
+Det level bin: 40 - 50
+Part level bin: 20 - 30
+Bin contents: 2.98309
+
+Det level bin: 40 - 50
+Part level bin: 120 - 160
+Bin contents: 2.05849
+
+Det level bin: 40 - 50
+Part level bin: 160 - 300
+Bin contents: 0.321115
+
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.002627
+
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.00750277
+
+Det level bin: 50 - 60
+Part level bin: 10 - 20
+Bin contents: 0.0117493
+
+Det level bin: 50 - 60
+Part level bin: 20 - 30
+Bin contents: 0.165517
+
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 1.83598
+
+Det level bin: 50 - 60
+Part level bin: 120 - 160
+Bin contents: 3.53654
+
+Det level bin: 50 - 60
+Part level bin: 160 - 300
+Bin contents: 0.504974
+
+Det level bin: 60 - 80
+Part level bin: 0 - 5
+Bin contents: 0.00123983
+
+Det level bin: 60 - 80
+Part level bin: 5 - 10
+Bin contents: 0.00363112
+
+Det level bin: 60 - 80
+Part level bin: 10 - 20
+Bin contents: 0.00646221
+
+Det level bin: 60 - 80
+Part level bin: 20 - 30
+Bin contents: 0.0190952
+
+Det level bin: 60 - 80
+Part level bin: 30 - 40
+Bin contents: 0.237952
+
+Det level bin: 60 - 80
+Part level bin: 160 - 300
+Bin contents: 1.84031
+
+Det level bin: 80 - 100
+Part level bin: 0 - 5
+Bin contents: 0.000108201
+
+Det level bin: 80 - 100
+Part level bin: 5 - 10
+Bin contents: 0.000358786
+
+Det level bin: 80 - 100
+Part level bin: 10 - 20
+Bin contents: 0.000695163
+
+Det level bin: 80 - 100
+Part level bin: 20 - 30
+Bin contents: 0.0013259
+
+Det level bin: 80 - 100
+Part level bin: 30 - 40
+Bin contents: 0.00276348
+
+Det level bin: 80 - 100
+Part level bin: 40 - 60
+Bin contents: 0.262385
+
+Det level bin: 80 - 100
+Part level bin: 60 - 80
+Bin contents: 4.97445
+
+Det level bin: 80 - 100
+Part level bin: 160 - 300
+Bin contents: 3.51866
+
+Det level bin: 100 - 120
+Part level bin: 0 - 5
+Bin contents: 1.96479e-05
+
+Det level bin: 100 - 120
+Part level bin: 5 - 10
+Bin contents: 6.86711e-05
+
+Det level bin: 100 - 120
+Part level bin: 10 - 20
+Bin contents: 0.000190602
+
+Det level bin: 100 - 120
+Part level bin: 20 - 30
+Bin contents: 0.000104066
+
+Det level bin: 100 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0633645
+
+Det level bin: 100 - 120
+Part level bin: 40 - 60
+Bin contents: 0.0729419
+
+Det level bin: 100 - 120
+Part level bin: 60 - 80
+Bin contents: 0.162177
+
+Det level bin: 100 - 120
+Part level bin: 160 - 300
+Bin contents: 5.62981
+
+Det level bin: 120 - 160
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Det level bin: 120 - 160
+Part level bin: 5 - 10
+Bin contents: 8.37747e-06
+
+Det level bin: 120 - 160
+Part level bin: 10 - 20
+Bin contents: 1.67549e-05
+
+Det level bin: 120 - 160
+Part level bin: 20 - 30
+Bin contents: 2.67838e-05
+
+Det level bin: 120 - 160
+Part level bin: 30 - 40
+Bin contents: 1.67549e-05
+
+Det level bin: 120 - 160
+Part level bin: 40 - 60
+Bin contents: 0.0584745
+
+Det level bin: 120 - 160
+Part level bin: 60 - 80
+Bin contents: 0.0560503
+
+Det level bin: 120 - 160
+Part level bin: 80 - 120
+Bin contents: 0.826163
+
+Det level bin: 10 - 15
+Part level bin: 60 - 80
+Bin contents: 3.55923
+
+Det level bin: 10 - 15
+Part level bin: 80 - 120
+Bin contents: 0.509091
+
+Det level bin: 10 - 15
+Part level bin: 120 - 160
+Bin contents: 0.0340265
+
+Det level bin: 10 - 15
+Part level bin: 160 - 300
+Bin contents: 0.00676773
+
+Det level bin: 15 - 20
+Part level bin: 0 - 5
+Bin contents: 2.24531
+
+Det level bin: 15 - 20
+Part level bin: 60 - 80
+Bin contents: 8.39754
+
+Det level bin: 15 - 20
+Part level bin: 80 - 120
+Bin contents: 1.10626
+
+Det level bin: 15 - 20
+Part level bin: 120 - 160
+Bin contents: 0.0734106
+
+Det level bin: 15 - 20
+Part level bin: 160 - 300
+Bin contents: 0.0140978
+
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.147174
+
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 2.90745
+
+Det level bin: 20 - 25
+Part level bin: 80 - 120
+Bin contents: 1.93807
+
+Det level bin: 20 - 25
+Part level bin: 120 - 160
+Bin contents: 0.114548
+
+Det level bin: 20 - 25
+Part level bin: 160 - 300
+Bin contents: 0.0217773
+
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.071693
+
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 0.132084
+
+Det level bin: 25 - 30
+Part level bin: 80 - 120
+Bin contents: 3.47448
+
+Det level bin: 25 - 30
+Part level bin: 120 - 160
+Bin contents: 0.171763
+
+Det level bin: 25 - 30
+Part level bin: 160 - 300
+Bin contents: 0.0327277
+
+Det level bin: 30 - 35
+Part level bin: 0 - 5
+Bin contents: 0.0082291
+
+Det level bin: 30 - 35
+Part level bin: 5 - 10
+Bin contents: 0.115227
+
+Det level bin: 30 - 35
+Part level bin: 10 - 20
+Bin contents: 0.779157
+
+Det level bin: 30 - 35
+Part level bin: 80 - 120
+Bin contents: 5.5512
+
+Det level bin: 30 - 35
+Part level bin: 120 - 160
+Bin contents: 0.247736
+
+Det level bin: 30 - 35
+Part level bin: 160 - 300
+Bin contents: 0.0427829
+
+Det level bin: 35 - 40
+Part level bin: 0 - 5
+Bin contents: 0.00374248
+
+Det level bin: 35 - 40
+Part level bin: 5 - 10
+Bin contents: 0.0290115
+
+Det level bin: 35 - 40
+Part level bin: 10 - 20
+Bin contents: 0.198205
+
+Det level bin: 35 - 40
+Part level bin: 20 - 30
+Bin contents: 7.5301
+
+Det level bin: 35 - 40
+Part level bin: 80 - 120
+Bin contents: 8.16091
+
+Det level bin: 35 - 40
+Part level bin: 120 - 160
+Bin contents: 0.367558
+
+Det level bin: 35 - 40
+Part level bin: 160 - 300
+Bin contents: 0.0591249
+
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.00432015
+
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.0680502
+
+Det level bin: 40 - 50
+Part level bin: 10 - 20
+Bin contents: 0.0613114
+
+Det level bin: 40 - 50
+Part level bin: 20 - 30
+Bin contents: 0.75388
+
+Det level bin: 40 - 50
+Part level bin: 120 - 160
+Bin contents: 1.17595
+
+Det level bin: 40 - 50
+Part level bin: 160 - 300
+Bin contents: 0.178455
+
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.000920721
+
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.00133132
+
+Det level bin: 50 - 60
+Part level bin: 10 - 20
+Bin contents: 0.0105335
+
+Det level bin: 50 - 60
+Part level bin: 20 - 30
+Bin contents: 0.0269221
+
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 0.706006
+
+Det level bin: 50 - 60
+Part level bin: 120 - 160
+Bin contents: 2.00724
+
+Det level bin: 50 - 60
+Part level bin: 160 - 300
+Bin contents: 0.289057
+
+Det level bin: 60 - 80
+Part level bin: 0 - 5
+Bin contents: 0.000621575
+
+Det level bin: 60 - 80
+Part level bin: 5 - 10
+Bin contents: 0.000818691
+
+Det level bin: 60 - 80
+Part level bin: 10 - 20
+Bin contents: 0.0017576
+
+Det level bin: 60 - 80
+Part level bin: 20 - 30
+Bin contents: 0.00273583
+
+Det level bin: 60 - 80
+Part level bin: 30 - 40
+Bin contents: 0.0671542
+
+Det level bin: 60 - 80
+Part level bin: 40 - 60
+Bin contents: 8.29359
+
+Det level bin: 60 - 80
+Part level bin: 120 - 160
+Bin contents: 8.63684
+
+Det level bin: 60 - 80
+Part level bin: 160 - 300
+Bin contents: 1.06823
+
+Det level bin: 80 - 100
+Part level bin: 0 - 5
+Bin contents: 2.51324e-05
+
+Det level bin: 80 - 100
+Part level bin: 5 - 10
+Bin contents: 0.000144326
+
+Det level bin: 80 - 100
+Part level bin: 10 - 20
+Bin contents: 0.000176952
+
+Det level bin: 80 - 100
+Part level bin: 20 - 30
+Bin contents: 0.00029328
+
+Det level bin: 80 - 100
+Part level bin: 30 - 40
+Bin contents: 0.00238866
+
+Det level bin: 80 - 100
+Part level bin: 40 - 60
+Bin contents: 0.13507
+
+Det level bin: 80 - 100
+Part level bin: 60 - 80
+Bin contents: 2.5177
+
+Det level bin: 80 - 100
+Part level bin: 160 - 300
+Bin contents: 2.08137
+
+Det level bin: 100 - 120
+Part level bin: 0 - 5
+Bin contents: 0
+
+Det level bin: 100 - 120
+Part level bin: 5 - 10
+Bin contents: 4.37726e-05
+
+Det level bin: 100 - 120
+Part level bin: 10 - 20
+Bin contents: 2.00577e-05
+
+Det level bin: 100 - 120
+Part level bin: 20 - 30
+Bin contents: 8.7632e-05
+
+Det level bin: 100 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0632021
+
+Det level bin: 100 - 120
+Part level bin: 40 - 60
+Bin contents: 0.00716073
+
+Det level bin: 100 - 120
+Part level bin: 60 - 80
+Bin contents: 0.075477
+
+Det level bin: 100 - 120
+Part level bin: 160 - 300
+Bin contents: 3.36913
+
+Det level bin: 120 - 160
+Part level bin: 0 - 5
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 5 - 10
+Bin contents: 1.67549e-05
+
+Det level bin: 120 - 160
+Part level bin: 10 - 20
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 20 - 30
+Bin contents: 1.67549e-05
+
+Det level bin: 120 - 160
+Part level bin: 30 - 40
+Bin contents: 8.37747e-06
+
+Det level bin: 120 - 160
+Part level bin: 40 - 60
+Bin contents: 0.0134868
+
+Det level bin: 120 - 160
+Part level bin: 60 - 80
+Bin contents: 0.0271324
+
+Det level bin: 120 - 160
+Part level bin: 80 - 120
+Bin contents: 0.400767
+
+Det level bin: 120 - 160
+Part level bin: 120 - 160
+Bin contents: 8.90359
+
+Det level bin: 120 - 160
+Part level bin: 160 - 300
+Bin contents: 8.08138
+
+Det level bin: 10 - 15
+Part level bin: 60 - 80
+Bin contents: 0.951547
+
+Det level bin: 10 - 15
+Part level bin: 80 - 120
+Bin contents: 0.135844
+
+Det level bin: 10 - 15
+Part level bin: 120 - 160
+Bin contents: 0.0094843
+
+Det level bin: 10 - 15
+Part level bin: 160 - 300
+Bin contents: 0.00202618
+
+Det level bin: 15 - 20
+Part level bin: 0 - 5
+Bin contents: 0.0171421
+
+Det level bin: 15 - 20
+Part level bin: 5 - 10
+Bin contents: 10.2261
+
+Det level bin: 15 - 20
+Part level bin: 60 - 80
+Bin contents: 2.71853
+
+Det level bin: 15 - 20
+Part level bin: 80 - 120
+Bin contents: 0.376739
+
+Det level bin: 15 - 20
+Part level bin: 120 - 160
+Bin contents: 0.0219849
+
+Det level bin: 15 - 20
+Part level bin: 160 - 300
+Bin contents: 0.0044926
+
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.0044015
+
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 2.09807
+
+Det level bin: 20 - 25
+Part level bin: 60 - 80
+Bin contents: 5.88913
+
+Det level bin: 20 - 25
+Part level bin: 80 - 120
+Bin contents: 0.68391
+
+Det level bin: 20 - 25
+Part level bin: 120 - 160
+Bin contents: 0.04234
+
+Det level bin: 20 - 25
+Part level bin: 160 - 300
+Bin contents: 0.00685587
+
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.00016364
+
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 0.0159029
+
+Det level bin: 25 - 30
+Part level bin: 10 - 20
+Bin contents: 5.95752
+
+Det level bin: 25 - 30
+Part level bin: 80 - 120
+Bin contents: 1.34851
+
+Det level bin: 25 - 30
+Part level bin: 120 - 160
+Bin contents: 0.0659487
+
+Det level bin: 25 - 30
+Part level bin: 160 - 300
+Bin contents: 0.00908655
+
+Det level bin: 30 - 35
+Part level bin: 0 - 5
+Bin contents: 0.000166616
+
+Det level bin: 30 - 35
+Part level bin: 5 - 10
+Bin contents: 0.00337275
+
+Det level bin: 30 - 35
+Part level bin: 10 - 20
+Bin contents: 0.074049
+
+Det level bin: 30 - 35
+Part level bin: 80 - 120
+Bin contents: 2.1563
+
+Det level bin: 30 - 35
+Part level bin: 120 - 160
+Bin contents: 0.0875824
+
+Det level bin: 30 - 35
+Part level bin: 160 - 300
+Bin contents: 0.0154384
+
+Det level bin: 35 - 40
+Part level bin: 0 - 5
+Bin contents: 0.00051615
+
+Det level bin: 35 - 40
+Part level bin: 5 - 10
+Bin contents: 0.000280594
+
+Det level bin: 35 - 40
+Part level bin: 10 - 20
+Bin contents: 0.00556469
+
+Det level bin: 35 - 40
+Part level bin: 20 - 30
+Bin contents: 1.34397
+
+Det level bin: 35 - 40
+Part level bin: 80 - 120
+Bin contents: 3.11313
+
+Det level bin: 35 - 40
+Part level bin: 120 - 160
+Bin contents: 0.14073
+
+Det level bin: 35 - 40
+Part level bin: 160 - 300
+Bin contents: 0.0215708
+
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.000325414
+
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.000157929
+
+Det level bin: 40 - 50
+Part level bin: 10 - 20
+Bin contents: 0.00404464
+
+Det level bin: 40 - 50
+Part level bin: 20 - 30
+Bin contents: 0.322427
+
+Det level bin: 40 - 50
+Part level bin: 30 - 40
+Bin contents: 10.7536
+
+Det level bin: 40 - 50
+Part level bin: 120 - 160
+Bin contents: 0.445396
+
+Det level bin: 40 - 50
+Part level bin: 160 - 300
+Bin contents: 0.0668855
+
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0
+
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 4.56579e-05
+
+Det level bin: 50 - 60
+Part level bin: 10 - 20
+Bin contents: 0.000379927
+
+Det level bin: 50 - 60
+Part level bin: 20 - 30
+Bin contents: 0.00051368
+
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 0.034048
+
+Det level bin: 50 - 60
+Part level bin: 120 - 160
+Bin contents: 0.76713
+
+Det level bin: 50 - 60
+Part level bin: 160 - 300
+Bin contents: 0.111733
+
+Det level bin: 60 - 80
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Det level bin: 60 - 80
+Part level bin: 5 - 10
+Bin contents: 3.64028e-05
+
+Det level bin: 60 - 80
+Part level bin: 10 - 20
+Bin contents: 0.000184555
+
+Det level bin: 60 - 80
+Part level bin: 20 - 30
+Bin contents: 7.15641e-05
+
+Det level bin: 60 - 80
+Part level bin: 30 - 40
+Bin contents: 0.0554811
+
+Det level bin: 60 - 80
+Part level bin: 40 - 60
+Bin contents: 2.51625
+
+Det level bin: 60 - 80
+Part level bin: 120 - 160
+Bin contents: 3.44602
+
+Det level bin: 60 - 80
+Part level bin: 160 - 300
+Bin contents: 0.424332
+
+Det level bin: 80 - 100
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Det level bin: 80 - 100
+Part level bin: 5 - 10
+Bin contents: 0
+
+Det level bin: 80 - 100
+Part level bin: 10 - 20
+Bin contents: 0
+
+Det level bin: 80 - 100
+Part level bin: 20 - 30
+Bin contents: 8.37747e-06
+
+Det level bin: 80 - 100
+Part level bin: 30 - 40
+Bin contents: 4.26817e-05
+
+Det level bin: 80 - 100
+Part level bin: 40 - 60
+Bin contents: 0.0151965
+
+Det level bin: 80 - 100
+Part level bin: 60 - 80
+Bin contents: 0.650866
+
+Det level bin: 80 - 100
+Part level bin: 120 - 160
+Bin contents: 6.31642
+
+Det level bin: 80 - 100
+Part level bin: 160 - 300
+Bin contents: 0.825533
+
+Det level bin: 100 - 120
+Part level bin: 0 - 5
+Bin contents: 0
+
+Det level bin: 100 - 120
+Part level bin: 5 - 10
+Bin contents: 0
+
+Det level bin: 100 - 120
+Part level bin: 10 - 20
+Bin contents: 0
+
+Det level bin: 100 - 120
+Part level bin: 20 - 30
+Bin contents: 0
+
+Det level bin: 100 - 120
+Part level bin: 30 - 40
+Bin contents: 0
+
+Det level bin: 100 - 120
+Part level bin: 40 - 60
+Bin contents: 0.00593031
+
+Det level bin: 100 - 120
+Part level bin: 60 - 80
+Bin contents: 0.0122913
+
+Det level bin: 100 - 120
+Part level bin: 80 - 120
+Bin contents: 3.85992
+
+Det level bin: 100 - 120
+Part level bin: 120 - 160
+Bin contents: 6.45223
+
+Det level bin: 100 - 120
+Part level bin: 160 - 300
+Bin contents: 1.33981
+
+Det level bin: 120 - 160
+Part level bin: 0 - 5
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 5 - 10
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 10 - 20
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 20 - 30
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 30 - 40
+Bin contents: 0
+
+Det level bin: 120 - 160
+Part level bin: 40 - 60
+Bin contents: 0.00327042
+
+Det level bin: 120 - 160
+Part level bin: 60 - 80
+Bin contents: 0.0135873
+
+Det level bin: 120 - 160
+Part level bin: 80 - 120
+Bin contents: 0.114396
+
+Det level bin: 120 - 160
+Part level bin: 120 - 160
+Bin contents: 3.19568
+
+Det level bin: 120 - 160
+Part level bin: 160 - 300
+Bin contents: 3.12077
+

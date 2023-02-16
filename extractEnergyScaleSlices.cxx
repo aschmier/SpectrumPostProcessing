@@ -34,6 +34,11 @@ void extractEnergyScaleSlices(TString file, TString outputdir, TString fileType)
         TString dirname = Form("EnergyScaleResults_%sJet_R0%i_INT7_nodownscalecorr", jetType.Data(), radius);
         TString listname = Form("EnergyScaleHists_%sJet_R0%i_INT7_nodownscalecorr", jetType.Data(), radius);
         TDirectory *dir = (TDirectory*)f->Get(dirname.Data());
+        if(!dir){
+            dirname     = Form("EnergyScaleResults_%sJet_R0%i_INT7_default", jetType.Data(), radius);
+            listname = Form("EnergyScaleHists_%sJet_R0%i_INT7_default", jetType.Data(), radius);
+            dir = (TDirectory*)f->Get(dirname.Data());
+        }
         TList *list = (TList*)dir->Get(listname.Data());
         TH2D *EnergyScale2D = (TH2D*)list->FindObject("hJetEnergyScale");
         for(int binPt = 0; binPt < nPtBins; binPt++){
@@ -55,7 +60,7 @@ void extractEnergyScaleSlices(TString file, TString outputdir, TString fileType)
     l1->SetLineWidth(3);
     l1->SetLineStyle(7);
 
-    TLegend *legend =  GetAndSetLegend2(0.11,0.68,0.31,0.68+(maxradius-minradius+1)*textSize/1.5,textSize,2);
+    TLegend *legend =  GetAndSetLegend2(0.11,0.68,0.31,0.68+(maxradius-minradius+1)*textSize,textSize,1);
 
     for(int binPt = 0; binPt < nPtBins; binPt++){
         legend->Clear();
@@ -63,20 +68,22 @@ void extractEnergyScaleSlices(TString file, TString outputdir, TString fileType)
             TH1D *tempSlice = vecSlices[radius-minradius].at(binPt);
             tempSlice->Rebin(4);
             tempSlice->Scale(1/tempSlice->Integral());
-            tempSlice->GetXaxis()->SetRangeUser(-1,0.4);
+            tempSlice->GetXaxis()->SetRangeUser(-1.,0.4);
             tempSlice->GetYaxis()->SetRangeUser(0,0.3);
             SetStyleHistoTH1ForGraphs(tempSlice,"","<(#it{p}_{T}^{det} - #it{p}_{T}^{part})/#it{p}_{T}^{part}","Prob/Bin(0.04)",0.03,0.04,0.03,0.04,1,0.85);
             tempSlice->SetMarkerColor(colors[radius-minradius]);
             tempSlice->SetLineColor(colors[radius-minradius]);
             tempSlice->SetMarkerStyle(styles[radius-minradius]);
+            Double_t mean = tempSlice->GetMean();
             if(radius == minradius) tempSlice->Draw("p,e");
             else tempSlice->Draw("p,e,same");
-            legend->AddEntry(tempSlice, Form("#it{R} = 0.%i",radius), "p");
+            DrawGammaLines(mean,mean,0,0.3,1.,colors[radius-minradius],9);
+            legend->AddEntry(tempSlice, Form("#it{R} = 0.%i - Mean = %f",radius,mean), "p");
         }
         legend->Draw("same");
         l1->Draw("same");
         drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
-        drawLatexAdd(Form("#it{p}_{T}^{part} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.84, 0.03,false, false, false);
+        drawLatexAdd(Form("#it{p}_{T}^{part} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.12,0.84, 0.03,false, false, false);
         canvas->SaveAs(Form("%s/EnergyScale/Slices/AllRadii/EnergyScale_AllRadii_%i-%iGeV.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],fileType.Data()));
     }
 }

@@ -18,7 +18,7 @@ std::vector<double> getRebin(){
   return result;
 }
 
-void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TString outputdir, TString fileType, int minradius = 2, int maxradius = 6)
+void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TString mc_file, TString outputdir, TString fileType, int minradius = 2, int maxradius = 6)
 {
     Double_t textSize     = 0.03;
     TString jetType = "Full";
@@ -30,39 +30,68 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
     vector<TH2D*> vecNEF[maxradius-minradius+1];
     vector<TH2D*> vecZch[maxradius-minradius+1];
     vector<TH2D*> vecZne[maxradius-minradius+1];
+    vector<TH2D*> vecNEFMC[maxradius-minradius+1];
+    vector<TH2D*> vecZchMC[maxradius-minradius+1];
+    vector<TH2D*> vecZneMC[maxradius-minradius+1];
 
     vector<double> detLevelRebin = getRebin();
 
     const Int_t nPtBins     = 7;
-    Int_t binsPt[8]        = {6, 10, 20, 30, 60, 100, 200, 350};
-    Double_t binsPtdoub[8]        = {6., 10., 20., 30., 60., 100., 200., 350.};
+    Int_t binsPt[8]        = {6, 10, 20, 30, 60, 100, 160, 240};
+    Double_t binsPtdoub[8]        = {6., 10., 20., 30., 60., 100., 160., 240.};
 
     files.push_back(mb_file);
     files.push_back(emc7_file);
     files.push_back(eje_file);
 
+    TFile *fMC = TFile::Open(mc_file.Data());
+    if(!fMC || fMC->IsZombie()){
+        cout << "MC file not found!" << endl;
+        return;
+    }
 
-    for(int radius = minradius; radius <= maxradius; radius++){
-        for(int trigger = 0; trigger < triggers.size(); trigger++){
+    for(int trigger = 0; trigger < triggers.size(); trigger++){
+        TFile *f = TFile::Open(files.at(trigger).Data());
+        if(!f || f->IsZombie()){
+            cout << "File not found!" << endl;
+            return;
+        }
 
-            TFile *f = TFile::Open(files.at(trigger).Data());
-            if(!f || f->IsZombie()){
-                cout << "File not found!" << endl;
-                return;
-            }
-
+        for(int radius = minradius; radius <= maxradius; radius++){
             TString dirname = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers.at(trigger).Data());
             TDirectory *dir = (TDirectory*)f->Get(dirname.Data());
+            if(!dir){
+                dirname     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, triggers.at(trigger).Data());
+                dir = (TDirectory*)f->Get(dirname.Data());
+            }
             TList *list = (TList*)dir->Get(dirname.Data());
-            TH1D *events = (TH1D*)list->FindObject("hClusterCounter");
             TH2D *NEF2d = (TH2D*)list->FindObject("hQANEFPt");
             TH2D *Zch2d = (TH2D*)list->FindObject("hQAZchPt");
             TH2D *Zne2d = (TH2D*)list->FindObject("hQAZnePt");
             vecNEF[radius-minradius].push_back(NEF2d);
             vecZch[radius-minradius].push_back(Zch2d);
             vecZne[radius-minradius].push_back(Zne2d);
+
+            TString dirnameMC = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers.at(trigger).Data());
+            TDirectory *dirMC = (TDirectory*)fMC->Get(dirnameMC.Data());
+            if(!dirMC){
+                dirnameMC     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, triggers.at(trigger).Data());
+                dirMC = (TDirectory*)fMC->Get(dirnameMC.Data());
+            }
+            TList *listMC = (TList*)dirMC->Get(dirnameMC.Data());
+            TH2D *NEF2dMC = (TH2D*)listMC->FindObject("hQANEFPt");
+            TH2D *Zch2dMC = (TH2D*)listMC->FindObject("hQAZchPt");
+            TH2D *Zne2dMC = (TH2D*)listMC->FindObject("hQAZnePt");
+            vecNEFMC[radius-minradius].push_back(NEF2dMC);
+            vecZchMC[radius-minradius].push_back(Zch2dMC);
+            vecZneMC[radius-minradius].push_back(Zne2dMC);
         }
+        f->Close();
+        delete f;
     }
+
+    fMC->Close();
+    delete fMC;
 
     TCanvas* canvas             = new TCanvas("canvas","",10,10,750,500);  // gives the page size
     Double_t leftMargin         = 0.08;
@@ -72,7 +101,7 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
     DrawPaperCanvasSettings(canvas,leftMargin,rightMargin,topMargin,bottomMargin);
     gStyle->SetOptStat(0);
 
-    TLegend *legend =  GetAndSetLegend2(0.6,0.78,0.9,0.78+((3)*textSize*1.5),textSize);
+    TLegend *legend =  GetAndSetLegend2(0.73,0.63,0.97,0.63+(((6)*textSize*1.5)/2),textSize,2);
 
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int binPt = 0; binPt < nPtBins; binPt++){
@@ -81,21 +110,35 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
                 hNEF->Rebin(5);
                 hNEF->Scale(1.,"width");
                 hNEF->Scale(1./hNEF->Integral());
-                hNEF->GetYaxis()->SetRangeUser(0,0.1);
+                hNEF->GetYaxis()->SetRangeUser(0,0.12);
                 hNEF->GetXaxis()->SetRangeUser(0,1);
                 SetStyleHistoTH1ForGraphs(hNEF,"","#it{NEF}","1/#it{N}_{jet} d#it{N}_{jet}/d#it{NEF}",0.03,0.04,0.03,0.04,1,0.9);
                 hNEF->SetMarkerStyle(styles[trigger]);
                 hNEF->SetMarkerColor(colors[trigger]);
                 hNEF->SetLineColor(colors[trigger]);
+
+                TH1D *hNEFMC = vecNEFMC[radius-minradius].at(trigger)->ProjectionY(Form("hNEFMC_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
+                hNEFMC->Rebin(5);
+                hNEFMC->Scale(1.,"width");
+                hNEFMC->Scale(1./hNEFMC->Integral());
+                hNEFMC->GetYaxis()->SetRangeUser(0,0.12);
+                hNEFMC->GetXaxis()->SetRangeUser(0,1);
+                SetStyleHistoTH1ForGraphs(hNEFMC,"","#it{NEF}","1/#it{N}_{jet} d#it{N}_{jet}/d#it{NEF}",0.03,0.04,0.03,0.04,1,0.9);
+                hNEFMC->SetMarkerStyle(styles[trigger+triggers.size()]);
+                hNEFMC->SetMarkerColor(colors[trigger+triggers.size()]);
+                hNEFMC->SetLineColor(colors[trigger+triggers.size()]);
+
                 if(trigger==0) hNEF->Draw("p,e");
                 else hNEF->Draw("p,e,same");
+                //hNEFMC->Draw("p,e,same");
                 legend->AddEntry(hNEF,triggers.at(trigger).Data(),"p");
+                //legend->AddEntry(hNEFMC,Form("%s - MC", triggers.at(trigger).Data()),"p");
             }
 
             legend->Draw();
             drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.94,0.84, 0.03, false, false, true);
-            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
+            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
             canvas->SaveAs(Form("%s/NEF/All/hNEF_%i-%iGeV_R0%i.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,fileType.Data()));
 
             legend->Clear();
@@ -118,7 +161,7 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
             legend->Draw();
             drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.94,0.84, 0.03, false, false, true);
-            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
+            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
             canvas->SaveAs(Form("%s/Zch/All/hZch_%i-%iGeV_R0%i.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,fileType.Data()));
 
             legend->Clear();
@@ -141,7 +184,7 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
             legend->Draw();
             drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.94,0.84, 0.03, false, false, true);
-            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
+            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
             canvas->SaveAs(Form("%s/Zne/All/hZne_%i-%iGeV_R0%i.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,fileType.Data()));
 
             legend->Clear();

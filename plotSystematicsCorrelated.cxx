@@ -21,13 +21,17 @@ void plotSystematicsCorrelated(TString fSysConfig, TString fFinConfig, TString t
     TString typeCAP;
 
     Double_t minPt = 20;
-    Double_t maxPt = 320;
+    Double_t maxPt;
+
+    if(radius==4 || radius==3 || radius==2) maxPt = 240;
+    else if(radius==5) maxPt = 160;
+    else if(radius==6) maxPt = 130;
 
     int stylesfilled[17] = {8,21,33,34,41,43,45,47,48,49,3,2,5,22,23,29,39};
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 10;
+    int varNSys = 11;
     if(radius != 2) varNSys = varNSys - 2;
     const int nSys = varNSys;
     vector<TString> plot_names;
@@ -36,15 +40,15 @@ void plotSystematicsCorrelated(TString fSysConfig, TString fFinConfig, TString t
     vector<TString> fitfunc;
 
     if(radius == 2){
-        plot_names.insert(plot_names.end(), {"Unfolding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","RF Binning","RF Fit"});
-        systematics_names.insert(systematics_names.end(), {"allunfolding","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap","rfbinvar","rffit"});
-        variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)","(Low=default,High=default)","(Low=1.5GeV,High=6GeV)"});
-        fitfunc.insert(fitfunc.end(), {"pol1","pol1","binwise","binwise","pol1","pol0","binwise","binwise","pol1","pol1"});
+        plot_names.insert(plot_names.end(), {"Unfolding","Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","RF Binning","RF Fit"});
+        systematics_names.insert(systematics_names.end(), {"allunfolding","qoverptshift","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap","rfbinvar","rffit"});
+        variation_original.insert(variation_original.end(), {"default","default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)","(Low=default,High=default)","(Low=1.5GeV,High=6GeV)"});
+        fitfunc.insert(fitfunc.end(), {"pol1","pol2","pol1","binwise","binwise","pol1","pol0","binwise","binwise","pol1","pol1"});
     }else{
-        plot_names.insert(plot_names.end(), {"Unfolding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}"});
-        systematics_names.insert(systematics_names.end(), {"allunfolding","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap"});
-        variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)"});
-        fitfunc.insert(fitfunc.end(), {"pol1","pol1","binwise","binwise","pol1","pol0","binwise","binwise"});
+        plot_names.insert(plot_names.end(), {"Unfolding","Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}"});
+        systematics_names.insert(systematics_names.end(), {"allunfolding","qoverptshift","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap"});
+        variation_original.insert(variation_original.end(), {"default","default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)"});
+        fitfunc.insert(fitfunc.end(), {"pol1","pol2","pol1","binwise","binwise","pol1","pol0","binwise","binwise"});
     }
 
     TString systematicsFile;
@@ -188,13 +192,13 @@ void plotSystematicsCorrelated(TString fSysConfig, TString fFinConfig, TString t
         // Format and plot systematics
         for(int j = 0; j < syshistos[name].size(); j++){
             TH1D *sysRatio;
-            if(systematics_names[name] == "maxtrackpt" || systematics_names[name] == "maxclustere"){
-                sysRatio = (TH1D*)normUnfoldedFinal->Clone(Form("syshist_%i",j));
-                sysRatio->Divide(syshistos[name].at(j),normUnfoldedFinal,1,1,"B");
-            }else{
+            //if(systematics_names[name] == "maxtrackpt" || systematics_names[name] == "maxclustere"){
+            //    sysRatio = (TH1D*)normUnfoldedFinal->Clone(Form("syshist_%i",j));
+            //    sysRatio->Divide(syshistos[name].at(j),normUnfoldedFinal,1,1,"B");
+            //}else{
                 sysRatio = (TH1D*)normUnfoldedOrig->Clone(Form("syshist_%i",j));
                 sysRatio->Divide(syshistos[name].at(j),normUnfoldedOrig,1,1,"B");
-            }
+            //}
             sysRatio->SetMarkerStyle(stylesfilled[j+1]);
             sysRatio->SetLineColor(colors[j+1]);
             sysRatio->SetLineWidth(2);
@@ -275,13 +279,13 @@ void plotSystematicsCorrelated(TString fSysConfig, TString fFinConfig, TString t
         // Set up axes
         sysAvg->GetXaxis()->SetRangeUser(minPt,maxPt);
         if(radius <= 3){
-            if(systematics_names[name] == "tracking") sysAvg->GetYaxis()->SetRangeUser(0,13);
+            if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,13);
             else sysAvg->GetYaxis()->SetRangeUser(0,3);
         }else if(radius == 4){
-            if(systematics_names[name] == "tracking" || systematics_names[name].Contains("rf")) sysAvg->GetYaxis()->SetRangeUser(0,14);
+            if(systematics_names[name] == "tracking" || systematics_names[name].Contains("rf") || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,14);
             else sysAvg->GetYaxis()->SetRangeUser(0,5);
         }else{
-            if(systematics_names[name] == "tracking" || systematics_names[name].Contains("rf")) sysAvg->GetYaxis()->SetRangeUser(0,17);
+            if(systematics_names[name] == "tracking" || systematics_names[name].Contains("rf") || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,17);
             else sysAvg->GetYaxis()->SetRangeUser(0,15);
         }
 

@@ -91,7 +91,7 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
             TList *list = (TList*)dir->Get(dirname.Data());
             TH1D *events = (TH1D*)list->FindObject("hClusterCounter");
             TH2D *NEF2d = (TH2D*)list->FindObject("hQANEFPt");
-            NEF2d->Scale(1/events->GetBinContent(1));
+            //NEF2d->Scale(1/events->GetBinContent(1));
             vecNEFpp[radius-minradius].push_back(NEF2d);
 
             dirname = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers_pp.at(trigger).Data());
@@ -103,7 +103,7 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
             TList *listMC = (TList*)dirMC->Get(dirname.Data());
             TH1D *eventsMC = (TH1D*)listMC->FindObject("hClusterCounter");
             TH2D *NEF2dMC = (TH2D*)listMC->FindObject("hQANEFPt");
-            NEF2dMC->Scale(1/eventsMC->GetBinContent(1));
+            //NEF2dMC->Scale(1/eventsMC->GetBinContent(1));
             vecNEFpp_MC[radius-minradius].push_back(NEF2dMC);
         }
 
@@ -118,7 +118,7 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
             TList *list = (TList*)dir->Get(dirname.Data());
             TH1D *events = (TH1D*)list->FindObject("hClusterCounter");
             TH2D *NEF2d = (TH2D*)list->FindObject("hQANEFPt");
-            NEF2d->Scale(1/events->GetBinContent(1));
+            //NEF2d->Scale(1/events->GetBinContent(1));
             vecNEFpPb[radius-minradius].push_back(NEF2d);
 
             dirname = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers_pPb.at(trigger).Data());
@@ -130,7 +130,7 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
             TList *listMC = (TList*)dirMC->Get(dirname.Data());
             TH1D *eventsMC = (TH1D*)listMC->FindObject("hClusterCounter");
             TH2D *NEF2dMC = (TH2D*)listMC->FindObject("hQANEFPt");
-            NEF2dMC->Scale(1/eventsMC->GetBinContent(1));
+            //NEF2dMC->Scale(1/eventsMC->GetBinContent(1));
             vecNEFpPb_MC[radius-minradius].push_back(NEF2dMC);
         }
     }
@@ -143,7 +143,7 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
     DrawPaperCanvasSettings(canvas,leftMargin,rightMargin,topMargin,bottomMargin);
     gStyle->SetOptStat(0);
 
-    TLegend *legend =  GetAndSetLegend2(0.1,0.65,0.4,0.65+((3)*textSize*1.5),textSize);
+    TLegend *legend =  GetAndSetLegend2(0.77,0.65,0.97,0.65+((3)*textSize*1.5),textSize);
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int binPt = 0; binPt < nPtBins; binPt++){
             for(int trigger = 0; trigger < triggers_pp.size(); trigger++){
@@ -151,12 +151,14 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
                 if(triggers_pp.at(trigger) == "INT7" && binsPt[binPt] >= 60) draw = false;
                 else if(triggers_pp.at(trigger) == "EMC7" && binsPt[binPt] >= 100) draw = false;
                 TH1D *tempNEFpp = vecNEFpp[radius-minradius].at(trigger)->ProjectionY(Form("hNEFpp_%s_R0%i_%i-%iGeV", triggers_pp.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
+                tempNEFpp->Scale(1/tempNEFpp->Integral());
                 TH1D *hNEFpp = (TH1D*)tempNEFpp->Rebin(detLevelRebin.size()-1, Form("hNEFpp_R0%i_%s_ptBin%i",radius,triggers_pp.at(trigger).Data(),binPt), detLevelRebin.data());
                 TH1D *tempNEFpPb = vecNEFpPb[radius-minradius].at(trigger)->ProjectionY(Form("hNEFpPb_%s_R0%i_%i-%iGeV", triggers_pPb.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
+                tempNEFpPb->Scale(1/tempNEFpPb->Integral());
                 TH1D *hNEFpPb = (TH1D*)tempNEFpPb->Rebin(detLevelRebin.size()-1, Form("hNEFpPb_R0%i_%s_ptBin%i",radius,triggers_pPb.at(trigger).Data(),binPt), detLevelRebin.data());
                 hNEFpp->Scale(1.,"width");
                 hNEFpPb->Scale(1.,"width");
-                hNEFpp->GetYaxis()->SetRangeUser(0,0.3);
+                hNEFpp->GetYaxis()->SetRangeUser(0,8);
                 hNEFpp->GetXaxis()->SetRangeUser(0,1);
                 SetStyleHistoTH1ForGraphs(hNEFpp,"","#it{NEF}","1/N^{trig} dN^{jet}/dNEF",0.03,0.04,0.03,0.04,1,0.7);
                 hNEFpp->SetMarkerStyle(styles[0]);
@@ -173,9 +175,9 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
                     legend->AddEntry(hNEFpPb,Form("pPb - %s",triggers_pPb.at(trigger).Data()),"p");
 
                     legend->Draw();
-                    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
-                    drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.12,0.84, 0.03, false, false, false);
-                    drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
+                    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.9,0.88, 0.03, false, false, true);
+                    drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.9,0.84, 0.03, false, false, true);
+                    drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.9,0.8, 0.03, false, false, true);
                     canvas->SaveAs(Form("%s/Data/hNEF_%i-%iGeV_R0%i_%s_%s.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,triggers_pp.at(trigger).Data(),triggers_pPb.at(trigger).Data(),fileType.Data()));
                 }
                 legend->Clear();
@@ -186,12 +188,14 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
                 if(triggers_pp.at(trigger) == "INT7" && binsPt[binPt] >= 60) draw = false;
                 else if(triggers_pp.at(trigger) == "EMC7" && binsPt[binPt] >= 100) draw = false;
                 TH1D *tempNEFpp = vecNEFpp_MC[radius-minradius].at(trigger)->ProjectionY(Form("hNEFppMC_%s_R0%i_%i-%iGeV", triggers_pp.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
+                tempNEFpp->Scale(1/tempNEFpp->Integral());
                 TH1D *hNEFpp = (TH1D*)tempNEFpp->Rebin(detLevelRebin.size()-1, Form("hNEFppMC_R0%i_%s_ptBin%i",radius,triggers_pp.at(trigger).Data(),binPt), detLevelRebin.data());
                 TH1D *tempNEFpPb = vecNEFpPb_MC[radius-minradius].at(trigger)->ProjectionY(Form("hNEFpPbMC_%s_R0%i_%i-%iGeV", triggers_pPb.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
+                tempNEFpPb->Scale(1/tempNEFpPb->Integral());
                 TH1D *hNEFpPb = (TH1D*)tempNEFpPb->Rebin(detLevelRebin.size()-1, Form("hNEFpPbMC_R0%i_%s_ptBin%i",radius,triggers_pPb.at(trigger).Data(),binPt), detLevelRebin.data());
                 hNEFpp->Scale(1.,"width");
                 hNEFpPb->Scale(1.,"width");
-                hNEFpp->GetYaxis()->SetRangeUser(0,0.3);
+                hNEFpp->GetYaxis()->SetRangeUser(0,8);
                 hNEFpp->GetXaxis()->SetRangeUser(0,1);
                 SetStyleHistoTH1ForGraphs(hNEFpp,"","#it{NEF}","1/N^{trig} dN^{jet}/dNEF",0.03,0.04,0.03,0.04,1,0.7);
                 hNEFpp->SetMarkerStyle(styles[0]);
@@ -207,9 +211,9 @@ void plotNEFRpAComp(TString mb_file, TString emc7_file, TString eje_file, TStrin
                     legend->AddEntry(hNEFpPb,Form("pPb - %s",triggers_pPb.at(trigger).Data()),"p");
 
                     legend->Draw();
-                    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
-                    drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.12,0.84, 0.03, false, false, false);
-                    drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
+                    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.9,0.88, 0.03, false, false, true);
+                    drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.9,0.84, 0.03, false, false, true);
+                    drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.9,0.8, 0.03, false, false, true);
                     canvas->SaveAs(Form("%s/Sim/hNEF_%i-%iGeV_R0%i_%s_%s.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,triggers_pp.at(trigger).Data(),triggers_pPb.at(trigger).Data(),fileType.Data()));
                 }
                 legend->Clear();

@@ -58,6 +58,8 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     TH1D *raw_rebin_pp = (TH1D*)finespectrum_pp->Rebin(partlevelbin.size()-1, "raw_rebin_pp", partlevelbin.data());
     raw_rebin_pp->Scale(1.,"width");
 
+    //TH1D *mbrebinned_pp = (TH1D*)raw
+
     // Get pA histogram
     TDirectory *regDir_pA = (TDirectory*)fpA->Get(Form("R0%i",radius));
     TDirectory *reg_pA    = (TDirectory*)regDir_pA->Get(Form("reg%i",regnum));

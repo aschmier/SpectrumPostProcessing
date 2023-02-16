@@ -14,7 +14,7 @@
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D_rf.C"
 #include "/home/austin/alice/SpectrumPostProcessing/makeRejectionFactor.cpp"
 
-void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TString output, Int_t rad, TString fileType)
+void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TString mcfile, TString output, Int_t rad, TString fileType)
 {
     // global variables
     Double_t textSize = 0.04;
@@ -34,6 +34,9 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     TFile *feje  = TFile::Open(ejefile);
     if(!feje || feje->IsZombie()) return;
 
+    TFile *fmc  = TFile::Open(mcfile);
+    if(!fmc || fmc->IsZombie()) return;
+
     // initialize vectors. EMC7 trigger is used twice because we need one with course binning and one with fine binning
     vector<TFile*> files{fmb,femc7,femc7,feje};
     vector<double> binningFine   = getJetPtBinningRejectionFactorsFine();
@@ -41,11 +44,24 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     //vector<double> binningFine   = getJetPtBinningRejectionFactorsFineVar("option4");
     //vector<double> binningCourse = getJetPtBinningRejectionFactorsCourseVar("option4");
     vector<TString> triggers{"INT7","EMC7","EMC7","EJE"};
+    vector<TString> triggersMC{"INT7","INT7","EMC7","EMC7","EJE"};
     vector<vector<double>> binnings{binningCourse,binningCourse,binningFine,binningFine};
+    vector<vector<double>> binningsMC{binningCourse,binningFine,binningCourse,binningFine,binningFine};
     vector<TH1D*> vecClusters;
+    vector<TH1D*> vecClustersMC;
+
+    for(int trigger=0; trigger<triggersMC.size(); trigger++){
+        TString name    = Form("JetSpectrum_%sJets_R0%i_%s_default",jetType.Data(),radius,triggersMC.at(trigger).Data());
+        TDirectory *dir = (TDirectory*)fmc->Get(name.Data());
+        TList *list     = (TList*)dir->Get(name.Data());
+        TH1D *clusters  = (TH1D*)list->FindObject("hClusterEnergy1D");
+        TH1D *clustersRebinned = (TH1D*)clusters->Rebin(binningsMC.at(trigger).size()-1, Form("clusterRebinnedMC_%i",trigger), binningsMC.at(trigger).data());
+        clustersRebinned->Scale(1.,"width");
+        vecClustersMC.push_back(clustersRebinned);
+    }
 
     for(int trigger=0; trigger<triggers.size(); trigger++){
-        TString name    = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr",jetType.Data(),radius,triggers.at(trigger).Data());
+        TString name    = Form("JetSpectrum_%sJets_R0%i_%s_default",jetType.Data(),radius,triggers.at(trigger).Data());
         TDirectory *dir = (TDirectory*)files.at(trigger)->Get(name.Data());
         TList *list     = (TList*)dir->Get(name.Data());
         TH1D *events    = (TH1D*)list->FindObject("hClusterCounterAbs");
@@ -57,9 +73,48 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
         clustersRebinned->Scale(1.,"width");
         vecClusters.push_back(clustersRebinned);
     }
+    cout << __LINE__ << endl;
 
-    std::tuple<double, double, TH1 *> TupleLow  = makeRejectionFactor(vecClusters.at(1), vecClusters.at(0), radius, "INT7", "EMC7", "nodownscalecorr", 4., 40., 1.5, 40.);
-    std::tuple<double, double, TH1 *> TupleHigh = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EMC7", "EJE", "nodownscalecorr", 12., 60., 6., 200.);
+    // Make unscaled rejection factors
+    std::tuple<double, double, TH1 *> TupleLowUnscaled  = makeRejectionFactor(vecClusters.at(1), vecClusters.at(0), radius, "INT7", "EMC7", "default", 4., 40., 1.5, 40.);
+    cout << __LINE__ << endl;
+
+    std::tuple<double, double, TH1 *> TupleHighUnscaled = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EMC7", "EJE", "default", 12., 60., 6., 200.);
+    cout << __LINE__ << endl;
+
+    double valLowUnscaled = (double)(std::get<0>(TupleLowUnscaled));
+    double errLowUnscaled = (double)(std::get<1>(TupleLowUnscaled));
+    TH1D *RFacLowUnscaled = (TH1D*)(std::get<2>(TupleLowUnscaled));
+
+    double valHighUnscaled = (double)(std::get<0>(TupleHighUnscaled));
+    double errHighUnscaled = (double)(std::get<1>(TupleHighUnscaled));
+    TH1D *RFacHighUnscaled = (TH1D*)(std::get<2>(TupleHighUnscaled));
+
+    // Make efficiency-scaled rejection factors
+    TH1D *effScaleCourseEMC7 = (TH1D*)vecClustersMC.at(2)->Clone("effScaleCourseLow");
+    effScaleCourseEMC7->Divide(vecClustersMC.at(2),vecClustersMC.at(0));
+
+    TH1D *effScaleFineEMC7 = (TH1D*)vecClustersMC.at(3)->Clone("effScaleFineLow");
+    effScaleFineEMC7->Divide(vecClustersMC.at(3),vecClustersMC.at(1));
+
+    TH1D *effScaleFineEJE = (TH1D*)vecClustersMC.at(4)->Clone("effScaleFineHigh");
+    effScaleFineEJE->Divide(vecClustersMC.at(4),vecClustersMC.at(1));
+
+    TH1D *clustersRebinnedScaledCourseEMC7 = (TH1D*)vecClusters.at(1)->Clone("clustersRebinnedScaledCourseEMC7");
+    clustersRebinnedScaledCourseEMC7->Divide(vecClusters.at(1),effScaleCourseEMC7);
+
+    TH1D *clustersRebinnedScaledFineEMC7 = (TH1D*)vecClusters.at(2)->Clone("clustersRebinnedScaledFineEMC7");
+    clustersRebinnedScaledFineEMC7->Divide(vecClusters.at(2),effScaleFineEMC7);
+
+    TH1D *clustersRebinnedScaledEJE = (TH1D*)vecClusters.at(3)->Clone("clustersRebinnedScaledEJE");
+    clustersRebinnedScaledEJE->Divide(vecClusters.at(3),effScaleFineEJE);
+    cout << __LINE__ << endl;
+
+    std::tuple<double, double, TH1 *> TupleLow  = makeRejectionFactor(clustersRebinnedScaledCourseEMC7, vecClusters.at(0), radius, "INT7", "EMC7", "default", 4., 30., 1.5, 40.,false);
+    cout << __LINE__ << endl;
+
+    std::tuple<double, double, TH1 *> TupleHigh = makeRejectionFactor(clustersRebinnedScaledEJE, clustersRebinnedScaledFineEMC7, radius, "EMC7", "EJE", "default", 12., 200., 6., 200.,false);
+    cout << __LINE__ << endl;
 
     double valLow = (double)(std::get<0>(TupleLow));
     double errLow = (double)(std::get<1>(TupleLow));
@@ -77,8 +132,10 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     c->SetLogy(1);
     c->SetLogx(0);
 
-    for(int i=vecClusters.size()-1; i>=0; i--){
-        vecClusters.at(i)->GetXaxis()->SetRangeUser(20,320);
+    TLegend *legendClus =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.31,0.86,textSize,1);
+
+    for(int i=0; i<vecClusters.size(); i++){
+        vecClusters.at(i)->GetXaxis()->SetRangeUser(10,200);
         vecClusters.at(i)->GetYaxis()->SetRangeUser(1e-9,10);
         //vecClusters.at(i)->GetYaxis()->SetRangeUser(5,100);
         SetStyleHistoTH1ForGraphs(vecClusters.at(i),"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
@@ -87,10 +144,71 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
         vecClusters.at(i)->SetMarkerColor(colors[i]);
         vecClusters.at(i)->SetLineColor(colors[i]);
         vecClusters.at(i)->SetMarkerSize(2);
-        TString save = (i==(vecClusters.size()-1)? "p,e" : "p,e,same");
+        legendClus->AddEntry(vecClusters.at(i), triggers.at(i).Data(), "p");
+
+        TString save = ((i==0)? "p,e" : "p,e,same");
         vecClusters.at(i)->Draw(save.Data());
     }
-    //c->SaveAs(Form("%s/RejectionFactors/clusters_R0%i.%s",output.Data(),radius,fileType.Data()));
+    c->SaveAs(Form("%s/RejectionFactors/ClustersData/clusters_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    for(int i=0; i<vecClustersMC.size(); i++){
+        vecClustersMC.at(i)->GetXaxis()->SetRangeUser(10,200);
+        vecClustersMC.at(i)->GetYaxis()->SetRangeUser(1e-9,10);
+        //vecClustersMC.at(i)->GetYaxis()->SetRangeUser(5,100);
+        SetStyleHistoTH1ForGraphs(vecClustersMC.at(i),"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
+
+        vecClustersMC.at(i)->SetMarkerStyle(styles[i]);
+        vecClustersMC.at(i)->SetMarkerColor(colors[i]);
+        vecClustersMC.at(i)->SetLineColor(colors[i]);
+        vecClustersMC.at(i)->SetMarkerSize(2);
+        TString save = ((i==0)? "p,e" : "p,e,same");
+        vecClustersMC.at(i)->Draw(save.Data());
+    }
+    c->SaveAs(Form("%s/RejectionFactors/ClustersMC/clustersMC_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    for(int i=0; i<vecClustersMC.size(); i++){
+        vecClustersMC.at(i)->GetXaxis()->SetRangeUser(10,200);
+        vecClustersMC.at(i)->GetYaxis()->SetRangeUser(1e-9,10);
+        //vecClustersMC.at(i)->GetYaxis()->SetRangeUser(5,100);
+        SetStyleHistoTH1ForGraphs(vecClustersMC.at(i),"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
+
+        vecClustersMC.at(i)->SetMarkerStyle(styles[i]);
+        vecClustersMC.at(i)->SetMarkerColor(colors[i]);
+        vecClustersMC.at(i)->SetLineColor(colors[i]);
+        vecClustersMC.at(i)->SetMarkerSize(2);
+        TString save = ((i==0)? "p,e" : "p,e,same");
+        vecClustersMC.at(i)->Draw(save.Data());
+    }
+    c->SaveAs(Form("%s/RejectionFactors/clustersMC_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    c->SetLogy(0);
+    c->SetLogx(0);
+
+    TLine * l = new TLine (0,1,200,1);
+    l->SetLineColor(14);
+    l->SetLineWidth(3);
+    l->SetLineStyle(7);
+
+    effScaleCourseEMC7->GetXaxis()->SetRangeUser(0,200);
+    effScaleCourseEMC7->GetYaxis()->SetRangeUser(0,1.4);
+    SetStyleHistoTH1ForGraphs(effScaleCourseEMC7,"","p_{T} (GeV/c)","EMC7 Trig. Eff. (Clusters)",0.03,0.04,0.03,0.04,1,1.2);
+    effScaleCourseEMC7->Draw("p,e");
+    l->Draw("same");
+    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/EMC7course_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    effScaleFineEMC7->GetXaxis()->SetRangeUser(0,200);
+    effScaleFineEMC7->GetYaxis()->SetRangeUser(0,1.4);
+    SetStyleHistoTH1ForGraphs(effScaleFineEMC7,"","p_{T} (GeV/c)","EMC7 Trig. Eff. (Clusters)",0.03,0.04,0.03,0.04,1,1.2);
+    effScaleFineEMC7->Draw("p,e");
+    l->Draw("same");
+    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/EMC7fine_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    effScaleFineEJE->GetXaxis()->SetRangeUser(0,200);
+    effScaleFineEJE->GetYaxis()->SetRangeUser(0,1.4);
+    SetStyleHistoTH1ForGraphs(effScaleFineEJE,"","p_{T} (GeV/c)","EJE Trig. Eff. (Clusters)",0.03,0.04,0.03,0.04,1,1.2);
+    effScaleFineEJE->Draw("p,e");
+    l->Draw("same");
+    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/EJEfine_R0%i.%s",output.Data(),radius,fileType.Data()));
 
     c->SetLogy(0);
     c->SetLogx(1);
@@ -99,7 +217,7 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
 
     RFacLow->GetXaxis()->SetMoreLogLabels();
     //RFacLow->GetXaxis()->SetRangeUser(1,200);
-    RFacLow->GetYaxis()->SetRangeUser(5,110);
+    RFacLow->GetYaxis()->SetRangeUser(5,210);
     RFacLow->SetMarkerStyle(styles[0]);
     RFacLow->SetMarkerColor(colors[0]);
     RFacLow->SetLineColor(colors[0]);
@@ -125,4 +243,36 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
 
     c->SaveAs(Form("%s/RejectionFactors/RF_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    legend->Clear();
+
+    RFacLowUnscaled->GetXaxis()->SetMoreLogLabels();
+    //RFacLowUnscaled->GetXaxis()->SetRangeUser(1,200);
+    RFacLowUnscaled->GetYaxis()->SetRangeUser(5,110);
+    RFacLowUnscaled->SetMarkerStyle(styles[0]);
+    RFacLowUnscaled->SetMarkerColor(colors[0]);
+    RFacLowUnscaled->SetLineColor(colors[0]);
+    RFacLowUnscaled->SetMarkerSize(2);
+    RFacLowUnscaled->Sumw2();
+
+    RFacHighUnscaled->SetMarkerStyle(styles[7]);
+    RFacHighUnscaled->SetMarkerColor(colors[2]);
+    RFacHighUnscaled->SetLineColor(colors[2]);
+    RFacHighUnscaled->SetMarkerSize(2);
+    RFacHighUnscaled->Sumw2();
+
+    SetStyleHistoTH1ForGraphs(RFacLowUnscaled,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
+    SetStyleHistoTH1ForGraphs(RFacHighUnscaled,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
+
+    RFacLowUnscaled->Draw("p,e");
+    RFacHighUnscaled->Draw("p,e,same");
+
+    legend->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
+    legend->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
+    legend->Draw("same");
+
+    drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
+
+    c->SaveAs(Form("%s/RejectionFactors/RF_R0%i_Unscaled.%s",output.Data(),radius,fileType.Data()));
+
 }

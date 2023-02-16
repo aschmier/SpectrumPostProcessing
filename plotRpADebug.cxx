@@ -105,7 +105,7 @@ void plotRpADebug(TString ppINT7, TString ppEMC7, TString ppEJE, TString ppMC, T
     gStyle->SetOptStat(0);
     canvas->SetLogy();
 
-    TLegend *legend =  GetAndSetLegend2(0.77,(0.82-(2)*textSize),0.87,0.82,textSize,1);
+    TLegend *legend =  GetAndSetLegend2(0.72,(0.82-(2)*textSize),0.82,0.82,textSize,1);
 
     for(int radius = minradius; radius <= maxradius; radius++){
 /*        // Plot data jets for all pp triggers in one plot

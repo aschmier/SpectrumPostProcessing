@@ -37,8 +37,8 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
     vector<double> detLevelRebin = getRebin();
 
     const Int_t nPtBins     = 6;
-    Int_t binsPt[7]        = {6, 10, 30, 60, 100, 200, 350};
-    Double_t binsPtdoub[7]        = {6., 10., 30., 60., 100., 200., 350.};
+    Int_t binsPt[7]        = {6, 10, 30, 60, 100, 160, 240};
+    Double_t binsPtdoub[7]        = {6., 10., 30., 60., 100., 160., 240.};
 
     TFile *fmb = TFile::Open(mb_file);
     if(!fmb || fmb->IsZombie()){
@@ -71,6 +71,10 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
         for(int trigger = 0; trigger < triggers.size(); trigger++){
             TString dirname = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers.at(trigger).Data());
             TDirectory *dir = (TDirectory*)files.at(trigger)->Get(dirname.Data());
+            if(!dir){
+                dirname     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, triggers.at(trigger).Data());
+                dir = (TDirectory*)files.at(trigger)->Get(dirname.Data());
+            }
             TList *list = (TList*)dir->Get(dirname.Data());
             TH1D *events = (TH1D*)list->FindObject("hClusterCounter");
             TH2D *NEF2d = (TH2D*)list->FindObject("hQANEFPt");
@@ -138,7 +142,7 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
             legend->Draw();
             drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.12,0.84, 0.03, false, false, false);
-            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
+            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
             canvas->SaveAs(Form("%s/TriggerBias/NEF/hNEF_ptBin%i_R0%i.%s", outputdir.Data(),binPt,radius,fileType.Data()));
 
             legend->Clear();
@@ -168,7 +172,7 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
             legend->Draw();
             drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.12,0.84, 0.03, false, false, false);
-            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
+            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
             canvas->SaveAs(Form("%s/TriggerBias/Zch/hZch_ptBin%i_R0%i.%s", outputdir.Data(),binPt,radius,fileType.Data()));
 
             legend->Clear();
@@ -198,7 +202,7 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
             legend->Draw();
             drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.12,0.88, 0.03, false, false, false);
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.12,0.84, 0.03, false, false, false);
-            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
+            drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.12,0.8, 0.03, false, false, false);
             canvas->SaveAs(Form("%s/TriggerBias/Zne/hZne_ptBin%i_R0%i.%s", outputdir.Data(),binPt,radius,fileType.Data()));
 
             legend->Clear();

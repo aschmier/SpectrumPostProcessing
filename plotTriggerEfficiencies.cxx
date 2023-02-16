@@ -43,7 +43,7 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
         TDirectory *rDir = (TDirectory*)f->Get(Form("R0%i",r));
         TDirectory *raw  = (TDirectory*)rDir->Get("rawlevel");
         TH1D *trigEffL0  = (TH1D*)raw->Get(Form("TriggerEfficiency_EMC7_R0%i_rebinned",r));
-        trigEffL0->GetXaxis()->SetRangeUser(20,320);
+        trigEffL0->GetXaxis()->SetRangeUser(20,240);
         trigEffL0->GetYaxis()->SetRangeUser(0,1.41);
         SetStyleHistoTH1ForGraphs(trigEffL0,"","p_{T}^{jet} [GeV/c]","EMC7 Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
         trigEffL0->SetMarkerColor(colors[r-rmin]);
@@ -67,7 +67,7 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
         TDirectory *rDir = (TDirectory*)f->Get(Form("R0%i",r));
         TDirectory *raw  = (TDirectory*)rDir->Get("rawlevel");
         TH1D *trigEffL1  = (TH1D*)raw->Get(Form("TriggerEfficiency_EJE_R0%i_rebinned",r));
-        trigEffL1->GetXaxis()->SetRangeUser(20,320);
+        trigEffL1->GetXaxis()->SetRangeUser(20,240);
         trigEffL1->GetYaxis()->SetRangeUser(0,1.41);
         SetStyleHistoTH1ForGraphs(trigEffL1,"","p_{T}^{jet} [GeV/c]","EJE Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
         trigEffL1->SetMarkerColor(colors[r-rmin]);

@@ -8,7 +8,7 @@
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "fstream"
 
-void plotNConst(TString ppIn, TString pPbNRIn, TString pPbWRIn, TString outputdir, TString suffix, int radius)
+void plotNConst(TString ppIn, TString pPbNRIn, TString pPbWRIn, TString outputdir, TString suffix, int radius, TString charge)
 {
     double textSize  = 0.03;
     int minradius    = 2;
@@ -26,6 +26,8 @@ void plotNConst(TString ppIn, TString pPbNRIn, TString pPbWRIn, TString outputdi
     vecFiles.push_back(ppIn);
     vecFiles.push_back(pPbNRIn);
     vecFiles.push_back(pPbWRIn);
+    TString systems[3] = {"pp", "pPb No Rejection", "pPb With Rejection"};
+    TString systems_short[3] = {"pp", "pPbNR", "pPbWR"};
     TString directories[3] = {"pp","NoRejection","WithRejection"};
     double nEvt[3];
 
@@ -58,7 +60,13 @@ void plotNConst(TString ppIn, TString pPbNRIn, TString pPbWRIn, TString outputdi
         TDirectory *dir = (TDirectory*)f->Get(dirname.Data());
         TList *list     = (TList*)dir->Get(listname.Data());
         for(int ptbin = 0; ptbin < 16; ptbin++){
-            TH2D *hConst    = (TH2D*)list->FindObject(Form("hCompNConst_%i_%i",ptbins[ptbin],ptbins[ptbin+1]));
+            TString histname;
+            if(charge == "All") histname = Form("hCompNConst_%i_%i",ptbins[ptbin],ptbins[ptbin+1]);
+            else if(charge == "Charged") histname = Form("hCompNCharged_%i_%i",ptbins[ptbin],ptbins[ptbin+1]);
+            else if(charge == "Neutral") histname = Form("hCompNNeutral_%i_%i",ptbins[ptbin],ptbins[ptbin+1]);
+            else cout << "Incorrect particle type specified! Choose all, charged, or neutral." << endl;
+
+            TH2D *hConst    = (TH2D*)list->FindObject(histname.Data());
             vecConst[nfile].push_back(hConst);
         }
 
@@ -70,10 +78,11 @@ void plotNConst(TString ppIn, TString pPbNRIn, TString pPbWRIn, TString outputdi
         for(int ptbin = 0; ptbin < 16; ptbin++){
             vecConst[nfile].at(ptbin)->GetXaxis()->SetRangeUser(0,100);
             vecConst[nfile].at(ptbin)->GetYaxis()->SetRangeUser(0,100);
-            SetStyleHistoTH2ForGraphs(vecConst[nfile].at(ptbin),"N Const Particle Level","N Const Detector Level",0.03,0.04,0.03,0.04,1,1.1);
+            SetStyleHistoTH2ForGraphs(vecConst[nfile].at(ptbin),Form("N Const %s Particle Level",charge.Data()),Form("N Const %s Detector Level",charge.Data()),0.03,0.04,0.03,0.04,1,1.1);
             vecConst[nfile].at(ptbin)->Draw("colz");
             l->Draw("same");
-            canvas->SaveAs(Form("%s/%s/NConst_R0%i_%i_%i.%s", outputdir.Data(),directories[nfile].Data(), radius, ptbins[ptbin], ptbins[ptbin+1], fileType.Data()));
+            drawLatexAdd(Form("System: %s",systems[nfile].Data()),0.15,0.90, textSize,kFALSE, kFALSE, false);
+            canvas->SaveAs(Form("%s/%s/NConst_%s_%s_R0%i_%i_%i.%s", outputdir.Data(),directories[nfile].Data(), charge.Data(), systems_short[nfile].Data(), radius, ptbins[ptbin], ptbins[ptbin+1], fileType.Data()));
         }
     }
 

@@ -39,6 +39,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     const int nOutlier = 4;
 
     int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
+    int stylesfilled[17] = {8,21,33,34,41,43,45,47,48,49,3,2,5,22,23,29,39};
+
     Color_t colors[14] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4};
 
     TString outliers[nOutlier] = {"nooutlier","outlier30","outlier50","outlier70"};
@@ -51,6 +53,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     vector<TH1D*> vecRatio;
     vector<TH1D*> vecSpectraSim[nOutlier];
     vector<TGraphErrors*> vecSpectraSysE_graph;
+    vector<TGraphErrors*> vecSpectra_graph;
     vector<TGraphErrors*> vecRatioSysE;
 
     TFile *f = TFile::Open(spectrumFile);
@@ -74,11 +77,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         }
         vecSystematics.push_back((TH1D*)fSys->Get("hTotal"));
         if(radius == 2){
-            maxtrackpt_R02 = (TH1D*)fSys->Get("smooth_maxtrackpt");
             rfbinvar = (TH1D*)fSys->Get("smooth_rfbinvar");
             rffit = (TH1D*)fSys->Get("smooth_rffit");
         }
-        if(radius == 4) maxtrackpt_R04 = (TH1D*)fSys->Get("smooth_maxtrackpt");
     }
 
     for(int radius = minradius; radius <= maxradius; radius++){
@@ -116,8 +117,6 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int bin = 1; bin <= vecSpectraSysE.at(radius-minradius)->GetNbinsX(); bin++){
             double sysError                          = (vecSystematics.at(radius-minradius)->GetBinContent(bin))/100;
-            if(radius == 3)                sysError = sqrt(pow(sysError,2) + pow((maxtrackpt_R02->GetBinContent(bin))/100,2));
-            if(radius == 5 || radius == 6) sysError = sqrt(pow(sysError,2) + pow((maxtrackpt_R04->GetBinError(bin))/100,2));
             if(radius != 2) sysError = sqrt(pow(sysError,2) + pow((rfbinvar->GetBinContent(bin))/100,2) + pow((rfbinvar->GetBinContent(bin))/100,2));
             Double_t scaledError = sysError*vecSpectraSysE.at(radius-minradius)->GetBinContent(bin);
             vecSpectraSysE.at(radius-minradius)->SetBinError(bin, scaledError);
@@ -141,24 +140,49 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         }
 
         vecSpectra.at(radius-minradius)->Scale((double)scale[radius-minradius]);
-        vecSpectra.at(radius-minradius)->GetXaxis()->SetRangeUser(20,320);
+        vecSpectra.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
         vecSpectra.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-8,10);
         SetStyleHistoTH1ForGraphs(vecSpectra.at(radius-minradius),"","#it{p}_{T} (GeV/#it{c})","d#it{#sigma} / d#it{p}_{T}d#it{#eta} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.2);
         vecSpectraSysE.at(radius-minradius)->Scale((double)scale[radius-minradius]);
-        vecSpectraSysE.at(radius-minradius)->GetXaxis()->SetRangeUser(20,320);
+        vecSpectraSysE.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
         vecSpectraSysE.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-8,10);
+        TH1D *dummydraw = (TH1D*)vecSpectra.at(radius-minradius)->Clone(Form("dummydraw_R0%i",radius));
+        TGraphErrors *graph     = new TGraphErrors(vecSpectra.at(radius-minradius));
         TGraphErrors *graphSysE = new TGraphErrors(vecSpectraSysE.at(radius-minradius));
         graphSysE->SetFillStyle(0);
         graphSysE->SetFillColor(colors[radius-minradius]);
         graphSysE->SetLineColor(colors[radius-minradius]);
+
+        graph->RemovePoint(22);
+        graph->RemovePoint(21);
+        graphSysE->RemovePoint(22);
+        graphSysE->RemovePoint(21);
+        if(radius == 5 || radius == 6){
+          graph->RemovePoint(20);
+          graph->RemovePoint(19);
+          graph->RemovePoint(18);
+          graphSysE->RemovePoint(20);
+          graphSysE->RemovePoint(19);
+          graphSysE->RemovePoint(18);
+        }
+        if(radius == 6){
+          graph->RemovePoint(17);
+          graph->RemovePoint(16);
+          graphSysE->RemovePoint(17);
+          graphSysE->RemovePoint(16);
+        }
         vecSpectraSysE_graph.push_back(graphSysE);
+        vecSpectra_graph.push_back(graph);
 
         legend->AddEntry(vecSpectra.at(radius-minradius), Form("#it{R} = 0.%i x %i",radius,scale[radius-minradius]), "p");
         if(radius==minradius){
-          vecSpectra.at(radius-minradius)->Draw("p,e2");
+          dummydraw->Draw("axis");
+          graph->Draw("p,e2,same");
+          //vecSpectra.at(radius-minradius)->Draw("p,e2");
           graphSysE->Draw("e2,same");
         }else{
-          vecSpectra.at(radius-minradius)->Draw("p,e2,same");
+          graph->Draw("p,e2,same");
+          //vecSpectra.at(radius-minradius)->Draw("p,e2,same");
           graphSysE->Draw("e2,same");
         }
     }
@@ -185,14 +209,16 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     for(int radius = minradius; radius <= maxradius; radius++){
         vecSpectra.at(radius-minradius)->Scale(1/(double)scale[radius-minradius]);
         vecSpectraSysE.at(radius-minradius)->Scale(1/(double)scale[radius-minradius]);
+        vecSpectra_graph.at(radius-minradius)->Scale(1/(double)scale[radius-minradius]);
         vecSpectraSysE_graph.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
-
+        TH1D *dummyUnscaled = (TH1D*)vecSpectra.at(radius-minradius)->Clone(Form("dummyUnscaled_R0%i",radius));
         legend->AddEntry(vecSpectra.at(radius-minradius), Form("#it{R} = 0.%i",radius), "p");
         if(radius==minradius){
-          vecSpectra.at(radius-minradius)->Draw("p,e2");
+          dummyUnscaled->Draw("axis");
+          vecSpectra_graph.at(radius-minradius)->Draw("p,e2,same");
           vecSpectraSysE_graph.at(radius-minradius)->Draw("e2,same");
         }else{
-          vecSpectra.at(radius-minradius)->Draw("p,e2,same");
+          vecSpectra_graph.at(radius-minradius)->Draw("p,e2,same");
           vecSpectraSysE_graph.at(radius-minradius)->Draw("e2,same");
         }
     }
@@ -224,10 +250,10 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     for(int radius = minradius+1; radius <= maxradius; radius++){
       //vecRatio.at(radius-(minradius+1))->GetYaxis()->SetRangeUser(0,1.4);
       vecRatio.at(radius-(minradius+1))->GetYaxis()->SetRangeUser(0,1.4);
-      vecRatio.at(radius-(minradius+1))->GetXaxis()->SetRangeUser(20,320);
+      vecRatio.at(radius-(minradius+1))->GetXaxis()->SetRangeUser(20,240);
       SetStyleHistoTH1ForGraphs(vecRatio.at(radius-(minradius+1)),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{#it{R}=0.2}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{#it{R}=0.#it{X}}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
       vecRatio.at(radius-(minradius+1))->SetFillColor(colors[radius-(minradius+1)]);
-      vecRatio.at(radius-(minradius+1))->SetMarkerStyle(styles[radius-(minradius+1)]);
+      vecRatio.at(radius-(minradius+1))->SetMarkerStyle(stylesfilled[radius-(minradius+1)]);
       vecRatio.at(radius-(minradius+1))->SetMarkerSize(2.5);
       vecRatio.at(radius-(minradius+1))->SetMarkerColor(colors[radius-(minradius+1)]);
       vecRatio.at(radius-(minradius+1))->SetLineColor(colors[radius-(minradius+1)]);
@@ -238,13 +264,40 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
       vecRatioSysE.at(radius-(minradius+1))->SetFillColor(colors[radius-(minradius+1)]);
       vecRatioSysE.at(radius-(minradius+1))->SetLineColor(colors[radius-(minradius+1)]);
 
+      TH1D *dummyRatio = (TH1D*)vecRatio.at(radius-(minradius+1))->Clone(Form("dummyRatio_R0%i",radius));
+      TGraphErrors *ratio     = new TGraphErrors((TH1D*)vecRatio.at(radius-(minradius+1)));
+      TGraphErrors *ratioSysE = (TGraphErrors*)vecRatioSysE.at(radius-(minradius+1))->Clone(Form("ratioSysE_R0%i",radius-(minradius+1)));
+      ratio->RemovePoint(22);
+      ratio->RemovePoint(21);
+      ratioSysE->RemovePoint(22);
+      ratioSysE->RemovePoint(21);
+      if(radius == 5 || radius == 6){
+        ratio->RemovePoint(20);
+        ratio->RemovePoint(19);
+        ratio->RemovePoint(18);
+        ratioSysE->RemovePoint(20);
+        ratioSysE->RemovePoint(19);
+        ratioSysE->RemovePoint(18);
+      }
+      if(radius == 6){
+        ratio->RemovePoint(17);
+        ratio->RemovePoint(16);
+        ratioSysE->RemovePoint(17);
+        ratioSysE->RemovePoint(16);
+      }
+
       legend2->AddEntry(vecRatio.at(radius-(minradius+1)), Form("#it{R}=0.%i/#it{R}=0.2",radius), "p");
       if(radius==(minradius+1)){
-        vecRatio.at(radius-(minradius+1))->Draw("p,e2");
-        vecRatioSysE.at(radius-(minradius+1))->Draw("e2,same");
+        dummyRatio->Draw("axis");
+        ratio->Draw("p,e2");
+        ratioSysE->Draw("e2,same");
+        //vecRatio.at(radius-(minradius+1))->Draw("p,e2");
+        //vecRatioSysE.at(radius-(minradius+1))->Draw("e2,same");
       }else{
-        vecRatio.at(radius-(minradius+1))->Draw("p,e2,same");
-        vecRatioSysE.at(radius-(minradius+1))->Draw("e2,same");
+        ratio->Draw("p,e2,same");
+        ratioSysE->Draw("e2,same");
+        //vecRatio.at(radius-(minradius+1))->Draw("p,e2,same");
+        //vecRatioSysE.at(radius-(minradius+1))->Draw("e2,same");
       }
     }
 
@@ -279,9 +332,41 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
       //vecSpectraSysE_graph.at(radius-minradius)->Scale(1./((double)scale[radius-minradius]));
       SetStyleHistoTH1ForGraphs(vecSpectra.at(radius-minradius),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.6);
       for(int outlier = 0; outlier < nOutlier; outlier++){
-        vecSpectra.at(radius-minradius)->Draw("p,e2");
-        vecSpectraSysE_graph.at(radius-minradius)->Draw("e2,same");
-        vecSpectraSim[outlier].at(radius-minradius)->Draw("p,e,same");
+        TH1D *dummySim = (TH1D*)vecSpectra.at(radius-minradius)->Clone(Form("dummySim_R0%i",radius));
+        TGraphErrors *graph     = new TGraphErrors(vecSpectra.at(radius-minradius));
+        TGraphErrors *graphSysE = (TGraphErrors*)vecSpectraSysE_graph.at(radius-minradius)->Clone(Form("graphSysE_R0%i",radius-minradius));
+        TGraphErrors *graphSim  = new TGraphErrors(vecSpectraSim[outlier].at(radius-minradius));
+
+        graphSysE->SetFillStyle(0);
+        graphSysE->SetFillColor(colors[radius-minradius]);
+        graphSysE->SetLineColor(colors[radius-minradius]);
+
+        graph->RemovePoint(22);
+        graph->RemovePoint(21);
+        graphSysE->RemovePoint(22);
+        graphSysE->RemovePoint(21);
+        if(radius == 5 || radius == 6){
+          graph->RemovePoint(20);
+          graph->RemovePoint(19);
+          graph->RemovePoint(18);
+          graphSysE->RemovePoint(20);
+          graphSysE->RemovePoint(19);
+          graphSysE->RemovePoint(18);
+        }
+        if(radius == 6){
+          graph->RemovePoint(17);
+          graph->RemovePoint(16);
+          graphSysE->RemovePoint(17);
+          graphSysE->RemovePoint(16);
+        }
+
+        dummySim->Draw("axis");
+        graph->Draw("p,e2,same");
+        graphSysE->Draw("e2,same");
+        graphSim->Draw("p,e,same");
+        //vecSpectra.at(radius-minradius)->Draw("p,e2");
+        //vecSpectraSysE_graph.at(radius-minradius)->Draw("e2,same");
+        //vecSpectraSim[outlier].at(radius-minradius)->Draw("p,e,same");
         legendsim->AddEntry(vecSpectra.at(radius-minradius), "ALICE Data", "p");
         legendsim->AddEntry(vecSpectraSim[outlier].at(radius-minradius), "PYTHIA8 Monash", "p");
         legendsim->Draw();
@@ -305,25 +390,52 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
     TLegend *legendsimratio = GetAndSetLegend2(0.65,0.15,0.95,0.15+((2)*textSize*1.5),textSize);
 
-    for(int radius = minradius; radius < maxradius; radius++){
-      SetStyleHistoTH1ForGraphs(vecRatio.at(radius-minradius),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{#it{R}=0.2}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{#it{R}=0.#it{X}}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
+    for(int radius = minradius+1; radius <= maxradius; radius++){
+      SetStyleHistoTH1ForGraphs(vecRatio.at(radius-(minradius+1)),"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{#it{R}=0.2}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{#it{R}=0.#it{X}}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
       for(int outlier = 0; outlier < nOutlier; outlier++){
-        vecRatio.at(radius-minradius)->Draw("p,e2");
-        vecRatioSysE.at(radius-minradius)->Draw("e2,same");
+        TH1D *dummyRatio = (TH1D*)vecRatio.at(radius-(minradius+1))->Clone(Form("dummyRatioSim_R0%i02",radius));
+        TGraphErrors *ratio     = new TGraphErrors((TH1D*)vecRatio.at(radius-(minradius+1)));
+        TGraphErrors *ratioSysE = (TGraphErrors*)vecRatioSysE.at(radius-(minradius+1))->Clone(Form("ratioSysEoutlier_R0%i02",radius));
         TH1D *dummyratiosim = (TH1D*)vecRatio.at(0)->Clone(Form("dummyratiosim_%i_%i",radius,outlier));
-        dummyratiosim->Divide(vecSpectraSim[outlier].at(0), vecSpectraSim[outlier].at(radius-minradius+1),1,1,"b");
-        legendsimratio->AddEntry(vecRatio.at(radius-minradius), "ALICE Data", "p");
+        dummyratiosim->Divide(vecSpectraSim[outlier].at(0), vecSpectraSim[outlier].at(radius-minradius),1,1,"b");
+        TGraphErrors *dummyratiosim_graph = new TGraphErrors(dummyratiosim);
+
+        ratio->RemovePoint(22);
+        ratio->RemovePoint(21);
+        ratioSysE->RemovePoint(22);
+        ratioSysE->RemovePoint(21);
+        if(radius == 5 || radius == 6){
+          ratio->RemovePoint(20);
+          ratio->RemovePoint(19);
+          ratio->RemovePoint(18);
+          ratioSysE->RemovePoint(20);
+          ratioSysE->RemovePoint(19);
+          ratioSysE->RemovePoint(18);
+        }
+        if(radius == 6){
+          ratio->RemovePoint(17);
+          ratio->RemovePoint(16);
+          ratioSysE->RemovePoint(17);
+          ratioSysE->RemovePoint(16);
+        }
+
+        dummyRatio->Draw("axis");
+        ratio->Draw("p,e2,same");
+        ratioSysE->Draw("e2,same");
+        //vecRatio.at(radius-minradius)->Draw("p,e2");
+        //vecRatioSysE.at(radius-minradius)->Draw("e2,same");
+        legendsimratio->AddEntry(vecRatio.at(radius-(minradius+1)), "ALICE Data", "p");
         legendsimratio->AddEntry(dummyratiosim, "PYTHIA Monash", "p");
-        dummyratiosim->Draw("p,e,same");
+        dummyratiosim_graph->Draw("p,e,same");
         l2->Draw("same");
         legendsimratio->Draw();
 
         drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.2/#it{R}=0.%i",radius+1),0.19,0.87, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.2/#it{R}=0.%i",radius),0.19,0.87, textSize,kFALSE, kFALSE, false);
         drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.83, textSize,kFALSE, kFALSE, false);
         drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.19,0.79, textSize,kFALSE, kFALSE, false);
 
-        c4->SaveAs(Form("%s/MCGen/MCComp_Ratio_R0%i_%s.%s",output.Data(),radius+1,outliers[outlier].Data(),fileType.Data()));
+        c4->SaveAs(Form("%s/MCGen/MCComp_Ratio_R0%i02_%s.%s",output.Data(),radius,outliers[outlier].Data(),fileType.Data()));
         legendsimratio->Clear();
       }
     }
@@ -343,7 +455,22 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         ratiosimdata->Divide(vecSpectraSim[outlier].at(radius-minradius), vecSpectra.at(radius-minradius),1,1,"b");
         SetStyleHistoTH1ForGraphs(ratiosimdata,"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{sim}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
         ratiosimdata->GetYaxis()->SetRangeUser(0.96,2.4);
-        ratiosimdata->Draw("p,e");
+        TGraphErrors *ratiosimdata_graph = new TGraphErrors(ratiosimdata);
+
+        ratiosimdata_graph->RemovePoint(22);
+        ratiosimdata_graph->RemovePoint(21);
+        if(radius == 5 || radius == 6){
+          ratiosimdata_graph->RemovePoint(20);
+          ratiosimdata_graph->RemovePoint(19);
+          ratiosimdata_graph->RemovePoint(18);
+        }
+        if(radius == 6){
+          ratiosimdata_graph->RemovePoint(17);
+          ratiosimdata_graph->RemovePoint(16);
+        }
+
+        ratiosimdata->Draw("axis");
+        ratiosimdata_graph->Draw("p,e,same");
         l2->Draw("same");
 
         drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.3, textSize,kFALSE, kFALSE, false);
