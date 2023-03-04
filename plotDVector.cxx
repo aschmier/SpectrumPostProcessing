@@ -19,7 +19,7 @@ void plotDVector(TString file, TString output, TString fileType)
     TString baseDirectory = "/home/austin/alice/RpA_results";
     int minradius = 2;
     int maxradius = 6;
-    int regiter   = 6;
+    int regiter   = 7;
     TString triggers[3] = {"Min. Bias (INT7)", "EMCal-L0 (EMC7)", "EMCal-L1 (EJE)"};
 
     int styles[10] = {8,21,33,34,41,43,45,47,48,49};

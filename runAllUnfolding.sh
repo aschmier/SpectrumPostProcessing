@@ -4,7 +4,7 @@
 booldefaultbayes=false
 booldefaultsvd=false
 booldefaultbayesfinal=true
-booldefaultsvdfinal=true
+booldefaultsvdfinal=false
 boolbinvar1=false
 boolbinvar2=false
 boolbinvar3=false
@@ -35,14 +35,14 @@ boolLowTriggerSwapLow=false
 boolLowTriggerSwapHigh=false
 boolHighTriggerSwapLow=false
 boolHighTriggerSwapHigh=false
-boolLowRFBinVarOption1=false
-boolLowRFBinVarOption2=false
-boolLowRFBinVarOption3=false
-boolLowRFBinVarOption4=false
-boolHighRFBinVarOption1=false
-boolHighRFBinVarOption2=false
-boolHighRFBinVarOption3=false
-boolHighRFBinVarOption4=false
+#boolLowRFBinVarOption1=false
+#boolLowRFBinVarOption2=false
+#boolLowRFBinVarOption3=false
+#boolLowRFBinVarOption4=false
+#boolHighRFBinVarOption1=false
+#boolHighRFBinVarOption2=false
+#boolHighRFBinVarOption3=false
+#boolHighRFBinVarOption4=false
 boolLowRFFitLow=false
 boolLowRFFitHigh=false
 boolHighRFFitLow=false
@@ -76,32 +76,34 @@ pPb=951
 
 ppRFLow=66.99
 ppRFLowError=0.34
-ppRFHigh=94.34
-ppRFHighError=0.72
+ppRFHigh=94.42
+ppRFHighError=0.75
 
 ppSwapLow=30
 ppSwapHigh=60
 
+inputResponseFile="/home/austin/alice/SpectrumPostProcessing/FilteredResponse/filteredResponse.root"
+
 # Default
 if $booldefaultsvd
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"default", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"default_sys", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 if $booldefaultbayes
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"default", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"default_sys", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 # Default final (correct emcal corrections)
 if $booldefaultbayesfinal
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"default", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_ResponseFilter_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"default_final", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default",-1,false,"'$inputResponseFile'")'
 fi
 
 if $booldefaultsvdfinal
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"default", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"default_final", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 # Bin Variation
@@ -128,7 +130,7 @@ fi
 # Priors
 if $boolpriors
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysPriors_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default_sys/bayes_default_2284.root",'$ppRFLow','$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysPriors_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_sys_'$default'.root",'$ppRFLow','$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 # Truncation
@@ -246,7 +248,7 @@ fi
 # Q/pT Shift
 if $boolQPtShift
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/QoverPtShift_new/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/QoverPtShift_new/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/QoverPtShift_new/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$QPtShift',"default", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/QoverPtShift_new/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/QoverPtShift_new/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/QoverPtShift_new/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$QPtShift',"QoverPtShift", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 #########################
@@ -256,83 +258,105 @@ fi
 # Trigger Swap
 if $boolLowTriggerSwapLow
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowTriggerSwapLow","default",25.,60.)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowTriggerSwapLow", '$ppRFLow', '$ppRFHigh',25,'$ppSwapHigh',"default")'
 fi
 
 if $boolLowTriggerSwapHigh
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowTriggerSwapHigh","default",35.,60.)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowTriggerSwapHigh", '$ppRFLow', '$ppRFHigh',35,'$ppSwapHigh',"default")'
 fi
 
 if $boolHighTriggerSwapLow
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighTriggerSwapLow","default",30.,55.)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighTriggerSwapLow", '$ppRFLow', '$ppRFHigh','$ppSwapLow',50,"default")'
 fi
 
 if $boolHighTriggerSwapHigh
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighTriggerSwapHigh","default",30.,65.)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighTriggerSwapHigh", '$ppRFLow', '$ppRFHigh','$ppSwapLow',70,"default")'
 fi
 
 # RFVar
-if $boolLowRFBinVarOption1
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption1","default",30.,60.,1.5,6.,"option1","default")'
-fi
+#if $boolLowRFBinVarOption1
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption1","default",30.,60.,4.,12.25,false,"option1","default")'
+#fi
 
-if $boolLowRFBinVarOption2
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption2","default",30.,60.,1.5,6.,"option2","default")'
-fi
+#if $boolLowRFBinVarOption2
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption2","default",30.,60.,4.,12.25,false,"option2","default")'
+#fi
 
-if $boolLowRFBinVarOption3
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption3","default",30.,60.,1.5,6.,"option3","default")'
-fi
+#if $boolLowRFBinVarOption3
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption3","default",30.,60.,4.,12.25,false,"option3","default")'
+#fi
 
-if $boolLowRFBinVarOption4
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption4","default",30.,60.,1.5,6.,"option4","default")'
-fi
+#if $boolLowRFBinVarOption4
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFBinVarOption4","default",30.,60.,4.,12.25,false,"option4","default")'
+#fi
 
-if $boolHighRFBinVarOption1
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption1","default",30.,60.,1.5,6.,"default","option1")'
-fi
+#if $boolHighRFBinVarOption1
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption1","default",30.,60.,4.,12.25,false,"default","option1")'
+#fi
 
-if $boolHighRFBinVarOption2
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption2","default",30.,60.,1.5,6.,"default","option2")'
-fi
+#if $boolHighRFBinVarOption2
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption2","default",30.,60.,4.,12.25,false,"default","option2")'
+#fi
 
-if $boolHighRFBinVarOption3
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption3","default",30.,60.,1.5,6.,"default","option3")'
-fi
+#if $boolHighRFBinVarOption3
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption3","default",30.,60.,4.,12.25,false,"default","option3")'
+#fi
 
-if $boolHighRFBinVarOption4
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption4","default",30.,60.,1.5,6.,"default","option4")'
-fi
+#if $boolHighRFBinVarOption4
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFBinVarOption4","default",30.,60.,4.,12.25,false,"default","option4")'
+#fi
 
 if $boolLowRFFitLow
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFFitLow","default",30.,60.,1.,6.)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFFitLow","default",30.,60.,3.5,12.25)'
 fi
 
 if $boolLowRFFitHigh
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFFitHigh","default",30.,60.,2.,6.)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFFitHigh","default",30.,60.,4.5,12.25)'
 fi
 
 if $boolHighRFFitLow
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFFitLow","default",30.,60.,1.5,5.5)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFFitLow","default",30.,60.,4.,11.75)'
 fi
 
 if $boolHighRFFitHigh
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFFitHigh","default",30.,60.,1.5,6.5)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFFitHigh","default",30.,60.,4.,12.75)'
+fi
+
+##
+
+if $boolLowRFFitLow
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFFitLow", 67.03, '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+fi
+
+if $boolLowRFFitHigh
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"LowRFFitHigh", 66.85, '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+fi
+
+if $boolHighRFFitLow
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFFitLow", '$ppRFLow', 94.34,'$ppSwapLow','$ppSwapHigh',"default")'
+fi
+
+if $boolHighRFFitHigh
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"HighRFFitHigh", '$ppRFLow', 94.47,'$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 # Get rejection factors (run Trigger Sys macro with all default settings)

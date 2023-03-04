@@ -139,14 +139,16 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
     legend->Clear();
 
     for(int radius = minradius; radius <= maxradius; radius++){
-        if(radius==minradius){
+        //if(radius==minradius){
             //vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
-            if(radius==2 || radius==3 || radius==4) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
-            if(radius==5) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
-            if(radius==6) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,130);
             //vecCombined.at(radius-minradius)->GetYaxis()->SetRangeUser(3e-10,2e-3);
-            SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        }
+            //SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+        //}
+        if(radius==2 || radius==3 || radius==4) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
+        if(radius==5) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
+        if(radius==6) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,130);
+        SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+
         vecCombined.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
         vecCombined.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecCombined.at(radius-minradius)->SetLineColor(colors[radius-minradius]);

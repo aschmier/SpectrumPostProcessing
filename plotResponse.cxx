@@ -27,7 +27,7 @@ void plotResponse(TString file, TString output, TString fileType)
     }
 
     TCanvas *c   = new TCanvas("c", "", 1200, 800);
-    DrawPaperCanvasSettings(c,0.1,0.025,0.025,0.1);
+    DrawPaperCanvasSettings(c,0.1,0.1,0.025,0.1);
     gStyle->SetOptStat(0);
     c->SetLogz();
 
@@ -35,6 +35,7 @@ void plotResponse(TString file, TString output, TString fileType)
         TDirectory *dRadius   = (TDirectory*)f->Get(Form("R0%i",radius));
         TDirectory *dResponse = (TDirectory*)dRadius->Get("response");
         TH2D *response  = (TH2D*)dResponse->Get(Form("Rawresponse_R0%i_fine_rebinned_standard",radius));
+        response->Scale(1.,"width");
 
         response->GetXaxis()->SetRangeUser(0,200);
         response->GetYaxis()->SetRangeUser(0,300);

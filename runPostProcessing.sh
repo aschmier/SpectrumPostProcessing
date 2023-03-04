@@ -35,8 +35,8 @@ fUnfolded_bayes_final="/home/austin/alice/SpectrumPostProcessing/Unfolding/Unfol
 fUnfolded_svd_final="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_final_2423.root"
 
 # Unfolded input file with systematics config
-fUnfolded_bayes_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_2422.root"
-fUnfolded_svd_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_2422.root"
+fUnfolded_bayes_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_sys_2422.root"
+fUnfolded_svd_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_sys_2422.root"
 
 # MC Gen input file
 fMCGen="/media/austin/mightymouse/data/pp8TeV_MC/PureMC_8TeV/AnalysisResults.root"
@@ -44,7 +44,7 @@ fMCGen="/media/austin/mightymouse/data/pp8TeV_MC/PureMC_8TeV/AnalysisResults.roo
 # LHC16c2 runlist
 runsMC="/home/austin/alice/pp8TeV_runlists/runsLHC16c2.txt"
 
-uTypeAna="SVD"
+uTypeAna="Bayes"
 uTypeSys="Bayes"
 
 dSysRootFiles="/home/austin/alice/SystematicsRootFiles"
@@ -62,20 +62,21 @@ mkdir -p $outputdir
 # Run systematics and plot rejection factor
 #for (( r=2; r<=6; r++ ))
 #do
-  #root -x -q -l -b 'plotSystematicsCorrelated.cxx("'$fUnfolded_bayes_sys'","'$fUnfolded_bayes_final'","'$uTypeSys'",'$r',"'$filetype'","'$outputdir'")'
-  #root -x -q -l -b 'plotRejectionFactor.cxx("'$fMB_sys'","'$fEMC7_sys'","'$fEJE_sys'","'$outputdir'",'$r',"'$filetype'")'
-  #root -x -q -l -b 'plotTriggerSwap.cxx("'$fUnfolded_svd_final'","'$outputdir'",'$r',"pp","'$filetype'")'
+#  root -x -q -l -b 'plotSystematicsCorrelated.cxx("'$fUnfolded_bayes_sys'","'$uTypeSys'",'$r',"'$filetype'","'$outputdir'")'
+#  root -x -q -l -b 'plotRatioSystematicsCorrelated.cxx("'$fUnfolded_bayes_sys'","'$uTypeSys'",'$r',"'$filetype'","'$outputdir'")'
+#  root -x -q -l -b 'plotRejectionFactor.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'",'$r',"'$filetype'")'
+#  root -x -q -l -b 'plotTriggerSwap.cxx("'$fUnfolded_bayes_final'","'$outputdir'",'$r',"pp","'$filetype'")'
 #done
 
 # Make plots for analysis note
-#root -x -q -l -b 'plotKinEff.cxx("'$fUnfolded_svd_final'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotKinEff.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'plotDVector.cxx("'$fUnfolded_svd_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'plotTriggerBias.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'plotTriggerBiasAll.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'plotTriggerClusters.cxx("'$fMB_sys'","'$fEMC7_sys'","'$fEJE_sys'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotCorrRawSpec.cxx("'$fUnfolded_svd_final'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotCorrRawSpec.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'extractEnergyScaleSlices.cxx("'$fMC_final'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotTriggerEfficiencies.cxx("'$fUnfolded_svd_final'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotTriggerEfficiencies.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/EnergyScale/EnergyScaleTask/extractJetEnergyScaleSimple.cpp("'$fMC_final'","FullJet","default")'
 #mv EnergyScaleResults_default.root $dEnergyScaleRootFiles/EnergyScaleResults.root
 #root -x -q -l -b 'plotJES.cxx("'$dEnergyScaleRootFiles'/EnergyScaleResults.root","'$outputdir'","","'$filetype'")'
@@ -89,4 +90,4 @@ mkdir -p $outputdir
 #done < $runsMC
 
 # Plot final results and MC comparison
-root -x -q -l -b 'plotFinalSpectrum.cxx("'$fUnfolded_svd_final'","'$fMCGen'","'$dSysRootFiles'","'$uTypeAna'","'$outputdir'","'$filetype'")'
+root -x -q -l -b 'plotFinalSpectrum.cxx("'$fUnfolded_bayes_final'","'$fMCGen'","'$dSysRootFiles'","'$uTypeAna'","'$outputdir'","'$filetype'")'

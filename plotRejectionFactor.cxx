@@ -73,14 +73,10 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
         clustersRebinned->Scale(1.,"width");
         vecClusters.push_back(clustersRebinned);
     }
-    cout << __LINE__ << endl;
 
     // Make unscaled rejection factors
     std::tuple<double, double, TH1 *> TupleLowUnscaled  = makeRejectionFactor(vecClusters.at(1), vecClusters.at(0), radius, "INT7", "EMC7", "default", 4., 40., 1.5, 40.);
-    cout << __LINE__ << endl;
-
-    std::tuple<double, double, TH1 *> TupleHighUnscaled = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EMC7", "EJE", "default", 12., 60., 6., 200.);
-    cout << __LINE__ << endl;
+    std::tuple<double, double, TH1 *> TupleHighUnscaled = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EMC7", "EJE", "default", 12.25, 60., 6., 200.);
 
     double valLowUnscaled = (double)(std::get<0>(TupleLowUnscaled));
     double errLowUnscaled = (double)(std::get<1>(TupleLowUnscaled));
@@ -108,13 +104,9 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
 
     TH1D *clustersRebinnedScaledEJE = (TH1D*)vecClusters.at(3)->Clone("clustersRebinnedScaledEJE");
     clustersRebinnedScaledEJE->Divide(vecClusters.at(3),effScaleFineEJE);
-    cout << __LINE__ << endl;
 
     std::tuple<double, double, TH1 *> TupleLow  = makeRejectionFactor(clustersRebinnedScaledCourseEMC7, vecClusters.at(0), radius, "INT7", "EMC7", "default", 4., 30., 1.5, 40.,false);
-    cout << __LINE__ << endl;
-
-    std::tuple<double, double, TH1 *> TupleHigh = makeRejectionFactor(clustersRebinnedScaledEJE, clustersRebinnedScaledFineEMC7, radius, "EMC7", "EJE", "default", 12., 200., 6., 200.,false);
-    cout << __LINE__ << endl;
+    std::tuple<double, double, TH1 *> TupleHigh = makeRejectionFactor(clustersRebinnedScaledEJE, clustersRebinnedScaledFineEMC7, radius, "EMC7", "EJE", "default", 12.25, 200., 6., 200.,false);
 
     double valLow = (double)(std::get<0>(TupleLow));
     double errLow = (double)(std::get<1>(TupleLow));
@@ -130,7 +122,7 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     DrawPaperCanvasSettings(c,0.1,0.025,0.025,0.1);
     gStyle->SetOptStat(0);
     c->SetLogy(1);
-    c->SetLogx(0);
+    //c->SetLogx(0);
 
     TLegend *legendClus =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.31,0.86,textSize,1);
 
@@ -182,7 +174,7 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     c->SaveAs(Form("%s/RejectionFactors/clustersMC_R0%i.%s",output.Data(),radius,fileType.Data()));
 
     c->SetLogy(0);
-    c->SetLogx(0);
+    //c->SetLogx(0);
 
     TLine * l = new TLine (0,1,200,1);
     l->SetLineColor(14);
@@ -213,10 +205,14 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     c->SetLogy(0);
     c->SetLogx(1);
 
-    TLegend *legend =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.31,0.86,textSize,1);
+    TLegend *legend =  GetAndSetLegend2(0.52,(0.86-(2)*textSize),0.82,0.86,textSize,1);
+
+    TH1D *dummy = (TH1D*)RFacLow->Clone("dummy");
+    dummy->GetXaxis()->SetRangeUser(1,200);
+    dummy->GetYaxis()->SetRangeUser(0,160);
 
     RFacLow->GetXaxis()->SetMoreLogLabels();
-    //RFacLow->GetXaxis()->SetRangeUser(1,200);
+    RFacLow->GetXaxis()->SetRangeUser(0,40);
     RFacLow->GetYaxis()->SetRangeUser(5,210);
     RFacLow->SetMarkerStyle(styles[0]);
     RFacLow->SetMarkerColor(colors[0]);
@@ -224,6 +220,7 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     RFacLow->SetMarkerSize(2);
     RFacLow->Sumw2();
 
+    RFacLow->GetXaxis()->SetRangeUser(0,90);
     RFacHigh->SetMarkerStyle(styles[7]);
     RFacHigh->SetMarkerColor(colors[2]);
     RFacHigh->SetLineColor(colors[2]);
@@ -233,18 +230,25 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     SetStyleHistoTH1ForGraphs(RFacLow,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
     SetStyleHistoTH1ForGraphs(RFacHigh,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
 
-    RFacLow->Draw("p,e");
+    TGraphErrors *RFacLowGraph = new TGraphErrors(RFacLow);
+    TGraphErrors *RFacHighGraph = new TGraphErrors(RFacHigh);
+
+    dummy->Draw("axis");
+    RFacLow->Draw("p,e,same");
     RFacHigh->Draw("p,e,same");
 
     legend->AddEntry(RFacLow, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLow,errLow), "p");
     legend->AddEntry(RFacHigh, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHigh,errHigh), "p");
     legend->Draw("same");
 
-    drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
+    drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.91,0.9, textSize,false, false, true);
 
     c->SaveAs(Form("%s/RejectionFactors/RF_R0%i.%s",output.Data(),radius,fileType.Data()));
 
     legend->Clear();
+    c->SetLogx(1);
+    TLegend *legend2 =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.32,0.86,textSize,1);
+
 
     RFacLowUnscaled->GetXaxis()->SetMoreLogLabels();
     //RFacLowUnscaled->GetXaxis()->SetRangeUser(1,200);
@@ -267,9 +271,9 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     RFacLowUnscaled->Draw("p,e");
     RFacHighUnscaled->Draw("p,e,same");
 
-    legend->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
-    legend->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
-    legend->Draw("same");
+    legend2->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
+    legend2->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
+    legend2->Draw("same");
 
     drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
 

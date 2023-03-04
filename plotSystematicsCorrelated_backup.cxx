@@ -53,8 +53,7 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
         plot_names.insert(plot_names.end(), {"Unfolding","Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","RF Fit"});
         systematics_names.insert(systematics_names.end(), {"allunfolding","qoverptshift","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap","rffit"});
         variation_original.insert(variation_original.end(), {"default","default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,60GeV)","(Low=1.5GeV,High=6GeV)"});
-        if(radius == 2 || radius == 3 || radius == 4) fitfunc.insert(fitfunc.end(), {"binwise","pol2","pol0","pol4","pol4","pol0","pol0","binwise","binwise","binwise"});
-        else fitfunc.insert(fitfunc.end(), {"binwise","pol2","pol0","pol0","pol0","pol0","pol0","binwise","binwise","binwise"});
+        fitfunc.insert(fitfunc.end(), {"binwise","pol2","pol0","pol0","pol2","pol0","pol0","binwise","binwise","binwise"});
     //}else{
     //    plot_names.insert(plot_names.end(), {"Unfolding","Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}"});
     //    systematics_names.insert(systematics_names.end(), {"allunfolding","qoverptshift","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking","triggerswap"});
@@ -309,7 +308,6 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
         TF1  *pol1;
         TF1  *pol2;
         TF1  *pol3;
-        TF1  *pol4;
         TF1  *exp0;
         TH1D *smooth;
 
@@ -317,15 +315,13 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
         pol1 = new TF1("pol1","[0]+[1]*x",minPt,maxPt);
         pol2 = new TF1("pol2","[0]+[1]*x+[2]*x*x",minPt,maxPt);
         pol3 = new TF1("pol3","[0]+[1]*x+[2]*x*x+[3]*x*x*x",minPt,maxPt);
-        pol4 = new TF1("pol4","[0]+[1]*x*x*x*x",minPt,maxPt);
         exp0 = new TF1("exp0","[0]+[1]/expo([2]*x)",minPt,maxPt);
         if(fitfunc[name] == ""){
             pol0->SetLineColor(colors[2]);
             pol1->SetLineColor(colors[3]);
             pol2->SetLineColor(colors[4]);
             pol3->SetLineColor(colors[5]);
-            pol4->SetLineColor(colors[6]);
-            exp0->SetLineColor(colors[7]);
+            exp0->SetLineColor(colors[6]);
 
             sysAvg->Fit(pol0, "QRMEX+", "", minPt, maxPt);
             legend->AddEntry(pol0, "pol0", "l");
@@ -335,8 +331,6 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
             legend->AddEntry(pol2, "pol2", "l");
             sysAvg->Fit(pol3, "QRMEX+", "", minPt, maxPt);
             legend->AddEntry(pol3, "pol3", "l");
-            sysAvg->Fit(pol4, "QRMEX+", "", minPt, maxPt);
-            legend->AddEntry(pol4, "pol4", "l");
             sysAvg->Fit(exp0, "QRMEX+", "", minPt, maxPt);
             legend->AddEntry(exp0, "exp0", "l");
         }else{
@@ -344,14 +338,10 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
             else if(fitfunc[name] == "pol1") sysFit = (TF1*)pol1->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "pol2") sysFit = (TF1*)pol2->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "pol3") sysFit = (TF1*)pol3->Clone(Form("sysfit_%i",name));
-            else if(fitfunc[name] == "pol4") sysFit = (TF1*)pol4->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "exp0") sysFit = (TF1*)exp0->Clone(Form("sysfit_%i",name));
-            else if(fitfunc[name] == "binwise"){
-                cout << "Using binwise errors for " << systematics_names[name] << endl;
-                sysFit = NULL;
-            }
+            else if(fitfunc[name] == "binwise") cout << "Using binwise errors for " << systematics_names[name] << endl;
             else{ cout << "Invalid fit function!" << endl; return; }
-            if(fitfunc[name] != "binwise") sysFit->SetLineColor((Color_t)colors[name+1]);
+            sysFit->SetLineColor((Color_t)colors[name+1]);
 
             if(systematics_names[name].Contains("rf")){
                 for(int bin=1; bin<sysAvg->GetNbinsX()+1; bin++){
