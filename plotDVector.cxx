@@ -62,4 +62,15 @@ void plotDVector(TString file, TString output, TString fileType)
         drawLatexAdd("D-Vector Iterations Comparison",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
         canvas->SaveAs(Form("%s/DVector/DVector_R0%i.%s",output.Data(),radius,fileType.Data()));
     }
+
+    TLegend *leg = new TLegend(0.6,0.6,0.9,0.9);
+    leg->SetBorderSize(0);
+    leg->SetFillStyle(0);
+    leg->SetTextSize(0.03);
+    leg->AddEntry(vecDVec.at(0),"R = 0.2","p");
+    leg->AddEntry(vecDVec.at(1),"R = 0.3","p");
+    leg->AddEntry(vecDVec.at(2),"R = 0.4","p");
+    leg->AddEntry(vecDVec.at(3),"R = 0.5","p");
+    leg->AddEntry(vecDVec.at(4),"R = 0.6","p");
+    leg->Draw();
 }

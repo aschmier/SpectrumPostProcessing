@@ -16,7 +16,7 @@ pAMCNR="/media/austin/mightymouse/data/pPb8TeV_MC/merged_1461/AnalysisResults.ro
 
 arrPAMC=("'$pAMCHF'","'$pAMCEC'","'$pAMCNR'")
 
-outHF2="/home/austin/alice/SpectrumPostProcessing/RpADebug/HeaderFilter2_new"
+outHF2="/home/austin/alice/SpectrumPostProcessing/RpADebug/HeaderFilter2"
 outHF="/home/austin/alice/SpectrumPostProcessing/RpADebug/HeaderFilter"
 outEC="/home/austin/alice/SpectrumPostProcessing/RpADebug/EPOSCorrected"
 outNR="/home/austin/alice/SpectrumPostProcessing/RpADebug/NoRejection"
@@ -31,6 +31,6 @@ outRC="/home/austin/alice/SpectrumPostProcessing/RpADebug/RejectionComparison"
 root -x -q -l -b 'plotRpADebug.cxx("'$ppINT7'","'$ppEMC7'","'$ppEJE'","'$ppMC'","'$pAINT7'","'$pAEJ2'","'$pAEJ1'","'$pAMCHF2'","'$outHF2'")'
 #root -x -q -l -b 'plotRpADebug.cxx("'$ppINT7'","'$ppEMC7'","'$ppEJE'","'$ppMC'","'$pAINT7'","'$pAEJ2'","'$pAEJ1'","'$pAMCHF'","'$outHF'")'
 #root -x -q -l -b 'plotRpADebug.cxx("'$ppINT7'","'$ppEMC7'","'$ppEJE'","'$ppMC'","'$pAINT7'","'$pAEJ2'","'$pAEJ1'","'$pAMCEC'","'$outEC'")'
-#root -x -q -l -b 'plotRpADebug.cxx("'$ppINT7'","'$ppEMC7'","'$ppEJE'","'$ppMC'","'$pAINT7'","'$pAEJ2'","'$pAEJ1'","'$pAMCNR'","'$outNR'")'
+root -x -q -l -b 'plotRpADebug.cxx("'$ppINT7'","'$ppEMC7'","'$ppEJE'","'$ppMC'","'$pAINT7'","'$pAEJ2'","'$pAEJ1'","'$pAMCNR'","'$outNR'")'
 
 #root -x -q -l -b 'plotRpARejComp.cxx("'$ppMC'","'$pAMCHF2'","'$pAMCHF'","'$pAMCEC'","'$pAMCNR'","'$outRC'")'

@@ -9,6 +9,23 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 
+std::vector<double> getBins(TH1 *fHistogram){
+    std::vector<double> result;
+    for(int ib = 0; ib < fHistogram->GetXaxis()->GetNbins(); ib++) {
+        auto entries  = fHistogram->GetBinContent(ib+1);
+        if(TMath::Abs(entries) > DBL_EPSILON) {
+            // filter 0
+            result.emplace_back(entries);
+        }
+    }
+    return result;
+}
+
+double getMaxTrials(TH1 *hist){
+    auto bins = getBins(hist);
+    return *std::max_element(bins.begin(), bins.end());
+}
+
 void plotRpADebug(TString ppINT7, TString ppEMC7, TString ppEJE, TString ppMC, TString pAINT7, TString pAEJ2, TString pAEJ1, TString pAMC, TString outputdir)
 {
     double textSize  = 0.04;
@@ -23,7 +40,7 @@ void plotRpADebug(TString ppINT7, TString ppEMC7, TString ppEJE, TString ppMC, T
     vector<TH1D*> vecSpecMC[maxradius-minradius+1];
     vector<TH1D*> vecClusData[maxradius-minradius+1];
     vector<TH1D*> vecClusMC[maxradius-minradius+1];
-    vector<double> detlevelbin = getJetPtBinningNonLinSmearPoor();
+    vector<double> detlevelbin = getJetPtBinningNonLinSmear8TeV();
     double xsec_pp   = 55.8;
     double xsec_pPb  = 2095.;
     double nucfactor = 208.;
@@ -53,7 +70,7 @@ void plotRpADebug(TString ppINT7, TString ppEMC7, TString ppEJE, TString ppMC, T
             TH1D *events    = (TH1D*)list->FindObject("hClusterCounter");
             TH2D *spec2d    = (TH2D*)list->FindObject("hJetSpectrum");
             TH1D *clus1d    = (TH1D*)list->FindObject("hClusterEnergy1D");
-            TH1D *spec1d    = (TH1D*)spec2d->ProjectionY(Form("dataspec1d_R0%i",radius),1,1);
+            TH1D *spec1d    = (TH1D*)spec2d->ProjectionY(Form("dataspec1d_R0%i_%s",radius,triggers.at(t).Data()),1,1);
             TH1D *rspec     = (TH1D*)spec1d->Rebin(detlevelbin.size()-1, Form("rdataspec_%i_%s",radius,triggers.at(t).Data()), detlevelbin.data());
             TH1D *rclus     = (TH1D*)clus1d->Rebin(detlevelbin.size()-1, Form("rdataclus_%i_%s",radius,triggers.at(t).Data()), detlevelbin.data());
             rspec->Scale(1.,"width");
@@ -73,388 +90,277 @@ void plotRpADebug(TString ppINT7, TString ppEMC7, TString ppEJE, TString ppMC, T
                 return;
             }
 
-            TString dirname     = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers.at(t).Data());
+            TString dirname        = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, triggers.at(t).Data());
+            TString dirnameEScale  = Form("EnergyScaleResults_%sJet_R0%i_INT7_nodownscalecorr", jetType.Data(), radius);
+            TString listnameEScale = Form("EnergyScaleHists_%sJet_R0%i_INT7_nodownscalecorr", jetType.Data(), radius);
 
             TDirectory *dir = (TDirectory*)fmc->Get(dirname.Data());
             if(!dir){
                 dirname     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, triggers.at(t).Data());
                 dir = (TDirectory*)fmc->Get(dirname.Data());
             }
+            TDirectory *dirEScale = (TDirectory*)fmc->Get(dirnameEScale.Data());
+            if(!dirEScale){
+                dirnameEScale     = Form("EnergyScaleResults_%sJet_R0%i_INT7_default", jetType.Data(), radius);
+                dirEScale = (TDirectory*)fmc->Get(dirnameEScale.Data());
+                listnameEScale = Form("EnergyScaleHists_%sJet_R0%i_INT7_default", jetType.Data(), radius);
+            }
             TList *list     = (TList*)dir->Get(dirname.Data());
             TH1D *events    = (TH1D*)list->FindObject("hClusterCounter");
             TH2D *spec2d    = (TH2D*)list->FindObject("hJetSpectrum");
             TH1D *clus1d    = (TH1D*)list->FindObject("hClusterEnergy1D");
-            TH1D *spec1d    = (TH1D*)spec2d->ProjectionY(Form("dataspec1d_R0%i",radius),1,1);
+            TH1D *spec1d    = (TH1D*)spec2d->ProjectionY(Form("dataspec1d_R0%i_%s",radius,triggers.at(t).Data()),1,1);
             TH1D *rspec     = (TH1D*)spec1d->Rebin(detlevelbin.size()-1, Form("rmcspec_%i_%s",radius,triggers.at(t).Data()), detlevelbin.data());
             TH1D *rclus     = (TH1D*)spec1d->Rebin(detlevelbin.size()-1, Form("rmcclus_%i_%s",radius,triggers.at(t).Data()), detlevelbin.data());
+            TList *listEScale = (TList*)dirEScale->Get(listnameEScale.Data());
+            TH1F *histtrials = (TH1F*)listEScale->FindObject("fHistTrials");
+            double trials = getMaxTrials(histtrials);
+            if(t==0) cout << "pp:" << endl;
+            if(t==3) cout << "p--Pb:" << endl;
+            cout << "Trigger: " << triggers.at(t).Data() << endl;
+            cout << "Trials: " << trials << endl;
+            cout << "Events: " << events->GetBinContent(1) << endl;
             rspec->Scale(1.,"width");
-            rspec->Scale(1/events->GetBinContent(1));
+            //rspec->Scale(1/trials);
             rclus->Scale(1.,"width");
-            rclus->Scale(1/events->GetBinContent(1));
+            //rclus->Scale(1/trials);
             vecSpecMC[radius-minradius].push_back(rspec);
             vecClusMC[radius-minradius].push_back(rclus);
         }
     }
 
     TCanvas* canvas       = new TCanvas("canvas","",10,10,750,500);
-    double leftMargin   = 0.1;
-    double rightMargin  = 0.02;
-    double topMargin    = 0.04;
-    double bottomMargin = 0.09;
+    double leftMargin   = 0.075;
+    double rightMargin  = 0.01;
+    double topMargin    = 0.01;
+    double bottomMargin = 0.1;
     DrawPaperCanvasSettings(canvas,leftMargin,rightMargin,topMargin,bottomMargin);
     gStyle->SetOptStat(0);
-    canvas->SetLogy();
+    canvas->cd();
 
-    TLegend *legend =  GetAndSetLegend2(0.72,(0.82-(2)*textSize),0.82,0.82,textSize,1);
+    TH1D *dummyRpA = new TH1D("dummyRpA","",350,0,350);
+    dummyRpA->GetXaxis()->SetRangeUser(0,260);
+    dummyRpA->GetYaxis()->SetRangeUser(0,2);
+    SetStyleHistoTH1ForGraphs(dummyRpA,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb}",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,0.9);
+
+    TH1D *dummySpectraMB = new TH1D("dummySpectraMB","",350,0,350);
+    dummySpectraMB->GetYaxis()->SetRangeUser(2e-9,2e-3);
+    dummySpectraMB->GetXaxis()->SetRangeUser(0,260);
+    SetStyleHistoTH1ForGraphs(dummySpectraMB,"","#it{p}_{T} (GeV/c)","Raw Yield / NEvents",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,1);
+
+    TH1D *dummySpectraL1 = new TH1D("dummySpectra","",350,0,350);
+    dummySpectraL1->GetYaxis()->SetRangeUser(2e-9,2e-3);
+    dummySpectraL1->GetXaxis()->SetRangeUser(0,260);
+    SetStyleHistoTH1ForGraphs(dummySpectraL1,"","#it{p}_{T} (GeV/c)","Raw Yield / NEvents",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,1);
+
+    TLine * l1 = new TLine (0,1,260,1);
+    l1->SetLineColor(14);
+    l1->SetLineWidth(3);
+    l1->SetLineStyle(7);
+
+    TLegend *legend =  GetAndSetLegend2(0.72,(0.8-(2)*textSize),0.82,0.8,textSize,1);
 
     for(int radius = minradius; radius <= maxradius; radius++){
-/*        // Plot data jets for all pp triggers in one plot
-        for(int i=0; i<3; i++){
-            vecSpecData[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecSpecData[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecSpecData[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecSpecData[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecSpecData[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecSpecData[radius-minradius].at(i),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==0) vecSpecData[radius-minradius].at(i)->Draw("p,e");
-            else vecSpecData[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecSpecData[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/JetSpectra_pp_R0%i_Data.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-
-        // Plot data jets for all pPb triggers in one plot
-        for(int i=3; i<6; i++){
-            vecSpecData[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecSpecData[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecSpecData[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecSpecData[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecSpecData[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecSpecData[radius-minradius].at(i),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==3) vecSpecData[radius-minradius].at(i)->Draw("p,e");
-            else vecSpecData[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecSpecData[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/JetSpectra_pPb_R0%i_Data.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-*/
-        // Plot simulation jets for all pp triggers in one plot
-        for(int i=0; i<3; i++){
-            vecSpecMC[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecSpecMC[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecSpecMC[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecSpecMC[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecSpecMC[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecSpecMC[radius-minradius].at(i),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==3) vecSpecMC[radius-minradius].at(i)->Draw("p,e");
-            else vecSpecMC[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecSpecMC[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/JetSpectra_pp_R0%i_Sim.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-
-        // Plot simulation jets for all pPb triggers in one plot
-        for(int i=3; i<6; i++){
-            vecSpecMC[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecSpecMC[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecSpecMC[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecSpecMC[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecSpecMC[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecSpecMC[radius-minradius].at(i),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==3) vecSpecMC[radius-minradius].at(i)->Draw("p,e");
-            else vecSpecMC[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecSpecMC[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/JetSpectra_pPb_R0%i_Sim.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-        // Plot data clusters for all pp triggers in one plot
-        for(int i=0; i<3; i++){
-            vecClusData[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecClusData[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecClusData[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecClusData[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecClusData[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecClusData[radius-minradius].at(i),"","E^{cluster}","#frac{1}{N^{trig}} #frac{dN}{dE^{cluster}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==0) vecClusData[radius-minradius].at(i)->Draw("p,e");
-            else vecClusData[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecClusData[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/ClusterSpectra_pp_R0%i_Data.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-
-        // Plot data clusters for all pPb triggers in one plot
-        for(int i=3; i<6; i++){
-            vecClusData[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecClusData[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecClusData[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecClusData[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecClusData[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecClusData[radius-minradius].at(i),"","E^{cluster}","#frac{1}{N^{trig}} #frac{dN}{dE^{cluster}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==3) vecClusData[radius-minradius].at(i)->Draw("p,e");
-            else vecClusData[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecClusData[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/ClusterSpectra_pPb_R0%i_Data.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-*/
-        // Plot simulation clusters for all pp triggers in one plot
-        for(int i=0; i<3; i++){
-            vecClusMC[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecClusMC[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecClusMC[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecClusMC[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecClusMC[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecClusMC[radius-minradius].at(i),"","E^{cluster}","#frac{1}{N^{trig}} #frac{dN}{dE^{cluster}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==0) vecClusMC[radius-minradius].at(i)->Draw("p,e");
-            else vecClusMC[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecClusMC[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/ClusterSpectra_pp_R0%i_Sim.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-
-        // Plot simulation clusters for all pPb triggers in one plot
-        for(int i=3; i<6; i++){
-            vecClusMC[radius-minradius].at(i)->SetMarkerStyle(styles[i]);
-            vecClusMC[radius-minradius].at(i)->SetMarkerColor(colors[i]);
-            vecClusMC[radius-minradius].at(i)->SetLineColor(colors[i]);
-            vecClusMC[radius-minradius].at(i)->GetXaxis()->SetRangeUser(20,240);
-            //vecClusMC[radius-minradius].at(i)->GetYaxis()->SetRangeUser(1e-9,1);
-            SetStyleHistoTH1ForGraphs(vecClusMC[radius-minradius].at(i),"","E^{cluster}","#frac{1}{N^{trig}} #frac{dN}{dE^{cluster}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(i==3) vecClusMC[radius-minradius].at(i)->Draw("p,e");
-            else vecClusMC[radius-minradius].at(i)->Draw("p,e,same");
-            legend->AddEntry(vecClusMC[radius-minradius].at(i), triggers.at(i).Data(), "p");
-        }
-        legend->Draw();
-        drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation",0.93,0.82, textSize,kFALSE, kFALSE, true);
-        canvas->SaveAs(Form("%s/ClusterSpectra_pPb_R0%i_Sim.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         // Plot R_pPb for the INT7 trigger in data
-        TH1D *dummyINT7data = (TH1D*)vecSpecData[radius-minradius].at(0)->Clone("RpA_INT7_data");
+        TH1D *dummyINT7data = (TH1D*)vecSpecData[radius-minradius].at(0)->Clone(Form("RpA_INT7_data_R0%i",radius));
         dummyINT7data->Divide(vecSpecData[radius-minradius].at(3),vecSpecData[radius-minradius].at(0));
+        dummyINT7data->Sumw2();
         dummyINT7data->Scale(RpA_scale);
         dummyINT7data->SetMarkerStyle(styles[0]);
         dummyINT7data->SetLineColor(colors[0]);
         dummyINT7data->SetMarkerColor(colors[0]);
         dummyINT7data->GetXaxis()->SetRangeUser(20,240);
-        //dummyINT7data->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(dummyINT7data,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb}",0.03,0.04,0.03,0.04,1,1.2);
-        dummyINT7data->Draw("p,e");
-        TLine *lINT7data = new TLine(20,1,240,1);
-        lINT7data->SetLineColor(14);
-        lINT7data->SetLineWidth(3);
-        lINT7data->SetLineStyle(7);
-        lINT7data->Draw("same");
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data - Min Bias Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+
+        dummyRpA->Draw("axis");
+        dummyINT7data->Draw("p,e1,same");
+        l1->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("ALICE Data - Min Bias Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/RpA_R0%i_INT7_Data.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
 
         // Plot R_pPb for the L1 jet trigger in data
-        TH1D *dummyL1data = (TH1D*)vecSpecData[radius-minradius].at(2)->Clone("RpA_L1Jet_data");
+        TH1D *dummyL1data = (TH1D*)vecSpecData[radius-minradius].at(2)->Clone(Form("RpA_L1Jet_data_R0%i",radius));
         dummyL1data->Divide(vecSpecData[radius-minradius].at(5),vecSpecData[radius-minradius].at(2));
+        dummyL1data->Sumw2();
         dummyL1data->Scale(RpA_scale);
         dummyL1data->SetMarkerStyle(styles[0]);
         dummyL1data->SetLineColor(colors[0]);
         dummyL1data->SetMarkerColor(colors[0]);
         dummyL1data->GetXaxis()->SetRangeUser(20,240);
-        //dummyL1data->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(dummyL1data,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb} (Sorta)",0.03,0.04,0.03,0.04,1,1.2);
-        dummyL1data->Draw("p,e");
-        TLine *lL1data = new TLine(20,1,240,1);
-        lL1data->SetLineColor(14);
-        lL1data->SetLineWidth(3);
-        lL1data->SetLineStyle(7);
-        lL1data->Draw("same");
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data - L1 Jet Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+
+        dummyRpA->Draw("axis");
+        dummyL1data->Draw("p,e1,same");
+        l1->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("ALICE Data - L1 Jet Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/RpA_R0%i_L1_Data.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
 
         // Plot R_pPb for the INT7 trigger in simulation
-        TH1D *dummyINT7MC = (TH1D*)vecSpecMC[radius-minradius].at(0)->Clone("RpA_INT7_MC");
+        TH1D *dummyINT7MC = (TH1D*)vecSpecMC[radius-minradius].at(0)->Clone(Form("RpA_INT7_MC_R0%i",radius));
         dummyINT7MC->Divide(vecSpecMC[radius-minradius].at(3),vecSpecMC[radius-minradius].at(0));
-        dummyINT7MC->Scale(RpA_scale);
+        dummyINT7MC->Sumw2();
+        //dummyINT7MC->Scale(RpA_scale);
         dummyINT7MC->SetMarkerStyle(styles[0]);
         dummyINT7MC->SetLineColor(colors[0]);
         dummyINT7MC->SetMarkerColor(colors[0]);
         dummyINT7MC->GetXaxis()->SetRangeUser(20,240);
-        //dummyINT7MC->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(dummyINT7MC,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb} (Sorta)",0.03,0.04,0.03,0.04,1,1.2);
-        dummyINT7MC->Draw("p,e");
-        TLine *lINT7MC = new TLine(20,1,240,1);
-        lINT7MC->SetLineColor(14);
-        lINT7MC->SetLineWidth(3);
-        lINT7MC->SetLineStyle(7);
-        lINT7MC->Draw("same");
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation - Min Bias Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+
+        dummyRpA->Draw("axis");
+        dummyINT7MC->Draw("p,e1,same");
+        l1->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("PYTHIA8 Simulation - Min Bias Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/RpA_R0%i_INT7_MC.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
 
         // Plot R_pPb for the L1 jet trigger in simulation
-        TH1D *dummyL1MC = (TH1D*)vecSpecMC[radius-minradius].at(2)->Clone("RpA_L1Jet_MC");
+        TH1D *dummyL1MC = (TH1D*)vecSpecMC[radius-minradius].at(2)->Clone(Form("RpA_L1Jet_MC_R0%i",radius));
         dummyL1MC->Divide(vecSpecMC[radius-minradius].at(5),vecSpecMC[radius-minradius].at(2));
-        dummyL1MC->Scale(RpA_scale);
+        dummyL1MC->Sumw2();
+        //dummyL1MC->Scale(RpA_scale);
         dummyL1MC->SetMarkerStyle(styles[0]);
         dummyL1MC->SetLineColor(colors[0]);
         dummyL1MC->SetMarkerColor(colors[0]);
         dummyL1MC->GetXaxis()->SetRangeUser(20,240);
-        //dummyL1MC->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(dummyL1MC,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb} (Sorta)",0.03,0.04,0.03,0.04,1,1.2);
-        dummyL1MC->Draw("p,e");
-        TLine *lL1MC = new TLine(20,1,240,1);
-        lL1MC->SetLineColor(14);
-        lL1MC->SetLineWidth(3);
-        lL1MC->SetLineStyle(7);
-        lL1MC->Draw("same");
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation - L1 Jet Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+
+        dummyRpA->Draw("axis");
+        dummyL1MC->Draw("p,e1,same");
+        l1->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("PYTHIA8 Simulation - L1 Jet Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/RpA_R0%i_L1_MC.%s", outputdir.Data(), radius, fileType.Data()));
-        legend->Clear();
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        canvas->SetLogy();
+
+        TH1D *specINT7dataPP = (TH1D*)vecSpecData[radius-minradius].at(0)->Clone(Form("specINT7dataPP_R0%i",radius));
+        TH1D *specINT7dataPPb = (TH1D*)vecSpecData[radius-minradius].at(3)->Clone(Form("specINT7dataPPb_R0%i",radius));
+
+        TH1D *specL1dataPP = (TH1D*)vecSpecData[radius-minradius].at(2)->Clone(Form("specL1dataPP_R0%i",radius));
+        TH1D *specL1dataPPb = (TH1D*)vecSpecData[radius-minradius].at(5)->Clone(Form("specL1dataPPb_R0%i",radius));
+
+        TH1D *specINT7MCPP = (TH1D*)vecSpecMC[radius-minradius].at(0)->Clone(Form("specINT7MCPP_R0%i",radius));
+        TH1D *specINT7MCPPb = (TH1D*)vecSpecMC[radius-minradius].at(3)->Clone(Form("specINT7MCPPb_R0%i",radius));
+
+        TH1D *specL1MCPP = (TH1D*)vecSpecMC[radius-minradius].at(2)->Clone(Form("specL1MCPP_R0%i",radius));
+        TH1D *specL1MCPPb = (TH1D*)vecSpecMC[radius-minradius].at(5)->Clone(Form("specL1MCPPb_R0%i",radius));
 
         // Plot INT7 trigger from pp and pPb in data in one plot
-        vecSpecData[radius-minradius].at(0)->SetMarkerStyle(styles[0]);
-        vecSpecData[radius-minradius].at(0)->SetMarkerColor(colors[0]);
-        vecSpecData[radius-minradius].at(0)->SetLineColor(colors[0]);
-        vecSpecData[radius-minradius].at(0)->Scale(xsec_pp);
-        vecSpecData[radius-minradius].at(0)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecData[radius-minradius].at(0)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecData[radius-minradius].at(0),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecData[radius-minradius].at(0)->Draw("p,e");
-        legend->AddEntry(vecSpecData[radius-minradius].at(0), "pp * x-sec", "p");
-        vecSpecData[radius-minradius].at(3)->SetMarkerStyle(styles[1]);
-        vecSpecData[radius-minradius].at(3)->SetMarkerColor(colors[1]);
-        vecSpecData[radius-minradius].at(3)->SetLineColor(colors[1]);
-        vecSpecData[radius-minradius].at(3)->Scale(xsec_pPb/nucfactor);
-        vecSpecData[radius-minradius].at(3)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecData[radius-minradius].at(3)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecData[radius-minradius].at(3),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecData[radius-minradius].at(3)->Draw("p,e,same");
-        legend->AddEntry(vecSpecData[radius-minradius].at(3), "p--Pb * x-sec/208", "p");
-        legend->Draw();
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data - Min Bias Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+        specINT7dataPP->SetMarkerStyle(styles[0]);
+        specINT7dataPP->SetMarkerColor(colors[0]);
+        specINT7dataPP->SetLineColor(colors[0]);
+        specINT7dataPP->Scale(xsec_pp);
+        specINT7dataPP->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specINT7dataPP, "pp * x-sec", "p");
+
+        specINT7dataPPb->SetMarkerStyle(styles[1]);
+        specINT7dataPPb->SetMarkerColor(colors[1]);
+        specINT7dataPPb->SetLineColor(colors[1]);
+        specINT7dataPPb->Scale(xsec_pPb/nucfactor);
+        specINT7dataPPb->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specINT7dataPPb, "p--Pb * x-sec/208", "p");
+
+        dummySpectraMB->Draw("axis");
+        specINT7dataPP->Draw("p,e1,same");
+        specINT7dataPPb->Draw("p,e1,same");
+        legend->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("ALICE Data - Min Bias Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/JetSpectra_INT7_R0%i_Data.%s", outputdir.Data(), radius, fileType.Data()));
         legend->Clear();
 
         // Plot L1 jet trigger from pp and pPb in data in one plot
-        vecSpecData[radius-minradius].at(2)->SetMarkerStyle(styles[0]);
-        vecSpecData[radius-minradius].at(2)->SetMarkerColor(colors[0]);
-        vecSpecData[radius-minradius].at(2)->SetLineColor(colors[0]);
-        vecSpecData[radius-minradius].at(2)->Scale(xsec_pp);
-        vecSpecData[radius-minradius].at(2)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecData[radius-minradius].at(2)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecData[radius-minradius].at(2),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecData[radius-minradius].at(2)->Draw("p,e");
-        legend->AddEntry(vecSpecData[radius-minradius].at(2), "pp * x-sec", "p");
-        vecSpecData[radius-minradius].at(5)->SetMarkerStyle(styles[1]);
-        vecSpecData[radius-minradius].at(5)->SetMarkerColor(colors[1]);
-        vecSpecData[radius-minradius].at(5)->SetLineColor(colors[1]);
-        vecSpecData[radius-minradius].at(5)->Scale(xsec_pPb/nucfactor);
-        vecSpecData[radius-minradius].at(5)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecData[radius-minradius].at(5)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecData[radius-minradius].at(5),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecData[radius-minradius].at(5)->Draw("p,e,same");
-        legend->AddEntry(vecSpecData[radius-minradius].at(5), "p--Pb * x-sec/208", "p");
-        legend->Draw();
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("ALICE Data - L1 Jet Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+        specL1dataPP->SetMarkerStyle(styles[0]);
+        specL1dataPP->SetMarkerColor(colors[0]);
+        specL1dataPP->SetLineColor(colors[0]);
+        specL1dataPP->Scale(xsec_pp);
+        specL1dataPP->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specL1dataPP, "pp * x-sec", "p");
+
+        specL1dataPPb->SetMarkerStyle(styles[1]);
+        specL1dataPPb->SetMarkerColor(colors[1]);
+        specL1dataPPb->SetLineColor(colors[1]);
+        specL1dataPPb->Scale(xsec_pPb/nucfactor);
+        specL1dataPPb->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specL1dataPPb, "p--Pb * x-sec/208", "p");
+
+        dummySpectraL1->Draw("axis");
+        specL1dataPP->Draw("p,e1,same");
+        specL1dataPPb->Draw("p,e1,same");
+        legend->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("ALICE Data - L1 Jet Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/JetSpectra_L1_R0%i_Data.%s", outputdir.Data(), radius, fileType.Data()));
         legend->Clear();
 
         // Plot INT7 trigger from pp and pPb in MC in one plot
-        vecSpecMC[radius-minradius].at(0)->SetMarkerStyle(styles[0]);
-        vecSpecMC[radius-minradius].at(0)->SetMarkerColor(colors[0]);
-        vecSpecMC[radius-minradius].at(0)->SetLineColor(colors[0]);
-        vecSpecMC[radius-minradius].at(0)->Scale(xsec_pp);
-        vecSpecMC[radius-minradius].at(0)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecMC[radius-minradius].at(0)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecMC[radius-minradius].at(0),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecMC[radius-minradius].at(0)->Draw("p,e");
-        legend->AddEntry(vecSpecMC[radius-minradius].at(0), "pp * x-sec", "p");
-        vecSpecMC[radius-minradius].at(3)->SetMarkerStyle(styles[1]);
-        vecSpecMC[radius-minradius].at(3)->SetMarkerColor(colors[1]);
-        vecSpecMC[radius-minradius].at(3)->SetLineColor(colors[1]);
-        vecSpecMC[radius-minradius].at(3)->Scale(xsec_pPb/nucfactor);
-        vecSpecMC[radius-minradius].at(3)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecMC[radius-minradius].at(3)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecMC[radius-minradius].at(3),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecMC[radius-minradius].at(3)->Draw("p,e,same");
-        legend->AddEntry(vecSpecMC[radius-minradius].at(3), "p--Pb * x-sec/208", "p");
-        legend->Draw();
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation - Min Bias Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+        specINT7MCPP->SetMarkerStyle(styles[0]);
+        specINT7MCPP->SetMarkerColor(colors[0]);
+        specINT7MCPP->SetLineColor(colors[0]);
+        //specINT7MCPP->Scale(xsec_pp);
+        specINT7MCPP->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specINT7MCPP, "pp MC", "p");
+
+        specINT7MCPPb->SetMarkerStyle(styles[1]);
+        specINT7MCPPb->SetMarkerColor(colors[1]);
+        specINT7MCPPb->SetLineColor(colors[1]);
+        //specINT7MCPPb->Scale(xsec_pPb/nucfactor);
+        specINT7MCPPb->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specINT7MCPPb, "p--Pb MC", "p");
+
+        dummySpectraMB->Draw("axis");
+        specINT7MCPP->Draw("p,e1,same");
+        specINT7MCPPb->Draw("p,e1,same");
+        legend->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("PYTHIA8 Simulation - Min Bias Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/JetSpectra_INT7_R0%i_MC.%s", outputdir.Data(), radius, fileType.Data()));
         legend->Clear();
 
         // Plot L1 jet trigger from pp and pPb in MC in one plot
-        vecSpecMC[radius-minradius].at(2)->SetMarkerStyle(styles[0]);
-        vecSpecMC[radius-minradius].at(2)->SetMarkerColor(colors[0]);
-        vecSpecMC[radius-minradius].at(2)->SetLineColor(colors[0]);
-        vecSpecMC[radius-minradius].at(2)->Scale(xsec_pp);
-        vecSpecMC[radius-minradius].at(2)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecMC[radius-minradius].at(2)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecMC[radius-minradius].at(2),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecMC[radius-minradius].at(2)->Draw("p,e");
-        legend->AddEntry(vecSpecMC[radius-minradius].at(2), "pp * x-sec", "p");
-        vecSpecMC[radius-minradius].at(5)->SetMarkerStyle(styles[1]);
-        vecSpecMC[radius-minradius].at(5)->SetMarkerColor(colors[1]);
-        vecSpecMC[radius-minradius].at(5)->SetLineColor(colors[1]);
-        vecSpecMC[radius-minradius].at(5)->Scale(xsec_pPb/nucfactor);
-        vecSpecMC[radius-minradius].at(5)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpecMC[radius-minradius].at(5)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpecMC[radius-minradius].at(5),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpecMC[radius-minradius].at(5)->Draw("p,e,same");
-        legend->AddEntry(vecSpecMC[radius-minradius].at(5), "p--Pb * x-sec/208", "p");
-        legend->Draw();
-        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("PYTHIA8 Simulation - L1 Jet Trigger",0.93,0.82, textSize,kFALSE, kFALSE, true);
+        specL1MCPP->SetMarkerStyle(styles[0]);
+        specL1MCPP->SetMarkerColor(colors[0]);
+        specL1MCPP->SetLineColor(colors[0]);
+        //specL1MCPP->Scale(xsec_pp);
+        specL1MCPP->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specL1MCPP, "pp MC", "p");
+
+        specL1MCPPb->SetMarkerStyle(styles[1]);
+        specL1MCPPb->SetMarkerColor(colors[1]);
+        specL1MCPPb->SetLineColor(colors[1]);
+        //specL1MCPPb->Scale(xsec_pPb/nucfactor);
+        specL1MCPPb->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(specL1MCPPb, "p--Pb MC", "p");
+
+        dummySpectraL1->Draw("axis");
+        specL1MCPP->Draw("p,e1,same");
+        specL1MCPPb->Draw("p,e1,same");
+        legend->Draw("same");
+
+        drawLatexAdd("pp [p--Pb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.96,0.91, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.96,0.86, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("PYTHIA8 Simulation - L1 Jet Trigger",0.96,0.81, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/JetSpectra_L1_R0%i_MC.%s", outputdir.Data(), radius, fileType.Data()));
         legend->Clear();
     }

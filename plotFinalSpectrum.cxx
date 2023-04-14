@@ -9,8 +9,10 @@
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 #include "fstream"
+//#include "/home/austin/alice/AnalysisSoftware/CommonHeaders/PlottingGammaConversionHistos.h"
+//#include "/home/austin/alice/AnalysisSoftware/CommonHeaders/PlottingGammaConversionAdditional.h"
 
-TH1D *ProcessSimHisto(TH1D *spectrum, vector<double> vecBins, int r, TString outlier, int style, Color_t color){
+TH1D *ProcessSimHisto(TH1D *spectrum, vector<double> vecBins, int r, TString outlier, int style, Color_t color, double size){
     TH1D *hRebinned = (TH1D*)spectrum->Rebin(vecBins.size()-1, Form("hSim_R0%i_%s",r,outlier.Data()), vecBins.data());
     double radius = (0.1)*((double)r);
     hRebinned->Scale(1.,"width");
@@ -19,6 +21,7 @@ TH1D *ProcessSimHisto(TH1D *spectrum, vector<double> vecBins, int r, TString out
     hRebinned->SetMarkerSize(2.5);
     hRebinned->SetMarkerColor(color);
     hRebinned->SetLineColor(color);
+    hRebinned->SetMarkerSize(size);
     return hRebinned;
 }
 
@@ -27,20 +30,26 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     Double_t textSize     = 0.03;
     Int_t regnum          = 6;
     int minradius = 2;
-    int maxradius = 6;
+    int maxradius = 5;
+    double alphasval = 0.25;
+
 
     //TH1D *rffit;
     //TH1D *rffitRatio;
 
     int scale[5] = {1,3,10,30,100};
-    const int nOutlier = 4;
+    //const int nOutlier = 4;
+    const int nOutlier = 1;
 
-    int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
+    int stylesempty[11] = {4,25,27,28,35,36,38,40,42,44,46};
+    double sizesempty[11] = {1.6,1.5,2,1.7,2,2,2,2,2,2,2};
     int stylesfilled[17] = {8,21,33,34,41,43,45,47,48,49,3,2,5,22,23,29,39};
+    double sizesfilled[17] = {1.6,1.5,2,1.7,2,2,2,2,2,2,2,2,2,2,2,2,2};
 
     Color_t colors[14] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4};
 
-    TString outliers[nOutlier] = {"nooutlier","outlier30","outlier50","outlier70"};
+    //TString outliers[nOutlier] = {"nooutlier","outlier30","outlier50","outlier70"};
+    TString outliers[nOutlier] = {"nooutlier"};
 
     vector<double> trueRebin = getJetPtBinningNonLinTrue8TeV();
 
@@ -58,9 +67,15 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     vector<TGraphErrors*> vecRatioGraph;
     vector<TGraphErrors*> vecRatioSysGraph;
 
+    TString outputDirRootFile = "/home/austin/alice/FinalResultsRootFiles";
+    gSystem->Exec("mkdir -p "+outputDirRootFile);
+
     gSystem->Exec("mkdir -p "+output+"/FinalResults");
     gSystem->Exec("mkdir -p "+output+"/MCGen");
     gSystem->Exec("mkdir -p "+output+"/MCGen/ratioDataMC");
+
+    const char* nameOutput = Form("%s/FinalResults_pp8TeV.root",outputDirRootFile.Data());
+    TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
     // Open root files
     TFile *f = TFile::Open(spectrumFile);
@@ -84,8 +99,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
             return;
         }
         vecSystematics.push_back((TH1D*)fSys->Get("hTotal"));
-            vecAllUnfolding.push_back((TH1D*)fSys->Get("smooth_allunfolding"));
-            vecTriggerSwap.push_back((TH1D*)fSys->Get("smooth_triggerswap"));
+        vecAllUnfolding.push_back((TH1D*)fSys->Get("smooth_allunfolding"));
+        vecTriggerSwap.push_back((TH1D*)fSys->Get("smooth_triggerswap"));
     }
 
     // Get systematics file for ratios
@@ -134,7 +149,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
             return;
           }
           TH1D *hSpec = (TH1D*)simBase->FindObject("hJetPt");
-          TH1D *hSim = (TH1D*)ProcessSimHisto( hSpec, trueRebin, radius, outliers[outlier], styles[radius-minradius+1], colors[radius-minradius+1] );
+          TH1D *hSim = (TH1D*)ProcessSimHisto( hSpec, trueRebin, radius, outliers[outlier], stylesempty[radius-minradius+1], colors[radius-minradius+1], sizesempty[radius-minradius+1] );
           vecSpectrumSim[outlier].push_back(hSim);
         }
     }
@@ -153,19 +168,28 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         TGraphErrors *gSpectrum     = new TGraphErrors(vecSpectrum.at(radius-minradius));
         TGraphErrors *gSpectrumSys  = new TGraphErrors(vecSpectrumSys.at(radius-minradius));
 
-        gSpectrum->SetMarkerStyle(styles[radius-minradius]);
-        gSpectrum->SetMarkerSize(2.5);
+        for(int point = 0; point < gSpectrum->GetN(); point++){
+            double staterror = gSpectrum->GetErrorY(point);
+            gSpectrum->SetPointError(point,0,staterror);
+            double syserror = gSpectrumSys->GetErrorY(point);
+            gSpectrumSys->SetPointError(point,gSpectrumSys->GetErrorX(point),syserror);
+        }
+
+        gSpectrum->SetMarkerStyle(stylesfilled[radius-minradius]);
+        gSpectrum->SetMarkerSize(sizesfilled[radius-minradius]);
         gSpectrum->SetMarkerColor(colors[radius-minradius]);
         gSpectrum->SetLineColor(colors[radius-minradius]);
-        gSpectrum->SetFillColor(colors[radius-minradius]);
-        gSpectrum->SetFillStyle(3001);
+        gSpectrum->SetLineWidth(3);
+        gSpectrum->SetLineStyle(1);
 
-        gSpectrumSys->SetFillColor(colors[radius-minradius]);
+        gSpectrumSys->SetFillColorAlpha(colors[radius-minradius],alphasval);
         gSpectrumSys->SetLineColor(colors[radius-minradius]);
-        gSpectrumSys->SetFillStyle(0);
+        gSpectrumSys->SetFillStyle(1);
 
+        gSpectrum->RemovePoint((gSpectrum->GetN()-1));
         gSpectrum->RemovePoint(18);
         gSpectrum->RemovePoint(17);
+        gSpectrumSys->RemovePoint((gSpectrumSys->GetN()-1));
         gSpectrumSys->RemovePoint(18);
         gSpectrumSys->RemovePoint(17);
         if(radius == 5 || radius == 6){
@@ -196,7 +220,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         if(radius != minradius){
             for(int bin = 1; bin <= vecRatioSys.at(radius-minradius-1)->GetNbinsX(); bin++){
                 double sysError          = (vecSystematicsRatios.at(radius-minradius-1)->GetBinContent(bin))/100;
-                sysError = sqrt(pow(sysError,2) + pow((vecAllUnfolding.at(radius-minradius)->GetBinContent(bin))/100,2) + pow((vecAllUnfolding.at(0)->GetBinContent(bin))/100,2) + pow((vecTriggerSwap.at(radius-minradius)->GetBinContent(bin))/100,2) + pow((vecTriggerSwap.at(0)->GetBinContent(bin))/100,2));
+                //sysError = sqrt(pow(sysError,2) + pow((vecAllUnfolding.at(radius-minradius)->GetBinContent(bin))/100,2) + pow((vecAllUnfolding.at(0)->GetBinContent(bin))/100,2) + pow((vecTriggerSwap.at(radius-minradius)->GetBinContent(bin))/100,2) + pow((vecTriggerSwap.at(0)->GetBinContent(bin))/100,2));
                 Double_t scaledError     = sysError*vecRatioSys.at(radius-minradius-1)->GetBinContent(bin);
                 vecRatioSys.at(radius-minradius-1)->SetBinError(bin, scaledError);
             }
@@ -206,19 +230,28 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
                 TGraphErrors *gRatio        = new TGraphErrors(vecRatio.at(radius-minradius-1));
                 TGraphErrors *gRatioSys     = new TGraphErrors(vecRatioSys.at(radius-minradius-1));
 
-                gRatio->SetMarkerStyle(stylesfilled[radius-(minradius+1)]);
-                gRatio->SetMarkerSize(2.5);
-                gRatio->SetMarkerColor(colors[radius-(minradius+1)]);
-                gRatio->SetLineColor(colors[radius-(minradius+1)]);
-                gRatio->SetFillColor(colors[radius-(minradius+1)]);
-                gRatio->SetFillStyle(3001);
+                for(int point = 0; point < gRatio->GetN(); point++){
+                    double staterror = gRatio->GetErrorY(point);
+                    gRatio->SetPointError(point,0,staterror);
+                    double syserror = gRatioSys->GetErrorY(point);
+                    gRatioSys->SetPointError(point,gRatioSys->GetErrorX(point),syserror);
+                }
 
-                gRatioSys->SetFillColor(colors[radius-(minradius+1)]);
-                gRatioSys->SetLineColor(colors[radius-(minradius+1)]);
-                gRatioSys->SetFillStyle(0);
+                gRatio->SetMarkerStyle(stylesfilled[radius-(minradius+1)+1]);
+                gRatio->SetMarkerSize(2);
+                gRatio->SetMarkerColor(colors[radius-(minradius+1)+1]);
+                gRatio->SetLineColor(colors[radius-(minradius+1)+1]);
+                gRatio->SetLineWidth(3);
+                gRatio->SetLineStyle(1);
 
+                gRatioSys->SetFillColorAlpha(colors[radius-(minradius+1)+1],alphasval);
+                gRatioSys->SetLineColor(colors[radius-(minradius+1)+1]);
+                gRatioSys->SetFillStyle(1);
+
+                gRatio->RemovePoint((gRatio->GetN()-1));
                 gRatio->RemovePoint(18);
                 gRatio->RemovePoint(17);
+                gRatioSys->RemovePoint((gRatioSys->GetN()-1));
                 gRatioSys->RemovePoint(18);
                 gRatioSys->RemovePoint(17);
                 if(radius == 5 || radius == 6){
@@ -240,7 +273,6 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
                 gRatioSys->RemovePoint(2);
                 gRatioSys->RemovePoint(1);
                 gRatioSys->RemovePoint(0);
-
                 // Save to vectors
                 vecRatioGraph.push_back(gRatio);
                 vecRatioSysGraph.push_back(gRatioSys);
@@ -252,50 +284,66 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
     // Set up canvases and legends for plotting
     TCanvas *cSpectrum   = new TCanvas("c", "", 800, 1000);
-    DrawPaperCanvasSettings(cSpectrum,0.1,0.025,0.025,0.1);
+    DrawPaperCanvasSettings(cSpectrum,0.15,0.025,0.025,0.08);
     cSpectrum->SetLogy();
 
     TCanvas *cRatio   = new TCanvas("c2", "", 800, 800);
-    DrawPaperCanvasSettings(cRatio,0.15,0.025,0.025,0.1);
+    DrawPaperCanvasSettings(cRatio,0.14,0.025,0.025,0.08);
 
     gStyle->SetOptStat(0);
 
-    TLegend *legendSpectrum    =  GetAndSetLegend2(0.53,0.68,0.93,0.68+(maxradius-minradius)*textSize,textSize,2);
-    TLegend *legendRatio       = GetAndSetLegend2(0.47,0.15,0.95,0.15+((maxradius-minradius+1)*textSize*1.5)/2,textSize,2);
-    TLegend *legendSim     =  GetAndSetLegend2(0.55,0.67,0.95,0.67+((2)*textSize*1.5),textSize);
-    TLegend *legendSimRatio = GetAndSetLegend2(0.65,0.15,0.95,0.15+((2)*textSize*1.5),textSize);
+    TLegend *legendSpectrum =  GetAndSetLegend2(0.73,0.79-(maxradius-minradius+1)*textSize,0.93,0.79,textSize);
+    TLegend *legendRatio    = GetAndSetLegend2(0.73,0.94-(maxradius-minradius)*textSize,0.93,0.94,textSize);
+    TLegend *legendSim      =  GetAndSetLegend2(0.63,0.79-2*textSize,0.88,0.79,textSize);
+    TLegend *legendSimRatio = GetAndSetLegend2(0.65,0.94-2*textSize,0.9,0.94,textSize);
+    TLegend *legendSimRatioCombined = GetAndSetLegend2(0.323,0.11,0.883,0.11+((9)*textSize)/3,textSize,3);
 
-    TLegend *legendErrorKey =  GetAndSetLegend2(0.15,0.15,0.35,0.15+((2)*textSize*1.5)/2,textSize);
+    TLegend *legendErrorKey =  GetAndSetLegend2(0.19,0.11,0.39,0.11+2*textSize,textSize);
     legendErrorKey->AddEntry(vecSpectrumSysGraph.at(0), "Systematic Uncertainty", "f");
-    legendErrorKey->AddEntry(vecSpectrumGraph.at(0), "Statistical Uncertainty", "f");
+    legendErrorKey->AddEntry(vecSpectrumGraph.at(0), "Statistical Uncertainty", "e");
 
-    TLegend *legendErrorKeyRatio =  GetAndSetLegend2(0.15,0.15,0.35,0.15+((2)*textSize*1.5)/2,textSize);
-    legendErrorKeyRatio->AddEntry(vecRatioSysGraph.at(0), "Systematic Uncertainty", "f");
-    legendErrorKeyRatio->AddEntry(vecRatioGraph.at(0), "Statistical Uncertainty", "f");
+    TLegend *legendErrorKeyRatio =  GetAndSetLegend2(0.6,0.11,0.8,0.11+2*textSize,textSize);
+    legendErrorKeyRatio->AddEntry(vecSpectrumSysGraph.at(0), "Systematic Uncertainty", "f");
+    legendErrorKeyRatio->AddEntry(vecSpectrumGraph.at(0), "Statistical Uncertainty", "e");
 
-    // Set up dummy histos for plotting
-    TH1D *dummySpectrum = (TH1D*)vecSpectrum.at(0)->Clone("dummySpectrum");
-    dummySpectrum->GetXaxis()->SetRangeUser(0,280);
-    dummySpectrum->GetYaxis()->SetRangeUser(1e-8,10);
-    SetStyleHistoTH1ForGraphs(dummySpectrum,"","#it{p}_{T} (GeV/#it{c})","d#it{#sigma} / d#it{p}_{T}d#it{#eta} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.2);
+    TLegend *legendErrorKeyRatioCombined = GetAndSetLegend2(0.58,0.94-(2)*textSize,0.93,0.94,textSize);
+    legendErrorKeyRatioCombined->AddEntry(vecSpectrumSysGraph.at(0), "Systematic Uncertainty", "f");
+    legendErrorKeyRatioCombined->AddEntry(vecSpectrumGraph.at(0), "Statistical Uncertainty", "e");
 
     // Set up dummy histos for plotting
-    TH1D *dummySpectrumLogX = (TH1D*)vecSpectrum.at(0)->Clone("dummySpectrum");
-    dummySpectrumLogX->GetXaxis()->SetRangeUser(15,300);
-    dummySpectrumLogX->GetYaxis()->SetRangeUser(1e-8,10);
-    SetStyleHistoTH1ForGraphs(dummySpectrumLogX,"","#it{p}_{T} (GeV/#it{c})","d#it{#sigma} / d#it{p}_{T}d#it{#eta} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.2);
+    //TH1D *dummySpectrum = (TH1D*)vecSpectrum.at(0)->Clone("dummySpectrum");
+    TH1D *dummySpectrum = new TH1D("dummySpectrum","",300,0,300);
+    dummySpectrum->GetXaxis()->SetRangeUser(0,270);
+    dummySpectrum->GetYaxis()->SetRangeUser(3e-8,0.6);
+    SetStyleHistoTH1ForGraphs(dummySpectrum,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
 
-    TH1D *dummyRatio    = (TH1D*)vecRatio.at(0)->Clone("dummyRatio");
-    dummyRatio->GetXaxis()->SetRangeUser(0,280);
+    TH1D *dummySpectrumUnscaled = new TH1D("dummySpectrumUnscaled","",300,0,300);
+    dummySpectrumUnscaled->GetXaxis()->SetRangeUser(0,270);
+    dummySpectrumUnscaled->GetYaxis()->SetRangeUser(3e-8,2e-2);
+    SetStyleHistoTH1ForGraphs(dummySpectrumUnscaled,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
+
+    // Set up dummy histos for plotting
+    TH1D *dummySpectrumLogX = new TH1D("dummySpectrumLogX","",300,0,300);
+    dummySpectrumLogX->GetXaxis()->SetRangeUser(18,260);
+    dummySpectrumLogX->GetYaxis()->SetRangeUser(3e-8,0.6);
+    SetStyleHistoTH1ForGraphs(dummySpectrumLogX,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
+
+    TH1D *dummySpectrumLogXUnscaled = new TH1D("dummySpectrumLogXUnscaled","",300,0,300);
+    dummySpectrumLogXUnscaled->GetXaxis()->SetRangeUser(18,260);
+    dummySpectrumLogXUnscaled->GetYaxis()->SetRangeUser(3e-8,2e-2);
+    SetStyleHistoTH1ForGraphs(dummySpectrumLogXUnscaled,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
+
+    TH1D *dummyRatio    = new TH1D("dummyRatio","",300,0,300);
+    dummyRatio->GetXaxis()->SetRangeUser(0,260);
     dummyRatio->GetYaxis()->SetRangeUser(0,1.4);
-    SetStyleHistoTH1ForGraphs(dummyRatio,"","#it{p}_{T} (GeV/#it{c})","d#it{#sigma} / d#it{p}_{T}d#it{#eta} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.2);
+    SetStyleHistoTH1ForGraphs(dummyRatio,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}^{#it{R}=0.2}}{d#it{p}_{T}d#it{#eta}}/#frac{d^{2}#it{#sigma}^{#it{R}=0.#it{X}}}{d#it{p}_{T}d#it{#eta}}",textSize,0.035,textSize,0.035,1,1.7);
 
-    TH1D *dummyRatioSimData    = (TH1D*)vecRatio.at(0)->Clone("dummyRatio");
-    dummyRatioSimData->GetXaxis()->SetRangeUser(0,280);
+    TH1D *dummyRatioSimData    = new TH1D("dummyRatioSimData","",300,0,300);
+    dummyRatioSimData->GetXaxis()->SetRangeUser(0,260);
     dummyRatioSimData->GetYaxis()->SetRangeUser(0.96,2.4);
-    SetStyleHistoTH1ForGraphs(dummyRatioSimData,"","#it{p}_{T} (GeV/#it{c})","d#it{#sigma} / d#it{p}_{T}d#it{#eta} (mb/(GeV/#it{c}))",textSize,0.04,textSize,0.04,1,1.2);
+    SetStyleHistoTH1ForGraphs(dummyRatioSimData,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}^{Sim}}{d#it{p}_{T}d#it{#eta}}/#frac{d^{2}#it{#sigma}^{Data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.035,textSize,0.035,1,1.7);
 
-    TLine * line = new TLine (0,1,280,1);
+    TLine * line = new TLine (0,1,260,1);
     line->SetLineColor(14);
     line->SetLineWidth(3);
     line->SetLineStyle(7);
@@ -314,17 +362,18 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         legendSpectrum->AddEntry(finalSpectrum, Form("#it{R} = 0.%i x %i",radius,scale[radius-minradius]), "p");
 
         if(radius==minradius) dummySpectrum->Draw("axis");
-        finalSpectrum->Draw("p,e2,same");
         finalSpectrumSys->Draw("e2,same");
+        finalSpectrum->Draw("p,e1,same");
     }
 
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.89, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.85, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("ALICE Preliminary",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.87, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.84, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
 
     cSpectrum->SaveAs(Form("%s/FinalResults/%s_reg%i.%s",output.Data(),type.Data(),regnum,fileType.Data()));
     cSpectrum->SetLogx(1);
@@ -339,20 +388,18 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         TGraphErrors *finalSpectrumSys = (TGraphErrors*)vecSpectrumSysGraph.at(radius-minradius)->Clone(Form("finalSpectrumSys_R0%i", radius));
         finalSpectrumSys->Scale((double)scale[radius-minradius]);
 
-        //legendSpectrum->AddEntry(finalSpectrum, Form("#it{R} = 0.%i x %i",radius,scale[radius-minradius]), "p");
-
         if(radius==minradius) dummySpectrumLogX->Draw("axis");
-        finalSpectrum->Draw("p,e2,same");
         finalSpectrumSys->Draw("e2,same");
+        finalSpectrum->Draw("p,e1,same");
     }
 
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.89, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.85, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.9, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
 
     cSpectrum->SaveAs(Form("%s/FinalResults/%s_reg%i_logx.%s",output.Data(),type.Data(),regnum,fileType.Data()));
     cSpectrum->SetLogx(0);
@@ -369,44 +416,47 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
         legendSpectrum->AddEntry(finalSpectrum, Form("#it{R} = 0.%i",radius), "p");
 
-        if(radius==minradius) dummySpectrum->Draw("axis");
-        finalSpectrum->Draw("p,e2,same");
+        if(radius==minradius) dummySpectrumUnscaled->Draw("axis");
+        finalSpectrum->Draw("p,e1,same");
         finalSpectrumSys->Draw("e2,same");
+
+        fOutput->mkdir(Form("R0%i",radius));
+        fOutput->cd(Form("R0%i",radius));
+        finalSpectrumSys->Write();
+        finalSpectrum->Write();
     }
 
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.89, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.85, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.9, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
 
     cSpectrum->SaveAs(Form("%s/FinalResults/%s_reg%i_unscaled.%s",output.Data(),type.Data(),regnum,fileType.Data()));
     cSpectrum->SetLogx(1);
 
-    //////////////////////////////////
-    // Plot unscaled cross-sections //
-    //////////////////////////////////
+    ///////////////////////////////////////
+    // Plot unscaled cross-sections logx //
+    ///////////////////////////////////////
     for(int radius = minradius; radius <= maxradius; radius++){
         TGraphErrors *finalSpectrum = (TGraphErrors*)vecSpectrumGraph.at(radius-minradius)->Clone(Form("finalSpectrum_R0%i", radius));
 
         TGraphErrors *finalSpectrumSys = (TGraphErrors*)vecSpectrumSysGraph.at(radius-minradius)->Clone(Form("finalSpectrumSys_R0%i", radius));
 
-        //legendSpectrum->AddEntry(finalSpectrum, Form("#it{R} = 0.%i",radius), "p");
-
-        if(radius==minradius) dummySpectrumLogX->Draw("axis");
-        finalSpectrum->Draw("p,e2,same");
+        if(radius==minradius) dummySpectrumLogXUnscaled->Draw("axis");
         finalSpectrumSys->Draw("e2,same");
+        finalSpectrum->Draw("p,e1,same");
     }
 
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.89, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.85, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.9, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
 
     cSpectrum->SaveAs(Form("%s/FinalResults/%s_reg%i_logx_unscaled.%s",output.Data(),type.Data(),regnum,fileType.Data()));
     cSpectrum->SetLogx(0);
@@ -422,22 +472,26 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
         TGraphErrors *finalRatioSys = (TGraphErrors*)vecRatioSysGraph.at(radius-minradius-1)->Clone(Form("finalRatioSys_R0%i", radius));
 
-        legendRatio->AddEntry(finalRatio, Form("#it{R}=0.%i/#it{R}=0.2",radius), "p");
+        legendRatio->AddEntry(finalRatio, Form("#it{R}=0.2/#it{R}=0.%i",radius), "p");
 
         if(radius==(minradius+1)) dummyRatio->Draw("axis");
-        finalRatio->Draw("p,e2,same");
         finalRatioSys->Draw("e2,same");
+        finalRatio->Draw("p,e1,same");
 
+        fOutput->cd(Form("R0%i",radius));
+        finalRatio->Write();
+        finalRatioSys->Write();
     }
 
     line->Draw("same");
     legendRatio->Draw("same");
     legendErrorKeyRatio->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
-    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.19,0.87, textSize,kFALSE, kFALSE, false);
-    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.83, textSize,kFALSE, kFALSE, false);
-    drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.19,0.79, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.17,0.84, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.76, textSize,kFALSE, kFALSE, false);
 
     cRatio->SaveAs(Form("%s/FinalResults/%s_reg%i_Ratio.%s",output.Data(),type.Data(),regnum,fileType.Data()));
 
@@ -446,29 +500,175 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     /////////////////////////////////
     // Plot simulation comparisons //
     /////////////////////////////////
-    cSpectrum->cd();
+    Double_t minPt               = 0.;
+    Double_t maxPt               = 260.;
+    Double_t textsizeLabelsWidth = 0;
+    Double_t textsizeFacWidth    = 0;
+    Double_t textsizeLabelsComp  = 0;
+    Double_t textsizeFacComp     = 0;
+    Double_t textSizeLabelsPixel = 30;
+
+    Double_t arrayBoundariesX[2];
+    Double_t arrayBoundariesY[4];
+    Double_t relativeMarginsX[3];
+    Double_t relativeMarginsY[4];
+
+    ReturnCorrectValuesForCanvasScaling(800,1000, 1, 3,0.15, 0.025, 0.005,0.07,arrayBoundariesX,arrayBoundariesY,relativeMarginsX,relativeMarginsY);
+    Double_t margin = relativeMarginsX[0]*2.7*800;
+
+    // Declare root objects
+    TCanvas *canvas;
+    TCanvas *ratioCanvas;
+    TPad    *upperPad;
+    TPad    *lowerPad;
+    TPad    *topPad;
+    TH2F    *dummyHistUpper;
+    TH2F    *dummyHistLower;
+
+    gStyle->SetOptStat(0);
+
+    TLegend *legendSimNew;
+    TLegend *legendErrorKeyNew;
+
+
+    //canvas->cd();
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int outlier = 0; outlier < nOutlier; outlier++){
+            // Define root objects
+            canvas         = new TCanvas(Form("canvasSimR0%i_%s", radius, outliers[outlier].Data()),"",800,1000);
+            upperPad       = new TPad(Form("upperPadR0%i_%s", radius, outliers[outlier].Data()), "", arrayBoundariesX[0], arrayBoundariesY[2], arrayBoundariesX[1], arrayBoundariesY[0],-1, -1, -2);
+            lowerPad       = new TPad(Form("lowerPadR0%i_%s",  radius, outliers[outlier].Data()), "", arrayBoundariesX[0], arrayBoundariesY[3], arrayBoundariesX[1], arrayBoundariesY[2],-1, -1, -2);
+            topPad         = new TPad(Form("topPadR0%i_%s", radius, outliers[outlier].Data()), "", 0.13, 0.32, 0.52, 0.52,-1, -1, -2);
+            dummyHistUpper = new TH2F(Form("dummyHistUpper_R0%i_%s", radius, outliers[outlier].Data()),Form("dummyHistUpper_R0%i_%s", radius, outliers[outlier].Data()), 1000, minPt,maxPt ,1000., 3e-8,2e-2);
+            if(radius == 2 || radius == 3) dummyHistLower = new TH2F(Form("dummyHistLower_R0%i_%s", radius, outliers[outlier].Data()),Form("dummyHistLower_R0%i_%s", radius, outliers[outlier].Data()), 1000, minPt,maxPt, 1000., 0.9,1.9);
+            else if(radius == 4) dummyHistLower = new TH2F(Form("dummyHistLower_R0%i_%s", radius, outliers[outlier].Data()),Form("dummyHistLower_R0%i_%s", radius, outliers[outlier].Data()), 1000, minPt,maxPt, 1000., 0.9,2.1);
+            else dummyHistLower = new TH2F(Form("dummyHistLower_R0%i_%s", radius, outliers[outlier].Data()),Form("dummyHistLower_R0%i_%s", radius, outliers[outlier].Data()), 1000, minPt,maxPt, 1000., 0.9,2.7);
+
+            DrawGammaCanvasSettings( canvas,  0.15, 0.025, 0.025, 0.08);
+            DrawGammaPadSettings( upperPad, relativeMarginsX[0], relativeMarginsX[2], relativeMarginsY[0], relativeMarginsY[1]);
+            DrawGammaPadSettings( lowerPad, relativeMarginsX[0], relativeMarginsX[2], relativeMarginsY[1], relativeMarginsY[2]);
+            DrawGammaPadSettings( topPad, 0., 0., 0., 0.);
+            topPad->SetFillStyle(0);
+
+            canvas->cd();
+            upperPad->Draw();
+            lowerPad->Draw();
+            topPad->Draw();
+
+            upperPad->cd();
+            upperPad->SetLogy();
+
+            if (upperPad->XtoPixel(upperPad->GetX2()) < upperPad->YtoPixel(upperPad->GetY1())){
+                textsizeLabelsWidth         = (Double_t)textSizeLabelsPixel/upperPad->XtoPixel(upperPad->GetX2()) ;
+                textsizeFacWidth            = (Double_t)1./upperPad->XtoPixel(upperPad->GetX2()) ;
+            } else {
+                textsizeLabelsWidth         = (Double_t)textSizeLabelsPixel/upperPad->YtoPixel(upperPad->GetY1());
+                textsizeFacWidth            = (Double_t)1./upperPad->YtoPixel(upperPad->GetY1());
+            }
+
+            SetStyleHistoTH2ForGraphs(dummyHistUpper, "#it{p}_{T} (GeV/#it{c})", "#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})", 0.85*textsizeLabelsWidth, textsizeLabelsWidth,
+                                      0.85*textsizeLabelsWidth, textsizeLabelsWidth, 0.8,0.76/(textsizeFacWidth*margin), 512, 505,42,42);
+            dummyHistUpper->DrawCopy();
+
             TGraphErrors *finalSpectrum = (TGraphErrors*)vecSpectrumGraph.at(radius-minradius)->Clone(Form("finalSpectrum_R0%i_%s", radius, outliers[outlier].Data()));
             TGraphErrors *finalSpectrumSys = (TGraphErrors*)vecSpectrumSysGraph.at(radius-minradius)->Clone(Form("finalSpectrumSys_R0%i_%s", radius, outliers[outlier].Data()));
             TGraphErrors *graphSim  = new TGraphErrors(vecSpectrumSim[outlier].at(radius-minradius));
 
-            legendSim->AddEntry(vecSpectrum.at(radius-minradius), "ALICE Data", "p");
-            legendSim->AddEntry(vecSpectrumSim[outlier].at(radius-minradius), "PYTHIA8 Monash", "p");
+            graphSim->SetMarkerColor(colors[11]);
+            graphSim->SetLineColor(colors[11]);
 
-            dummySpectrum->Draw("axis");
-            finalSpectrum->Draw("p,e2,same");
+            TH1D *ratiosimdata = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdatalower_%i_%i",radius,outlier));
+            ratiosimdata->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
+            SetStyleHistoTH1ForGraphs(ratiosimdata,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
+            ratiosimdata->GetYaxis()->SetRangeUser(0.96,2.4);
+            TGraphErrors *ratiosimdata_graph = new TGraphErrors(ratiosimdata);
+
+            ratiosimdata_graph->SetFillColor(colors[11]);
+            ratiosimdata_graph->SetLineColor(colors[11]);
+            ratiosimdata_graph->SetMarkerStyle(graphSim->GetMarkerStyle());
+            ratiosimdata_graph->SetMarkerSize(graphSim->GetMarkerSize());
+            ratiosimdata_graph->SetMarkerColor(colors[11]);
+
+            TH1D *ratiosimdataSys = (TH1D*)vecSpectrumSys.at(radius-minradius)->Clone(Form("ratiosimdatalowersys_%i_%i",radius,outlier));
+            ratiosimdataSys->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrumSys.at(radius-minradius),1,1);
+            SetStyleHistoTH1ForGraphs(ratiosimdataSys,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
+            ratiosimdataSys->GetYaxis()->SetRangeUser(0.96,2.4);
+            TGraphErrors *ratiosimdatasys_graph = new TGraphErrors(ratiosimdataSys);
+
+            ratiosimdatasys_graph->SetFillColor(colors[11]);
+            ratiosimdatasys_graph->SetLineColor(colors[11]);
+            ratiosimdatasys_graph->SetFillStyle(1);
+
+            for(int point = (ratiosimdatasys_graph->GetN())-1; point >= 0; point--){
+                ratiosimdatasys_graph->SetPointError(point, ratiosimdatasys_graph->GetErrorX(point), ((vecSpectrumSys.at(radius-minradius)->GetBinError(point))/(vecSpectrumSys.at(radius-minradius)->GetBinContent(point)))*ratiosimdatasys_graph->GetPointY(point));
+            }
+
+            for(int point = (graphSim->GetN())-1; point >= 0; point--){
+                if(graphSim->GetPointX(point) > 240) graphSim->RemovePoint(point);
+                if(graphSim->GetPointX(point) < 20) graphSim->RemovePoint(point);
+            }
+
+            for(int point = (ratiosimdata_graph->GetN())-1; point >= 0; point--){
+                if(ratiosimdata_graph->GetPointX(point) > 240){
+                    ratiosimdata_graph->RemovePoint(point);
+                    ratiosimdatasys_graph->RemovePoint(point);
+                }
+                if(ratiosimdata_graph->GetPointX(point) < 20){
+                    ratiosimdata_graph->RemovePoint(point);
+                    ratiosimdatasys_graph->RemovePoint(point);
+                }
+            }
+            legendSimNew = GetAndSetLegend2(0.63,0.68-2*textsizeLabelsWidth*0.8,0.88,0.68,textsizeLabelsWidth*0.8);
+            legendErrorKeyNew =  GetAndSetLegend2(0.19,0.04,0.39,0.04+2*textsizeLabelsWidth*0.8,textsizeLabelsWidth*0.8);
+
+            legendErrorKeyNew->AddEntry(vecSpectrumSysGraph.at(0), "Systematic Uncertainty", "f");
+            legendErrorKeyNew->AddEntry(vecSpectrumGraph.at(0), "Statistical Uncertainty", "e");
+
+            legendSimNew->AddEntry(finalSpectrum, "ALICE Data", "p");
+            legendSimNew->AddEntry(graphSim, "PYTHIA8 Monash", "p");
+
             finalSpectrumSys->Draw("e2,same");
-            graphSim->Draw("p,e,same");
-            legendSim->Draw();
+            finalSpectrum->Draw("p,e1,same");
+            graphSim->Draw("p,e1,same");
+            legendSimNew->Draw();
+            legendErrorKeyNew->Draw();
 
-            drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.92,0.91, textSize,kFALSE, kFALSE, true);
-            drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.92,0.87, textSize,kFALSE, kFALSE, true);
-            drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.92,0.83, textSize,kFALSE, kFALSE, true);
-            drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.92,0.79, textSize,kFALSE, kFALSE, true);
+            drawLatexAdd("ALICE Preliminary",0.93,0.92, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.87, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.93,0.82, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.77, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.72, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
 
-            cSpectrum->SaveAs(Form("%s/MCGen/MCComp_R0%i_%s.%s",output.Data(),radius,outliers[outlier].Data(),fileType.Data()));
-            legendSim->Clear();
+            lowerPad->cd();
+
+          	if (lowerPad->XtoPixel(lowerPad->GetX2()) <lowerPad->YtoPixel(lowerPad->GetY1()) ){
+          	    textsizeLabelsComp              = (Double_t)textSizeLabelsPixel/lowerPad->XtoPixel(lowerPad->GetX2()) ;
+          	    textsizeFacComp                 = (Double_t)1./lowerPad->XtoPixel(lowerPad->GetX2()) ;
+          	} else {
+          	    textsizeLabelsComp              = (Double_t)textSizeLabelsPixel/lowerPad->YtoPixel(lowerPad->GetY1());
+          	    textsizeFacComp                 = (Double_t)1./lowerPad->YtoPixel(lowerPad->GetY1());
+          	}
+
+            SetStyleHistoTH2ForGraphs(dummyHistLower, "#it{p}_{T} (GeV/#it{c})", "MC/Data     ", 0.85*textsizeLabelsComp, textsizeLabelsComp, 0.85*textsizeLabelsComp,
+                                      textsizeLabelsComp, 1, 0.65/(textsizeFacComp*margin),512,505,42,42);
+            dummyHistLower->DrawCopy();
+
+            ratiosimdatasys_graph->Draw("e2,same");
+            ratiosimdata_graph->Draw("p,e1,same");
+            DrawGammaLines(0.,260.,1.,1.,8.,16,9);
+
+            canvas->Update();
+
+            canvas->SaveAs(Form("%s/MCGen/MCComp_R0%i_%s.%s",output.Data(),radius,outliers[outlier].Data(),fileType.Data()));
+            legendSimNew->Clear();
+            legendErrorKeyNew->Clear();
+
+            dummyHistUpper = NULL;
+            delete dummyHistUpper;
+            upperPad->Clear();
+            lowerPad->Clear();
+            topPad->Clear();
+            canvas->Clear();
       }
     }
 
@@ -480,34 +680,93 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
       for(int outlier = 0; outlier < nOutlier; outlier++){
           TGraphErrors *finalRatio = (TGraphErrors*)vecRatioGraph.at(radius-minradius-1)->Clone(Form("finalSpectrum_R0%i_%s", radius, outliers[outlier].Data()));
           TGraphErrors *finalRatioSys = (TGraphErrors*)vecRatioSysGraph.at(radius-minradius-1)->Clone(Form("finalSpectrumSys_R0%i_%s", radius, outliers[outlier].Data()));
-          TH1D *dummyratiosim = (TH1D*)vecRatio.at(0)->Clone(Form("dummyratiosim_%i_%i",radius,outlier));
-          dummyratiosim->Divide(vecSpectrumSim[outlier].at(0), vecSpectrumSim[outlier].at(radius-minradius),1,1,"b");
+          TH1D *dummyratiosim = (TH1D*)vecSpectrumSim[outlier].at(0)->Clone(Form("dummyratiosim_%i_%i",radius,outlier));
+          dummyratiosim->Divide(vecSpectrumSim[outlier].at(0), vecSpectrumSim[outlier].at(radius-minradius),1,1);
           TGraphErrors *dummyratiosim_graph = new TGraphErrors(dummyratiosim);
 
-          dummyRatio->Draw("axis");
-          finalRatio->Draw("p,e2,same");
-          finalRatioSys->Draw("e2,same");
+          for(int point = (dummyratiosim_graph->GetN())-1; point >= 0; point--){
+              if(dummyratiosim_graph->GetPointX(point) > 240) dummyratiosim_graph->RemovePoint(point);
+              if(dummyratiosim_graph->GetPointX(point) < 20) dummyratiosim_graph->RemovePoint(point);
+          }
 
-          legendSimRatio->AddEntry(vecRatio.at(radius-(minradius+1)), "ALICE Data", "p");
-          legendSimRatio->AddEntry(dummyratiosim, "PYTHIA Monash", "p");
-          dummyratiosim_graph->Draw("p,e,same");
+          dummyRatio->Draw("axis");
+          finalRatioSys->Draw("e2,same");
+          finalRatio->Draw("p,e1,same");
+
+          legendSimRatio->AddEntry(finalRatio, "ALICE Data", "p");
+          legendSimRatio->AddEntry(dummyratiosim_graph, "PYTHIA8 Monash", "p");
+          dummyratiosim_graph->SetMarkerColor(colors[11]);
+          dummyratiosim_graph->SetLineColor(colors[11]);
+          dummyratiosim_graph->Draw("p,e1,same");
           line->Draw("same");
           legendSimRatio->Draw();
+          legendErrorKeyRatio->Draw();
 
-          drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
-          drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.2/#it{R}=0.%i",radius),0.19,0.87, textSize,kFALSE, kFALSE, false);
-          drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.83, textSize,kFALSE, kFALSE, false);
-          drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.19,0.79, textSize,kFALSE, kFALSE, false);
+          drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+          drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+          drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.2/#it{R}=0.%i",radius),0.17,0.84, textSize,kFALSE, kFALSE, false);
+          drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
+          drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.76, textSize,kFALSE, kFALSE, false);
 
           cRatio->SaveAs(Form("%s/MCGen/MCComp_Ratio_R0%i02_%s.%s",output.Data(),radius,outliers[outlier].Data(),fileType.Data()));
           legendSimRatio->Clear();
       }
     }
 
+    /////////////////////////////////////////////////////////////
+    // Plot combined ratio simulation comparisons (HP request) //
+    /////////////////////////////////////////////////////////////
+    cRatio->cd();
+    for(int outlier = 0; outlier < nOutlier; outlier++){
+
+    dummyRatio->Draw("axis");
+    for(int radius = minradius+1; radius <= maxradius; radius++){
+          TGraphErrors *finalRatio = (TGraphErrors*)vecRatioGraph.at(radius-minradius-1)->Clone(Form("finalSpectrum_R0%i_%s", radius, outliers[outlier].Data()));
+          TGraphErrors *finalRatioSys = (TGraphErrors*)vecRatioSysGraph.at(radius-minradius-1)->Clone(Form("finalSpectrumSys_R0%i_%s", radius, outliers[outlier].Data()));
+          TH1D *dummyratiosim = (TH1D*)vecSpectrumSim[outlier].at(0)->Clone(Form("dummyratiosim_%i_%i",radius,outlier));
+          dummyratiosim->Divide(vecSpectrumSim[outlier].at(0), vecSpectrumSim[outlier].at(radius-minradius),1,1);
+          TGraphErrors *dummyratiosim_graph = new TGraphErrors(dummyratiosim);
+          dummyratiosim_graph->SetFillColorAlpha(colors[14-radius],0.35);
+          dummyratiosim_graph->SetLineColor(colors[14-radius]);
+
+          //for(int point = (dummyratiosim_graph->GetN())-1; point >= 0; point--){
+        //      if(dummyratiosim_graph->GetPointX(point) > 240) dummyratiosim_graph->RemovePoint(point);
+        //      if(dummyratiosim_graph->GetPointX(point) < 20) dummyratiosim_graph->RemovePoint(point);
+          //}
+
+          finalRatioSys->Draw("e2,same");
+          finalRatio->Draw("p,e1,same");
+
+          legendSimRatioCombined->AddEntry(finalRatio, Form("R = 0.2/0.%i |", radius), "");
+          legendSimRatioCombined->AddEntry(finalRatio, "         |   ", "p");
+          legendSimRatioCombined->AddEntry(dummyratiosim_graph, "    ", "l");
+          dummyratiosim_graph->Draw("l,e3,same");
+
+    }
+
+    line->Draw("same");
+    legendSimRatioCombined->Draw("same");
+    legendErrorKeyRatioCombined->Draw("same");
+
+    drawLatexAdd("ALICE Data   | PYTHIA8 Monash",0.535,0.21, textSize,kFALSE, kFALSE, false);
+
+    drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.17,0.84, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.76, textSize,kFALSE, kFALSE, false);
+
+    cRatio->SaveAs(Form("%s/MCGen/MCComp_RatioCombined_%s.%s",output.Data(),outliers[outlier].Data(),fileType.Data()));
+    legendRatio->Clear();
+}
+
+    ///////////////////////////////////////
+    // Plot ratio of sim to data //
+    ///////////////////////////////////////
     for(int radius = minradius; radius <= maxradius; radius++){
       for(int outlier = 0; outlier < nOutlier; outlier++){
         TH1D *ratiosimdata = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdata_%i_%i",radius,outlier));
-        ratiosimdata->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1,"b");
+        ratiosimdata->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
         SetStyleHistoTH1ForGraphs(ratiosimdata,"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{sim}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
         ratiosimdata->GetYaxis()->SetRangeUser(0.96,2.4);
         TGraphErrors *ratiosimdata_graph = new TGraphErrors(ratiosimdata);
@@ -516,12 +775,15 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         ratiosimdata_graph->Draw("p,e,same");
         line->Draw("same");
 
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.19,0.3, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.19,0.26, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.22, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd("|#it{#eta}^{tr}| > 0.7, |#it{#eta}^{cl}| > 0.7, |#it{#eta}^{jet}| > 0.7 - #it{R}",0.19,0.18, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.19,0.87, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.83, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.19,0.79, textSize,kFALSE, kFALSE, false);
 
         cRatio->SaveAs(Form("%s/MCGen/ratioDataMC/ratio_simdata_R0%i_%s.%s",output.Data(),radius,outliers[outlier].Data(),fileType.Data()));
       }
     }
+
+    fOutput->Close();
+    delete fOutput;
 }

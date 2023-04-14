@@ -14,7 +14,7 @@ void plotFilterComparison(TString defaultfile, TString filteredfile, TString out
     Double_t textSize     = 0.03;
     int minradius = 2;
     int maxradius = 6;
-    TString filetype = "png";
+    TString filetype = "pdf";
 
     gSystem->Exec("mkdir -p "+output);
 
@@ -48,15 +48,39 @@ void plotFilterComparison(TString defaultfile, TString filteredfile, TString out
 
         TH1D *ratio = (TH1D*)specUnfDef->Clone(Form("ratio_R0%i",radius));
         ratio->Divide(specUnfFil, specUnfDef, 1, 1, "b");
-        ratio->GetYaxis()->SetRangeUser(0.98,1.02);
-        ratio->GetXaxis()->SetRangeUser(20,240);
+        TH1D *statUnc = (TH1D*)specUnfDef->Clone(Form("statUnc_R0%i",radius));
+        for(int bin = 0; bin <= statUnc->GetNbinsX(); bin++){
+            statUnc->SetBinError(bin,0);
+        }
+        statUnc->Divide(specUnfDef,statUnc);
+        ratio->GetYaxis()->SetRangeUser(0.94,1.06);
+        if(radius <= 4) ratio->GetXaxis()->SetRangeUser(20,240);
+        else if(radius == 5) ratio->GetXaxis()->SetRangeUser(20,160);
+        else if(radius == 6) ratio->GetXaxis()->SetRangeUser(20,130);
+        else cout << "Invalid radius specified!" << endl;
+        ratio->SetMarkerStyle(styles[radius-minradius]);
+        ratio->SetMarkerSize(2.5);
+        ratio->SetMarkerColor(colors[radius-minradius]);
+        ratio->SetLineColor(colors[radius-minradius]);
+        ratio->SetFillColor(colors[radius-minradius]);
+        ratio->SetFillStyle(3001);
+        SetStyleHistoTH1ForGraphs(ratio,"","#it{p}_{T} (GeV/#it{c})","Filtered/Unfiltered",textSize,0.04,textSize,0.04,1,1.2);
         ratio->Draw("p,e");
+        statUnc->SetFillColor(colors[radius-minradius]);
+        statUnc->SetLineColor(colors[radius-minradius]);
+        statUnc->SetFillStyle(0);
+        statUnc->Draw("e2,same");
+
+        TLegend *legendErrorKey =  GetAndSetLegend2(0.15,0.15,0.35,0.15+((2)*textSize*1.7)/2,textSize);
+        legendErrorKey->AddEntry(ratio, "Ratio", "p");
+        legendErrorKey->AddEntry(statUnc, "Statistical Uncertainty", "f");
+        legendErrorKey->Draw();
 
         DrawGammaLines(20.,240.,1.,1.,8.,16,9);
 
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, R = 0.%i",radius),0.93,0.86, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("Filtered/Unfiltered",0.93,0.82, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.14,0.90, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, R = 0.%i",radius),0.14,0.86, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("Filter: #it{N}_{jet} > 10/#it{bin}_{response}",0.14,0.82, textSize,kFALSE, kFALSE, false);
 
         c->SaveAs(Form("%s/filterComparison_R0%i.%s",output.Data(),radius,filetype.Data()));
     }

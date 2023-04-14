@@ -25,15 +25,13 @@ void plotRpARejComp(TString ppMC, TString pA1, TString pA2, TString pA3, TString
     vector<TH1D*> vecClus_pA[nFiles_pA];
     vector<TH1D*> vecSpec_pp;
     vector<TH1D*> vecClus_pp;
-    vector<double> detlevelbin = getJetPtBinningNonLinSmearPoor();
+    vector<double> detlevelbin = getJetPtBinningNonLinSmear8TeV();
     double xsec_pp   = 55.8;
     double xsec_pPb  = 2095.;
     double nucfactor = 208.;
     vector<TString> triggers_pp{"INT7","EMC7","EJE"};
     vector<TString> triggers_pA{"INT7","EJ2","EJ1"};
     vector<TString> triggerNames{"Min. Bias","EMCal L0","EMCal L1-Jet"};
-
-    double RpA_scale = (xsec_pPb)/(xsec_pp*nucfactor);
 
     TFile *fpp = TFile::Open(ppMC);
     if(!fpp || fpp->IsZombie()){
@@ -94,7 +92,7 @@ void plotRpARejComp(TString ppMC, TString pA1, TString pA2, TString pA3, TString
     }
 
     TCanvas* canvas       = new TCanvas("canvas","",10,10,750,500);
-    double leftMargin   = 0.1;
+    double leftMargin   = 0.12;
     double rightMargin  = 0.02;
     double topMargin    = 0.04;
     double bottomMargin = 0.09;
@@ -102,38 +100,49 @@ void plotRpARejComp(TString ppMC, TString pA1, TString pA2, TString pA3, TString
     gStyle->SetOptStat(0);
     canvas->SetLogy();
 
-    TLegend *legend =  GetAndSetLegend2(0.13,(0.28-(5)*textSize),0.43,0.28,textSize,2);
+    TH1D *dummySpectraMB = new TH1D("dummySpectraMB","",350,0,350);
+    dummySpectraMB->GetYaxis()->SetRangeUser(2e-11,2e-3);
+    dummySpectraMB->GetXaxis()->SetRangeUser(0,260);
+    SetStyleHistoTH1ForGraphs(dummySpectraMB,"","#it{p}_{T} (GeV/c)","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,1.3);
+
+    TH1D *dummySpectraL1 = new TH1D("dummySpectra","",350,0,350);
+    dummySpectraL1->GetYaxis()->SetRangeUser(1e-8,0.1);
+    dummySpectraL1->GetXaxis()->SetRangeUser(0,260);
+    SetStyleHistoTH1ForGraphs(dummySpectraL1,"","#it{p}_{T} (GeV/c)","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,1.3);
+
+    TLegend *legend =  GetAndSetLegend2(0.14,(0.26-(3)*textSize),0.54,0.26,textSize,2);
 
     for(int t=0; t<triggers_pA.size(); t++){
+        if(t==0) dummySpectraMB->Draw("axis");
+        else dummySpectraL1->Draw("axis");
         // Plot simulation jets for all pp triggers in one plot
         for(int ifile = 0; ifile < pAMC.size(); ifile++){
-            vecSpec_pA[ifile].at(t)->SetMarkerStyle(styles[ifile]);
-            vecSpec_pA[ifile].at(t)->SetMarkerColor(colors[ifile]);
-            vecSpec_pA[ifile].at(t)->SetLineColor(colors[ifile]);
-            vecSpec_pA[ifile].at(t)->GetXaxis()->SetRangeUser(20,240);
-            if(t==0) vecSpec_pA[ifile].at(t)->GetYaxis()->SetRangeUser(1e-12,1e-3);
-            else vecSpec_pA[ifile].at(t)->GetYaxis()->SetRangeUser(1e-10,1e-1);
-            SetStyleHistoTH1ForGraphs(vecSpec_pA[ifile].at(t),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-            if(ifile==0) vecSpec_pA[ifile].at(t)->Draw("p,e");
-            else vecSpec_pA[ifile].at(t)->Draw("p,e,same");
-            legend->AddEntry(vecSpec_pA[ifile].at(t), Form("%s", pAnames.at(ifile).Data()), "p");
+            TH1D *pASpectrum = (TH1D*)vecSpec_pA[ifile].at(t)->Clone(Form("pASpectrum_%i_%i",t,ifile));
+            pASpectrum->SetMarkerStyle(styles[ifile]);
+            pASpectrum->SetMarkerColor(colors[ifile]);
+            pASpectrum->SetLineColor(colors[ifile]);
+            pASpectrum->GetXaxis()->SetRangeUser(20,240);
+            if(ifile==0) pASpectrum->Draw("p,e1,same");
+            else pASpectrum->Draw("p,e1,same");
+            legend->AddEntry(pASpectrum, Form("%s", pAnames.at(ifile).Data()), "p");
         }
 
-        vecSpec_pp.at(t)->SetMarkerStyle(styles[pAMC.size()]);
-        vecSpec_pp.at(t)->SetMarkerColor(colors[pAMC.size()]);
-        vecSpec_pp.at(t)->SetLineColor(colors[pAMC.size()]);
-        vecSpec_pp.at(t)->GetXaxis()->SetRangeUser(20,240);
-        //vecSpec_pp.at(t)->GetYaxis()->SetRangeUser(1e-9,1);
-        SetStyleHistoTH1ForGraphs(vecSpec_pp.at(t),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.1);
-        vecSpec_pp.at(t)->Draw("p,e,same");
-        legend->AddEntry(vecSpec_pp.at(t), "pp sim", "p");
+        TH1D *ppSpectrum = (TH1D*)vecSpec_pp.at(t)->Clone(Form("ppSpectrum_%i",t));
+        ppSpectrum->SetMarkerStyle(styles[pAMC.size()]);
+        ppSpectrum->SetMarkerColor(colors[pAMC.size()]);
+        ppSpectrum->SetLineColor(colors[pAMC.size()]);
+        ppSpectrum->GetXaxis()->SetRangeUser(20,240);
+        legend->AddEntry(ppSpectrum, "pp sim", "p");
 
-        legend->Draw();
+        ppSpectrum->Draw("p,e1,same");
+        legend->Draw("same");
+
         drawLatexAdd("pp [pPb] #sqrt{#it{s}_{NN}} = 8 [8.16] TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.86, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("PYTHIA8 Simulation",0.93,0.82, textSize,kFALSE, kFALSE, true);
         drawLatexAdd(Form("%s",triggerNames.at(t).Data()),0.93,0.78, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("Scaled by x-secs and 1/208 (p--Pb)",0.93,0.74, textSize,kFALSE, kFALSE, true);
+
         canvas->SaveAs(Form("%s/RejectionComparison_R0%i_%s_%s.%s", outputdir.Data(), radius, triggers_pp.at(t).Data(), triggers_pA.at(t).Data(), fileType.Data()));
         legend->Clear();
     }

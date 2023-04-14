@@ -15,7 +15,7 @@ void plotRawFromUnf(TString unfoldingFile, TString output, TString fileType, TSt
     Double_t textSize     = 0.03;
     int minradius = 2;
     int maxradius = 6;
-    vector<double> detlevelbin = getJetPtBinningNonLinSmearPoor();
+    vector<double> detlevelbin = getJetPtBinningNonLinSmear8TeV();
 
 
     int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};

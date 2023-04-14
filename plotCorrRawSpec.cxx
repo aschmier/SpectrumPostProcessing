@@ -117,7 +117,7 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
             //vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,240);
             if(radius==2 || radius==3 || radius==4) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,240);
             if(radius==5) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,160);
-            if(radius==6) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,130);
+            if(radius==6) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,120);
         //    vecEJE.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
         //    SetStyleHistoTH1ForGraphs(vecEJE.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
         //}
@@ -146,7 +146,7 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
         //}
         if(radius==2 || radius==3 || radius==4) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
         if(radius==5) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
-        if(radius==6) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,130);
+        if(radius==6) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,120);
         SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
 
         vecCombined.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);

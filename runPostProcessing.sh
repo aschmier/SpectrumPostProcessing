@@ -39,7 +39,7 @@ fUnfolded_bayes_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/Unfoldi
 fUnfolded_svd_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_sys_2422.root"
 
 # MC Gen input file
-fMCGen="/media/austin/mightymouse/data/pp8TeV_MC/PureMC_8TeV/AnalysisResults.root"
+fMCGen="/media/austin/mightymouse/data/pp8TeV_MC/PureMC_8TeV/ptlimited/AnalysisResults.root"
 
 # LHC16c2 runlist
 runsMC="/home/austin/alice/pp8TeV_runlists/runsLHC16c2.txt"
@@ -49,6 +49,12 @@ uTypeSys="Bayes"
 
 dSysRootFiles="/home/austin/alice/SystematicsRootFiles"
 dEnergyScaleRootFiles="/home/austin/alice/EnergyScaleRootFiles"
+ResultsRootFile8TeV="/home/austin/alice/FinalResultsRootFiles/FinalResults_pp8TeV.root"
+SpectrumRootFile13TeV="/home/austin/alice/FinalResultsRootFiles/jetspectrum13TeV.root"
+RatioRootFile13TeV="/home/austin/alice/FinalResultsRootFiles/jetspectrumratios13TeV.root"
+HEPData2p76TeV="/home/austin/alice/FinalResultsRootFiles/HEPData_2p76TeV"
+HEPData5TeV="/home/austin/alice/FinalResultsRootFiles/HEPData_5TeV"
+HEPDataATLAS="/home/austin/alice/FinalResultsRootFiles/HEPData_ATLAS_8TeV"
 
 mkdir -p $outputdir
 
@@ -63,7 +69,10 @@ mkdir -p $outputdir
 #for (( r=2; r<=6; r++ ))
 #do
 #  root -x -q -l -b 'plotSystematicsCorrelated.cxx("'$fUnfolded_bayes_sys'","'$uTypeSys'",'$r',"'$filetype'","'$outputdir'")'
-#  root -x -q -l -b 'plotRatioSystematicsCorrelated.cxx("'$fUnfolded_bayes_sys'","'$uTypeSys'",'$r',"'$filetype'","'$outputdir'")'
+#  if [ $r -ne 2 ]
+#  then
+#    root -x -q -l -b 'plotRatioSystematicsCorrelated.cxx("'$fUnfolded_bayes_sys'","'$uTypeSys'",'$r',"'$filetype'","'$outputdir'","'$dSysRootFiles'")'
+#  fi
 #  root -x -q -l -b 'plotRejectionFactor.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'",'$r',"'$filetype'")'
 #  root -x -q -l -b 'plotTriggerSwap.cxx("'$fUnfolded_bayes_final'","'$outputdir'",'$r',"pp","'$filetype'")'
 #done
@@ -90,4 +99,6 @@ mkdir -p $outputdir
 #done < $runsMC
 
 # Plot final results and MC comparison
-root -x -q -l -b 'plotFinalSpectrum.cxx("'$fUnfolded_bayes_final'","'$fMCGen'","'$dSysRootFiles'","'$uTypeAna'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotFinalSpectrum.cxx("'$fUnfolded_bayes_final'","'$fMCGen'","'$dSysRootFiles'","'$uTypeAna'","'$outputdir'","'$filetype'")'
+root -x -q -l -b 'plotEnergyComparison.cxx("'$ResultsRootFile8TeV'","'$HEPData2p76TeV'","'$HEPData5TeV'","'$SpectrumRootFile13TeV'","'$RatioRootFile13TeV'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotExperimentComparison.cxx("'$ResultsRootFile8TeV'","'$HEPDataATLAS'","'$outputdir'","'$filetype'")'

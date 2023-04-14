@@ -21,14 +21,14 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     // Define variables
     Double_t textSize     = 0.04;
     Int_t radius          = rad;
-    Int_t regnum          = 7;
+    Int_t regnum          = 6;
     TString baseDirectory = "/home/austin/alice/RpA_results";
     TString fileType      = "png";
 
     int styles[10] = {8,21,33,34,41,43,45,47,48,49};
     int colors[10] = {1,2,4,8,9,30,40,41,46,49};
 
-    vector<double> partlevelbin = getJetPtBinningNonLinTruePoor();
+    vector<double> partlevelbin = getJetPtBinningNonLinTrue8TeV();
     double xsec_pp = 55.8;
     double xsec_pPb = 2095.;
 
@@ -38,11 +38,6 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
 
     TFile *fpA = TFile::Open(pAFile);
     if(!fpA || fpA->IsZombie()) return;
-
-    // Set up canvas for plotting
-    TCanvas *c   = new TCanvas("c", "", 1200, 800);
-    DrawPaperCanvasSettings(c,0.1,0.025,0.025,0.1);
-    gStyle->SetOptStat(0);
 
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////// Get the histograms ///////////////////////////
@@ -71,16 +66,38 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     raw_rebin_pA->Scale(1.,"width");
 
     TH1D *RpA_unf = (TH1D*)normUnfolded_pp->Clone("RpA_unf");
-    RpA_unf->Divide(normUnfolded_pA,normUnfolded_pp,1,1,"b");
+    RpA_unf->Divide(normUnfolded_pA,normUnfolded_pp);
 
     TH1D *RpA_raw = (TH1D*)raw_rebin_pp->Clone("RpA_raw");
     RpA_raw->Divide(raw_rebin_pA,raw_rebin_pp);
 
     TH1D *pp_foldraw = (TH1D*)raw_rebin_pp->Clone("pp_foldraw");
-    pp_foldraw->Divide(normUnfolded_pp,raw_rebin_pp);
+    pp_foldraw->Divide(normUnfolded_pp,raw_rebin_pp,1,1,"b");
 
     TH1D *pA_foldraw = (TH1D*)raw_rebin_pA->Clone("pA_foldraw");
-    pA_foldraw->Divide(normUnfolded_pA,raw_rebin_pA);
+    pA_foldraw->Divide(normUnfolded_pA,raw_rebin_pA,1,1,"b");
+
+    // Plotting stuff
+    TCanvas *c   = new TCanvas("c", "", 1200, 800);
+    DrawPaperCanvasSettings(c,0.075,0.01,0.01,0.1);
+    gStyle->SetOptStat(0);
+
+    TH1D *dummyRpA = new TH1D("dummyRpA","",350,0,350);
+    dummyRpA->GetXaxis()->SetRangeUser(0,260);
+    dummyRpA->GetYaxis()->SetRangeUser(0,2);
+    SetStyleHistoTH1ForGraphs(dummyRpA,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb}",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,0.9);
+
+    TH1D *dummyFoldRaw = new TH1D("dummyFoldRaw","",350,0,350);
+    dummyFoldRaw->GetYaxis()->SetRangeUser(0,48);
+    dummyFoldRaw->GetXaxis()->SetRangeUser(0,260);
+    SetStyleHistoTH1ForGraphs(dummyFoldRaw,"","#it{p}_{T} (GeV/c)","Unfolded/Raw",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,0.8);
+
+    TLine * l1 = new TLine (0,1,260,1);
+    l1->SetLineColor(14);
+    l1->SetLineWidth(3);
+    l1->SetLineStyle(7);
+
+    TLegend *legendFoldRaw =  GetAndSetLegend2(0.09,0.79-(2)*textSize,0.29,0.79,textSize);
 
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////// Draw the unfolded RpA ////////////////////////
@@ -90,23 +107,29 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     RpA_unf->Scale(1./208.);
 
     // Set up histogram
-    RpA_unf->GetXaxis()->SetRangeUser(20,320);
-    SetStyleHistoTH1ForGraphs(RpA_unf,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb}",0.03,0.04,0.03,0.04,1,1.2);
+    RpA_unf->GetXaxis()->SetRangeUser(20,240);
     RpA_unf->SetMarkerStyle(4);
     RpA_unf->SetLineColor(kBlack);
     RpA_unf->SetMarkerColor(kBlack);
     RpA_unf->SetMarkerSize(2.5);
-    RpA_unf->Draw();
+    RpA_unf->Sumw2();
 
-    TLine * l1 = new TLine (0,1,280,1);
-    l1->SetLineColor(14);
-    l1->SetLineWidth(3);
-    l1->SetLineStyle(7);
+
+    dummyRpA->Draw("axis");
+    RpA_unf->Draw("p,e1,same");
     l1->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("%s Unfolding, #it{Reg} = %i",type.Data(),regnum),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("#sqrt{#it{s}_{NN}} = 8[.16] TeV",0.11,0.275, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.11,0.23, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Unfolded",0.11,0.19, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Statistical Errors Only",0.11,0.15, textSize,kFALSE, kFALSE, false);
+
+    drawLatexAdd("Corrected for trigger eff and vtx finding eff",0.97,0.35, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("No UE subtraction",0.97,0.31, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Not scaled for #sqrt{#it{s}} difference",0.97,0.27, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Triggers combined using RFs",0.97,0.23, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Turnovers not yet optimized for pPb",0.97,0.19, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Scaled by x-secs and 1/208",0.97,0.15, textSize,kFALSE, kFALSE, kTRUE);
 
     c->SaveAs(Form("%s/RpA_unfolded_R0%i.%s",output.Data(),radius,fileType.Data()));
 
@@ -118,80 +141,59 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     RpA_raw->Scale(1./208.);
 
     // Set up histogram
-    RpA_raw->GetXaxis()->SetRangeUser(20,320);
-    SetStyleHistoTH1ForGraphs(RpA_raw,"","p_{T} (GeV/c)","#it{R}_{pPb}",0.03,0.04,0.03,0.04,1,1.2);
+    RpA_raw->GetXaxis()->SetRangeUser(20,240);
     RpA_raw->SetMarkerStyle(4);
     RpA_raw->SetLineColor(kBlack);
     RpA_raw->SetMarkerColor(kBlack);
     RpA_raw->SetMarkerSize(2.5);
     RpA_raw->Sumw2();
-    RpA_raw->Draw();
 
-    TLine * l2 = new TLine (20,1,320,1);
-    l2->SetLineColor(14);
-    l2->SetLineWidth(3);
-    l2->SetLineStyle(7);
-    l2->Draw("same");
+    dummyRpA->Draw("axis");
+    RpA_raw->Draw("p,e1,same");
+    l1->Draw("same");
 
+    drawLatexAdd("#sqrt{#it{s}_{NN}} = 8[.16] TeV",0.11,0.275, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.11,0.23, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Raw (No Unfolding)",0.11,0.19, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Statistical Errors Only",0.11,0.15, textSize,kFALSE, kFALSE, false);
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("Raw (No Unfolding)",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("Triggers combined using RFs",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("(Not yet optimized for pPb)",0.95,0.75, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("Scaled by x-secs and 1/208",0.95,0.71, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("No UE subtraction",0.97,0.31, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Not scaled for #sqrt{#it{s}} difference",0.97,0.27, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Triggers combined using RFs",0.97,0.23, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Turnovers not yet optimized for pPb",0.97,0.19, textSize,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Scaled by x-secs and 1/208",0.97,0.15, textSize,kFALSE, kFALSE, kTRUE);
 
     c->SaveAs(Form("%s/RpA_raw_R0%i.%s",output.Data(),radius,fileType.Data()));
-
-    ////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////// Draw the pp Fold/Raw /////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-
-    // Set up histogram
-    pp_foldraw->GetXaxis()->SetRangeUser(20,320);
-    SetStyleHistoTH1ForGraphs(pp_foldraw,"","p_{T} (GeV/c)","Fold/Raw (pp)",0.03,0.04,0.03,0.04,1,1.2);
-    pp_foldraw->SetMarkerStyle(4);
-    pp_foldraw->SetLineColor(kBlack);
-    pp_foldraw->SetMarkerColor(kBlack);
-    pp_foldraw->SetMarkerSize(2.5);
-    pp_foldraw->Sumw2();
-    pp_foldraw->Draw();
-
-    TLine * l3 = new TLine (0,1,280,1);
-    l3->SetLineColor(14);
-    l3->SetLineWidth(3);
-    l3->SetLineStyle(7);
-    l3->Draw("same");
-
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("(%s Unfolding, #it{Reg} = %i) / Raw",type.Data(),regnum),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
-
-    c->SaveAs(Form("%s/FoldRaw_pp_R0%i.%s",output.Data(),radius,fileType.Data()));
 
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////// Draw the pA Fold/Raw /////////////////////////
     ////////////////////////////////////////////////////////////////////////////
 
-    // Set up histogram
-    pA_foldraw->GetXaxis()->SetRangeUser(20,320);
-    SetStyleHistoTH1ForGraphs(pA_foldraw,"","p_{T} (GeV/c)","Fold/Raw (pPb)",0.03,0.04,0.03,0.04,1,1.2);
-    pA_foldraw->SetMarkerStyle(4);
-    pA_foldraw->SetLineColor(kBlack);
-    pA_foldraw->SetMarkerColor(kBlack);
-    pA_foldraw->SetMarkerSize(2.5);
+    pp_foldraw->GetXaxis()->SetRangeUser(20,240);
+    pp_foldraw->SetMarkerStyle(4);
+    pp_foldraw->SetLineColor(kBlack);
+    pp_foldraw->SetMarkerColor(kBlack);
+    pp_foldraw->SetMarkerSize(2);
+    pp_foldraw->Sumw2();
+    legendFoldRaw->AddEntry(pp_foldraw,"pp","p");
+
+    pA_foldraw->GetXaxis()->SetRangeUser(20,240);
+    pA_foldraw->SetMarkerStyle(25);
+    pA_foldraw->SetLineColor(kRed+2);
+    pA_foldraw->SetMarkerColor(kRed+2);
+    pA_foldraw->SetMarkerSize(1.7);
     pA_foldraw->Sumw2();
-    pA_foldraw->Draw();
+    legendFoldRaw->AddEntry(pA_foldraw,"p-Pb","p");
 
-    TLine * l4 = new TLine (0,1,280,1);
-    l4->SetLineColor(14);
-    l4->SetLineWidth(3);
-    l4->SetLineStyle(7);
-    l4->Draw("same");
+    dummyFoldRaw->Draw("axis");
+    pp_foldraw->Draw("p,e1,same");
+    pA_foldraw->Draw("p,e1,same");
+    l1->Draw("same");
+    legendFoldRaw->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd(Form("(%s Unfolding, #it{Reg} = %i) / Raw",type.Data(),regnum),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("#sqrt{#it{s}_{NN}} = 8[.16] TeV",0.11,0.92, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.11,0.875, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd(Form("(%s Unfolding, #it{Reg} = %i) / Raw",type.Data(),regnum),0.11,0.83, textSize,kFALSE, kFALSE, false);
 
-    c->SaveAs(Form("%s/FoldRaw_pA_R0%i.%s",output.Data(),radius,fileType.Data()));
+    c->SaveAs(Form("%s/FoldRaw_R0%i.%s",output.Data(),radius,fileType.Data()));
 }
