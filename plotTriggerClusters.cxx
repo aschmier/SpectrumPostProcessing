@@ -9,20 +9,25 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 
-void plotTriggerClusters(TString mb_file, TString emc7_file, TString eje_file, TString outputdir, TString fileType)
+void plotTriggerClusters(TString mb_file, TString emc7_file, TString eje_file, TString outputdir, TString fileType, TString system, int minradius = 2, int maxradius = 6)
 {
     Double_t textSize     = 0.03;
-    int minradius = 2;
-    int maxradius = 6;
     TString jetType = "Full";
 
     int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
     int colors[14] = {1,2,209,4,6,7,8,9,28,30,40,41,46,49};
     vector<TFile*> files;
-    vector<TString> triggers{"INT7","EMC7","EJE"};
-    vector<TString> triggers2{"Min. Bias","EMCal-L0","EMCal-L1"};
+    vector<TString> triggers;
+    if(system=="pp") triggers = {"INT7","EMC7","EJE"};
+    if(system=="pPb") triggers = {"INT7","EJ2","EJ1"};
+    vector<TString> triggers2;
+    if(system=="pp") triggers2 = {"Min. Bias","EMCal-L0","EMCal-L1"};
+    if(system=="pPb") triggers2 = {"Min. Bias","EMCal-L1 EJ2","EMCal-L1 EJ1"};
     vector<TH1D*> vecClusters[maxradius-minradius+1];
     vector<double> binningrffine = getJetPtBinningRejectionFactorsFine();
+
+    gSystem->Exec("mkdir -p "+outputdir+"/TriggerClusters");
+
 
     TFile *fmb = TFile::Open(mb_file);
     if(!fmb || fmb->IsZombie()){

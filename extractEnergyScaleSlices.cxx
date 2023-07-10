@@ -9,17 +9,17 @@
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "fstream"
 
-void extractEnergyScaleSlices(TString file, TString outputdir, TString fileType)
+void extractEnergyScaleSlices(TString file, TString outputdir, TString fileType, int minradius = 2, int maxradius = 6)
 {
     Double_t textSize     = 0.03;
-    int minradius = 2;
-    int maxradius = 6;
     TString jetType = "Full";
 
     int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
     int colors[14] = {1,2,3,4,6,7,8,9,28,30,40,41,46,49};
 
     vector<TH1D*> vecSlices[maxradius-minradius+1];
+
+    gSystem->Exec("mkdir -p "+outputdir+"/EnergyScale/Slices/AllRadii");
 
     const Int_t nPtBins     = 16;
     Int_t binsPt[17]        = {10,12,14,16,20,25,30,35,40,50,60,70,80,100,120,160,200};

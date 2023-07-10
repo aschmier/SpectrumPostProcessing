@@ -30,6 +30,9 @@ run8=265741
 # Run 266034, period LHC16r, TPCTestSet
 input9="/media/austin/mightymouse/data/pPb8TeV_data/GA1005_nosub_runwise/LHC16r/pass2_merged/TPCTestSet/266034/AnalysisResults.root"
 run9=266034
+# Run 265756, period LHC16r, TPCTestSet
+input10="/media/austin/mightymouse/data/pPb8TeV_data/GA1005_nosub_runwise/LHC16r/pass2_merged/TPCTestSet/maybe/265756/AnalysisResults.root"
+run10=265756
 
 #root -x -q -l -b 'plotSingleRun.cxx("'$input'",'$radius','$run',"'$output'")'
 #root -x -q -l -b 'plotSingleRun.cxx("'$input2'",'$radius','$run2',"'$output'")'
@@ -38,5 +41,6 @@ run9=266034
 #root -x -q -l -b 'plotSingleRun.cxx("'$input5'",'$radius','$run5',"'$output'")'
 #root -x -q -l -b 'plotSingleRun.cxx("'$input6'",'$radius','$run6',"'$output'")'
 #root -x -q -l -b 'plotSingleRun.cxx("'$input7'",'$radius','$run7',"'$output'")'
-root -x -q -l -b 'plotSingleRun.cxx("'$input8'",'$radius','$run8',"'$output'")'
-root -x -q -l -b 'plotSingleRun.cxx("'$input9'",'$radius','$run9',"'$output'")'
+#root -x -q -l -b 'plotSingleRun.cxx("'$input8'",'$radius','$run8',"'$output'")'
+#root -x -q -l -b 'plotSingleRun.cxx("'$input9'",'$radius','$run9',"'$output'")'
+root -x -q -l -b 'plotSingleRun.cxx("'$input10'",'$radius','$run10',"'$output'")'

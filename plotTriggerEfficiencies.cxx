@@ -10,7 +10,7 @@
 #include "TPaveText.h"
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 
-void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileType, int rmin = 2, int rmax = 6, int regnum = 6)
+void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileType, TString system, int rmin = 2, int rmax = 6, int regnum = 6)
 {
     // Define variables
     double textSize     = 0.03;
@@ -21,6 +21,9 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
     // Open unfolding results file
     TFile *f = TFile::Open(resultsFile.Data());
     if(!f || f->IsZombie()) return;
+
+    gSystem->Exec("mkdir -p "+output+"/TriggerEfficiency");
+
 
     // Set up canvas for plotting
     TCanvas *c   = new TCanvas("c", "", 1200, 800);
@@ -42,10 +45,13 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
         // Get the histograms...
         TDirectory *rDir = (TDirectory*)f->Get(Form("R0%i",r));
         TDirectory *raw  = (TDirectory*)rDir->Get("rawlevel");
-        TH1D *trigEffL0  = (TH1D*)raw->Get(Form("TriggerEfficiency_EMC7_R0%i_rebinned",r));
+        TH1D *trigEffL0;
+        if(system=="pp") trigEffL0 = (TH1D*)raw->Get(Form("TriggerEfficiency_EMC7_R0%i_rebinned",r));
+        if(system=="pPb") trigEffL0 = (TH1D*)raw->Get(Form("TriggerEfficiency_EJ2_R0%i_rebinned",r));
         trigEffL0->GetXaxis()->SetRangeUser(20,240);
         trigEffL0->GetYaxis()->SetRangeUser(0,1.41);
-        SetStyleHistoTH1ForGraphs(trigEffL0,"","p_{T}^{jet} [GeV/c]","EMC7 Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
+        if(system=="pp") SetStyleHistoTH1ForGraphs(trigEffL0,"","p_{T}^{jet} [GeV/c]","EMC7 Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
+        if(system=="pPb") SetStyleHistoTH1ForGraphs(trigEffL0,"","p_{T}^{jet} [GeV/c]","EJ2 Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
         trigEffL0->SetMarkerColor(colors[r-rmin]);
         trigEffL0->SetLineColor(colors[r-rmin]);
         trigEffL0->SetMarkerStyle(styles[r-rmin]);
@@ -55,10 +61,12 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
     }
     legend->Draw();
     l->Draw("same");
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.13,0.89, textSize,kFALSE, kFALSE, false);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.13,0.89, textSize,kFALSE, kFALSE, false);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.13,0.89, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.13,0.85, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("PYTHIA8+GEANT3",0.13,0.81, textSize,kFALSE, kFALSE, false);
-    c->SaveAs(Form("%s/TriggerEfficiency/hEfficiency_EMC7.%s",output.Data(),fileType.Data()));
+    if(system=="pp") c->SaveAs(Form("%s/TriggerEfficiency/hEfficiency_EMC7.%s",output.Data(),fileType.Data()));
+    if(system=="pPb") c->SaveAs(Form("%s/TriggerEfficiency/hEfficiency_EJ2.%s",output.Data(),fileType.Data()));
 
     legend->Clear();
 
@@ -66,10 +74,14 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
         // Get the histograms...
         TDirectory *rDir = (TDirectory*)f->Get(Form("R0%i",r));
         TDirectory *raw  = (TDirectory*)rDir->Get("rawlevel");
-        TH1D *trigEffL1  = (TH1D*)raw->Get(Form("TriggerEfficiency_EJE_R0%i_rebinned",r));
+        TH1D *trigEffL1;
+        if(system=="pp") trigEffL1 = (TH1D*)raw->Get(Form("TriggerEfficiency_EJE_R0%i_rebinned",r));
+        if(system=="pPb") trigEffL1 = (TH1D*)raw->Get(Form("TriggerEfficiency_EJ1_R0%i_rebinned",r));
+
         trigEffL1->GetXaxis()->SetRangeUser(20,240);
         trigEffL1->GetYaxis()->SetRangeUser(0,1.41);
-        SetStyleHistoTH1ForGraphs(trigEffL1,"","p_{T}^{jet} [GeV/c]","EJE Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
+        if(system=="pp") SetStyleHistoTH1ForGraphs(trigEffL1,"","p_{T}^{jet} [GeV/c]","EJE Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
+        if(system=="pPb") SetStyleHistoTH1ForGraphs(trigEffL1,"","p_{T}^{jet} [GeV/c]","EJ1 Trigger Efficiency",0.03,0.04,0.03,0.04,1,0.9);
         trigEffL1->SetMarkerColor(colors[r-rmin]);
         trigEffL1->SetLineColor(colors[r-rmin]);
         trigEffL1->SetMarkerStyle(styles[r-rmin]);
@@ -79,8 +91,12 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
     }
     legend->Draw();
     l->Draw("same");
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.13,0.89, textSize,kFALSE, kFALSE, false);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.13,0.89, textSize,kFALSE, kFALSE, false);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.13,0.89, textSize,kFALSE, kFALSE, false);
+
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.13,0.85, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("PYTHIA8+GEANT3",0.13,0.81, textSize,kFALSE, kFALSE, false);
-    c->SaveAs(Form("%s/TriggerEfficiency/hEfficiency_EJE.%s",output.Data(),fileType.Data()));
+    if(system=="pp") c->SaveAs(Form("%s/TriggerEfficiency/hEfficiency_EJE.%s",output.Data(),fileType.Data()));
+    if(system=="pPb") c->SaveAs(Form("%s/TriggerEfficiency/hEfficiency_EJ1.%s",output.Data(),fileType.Data()));
+
 }

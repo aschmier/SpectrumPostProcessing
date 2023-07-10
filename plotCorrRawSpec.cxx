@@ -12,17 +12,27 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 
-void plotCorrRawSpec(TString file, TString output, TString fileType)
+void plotCorrRawSpec(TString file, TString output, TString fileType, TString system, int minradius = 2, int maxradius = 6)
 {
     // Define variables
     Double_t textSize     = 0.03;
-    int minradius = 2;
-    int maxradius = 6;
-    TString triggers[3] = {"Min. Bias (INT7)", "EMCal-L0 (EMC7)", "EMCal-L1 (EJE)"};
-
+    TString triggers[3];
+    if(system=="pp"){
+        triggers[0] = "Min. Bias (INT7)";
+        triggers[1] = "EMCal-L0 (EMC7)";
+        triggers[2] = "EMCal-L1 (EJE)";
+    }
+    if(system=="pPb"){
+        triggers[0] = "Min. Bias (INT7)";
+        triggers[1] = "EMCal-L1 (EJ2)";
+        triggers[2] = "EMCal-L1 (EJ1)";
+    }
     int styles[10] = {8,21,33,34,41,43,45,47,48,49};
     int colors[10] = {1,2,4,8,9,30,40,41,46,49};
     double xsec = 55.8;
+
+        gSystem->Exec("mkdir -p "+output+"/CorrRawSpec");
+
 
     vector<TH1D*> vecMB;
     vector<TH1D*> vecEMC7;
@@ -33,21 +43,42 @@ void plotCorrRawSpec(TString file, TString output, TString fileType)
     TFile *f = TFile::Open(file);
     if(!f || f->IsZombie()) return;
 
-    for(int radius = minradius; radius <= maxradius; radius++){
-        TDirectory *topdir   = (TDirectory*)f->Get(Form("R0%i",radius));
-        TDirectory *rawlevel = (TDirectory*)topdir->Get("rawlevel");
-        TH1D *mbrebinned     = (TH1D*)rawlevel->Get("mbrebinned");
-        TH1D *emc7rebinned   = (TH1D*)rawlevel->Get("emc7rebinned");
-        TH1D *ejerebinned    = (TH1D*)rawlevel->Get("ejerebinned");
-        TH1D *combined       = (TH1D*)rawlevel->Get(Form("hraw_R0%i",radius));
-        mbrebinned->Scale(xsec,"width");
-        emc7rebinned->Scale(xsec,"width");
-        ejerebinned->Scale(xsec,"width");
-        combined->Scale(1.,"width");
-        vecMB.push_back(mbrebinned);
-        vecEMC7.push_back(emc7rebinned);
-        vecEJE.push_back(ejerebinned);
-        vecCombined.push_back(combined);
+    if(system=="pp"){   
+        for(int radius = minradius; radius <= maxradius; radius++){
+            TDirectory *topdir   = (TDirectory*)f->Get(Form("R0%i",radius));
+            TDirectory *rawlevel = (TDirectory*)topdir->Get("rawlevel");
+            TH1D *mbrebinned     = (TH1D*)rawlevel->Get("mbrebinned");
+            TH1D *emc7rebinned   = (TH1D*)rawlevel->Get("emc7rebinned");
+            TH1D *ejerebinned    = (TH1D*)rawlevel->Get("ejerebinned");
+            TH1D *combined       = (TH1D*)rawlevel->Get(Form("hraw_R0%i",radius));
+            mbrebinned->Scale(xsec,"width");
+            emc7rebinned->Scale(xsec,"width");
+            ejerebinned->Scale(xsec,"width");
+            combined->Scale(1.,"width");
+            vecMB.push_back(mbrebinned);
+            vecEMC7.push_back(emc7rebinned);
+            vecEJE.push_back(ejerebinned);
+            vecCombined.push_back(combined);
+        }
+    }
+
+    if(system=="pPb"){   
+        for(int radius = minradius; radius <= maxradius; radius++){
+            TDirectory *topdir   = (TDirectory*)f->Get(Form("R0%i",radius));
+            TDirectory *rawlevel = (TDirectory*)topdir->Get("rawlevel");
+            TH1D *mbrebinned     = (TH1D*)rawlevel->Get("mbrebinned");
+            TH1D *emc7rebinned   = (TH1D*)rawlevel->Get("ej2rebinned");
+            TH1D *ejerebinned    = (TH1D*)rawlevel->Get("ej1rebinned");
+            TH1D *combined       = (TH1D*)rawlevel->Get(Form("hraw_R0%i",radius));
+            mbrebinned->Scale(xsec,"width");
+            emc7rebinned->Scale(xsec,"width");
+            ejerebinned->Scale(xsec,"width");
+            combined->Scale(1.,"width");
+            vecMB.push_back(mbrebinned);
+            vecEMC7.push_back(emc7rebinned);
+            vecEJE.push_back(ejerebinned);
+            vecCombined.push_back(combined);
+        }
     }
 
     TCanvas* canvas             = new TCanvas("canvas","",10,10,750,500);  // gives the page size

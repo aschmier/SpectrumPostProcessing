@@ -149,7 +149,7 @@ void plotRpADebug(TString ppINT7, TString ppEMC7, TString ppEJE, TString ppMC, T
     SetStyleHistoTH1ForGraphs(dummySpectraMB,"","#it{p}_{T} (GeV/c)","Raw Yield / NEvents",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,1);
 
     TH1D *dummySpectraL1 = new TH1D("dummySpectra","",350,0,350);
-    dummySpectraL1->GetYaxis()->SetRangeUser(2e-9,2e-3);
+    dummySpectraL1->GetYaxis()->SetRangeUser(7e-6,2);
     dummySpectraL1->GetXaxis()->SetRangeUser(0,260);
     SetStyleHistoTH1ForGraphs(dummySpectraL1,"","#it{p}_{T} (GeV/c)","Raw Yield / NEvents",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,1);
 

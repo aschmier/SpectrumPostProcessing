@@ -9,11 +9,9 @@
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "fstream"
 
-void plotJES(TString jes_file, TString outputdir, TString run = "", TString fileType = "pdf")
+void plotJES(TString jes_file, TString outputdir, TString run = "", TString fileType = "pdf", int minradius = 2, int maxradius = 6)
 {
     Double_t textSize     = 0.03;
-    int minradius = 2;
-    int maxradius = 6;
     TString jetType = "Full";
 
     int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
@@ -33,6 +31,10 @@ void plotJES(TString jes_file, TString outputdir, TString run = "", TString file
             TGraphErrors *mean   = (TGraphErrors*)fjes->Get(Form("EnergyScale_R0%i_mean", radius));
             TGraphErrors *median = (TGraphErrors*)fjes->Get(Form("EnergyScale_R0%i_median", radius));
             TGraphErrors *width  = (TGraphErrors*)fjes->Get(Form("EnergyScale_R0%i_width", radius));
+            if(!mean || !median || !width){
+                cout << "JES graphs not found!" << endl;
+                return;
+            }
             vecMean.push_back(mean);
             vecMedian.push_back(median);
             vecWidth.push_back(width);

@@ -9,54 +9,66 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
 
 
-outputdir="/home/austin/alice/AnalysisNote_pp_8TeV/618164481744be1fd5ef7dfe/figures"
+#outputdir="/home/austin/alice/AnalysisNote_pp_8TeV/618164481744be1fd5ef7dfe/figures"
+outputdir="/home/austin/alice/pPbTestPost"
 filetype="pdf"
 
 # Raw input files with systematics config
-fMB_sys="/media/austin/mightymouse/data/pp8TeV_data/GA2422_default_sys/INT7.root"
-fEMC7_sys="/media/austin/mightymouse/data/pp8TeV_data/GA2422_default_sys/EMC7.root"
-fEJE_sys="/media/austin/mightymouse/data/pp8TeV_data/GA2422_default_sys/EJE.root"
+#fMB_sys="/media/austin/mightymouse/data/pp8TeV_data/GA2422_default_sys/INT7.root"
+#fEMC7_sys="/media/austin/mightymouse/data/pp8TeV_data/GA2422_default_sys/EMC7.root"
+#fEJE_sys="/media/austin/mightymouse/data/pp8TeV_data/GA2422_default_sys/EJE.root"
 
 # Raw input files with final config
-fMB_final="/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/INT7.root"
-fEMC7_final="/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/EMC7.root"
-fEJE_final="/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/EJE.root"
+#fMB_final="/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/INT7.root"
+#fEMC7_final="/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/EMC7.root"
+#fEJE_final="/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/EJE.root"
+
+fMB_final="/media/austin/mightymouse/data/pPb8TeV_data/GA995_PerpCone/AnalysisResults.root"
+fEMC7_final="/media/austin/mightymouse/data/pPb8TeV_data/GA995_PerpCone/AnalysisResults.root"
+fEJE_final="/media/austin/mightymouse/data/pPb8TeV_data/GA995_PerpCone/AnalysisResults.root"
 
 # MC input file with systematics config
-fMC_sys="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root"
-dMC_runwise_sys="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/runwise"
+#fMC_sys="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root"
+#dMC_runwise_sys="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/runwise"
 
 # MC input file with final config
-fMC_final="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root"
-dMC_runwise_final="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/runwise"
+#fMC_final="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root"
+#dMC_runwise_final="/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/runwise"
+
+fMC_final="/media/austin/mightymouse/data/pPb8TeV_MC/merged_1538/AnalysisResults.root"
 
 # Unfolded input file with final config
-fUnfolded_bayes_final="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_final_2423.root"
-fUnfolded_svd_final="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_final_2423.root"
+#fUnfolded_bayes_final="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_final_2423.root"
+#fUnfolded_svd_final="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_final_2423.root"
+
+fUnfolded_svd_final="/home/austin/alice/SpectrumPostProcessing/bayes_pPb_PerpCone_test2_R02.root"
+fUnfolded_bayes_final="/home/austin/alice/SpectrumPostProcessing/bayes_pPb_PerpCone_test2_R02.root"
 
 # Unfolded input file with systematics config
-fUnfolded_bayes_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_sys_2422.root"
-fUnfolded_svd_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_sys_2422.root"
+#fUnfolded_bayes_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_sys_2422.root"
+#fUnfolded_svd_sys="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/svd_default_sys_2422.root"
 
 # MC Gen input file
-fMCGen="/media/austin/mightymouse/data/pp8TeV_MC/PureMC_8TeV/ptlimited/AnalysisResults.root"
+#fMCGen="/media/austin/mightymouse/data/pp8TeV_MC/PureMC_8TeV/ptlimited/AnalysisResults.root"
 
 # LHC16c2 runlist
-runsMC="/home/austin/alice/pp8TeV_runlists/runsLHC16c2.txt"
+#runsMC="/home/austin/alice/pp8TeV_runlists/runsLHC16c2.txt"
 
 uTypeAna="Bayes"
 uTypeSys="Bayes"
 
-dSysRootFiles="/home/austin/alice/SystematicsRootFiles"
-dEnergyScaleRootFiles="/home/austin/alice/EnergyScaleRootFiles"
-ResultsRootFile8TeV="/home/austin/alice/FinalResultsRootFiles/FinalResults_pp8TeV.root"
-SpectrumRootFile13TeV="/home/austin/alice/FinalResultsRootFiles/jetspectrum13TeV.root"
-RatioRootFile13TeV="/home/austin/alice/FinalResultsRootFiles/jetspectrumratios13TeV.root"
-HEPData2p76TeV="/home/austin/alice/FinalResultsRootFiles/HEPData_2p76TeV"
-HEPData5TeV="/home/austin/alice/FinalResultsRootFiles/HEPData_5TeV"
-HEPDataATLAS="/home/austin/alice/FinalResultsRootFiles/HEPData_ATLAS_8TeV"
+#dSysRootFiles="/home/austin/alice/SystematicsRootFiles"
+#dEnergyScaleRootFiles="/home/austin/alice/EnergyScaleRootFiles"
+dEnergyScaleRootFiles="/home/austin/alice/EnergyScaleRootFiles/pPb"
+#ResultsRootFile8TeV="/home/austin/alice/FinalResultsRootFiles/FinalResults_pp8TeV.root"
+#SpectrumRootFile13TeV="/home/austin/alice/FinalResultsRootFiles/jetspectrum13TeV.root"
+#RatioRootFile13TeV="/home/austin/alice/FinalResultsRootFiles/jetspectrumratios13TeV.root"
+#HEPData2p76TeV="/home/austin/alice/FinalResultsRootFiles/HEPData_2p76TeV"
+#HEPData5TeV="/home/austin/alice/FinalResultsRootFiles/HEPData_5TeV"
+#HEPDataATLAS="/home/austin/alice/FinalResultsRootFiles/HEPData_ATLAS_8TeV"
 
 mkdir -p $outputdir
+mkdir -p $dEnergyScaleRootFiles
 
 # Do unfolding comparisons
 #python /home/austin/alice/SubstructureAnalysis/unfolding/comparisons/comp1D/8TeV/makeallplots_8TeV.py $fUnfolded_svd_final $fUnfolded_bayes_final $outputdir $filetype
@@ -80,15 +92,16 @@ mkdir -p $outputdir
 # Make plots for analysis note
 #root -x -q -l -b 'plotKinEff.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'plotDVector.cxx("'$fUnfolded_svd_final'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotTriggerBias.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotTriggerBiasAll.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotTriggerClusters.cxx("'$fMB_sys'","'$fEMC7_sys'","'$fEJE_sys'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotCorrRawSpec.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'extractEnergyScaleSlices.cxx("'$fMC_final'","'$outputdir'","'$filetype'")'
-#root -x -q -l -b 'plotTriggerEfficiencies.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotTriggerBias.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'","'$filetype'","'pPb'",2,2)'
+#root -x -q -l -b 'plotTriggerBiasAll.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$fMC_final'","'$outputdir'","'$filetype'","'pPb'",2,2)'
+#root -x -q -l -b 'plotTriggerClusters.cxx("'$fMB_sys'","'$fEMC7_sys'","'$fEJE_sys'","'$outputdir'","'$filetype'","'pPb'",2,2)'
+#root -x -q -l -b 'plotTriggerClusters.cxx("'$fMB_final'","'$fEMC7_final'","'$fEJE_final'","'$outputdir'","'$filetype'","'pPb'",2,2)'
+#root -x -q -l -b 'plotCorrRawSpec.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'","'pPb'",2,2)'
+#root -x -q -l -b 'extractEnergyScaleSlices.cxx("'$fMC_final'","'$outputdir'","'$filetype'",2,2)'
+root -x -q -l -b 'plotTriggerEfficiencies.cxx("'$fUnfolded_bayes_final'","'$outputdir'","'$filetype'","'pPb'",2,2,6)'
 #root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/EnergyScale/EnergyScaleTask/extractJetEnergyScaleSimple.cpp("'$fMC_final'","FullJet","default")'
 #mv EnergyScaleResults_default.root $dEnergyScaleRootFiles/EnergyScaleResults.root
-#root -x -q -l -b 'plotJES.cxx("'$dEnergyScaleRootFiles'/EnergyScaleResults.root","'$outputdir'","","'$filetype'")'
+#root -x -q -l -b 'plotJES.cxx("'$dEnergyScaleRootFiles'/EnergyScaleResults.root","'$outputdir'","","'$filetype'",2,2)'
 #root -x -q -l -b 'plotJESComp.cxx("'$dEnergyScaleRootFiles'/EnergyScaleResults.root","'$dEnergyScaleRootFiles'/EnergyScaleResults_tc200.root","'$outputdir'","'$filetype'")'
 #while read run || [[ -n $run ]];
 #do
@@ -100,5 +113,5 @@ mkdir -p $outputdir
 
 # Plot final results and MC comparison
 #root -x -q -l -b 'plotFinalSpectrum.cxx("'$fUnfolded_bayes_final'","'$fMCGen'","'$dSysRootFiles'","'$uTypeAna'","'$outputdir'","'$filetype'")'
-root -x -q -l -b 'plotEnergyComparison.cxx("'$ResultsRootFile8TeV'","'$HEPData2p76TeV'","'$HEPData5TeV'","'$SpectrumRootFile13TeV'","'$RatioRootFile13TeV'","'$outputdir'","'$filetype'")'
+#root -x -q -l -b 'plotEnergyComparison.cxx("'$ResultsRootFile8TeV'","'$HEPData2p76TeV'","'$HEPData5TeV'","'$SpectrumRootFile13TeV'","'$RatioRootFile13TeV'","'$outputdir'","'$filetype'")'
 #root -x -q -l -b 'plotExperimentComparison.cxx("'$ResultsRootFile8TeV'","'$HEPDataATLAS'","'$outputdir'","'$filetype'")'

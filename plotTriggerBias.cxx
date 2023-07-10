@@ -18,7 +18,7 @@ std::vector<double> getRebin(){
   return result;
 }
 
-void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TString mc_file, TString outputdir, TString fileType, int minradius = 2, int maxradius = 6)
+void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TString mc_file, TString outputdir, TString fileType, TString system, int minradius = 2, int maxradius = 6)
 {
     Double_t textSize     = 0.03;
     TString jetType = "Full";
@@ -26,7 +26,9 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
     int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
     Color_t colors[14] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4};
     vector<TFile*> files;
-    vector<TString> triggers{"INT7","EMC7","EJE"};
+    vector<TString> triggers;
+    if(system=="pp") triggers = {"INT7","EMC7","EJE"};
+    if(system=="pPb") triggers = {"INT7","EJ2","EJ1"};
     vector<TH2D*> vecNEF[maxradius-minradius+1];
     vector<TH2D*> vecZch[maxradius-minradius+1];
     vector<TH2D*> vecZne[maxradius-minradius+1];
@@ -35,6 +37,10 @@ void plotTriggerBias(TString mb_file, TString emc7_file, TString eje_file, TStri
     vector<TH2D*> vecZne_MC[maxradius-minradius+1];
 
     vector<double> detLevelRebin = getRebin();
+
+    gSystem->Exec("mkdir -p "+outputdir+"/TriggerBias/NEF");
+    gSystem->Exec("mkdir -p "+outputdir+"/TriggerBias/Zne");
+    gSystem->Exec("mkdir -p "+outputdir+"/TriggerBias/Zch");
 
     const Int_t nPtBins     = 6;
     Int_t binsPt[7]        = {6, 10, 30, 60, 100, 160, 240};

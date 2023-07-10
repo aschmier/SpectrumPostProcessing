@@ -17,7 +17,7 @@ void plotKinEff(TString file, TString output, TString fileType)
     // Define variables
     Double_t textSize     = 0.03;
     int minradius = 2;
-    int maxradius = 6;
+    int maxradius = 2;
 
     int styles[10] = {8,21,33,34,41,43,45,47,48,49};
     int colors[10] = {1,2,4,8,9,30,40,41,46,49};
@@ -28,8 +28,13 @@ void plotKinEff(TString file, TString output, TString fileType)
     TFile *f = TFile::Open(file);
     if(!f || f->IsZombie()) return;
 
+    // Print file name
+    cout << "File: " << file << endl;
+    cout << f->GetName() << endl;
+
     for(int radius = minradius; radius <= maxradius; radius++){
         TDirectory *topdir   = (TDirectory*)f->Get(Form("R0%i",radius));
+        if(!topdir) cout << "Directory R0" << radius << " not found" << endl;
         TDirectory *response = (TDirectory*)topdir->Get("response");
         TH1D *effKine     = (TH1D*)response->Get(Form("effKine_R0%i", radius));
         //effKine->Scale(1.,"width");
@@ -89,5 +94,8 @@ void plotKinEff(TString file, TString output, TString fileType)
     legend->Draw();
     drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.84,0.35, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Full Jets",0.84,0.31, 0.03,kFALSE, kFALSE, kTRUE);
+
+    // Create output directory if it doesn't already exist
+    system(Form("mkdir -p %s/KinematicEfficiency",output.Data()));
     canvas->SaveAs(Form("%s/KinematicEfficiency/EffKine.%s",output.Data(),fileType.Data()));
 }
