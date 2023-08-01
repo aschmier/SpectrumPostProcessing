@@ -25,7 +25,7 @@ void plotBGRejMethods(TString NoSub, TString PerpCone, TString RhoSparse, TStrin
 
     vector<double> detlevelbin = getJetPtBinningNonLinSmear8TeV();
 
-    vector<TString> triggers{"INT7","EJ2","EJ1"};
+    vector<TString> triggers{"EJ2","EJ1"};
     vector<TString> fileNames{NoSub,PerpCone,RhoSparse};
     vector<TString> rejTypes{"NoSub", "PerpCone", "RhoSparse"};
     vector<TString> typesPlot{"No Subtraction", "Perpendicular Cones", "Rho Sparse"};
@@ -72,6 +72,13 @@ void plotBGRejMethods(TString NoSub, TString PerpCone, TString RhoSparse, TStrin
             if(!dir){
                 dirname     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, triggers.at(t).Data());
                 dir = (TDirectory*)file->Get(dirname.Data());
+            }
+
+            if(!dir){
+                cout << "Could not find directory " << dirname << endl;
+                cout << "File: " << fileNames.at(f) << endl;
+                cout << "Trigger: " << triggers.at(t) << endl;
+                return;
             }
 
             TList *list     = (TList*)dir->Get(dirname.Data());

@@ -94,7 +94,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
 
     TH1D *dummy = (TH1D*)vecMB.at(0)->Clone("dummy");
     dummy->GetXaxis()->SetRangeUser(0,350);
-    dummy->GetYaxis()->SetRangeUser(1e-12,2e-2);
+    if(system=="pp") dummy->GetYaxis()->SetRangeUser(1e-12,2e-2);
+    if(system=="pPb") dummy->GetYaxis()->SetRangeUser(1e-7,0.3);
+
     SetStyleHistoTH1ForGraphs(dummy,"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
 
     for(int radius = minradius; radius <= maxradius; radius++){
@@ -114,7 +116,8 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
         vecMB.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
-    drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pPb") drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Min. Bias (INT7)",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
     canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_INT7.%s",output.Data(),fileType.Data()));
@@ -137,7 +140,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
         vecEMC7.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
-    drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pPb") drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+
     drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("EMCal-L0 (EMC7)",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
     canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_EMC7.%s",output.Data(),fileType.Data()));
@@ -163,7 +168,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
         vecEJE.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
-    drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="p--Pb") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+
     drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("EMCal-L1 (EJE)",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
     canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_EJE.%s",output.Data(),fileType.Data()));
@@ -191,7 +198,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
         vecCombined.at(radius-minradius)->Draw("p,e1,same");
     }
     legend->Draw();
-    drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pPb") drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+
     drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Combined Raw Spectrum",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
     canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_Combined.%s",output.Data(),fileType.Data()));

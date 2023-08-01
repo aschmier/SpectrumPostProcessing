@@ -13,7 +13,7 @@ void plotMinBiasComp(TString data_file, TString mc_file, TString outputdir, TStr
 {
     double textSize  = 0.03;
     int minradius    = 2;
-    int maxradius    = 6;
+    int maxradius    = 2;
     TString jetType  = "Full";
     TString fileType = "png";
 
@@ -21,8 +21,8 @@ void plotMinBiasComp(TString data_file, TString mc_file, TString outputdir, TStr
     int colors[14]   = {1,2,209,4,6,7,8,9,28,30,40,41,46,49};
     vector<TH1D*> vecData;
     vector<TH1D*> vecMC;
-    vector<double> partlevelbin = getJetPtBinningNonLinTruePoor();
-    vector<double> detlevelbin = getJetPtBinningNonLinSmearPoor();
+    vector<double> partlevelbin = getJetPtBinningNonLinTrue8TeV();
+    vector<double> detlevelbin = getJetPtBinningNonLinSmear8TeV();
     double xsec_pp   = 55.8;
     double xsec_pPb  = 2095.;
 
@@ -39,10 +39,11 @@ void plotMinBiasComp(TString data_file, TString mc_file, TString outputdir, TStr
     }
 
     for(int radius = minradius; radius <= maxradius; radius++){
-        TString dirname     = Form("JetSpectrum_%sJets_R0%i_%s_nodownscalecorr", jetType.Data(), radius, trigger.Data());
+        TString dirnameData     = Form("JetSpectrum_%sJets_R0%i_%s_default", jetType.Data(), radius, trigger.Data());
+        TString dirnameMC     = Form("JetSpectrum_%sJets_R0%i_%s_Clusterizer5x5", jetType.Data(), radius, trigger.Data());    
 
-        TDirectory *datadir = (TDirectory*)fdata->Get(dirname.Data());
-        TList *datalist     = (TList*)datadir->Get(dirname.Data());
+        TDirectory *datadir = (TDirectory*)fdata->Get(dirnameData.Data());
+        TList *datalist     = (TList*)datadir->Get(dirnameData.Data());
         TH1D *dataevents    = (TH1D*)datalist->FindObject("hClusterCounter");
         TH2D *dataspec2d    = (TH2D*)datalist->FindObject("hJetSpectrum");
         TH1D *dataspec1d    = (TH1D*)dataspec2d->ProjectionY(Form("dataspec1d_R0%i",radius),1,1);
@@ -51,8 +52,8 @@ void plotMinBiasComp(TString data_file, TString mc_file, TString outputdir, TStr
         rdataspec->Scale(1/dataevents->GetBinContent(1));
         vecData.push_back(rdataspec);
 
-        TDirectory *mcdir   = (TDirectory*)fmc->Get(dirname.Data());
-        TList *mclist       = (TList*)mcdir->Get(dirname.Data());
+        TDirectory *mcdir   = (TDirectory*)fmc->Get(dirnameMC.Data());
+        TList *mclist       = (TList*)mcdir->Get(dirnameMC.Data());
         TH1D *mcevents      = (TH1D*)mclist->FindObject("hClusterCounter");
         TH2D *mcspec2d      = (TH2D*)mclist->FindObject("hJetSpectrum");
         TH1D *mcspec1d      = (TH1D*)mcspec2d->ProjectionY(Form("mcspec1d_R0%i",radius),1,1);

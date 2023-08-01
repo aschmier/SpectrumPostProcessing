@@ -25,7 +25,7 @@ TH1D *ProcessSimHisto(TH1D *spectrum, vector<double> vecBins, int r, TString out
     return hRebinned;
 }
 
-void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematicsDir, TString type, TString output, TString fileType)
+void plotFinalSpectrum_pPb(TString spectrumFile, TString simFile, TString systematicsDir, TString type, TString output, TString fileType, TString system = "pPb")
 {
     Double_t textSize     = 0.03;
     Int_t regnum          = 6;
@@ -74,8 +74,10 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     gSystem->Exec("mkdir -p "+output+"/MCGen");
     gSystem->Exec("mkdir -p "+output+"/MCGen/ratioDataMC");
 
-    const char* nameOutput = Form("%s/FinalResults_NewBinning_pp8TeV.root",outputDirRootFile.Data());
-    TFile* fOutput = new TFile(nameOutput,"RECREATE");
+    TFile *fOutput;
+
+    if(system=="pp") fOutput = new TFile(Form("%s/FinalResults_NewBinning_pp8TeV.root",outputDirRootFile.Data()),"RECREATE");
+    if(system=="pPb") fOutput = new TFile(Form("%s/FinalResults_pPb8TeV.root",outputDirRootFile.Data()),"RECREATE");
 
     // Open root files
     TFile *f = TFile::Open(spectrumFile);
@@ -185,7 +187,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         gSpectrumSys->SetFillColorAlpha(colors[radius-minradius],alphasval);
         gSpectrumSys->SetLineColor(colors[radius-minradius]);
         gSpectrumSys->SetFillStyle(1);
-
+/*
         gSpectrum->RemovePoint((gSpectrum->GetN()-1));
         gSpectrum->RemovePoint(18);
         gSpectrum->RemovePoint(17);
@@ -211,6 +213,14 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         gSpectrumSys->RemovePoint(2);
         gSpectrumSys->RemovePoint(1);
         gSpectrumSys->RemovePoint(0);
+*/
+
+        for(int point = (gSpectrum->GetN())-1; point >= 0; point--){
+              if(gSpectrum->GetPointX(point) > 240) gSpectrum->RemovePoint(point);
+              if(gSpectrum->GetPointX(point) < 20)  gSpectrum->RemovePoint(point);
+              if(gSpectrumSys->GetPointX(point) > 240) gSpectrumSys->RemovePoint(point);
+              if(gSpectrumSys->GetPointX(point) < 20)  gSpectrumSys->RemovePoint(point);
+        }
 
         // Save to vectors
         vecSpectrumGraph.push_back(gSpectrum);
@@ -247,7 +257,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
                 gRatioSys->SetFillColorAlpha(colors[radius-(minradius+1)+1],alphasval);
                 gRatioSys->SetLineColor(colors[radius-(minradius+1)+1]);
                 gRatioSys->SetFillStyle(1);
-
+/*
                 gRatio->RemovePoint((gRatio->GetN()-1));
                 gRatio->RemovePoint(18);
                 gRatio->RemovePoint(17);
@@ -273,6 +283,15 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
                 gRatioSys->RemovePoint(2);
                 gRatioSys->RemovePoint(1);
                 gRatioSys->RemovePoint(0);
+                */
+
+                for(int point = (gRatio->GetN())-1; point >= 0; point--){
+                    if(gRatio->GetPointX(point) > 240) gRatio->RemovePoint(point);
+                    if(gRatio->GetPointX(point) < 20)  gRatio->RemovePoint(point);
+                    if(gRatioSys->GetPointX(point) > 240) gRatioSys->RemovePoint(point);
+                    if(gRatioSys->GetPointX(point) < 20)  gRatioSys->RemovePoint(point);
+                }
+
                 // Save to vectors
                 vecRatioGraph.push_back(gRatio);
                 vecRatioSysGraph.push_back(gRatioSys);
@@ -314,23 +333,25 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     //TH1D *dummySpectrum = (TH1D*)vecSpectrum.at(0)->Clone("dummySpectrum");
     TH1D *dummySpectrum = new TH1D("dummySpectrum","",300,0,300);
     dummySpectrum->GetXaxis()->SetRangeUser(0,270);
-    dummySpectrum->GetYaxis()->SetRangeUser(3e-8,0.6);
+    if(system=="pPb") dummySpectrum->GetYaxis()->SetRangeUser(3e-6,400);
+    if(system=="pp") dummySpectrum->GetYaxis()->SetRangeUser(3e-8,0.6);
     SetStyleHistoTH1ForGraphs(dummySpectrum,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
 
     TH1D *dummySpectrumUnscaled = new TH1D("dummySpectrumUnscaled","",300,0,300);
     dummySpectrumUnscaled->GetXaxis()->SetRangeUser(0,270);
-    dummySpectrumUnscaled->GetYaxis()->SetRangeUser(3e-8,2e-2);
+    if(system=="pPb") dummySpectrumUnscaled->GetYaxis()->SetRangeUser(3e-6,400);
+    if(system=="pp") dummySpectrumUnscaled->GetYaxis()->SetRangeUser(3e-8,0.6);
     SetStyleHistoTH1ForGraphs(dummySpectrumUnscaled,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
 
     // Set up dummy histos for plotting
     TH1D *dummySpectrumLogX = new TH1D("dummySpectrumLogX","",300,0,300);
-    dummySpectrumLogX->GetXaxis()->SetRangeUser(18,260);
-    dummySpectrumLogX->GetYaxis()->SetRangeUser(3e-8,0.6);
+    if(system=="pPb") dummySpectrumLogX->GetYaxis()->SetRangeUser(3e-6,400);
+    if(system=="pp") dummySpectrumLogX->GetYaxis()->SetRangeUser(3e-8,0.6);
     SetStyleHistoTH1ForGraphs(dummySpectrumLogX,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
 
     TH1D *dummySpectrumLogXUnscaled = new TH1D("dummySpectrumLogXUnscaled","",300,0,300);
-    dummySpectrumLogXUnscaled->GetXaxis()->SetRangeUser(18,260);
-    dummySpectrumLogXUnscaled->GetYaxis()->SetRangeUser(3e-8,2e-2);
+    if(system=="pPb") dummySpectrumLogXUnscaled->GetYaxis()->SetRangeUser(3e-6,400);
+    if(system=="pp") dummySpectrumLogXUnscaled->GetYaxis()->SetRangeUser(3e-8,0.6);
     SetStyleHistoTH1ForGraphs(dummySpectrumLogXUnscaled,"","#it{p}_{T} (GeV/#it{c})","#frac{d^{2}#it{#sigma}}{d#it{p}_{T}d#it{#eta}} (mb (GeV/#it{c})^{-1})",textSize,0.035,textSize,0.035,1,1.9);
 
     TH1D *dummyRatio    = new TH1D("dummyRatio","",300,0,300);
@@ -369,8 +390,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("ALICE Preliminary",0.93,0.93, textSize,kFALSE, kFALSE, true);
-    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+    //drawLatexAdd("ALICE Preliminary",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.87, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.84, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
@@ -396,7 +418,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.9, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
@@ -429,7 +452,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.9, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
@@ -453,7 +477,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendSpectrum->Draw("same");
     legendErrorKey->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.93, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.9, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
@@ -487,8 +512,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendRatio->Draw("same");
     legendErrorKeyRatio->Draw("same");
 
-    drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
-    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+    //drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.17,0.84, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.76, textSize,kFALSE, kFALSE, false);
@@ -633,8 +659,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
             legendSimNew->Draw();
             legendErrorKeyNew->Draw();
 
-            drawLatexAdd("ALICE Preliminary",0.93,0.92, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
-            drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.87, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            //drawLatexAdd("ALICE Preliminary",0.93,0.92, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.87, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            if(system=="pp") drawLatexAdd("pPb #sqrt{#it{s}} = 8 TeV",0.93,0.87, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
             drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.93,0.82, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
             drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.77, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
             drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.72, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
@@ -702,8 +729,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
           legendSimRatio->Draw();
           legendErrorKeyRatio->Draw();
 
-          drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
-          drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+          //drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+          if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+          if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
           drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.2/#it{R}=0.%i",radius),0.17,0.84, textSize,kFALSE, kFALSE, false);
           drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
           drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.76, textSize,kFALSE, kFALSE, false);
@@ -750,8 +778,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
     drawLatexAdd("ALICE Data   | PYTHIA8 Monash",0.535,0.21, textSize,kFALSE, kFALSE, false);
 
-    drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
-    drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+    //drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.17,0.84, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.76, textSize,kFALSE, kFALSE, false);
@@ -775,7 +804,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         ratiosimdata_graph->Draw("p,e,same");
         line->Draw("same");
 
-        drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
+        if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
+        if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);
         drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.19,0.87, textSize,kFALSE, kFALSE, false);
         drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.19,0.83, textSize,kFALSE, kFALSE, false);
         drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.19,0.79, textSize,kFALSE, kFALSE, false);

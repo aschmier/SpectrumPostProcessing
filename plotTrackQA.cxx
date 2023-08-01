@@ -10,7 +10,7 @@
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 #include "/home/austin/alice/AliPhysics/PWG/EMCAL/EMCALbase/AliEmcalList.h"
 
-void plotTrackQA(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString outputdir)
+void plotTrackQA(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString outputdir, TString system)
 {
     double textSize  = 0.03;
     TString jetType  = "Full";
@@ -107,7 +107,9 @@ void plotTrackQA(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString
     legend->Draw();
     l->Draw("same");
 
-    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.80, textSize,kFALSE, kFALSE, true);
+    if(system == "pp") drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.80, textSize,kFALSE, kFALSE, true);
+    if(system == "pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.80, textSize,kFALSE, kFALSE, true);
+
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.76, textSize,kFALSE, kFALSE, true);
     drawLatexAdd("ALICE Data",0.93,0.72, textSize,kFALSE, kFALSE, true);
     canvas->SaveAs(Form("%s/QoverPtShift_EMCal.%s", outputdir.Data(), fileType.Data()));

@@ -9,13 +9,12 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 
-void plotHPlusMinus(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString outputdir)
+void plotHPlusMinus(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString outputdir, TString system, TString fileType = "pdf")
 {
     double textSize  = 0.03;
     int minradius    = 2;
     int maxradius    = 6;
     TString jetType  = "Full";
-    TString fileType = "pdf";
 
     int styles[11]   = {4,25,27,28,35,36,38,40,42,44,46};
     int colors[14]   = {1,2,209,4,6,7,8,9,28,30,40,41,46,49};
@@ -23,7 +22,10 @@ void plotHPlusMinus(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TStr
     vector<TH1D*> vecHMinus[maxradius-minradius+1];
     vector<double> detlevelbin = getJetPtBinningNonLinSmearPoor();
     vector<TString> fileNamesData{nfileINT7, nfileEMC7, nfileEJE};
-    vector<TString> triggers{"INT7","EMC7","EJE"};
+    vector<TString> triggers;
+    if(system=="pp") triggers = {"INT7","EMC7","EJE"};
+    if(system=="pPb") triggers = {"INT7","EJ2","EJ1"};
+
 
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int t = 0; t < triggers.size(); t++){

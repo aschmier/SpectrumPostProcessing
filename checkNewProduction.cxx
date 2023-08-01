@@ -72,6 +72,24 @@ void checkNewProduction(TString ppfile, TString pPbFile, TString outputdir, TStr
     leg->Draw();
     c1->SaveAs(Form("%s/newProductionQA_R0%i.%s", outputdir.Data(), radius, fileType.Data()));
 
+    // Make a dummy plot and draw the ratio of pPb to pp on it
+    c1->SetLogy(0);
+    TH1D *hDummy = new TH1D("hDummy", "hDummy", 220, 20, 240);
+    hDummy->GetYaxis()->SetRangeUser(0.5, 1.5);
+    hDummy->GetXaxis()->SetTitle("p_{T} (GeV/c)");
+    hDummy->GetYaxis()->SetTitle("p-Pb / pp");
+    hDummy->GetYaxis()->SetTitleOffset(1.4);
+    hDummy->SetTitle("");
+    hDummy->Draw("axis");
+    DrawGammaLines(20.,240.,1.,1.,8.,16,9);
+    TH1D *hRatio = (TH1D*)hJetSpectrumpPb->Clone("hRatio");
+    hRatio->Divide(hJetSpectrumpp);
+    hRatio->SetMarkerStyle(20);
+    hRatio->SetMarkerColor(kBlack);
+    hRatio->SetLineColor(kBlack);
+    hRatio->SetMarkerSize(0.8);
+    hRatio->Draw("p E1 SAME");
 
+    c1->SaveAs(Form("%s/newProductionRatio_R0%i.%s", outputdir.Data(), radius, fileType.Data()));
 
 }

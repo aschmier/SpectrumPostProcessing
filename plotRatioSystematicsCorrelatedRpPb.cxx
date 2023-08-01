@@ -11,7 +11,7 @@
 
 //namespace fs = std::filesystem;
 
-void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString inputtxtfiles)
+void plotRatioSystematicsCorrelatedRpPb(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString inputtxtfiles)
 {
     //////////////////////////// Define Variables //////////////////////////////
 
@@ -31,26 +31,29 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 7;
+    int varNSys = 8;
     const int nSys = varNSys;
     vector<TString> plot_names;
     vector<TString> systematics_names;
     vector<TString> variation_original;
     vector<TString> fitfunc;
 
-    TString outputDir                 = Form("%s/Systematics/ratios/R02R0%i", out.Data(), radius);
-    TString outputDirRootFile         = Form("%s/ratio",rootfileout.Data());
+    TString outputDir         = "";
+    TString outputDirRootFile = "";
+
+    outputDir                 = Form("%s/Systematics/ratios/R02R0%i", out.Data(), radius);
+    outputDirRootFile         = Form("%s/ratio", rootfileout.Data());
 
     gSystem->Exec("mkdir -p "+outputDir);
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
     gSystem->Exec("mkdir -p "+outputDirRootFile);
 
-    plot_names.insert(plot_names.end(), {"Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency"});
-    systematics_names.insert(systematics_names.end(), {"qoverptshift","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking"});
-    variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%"});
-    if(radius == 2) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol4","pol4","pol0","pol0","binwise"});
-    if(radius == 3 || radius == 4) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol4","pol4","pol0","pol0","binwise"});
-    if(radius == 5 || radius == 6) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol0","pol0","pol0","pol0","binwise"});
+    plot_names.insert(plot_names.end(), {"Embedding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Luminosity Scaling"});
+    systematics_names.insert(systematics_names.end(), {"embedding","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","tracking","lumi"});
+    variation_original.insert(variation_original.end(), {"RandomCones","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","default"});
+    if(radius == 5) fitfunc.insert(fitfunc.end(), {"pol1","pol3","pol0","pol0","pol0","pol0","pol1","binwise"});
+    else fitfunc.insert(fitfunc.end(), {"pol0","pol3","pol0","pol0","pol0","pol0","pol1","binwise"});
+
 
     TString systematicsFile;
 
@@ -142,7 +145,6 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         TString sfile, var;
 
         while(sysfile >> sfile >> var){
-            sfile = "Unfolding/UnfoldingResults/" + sfile;
             files[name].push_back(sfile);
             variations[name].push_back(var);
         }
@@ -172,7 +174,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         }
     }
 
-    const char* nameOutput = Form("%s/ratio/systematics_R02R0%i.root",rootfileout.Data(),radius);
+    const char* nameOutput = Form("/%s/ratio/systematics_R02R0%i.root", rootfileout.Data(), radius);
     gSystem->Exec("mkdir -p "+rootfileout+"/ratio");
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
@@ -307,7 +309,8 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
 
         // Set up axes
         sysAvg->GetXaxis()->SetRangeUser(minPt,maxPt);
-        if(radius <= 3){
+        sysAvg->GetYaxis()->SetRangeUser(0,10);
+        /*if(radius <= 3){
             if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,13);
             else sysAvg->GetYaxis()->SetRangeUser(0,3);
         }else if(radius == 4){
@@ -317,7 +320,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
             if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,17);
             else sysAvg->GetYaxis()->SetRangeUser(0,15);
         }
-
+*/
         TF1  *sysFit;
         TF1  *pol0;
         TF1  *pol1;

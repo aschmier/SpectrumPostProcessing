@@ -125,7 +125,6 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     drawLatexAdd("Statistical Errors Only",0.11,0.15, textSize,kFALSE, kFALSE, false);
 
     drawLatexAdd("Corrected for trigger eff and vtx finding eff",0.97,0.35, textSize,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("No UE subtraction",0.97,0.31, textSize,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Not scaled for #sqrt{#it{s}} difference",0.97,0.27, textSize,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Triggers combined using RFs",0.97,0.23, textSize,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Turnovers not yet optimized for pPb",0.97,0.19, textSize,kFALSE, kFALSE, kTRUE);
@@ -157,7 +156,6 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     drawLatexAdd("Raw (No Unfolding)",0.11,0.19, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("Statistical Errors Only",0.11,0.15, textSize,kFALSE, kFALSE, false);
 
-    drawLatexAdd("No UE subtraction",0.97,0.31, textSize,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Not scaled for #sqrt{#it{s}} difference",0.97,0.27, textSize,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Triggers combined using RFs",0.97,0.23, textSize,kFALSE, kFALSE, kTRUE);
     drawLatexAdd("Turnovers not yet optimized for pPb",0.97,0.19, textSize,kFALSE, kFALSE, kTRUE);
@@ -196,4 +194,50 @@ void plotRpA(TString ppFile, TString pAFile, TString output, TString type, Int_t
     drawLatexAdd(Form("(%s Unfolding, #it{Reg} = %i) / Raw",type.Data(),regnum),0.11,0.83, textSize,kFALSE, kFALSE, false);
 
     c->SaveAs(Form("%s/FoldRaw_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    ////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Draw the pp and pA normUnfolded spectra together /////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    c->SetLogy(1);
+    TLegend *legendNormUnfolded =  GetAndSetLegend2(0.87,0.79-(2)*textSize,0.97,0.79,textSize);
+    TH1D *dummyNormUnfolded = new TH1D("dummyNormUnfolded","",350,0,350);
+    dummyNormUnfolded->GetXaxis()->SetRangeUser(0,260);
+    dummyNormUnfolded->GetYaxis()->SetRangeUser(1e-8,1e-2);
+    SetStyleHistoTH1ForGraphs(dummyNormUnfolded,"","#it{p}_{T} (GeV/c)","#it{R}_{pPb}",textSize,textSize*(4/3),textSize,textSize*(4/3),1.1,0.9);
+
+    TH1D *pp_normUnfolded = (TH1D*) normUnfolded_pp->Clone("pp_normUnfolded");
+    TH1D *pA_normUnfolded = (TH1D*) normUnfolded_pA->Clone("pA_normUnfolded");
+
+    // Scaling
+    pA_normUnfolded->Scale(1./208.);
+
+    // Set up histogram
+    pp_normUnfolded->GetXaxis()->SetRangeUser(20,240);
+    pp_normUnfolded->SetMarkerStyle(4);
+    pp_normUnfolded->SetLineColor(kBlack);
+    pp_normUnfolded->SetMarkerColor(kBlack);
+    pp_normUnfolded->SetMarkerSize(2);
+    pp_normUnfolded->Sumw2();
+    legendNormUnfolded->AddEntry(pp_normUnfolded,"pp","p");
+
+    pA_normUnfolded->GetXaxis()->SetRangeUser(20,240);
+    pA_normUnfolded->SetMarkerStyle(25);
+    pA_normUnfolded->SetLineColor(kRed+2);
+    pA_normUnfolded->SetMarkerColor(kRed+2);
+    pA_normUnfolded->SetMarkerSize(1.7);
+    pA_normUnfolded->Sumw2();
+    legendNormUnfolded->AddEntry(pA_normUnfolded,"p-Pb","p");
+
+    dummyNormUnfolded->Draw("axis");
+    pp_normUnfolded->Draw("p,e1,same");
+    pA_normUnfolded->Draw("p,e1,same");
+    legendNormUnfolded->Draw("same");
+
+    drawLatexAdd("#sqrt{#it{s}_{NN}} = 8[.16] TeV",0.96,0.92, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd(Form("Full Jets, #it{R} = 0.%i",radius),0.96,0.875, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd(Form("%s Unfolding, #it{Reg} = %i",type.Data(),regnum),0.96,0.83, textSize,kFALSE, kFALSE, true);
+
+    c->SaveAs(Form("%s/NormUnfolded_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+   
 }

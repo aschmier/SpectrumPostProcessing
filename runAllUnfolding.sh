@@ -30,7 +30,7 @@ boolF07=false
 boolMIP=false
 boolseed275=false
 boolseed350=false
-boolTracking=false
+boolTracking=true
 boolLowTriggerSwapLow=false
 boolLowTriggerSwapHigh=false
 boolHighTriggerSwapLow=false
@@ -53,8 +53,6 @@ boolClosureBayes=false
 boolClosureSVD=false
 boolQPtShift=false
 
-boolpPb=true
-
 default=2422
 defaultfinal=2423
 clus3=2246
@@ -67,7 +65,6 @@ seed275=2230
 seed350=2231
 QPtShift=2440
 
-pPb=995
 
 #ppRFLow=65.78
 #ppRFLowError=0.90
@@ -368,16 +365,6 @@ fi
 if $boolGetRFDefaultBayes
 then
     root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_SysTrigger_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$default'_default_sys/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_sys/AnalysisResults.root",'$default',"TriggerRFDefault","default")'
-fi
-
-# pPb
-if $boolpPb
-then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb.cpp("/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_PerpCone/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_PerpCone/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_PerpCone/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_MC/merged_R02_1538/AnalysisResults.root","PerpCone_EJ1","default",2,false,true)'
-    #root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb.cpp("/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_MC/merged_1449/AnalysisResults.root","EPOSCorrected","nodownscalecorr",2)'
-    #root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb.cpp("/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_MC/merged_1461/AnalysisResults.root","NoRejection","nodownscalecorr",2)'
-    #root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb.cpp("/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_MC/merged_1471/AnalysisResults.root","HeaderFilter","nodownscalecorr",2)'
-    #root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb.cpp("/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_data/GA'$pPb'_default/AnalysisResults.root","/media/austin/mightymouse/data/pPb8TeV_MC/merged_1488/AnalysisResults.root","HeaderFilter2","nodownscalecorr",2)'
 fi
 
 # Closure

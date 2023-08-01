@@ -14,7 +14,7 @@
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D_rf.C"
 #include "/home/austin/alice/SpectrumPostProcessing/makeRejectionFactor.cpp"
 
-void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TString mcfile, TString output, Int_t rad, TString fileType)
+void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TString mcfile, TString output, Int_t rad, TString fileType, TString system)
 {
     // global variables
     Double_t textSize = 0.04;
@@ -43,8 +43,12 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     vector<double> binningCourse = getJetPtBinningRejectionFactorsCourse();
     //vector<double> binningFine   = getJetPtBinningRejectionFactorsFineVar("option4");
     //vector<double> binningCourse = getJetPtBinningRejectionFactorsCourseVar("option4");
-    vector<TString> triggers{"INT7","EMC7","EMC7","EJE"};
-    vector<TString> triggersMC{"INT7","INT7","EMC7","EMC7","EJE"};
+    //vector<TString> triggers{"INT7","EMC7","EMC7","EJE"};
+    //vector<TString> triggersMC{"INT7","INT7","EMC7","EMC7","EJE"};
+    //vector<TString> triggers{"INT7","EJ2","EJ2","EJ1"};
+    //vector<TString> triggersMC{"INT7","INT7","EJ2","EJ2","EJ1"};
+    vector<TString> triggers{"INT7","EG2","EG2","EG1"};
+    vector<TString> triggersMC{"INT7","INT7","EJ2","EJ2","EJ1"};
     vector<vector<double>> binnings{binningCourse,binningCourse,binningFine,binningFine};
     vector<vector<double>> binningsMC{binningCourse,binningFine,binningCourse,binningFine,binningFine};
     vector<TH1D*> vecClusters;
@@ -75,9 +79,17 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     }
 
     // Make unscaled rejection factors
-    std::tuple<double, double, TH1 *> TupleLowUnscaled  = makeRejectionFactor(vecClusters.at(1), vecClusters.at(0), radius, "INT7", "EMC7", "default", 4., 40., 1.5, 40.);
-    std::tuple<double, double, TH1 *> TupleHighUnscaled = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EMC7", "EJE", "default", 12.25, 60., 6., 200.);
+    std::tuple<double, double, TH1 *> TupleLowUnscaled;
+    std::tuple<double, double, TH1 *> TupleHighUnscaled;
 
+    if(system=="pp"){
+        TupleLowUnscaled  = makeRejectionFactor(vecClusters.at(1), vecClusters.at(0), radius, "INT7", "EMC7", "default", 4., 40., 1.5, 40.);
+        TupleHighUnscaled = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EMC7", "EJE", "default", 12.25, 60., 6., 200.);
+    } else if(system=="pPb"){
+        TupleLowUnscaled  = makeRejectionFactor(vecClusters.at(1), vecClusters.at(0), radius, "INT7", "EG2", "default", 6.1, 40., 6.1, 40., false);
+        TupleHighUnscaled = makeRejectionFactor(vecClusters.at(3), vecClusters.at(2), radius, "EG2", "EG1", "default", 10.2, 50., 10.2, 50., false);
+    }else cout << "Wrong system" << endl;
+    
     double valLowUnscaled = (double)(std::get<0>(TupleLowUnscaled));
     double errLowUnscaled = (double)(std::get<1>(TupleLowUnscaled));
     TH1D *RFacLowUnscaled = (TH1D*)(std::get<2>(TupleLowUnscaled));
@@ -247,12 +259,14 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
 
     legend->Clear();
     c->SetLogx(1);
+    //c->SetLogy();
     TLegend *legend2 =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.32,0.86,textSize,1);
 
 
     RFacLowUnscaled->GetXaxis()->SetMoreLogLabels();
     //RFacLowUnscaled->GetXaxis()->SetRangeUser(1,200);
-    RFacLowUnscaled->GetYaxis()->SetRangeUser(5,110);
+    if(system=="pp") RFacLowUnscaled->GetYaxis()->SetRangeUser(5,110);
+    if(system=="pPb") RFacLowUnscaled->GetYaxis()->SetRangeUser(0,600);
     RFacLowUnscaled->SetMarkerStyle(styles[0]);
     RFacLowUnscaled->SetMarkerColor(colors[0]);
     RFacLowUnscaled->SetLineColor(colors[0]);
@@ -271,11 +285,18 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     RFacLowUnscaled->Draw("p,e");
     RFacHighUnscaled->Draw("p,e,same");
 
-    legend2->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
-    legend2->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
+    if(system=="pp"){
+        legend2->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
+        legend2->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
+    }
+    if(system=="pPb"){
+        legend2->AddEntry(RFacLowUnscaled, Form("EG2/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
+        legend2->AddEntry(RFacHighUnscaled, Form("EG1/EG2 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
+    }
     legend2->Draw("same");
 
-    drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
+    if(system=="pp") drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
+    if(system=="pPb") drawLatexAdd(Form("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
 
     c->SaveAs(Form("%s/RejectionFactors/RF_R0%i_Unscaled.%s",output.Data(),radius,fileType.Data()));
 

@@ -142,7 +142,9 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
             }
 
             legend->Draw();
-            drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
+            if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
+            if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.94,0.88, 0.03, false, false, true);
+
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.94,0.84, 0.03, false, false, true);
             drawLatexAdd(Form("#it{p}_{T}^{jet} = %i - %i GeV/#it{c}", binsPt[binPt], binsPt[binPt+1]),0.94,0.8, 0.03, false, false, true);
             canvas->SaveAs(Form("%s/TriggerBias/NEF/All/hNEF_%i-%iGeV_R0%i.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,fileType.Data()));

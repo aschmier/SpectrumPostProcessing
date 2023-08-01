@@ -1,0 +1,8 @@
+Run: 266117 ; % Total Stats: 12.3552%
+Run: 265789 ; % Total Stats: 12.3552%
+Run: 267110 ; % Total Stats: 12.3552%
+Run: 266883 ; % Total Stats: 12.3552%
+Run: 266441 ; % Total Stats: 12.3552%
+Run: 266543 ; % Total Stats: 12.7413%
+Run: 266208 ; % Total Stats: 12.7413%
+Run: 265698 ; % Total Stats: 12.7413%

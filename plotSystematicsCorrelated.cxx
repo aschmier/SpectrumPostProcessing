@@ -11,7 +11,7 @@
 
 //namespace fs = std::filesystem;
 
-void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out)
+void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString txtfiles)
 {
     //////////////////////////// Define Variables //////////////////////////////
 
@@ -110,7 +110,7 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
         //    if(radius == 2) systematicsFile = Form("input_txt_files/%s_%s.txt", systematics_names.at(name).Data(), type.Data());
         //    else continue;
         //}
-        /*else*/ systematicsFile = Form("input_txt_files/%s_%s.txt", systematics_names.at(name).Data(), type.Data());
+        /*else*/ systematicsFile = Form("%s/%s_%s.txt", txtfiles.Data(), systematics_names.at(name).Data(), type.Data());
         ifstream sysfile(systematicsFile);
         if(!sysfile){ cout << "Systematics file " << systematicsFile << " not found!" << endl; return; }
         TString sfile, var;
@@ -146,7 +146,8 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
         }
     }
 
-    const char* nameOutput = Form("/home/austin/alice/SystematicsRootFiles/systematics_R0%i.root",radius);
+    const char* nameOutput = Form("%s/systematics_R0%i.root",rootfileout.Data(),radius);
+    gSystem->Exec("mkdir -p "+rootfileout);
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
     ////////////////////////// Get Statistical Error ///////////////////////////

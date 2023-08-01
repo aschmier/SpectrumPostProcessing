@@ -9,7 +9,7 @@
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "fstream"
 
-void plotResponse(TString file, TString output, TString fileType)
+void plotResponse(TString file, TString output, TString fileType, TString system = "pp")
 {
     Double_t textSize     = 0.03;
     int minradius = 2;
@@ -42,7 +42,8 @@ void plotResponse(TString file, TString output, TString fileType)
         SetStyleHistoTH2ForGraphs(response,"#it{p}_{T}^{det} (GeV/#it{c})","#it{p}_{T}^{part}",textSize,0.04,textSize,0.04,1,1.2);
         response->Draw("colz");
 
-        drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
+        if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
+        if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.90, textSize,kFALSE, kFALSE, true);
         drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, R = 0.%i",radius),0.93,0.86, textSize,kFALSE, kFALSE, true);
 
         c->SaveAs(Form("%s/Response_R0%i.%s",output.Data(),radius,fileType.Data()));

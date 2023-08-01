@@ -1,18 +1,11 @@
 #!/bin/bash
 
-#fdata_pp="/home/austin/alice/data/pp8TeV_data/GA2294_default_final/INT7.root"
-fmc_pp="/home/austin/alice/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root"
-
-#fdata_pA="/home/austin/alice/data/pPb8TeV_data/GA951/pPb_GA951.root"
-fmc_pA="/home/austin/alice/data/pPb8TeV_MC/merged_EPOSCorrected/AnalysisResults.root"
-
-out="/home/austin/alice/unfoldingResults/RpA_MC"
+fComp1="/media/austin/mightymouse/data/pPb8TeV_data/GA1063_minbias_5x5/INT7.root"
+fComp2="/media/austin/mightymouse/data/pPb8TeV_data/GA1065_minbias_Systematics_R02/INT7.root"
+out="/home/austin/alice/pPbTestPost/SysTrainTest"
 
 trigger="INT7"
 
 [ -d $out ] || mkdir $out
 
-root -x -q -l -b 'plotMinBiasComp.C("'$fmc_pp'","'$fmc_pA'","'$out'","'$trigger'","pp")'
-
-#root -x -q -l -b 'plotMinBiasComp.C("'$fdata_pp'","'$fmc_pp'","'$out'","'$trigger'","pp")'
-#root -x -q -l -b 'plotMinBiasComp.C("'$fdata_pA'","'$fmc_pA'","'$out'","'$trigger'","pPb")'
+root -x -q -l -b 'plotMinBiasComp.C("'$fComp1'","'$fComp2'","'$out'","'$trigger'","pPb")'

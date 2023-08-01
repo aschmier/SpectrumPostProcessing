@@ -11,7 +11,7 @@
 
 //namespace fs = std::filesystem;
 
-void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString inputtxtfiles)
+void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString txtfiles)
 {
     //////////////////////////// Define Variables //////////////////////////////
 
@@ -31,26 +31,30 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 7;
+    int varNSys = 10;
+    //if(radius != 2) varNSys = varNSys - 1;
     const int nSys = varNSys;
     vector<TString> plot_names;
     vector<TString> systematics_names;
     vector<TString> variation_original;
     vector<TString> fitfunc;
 
-    TString outputDir                 = Form("%s/Systematics/ratios/R02R0%i", out.Data(), radius);
-    TString outputDirRootFile         = Form("%s/ratio",rootfileout.Data());
+    TString outputDir         = "";
+    TString outputDirRootFile = "";
+
+    outputDir                 = Form("%s/Systematics/R0%i", out.Data(), radius);
+    outputDirRootFile         = "/home/austin/alice/SystematicsRootFiles/pPb";
 
     gSystem->Exec("mkdir -p "+outputDir);
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
     gSystem->Exec("mkdir -p "+outputDirRootFile);
 
-    plot_names.insert(plot_names.end(), {"Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency"});
-    systematics_names.insert(systematics_names.end(), {"qoverptshift","clusterizer","maxtrackpt","maxclustere","hadcorr","seed","tracking"});
-    variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%"});
-    if(radius == 2) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol4","pol4","pol0","pol0","binwise"});
-    if(radius == 3 || radius == 4) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol4","pol4","pol0","pol0","binwise"});
-    if(radius == 5 || radius == 6) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol0","pol0","pol0","pol0","binwise"});
+    plot_names.insert(plot_names.end(), {"Unfolding","Embedding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","Luminosity Scaling"});
+    systematics_names.insert(systematics_names.end(), {"allunfolding","embedding","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","tracking","triggerswap","lumi"});
+    variation_original.insert(variation_original.end(), {"default","RandomCones","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,50GeV)","default"});
+    if(radius == 4) fitfunc.insert(fitfunc.end(), {"binwise","exp0","pol1","pol0","pol0","pol0","pol0","pol1","binwise","binwise"});
+    else if(radius == 5) fitfunc.insert(fitfunc.end(), {"binwise","pol3","pol1","pol0","pol0","pol0","pol0","pol1","binwise","binwise"});
+    else fitfunc.insert(fitfunc.end(), {"binwise","exp0","pol2","pol0","pol0","pol0","pol0","pol1","binwise","binwise"});
 
     TString systematicsFile;
 
@@ -65,30 +69,6 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     else if(type == "SVD"){ typeCAP = type; type = "svd"; }
     else{cout << "Invalid unfolding type!" << endl; return;}
 
-    // Get systematics file
-    TString sysfile = Form("%s/systematics_R0%i.root", rootfileout.Data(), radius);
-    TFile *fSys = TFile::Open(sysfile);
-    if(!fSys || fSys->IsZombie()){
-        cout << "Systematics file not found! --> R=0." << radius << endl;
-        return;
-    }
-    TH1D *sysUnfolding   = (TH1D*)fSys->Get("smooth_allunfolding");
-    TH1D *sysTriggerSwap = (TH1D*)fSys->Get("smooth_triggerswap");
-    sysUnfolding->SetMarkerColor(colors[14]);
-    sysTriggerSwap->SetMarkerColor(colors[13]);
-
-    TString sysfile02 = Form("%s/systematics_R02.root", rootfileout.Data());
-    TFile *fSys02 = TFile::Open(sysfile02);
-    if(!fSys02 || fSys02->IsZombie()){
-        cout << "Systematics file not found! --> R=0.2" << endl;
-        return;
-    }
-    TH1D *sysUnfolding02   = (TH1D*)fSys02->Get("smooth_allunfolding");
-    TH1D *sysTriggerSwap02 = (TH1D*)fSys02->Get("smooth_triggerswap");
-    sysUnfolding02->SetMarkerColor(colors[12]);
-    sysTriggerSwap02->SetMarkerColor(colors[11]);
-
-
     //////////////////////////// Collect the Data //////////////////////////////
 
     // Open the default file and get default histogram
@@ -98,21 +78,13 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         return;
     }
 
-    // Get 0.2 spectra
-    TDirectory *dRad02 = (TDirectory*)fOrig->Get("R02");
-    TDirectory *dReg02    = (TDirectory*)dRad02->Get(Form("reg%i",regnumBayes));
-    TH1D *normUnfolded02 = (TH1D*)dReg02->Get(Form("normalized_reg%i",regnumBayes));
-
-    // Regularization variation
-    TDirectory* dReg02_high = (TDirectory*)dRad02->Get(Form("reg%i",regnumBayes+3));
-    TH1D *spec02_high      = (TH1D*)dReg02_high->Get(Form("normalized_reg%i",regnumBayes+3));
-    TDirectory* dReg02_low  = (TDirectory*)dRad02->Get(Form("reg%i",regnumBayes-2));
-    TH1D *spec02_low       = (TH1D*)dReg02_low->Get(Form("normalized_reg%i",regnumBayes-2));
-
-    // Get other radii
     TDirectory *dRadOrig = (TDirectory*)fOrig->Get(Form("R0%i",radius));
     TDirectory *dRegOrig    = (TDirectory*)dRadOrig->Get(Form("reg%i",regnumBayes));
     TH1D *normUnfoldedOrig = (TH1D*)dRegOrig->Get(Form("normalized_reg%i",regnumBayes));
+
+    TDirectory *dRadOrig02 = (TDirectory*)fOrig->Get("R02");
+    TDirectory *dRegOrig02    = (TDirectory*)dRadOrig02->Get(Form("reg%i",regnumBayes));
+    TH1D *normUnfoldedOrig02 = (TH1D*)dRegOrig02->Get(Form("normalized_reg%i",regnumBayes));
 
     // Regularization variation
     TDirectory* dRegOrig_high = (TDirectory*)dRadOrig->Get(Form("reg%i",regnumBayes+3));
@@ -120,29 +92,24 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     TDirectory* dRegOrig_low  = (TDirectory*)dRadOrig->Get(Form("reg%i",regnumBayes-2));
     TH1D *specOrig_low       = (TH1D*)dRegOrig_low->Get(Form("normalized_reg%i",regnumBayes-2));
 
-    // Regularization ratios
-    TH1D *ratioOrig = (TH1D*)normUnfolded02->Clone("ratioOrig");
-    ratioOrig->Divide(normUnfolded02,normUnfoldedOrig);
-    TH1D *ratioOrig_high = (TH1D*)spec02_high->Clone("ratioOrig_high");
-    ratioOrig_high->Divide(spec02_high,specOrig_high);
-    TH1D *ratioOrig_low = (TH1D*)spec02_low->Clone("ratioOrig_low");
-    ratioOrig_low->Divide(spec02_low,specOrig_low);
-
     //files[0].push_back(fSysConfig);
     variations[0].push_back(Form("reg=%i",regnumBayes+3));
     variations[0].push_back(Form("reg=%i",regnumBayes-2));
-    syshistos[0].push_back(ratioOrig_high);
-    syshistos[0].push_back(ratioOrig_low);
+    syshistos[0].push_back(specOrig_high);
+    syshistos[0].push_back(specOrig_low);
 
     // Save the file names and variations for each uncertainty into vectors
     for(int name=0; name<nSys; name++){
-        systematicsFile = Form("%s/%s_%s.txt", inputtxtfiles.Data(), systematics_names.at(name).Data(), type.Data());
+        //if(systematics_names[name].Contains("rf")){
+        //    if(radius == 2) systematicsFile = Form("input_txt_files/%s_%s.txt", systematics_names.at(name).Data(), type.Data());
+        //    else continue;
+        //}
+        /*else*/ systematicsFile = Form("%s/%s_%s.txt", txtfiles.Data(), systematics_names.at(name).Data(), type.Data());
         ifstream sysfile(systematicsFile);
         if(!sysfile){ cout << "Systematics file " << systematicsFile << " not found!" << endl; return; }
         TString sfile, var;
 
         while(sysfile >> sfile >> var){
-            sfile = "Unfolding/UnfoldingResults/" + sfile;
             files[name].push_back(sfile);
             variations[name].push_back(var);
         }
@@ -151,12 +118,14 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     // Get the variation histos for all systematics
     for(int name=0; name<nSys; name++){
         for(int i = 0; i < files[name].size(); i++){
-            TFile *fVar = TFile::Open(files[name].at(i));
+            TFile *fVar = TFile::Open(files[name].at(i),"read");
             if(!fVar || fVar->IsZombie()){
                 cout << "Error: File " << files[name].at(i) << " not found!" << endl;
                 return;
             }
-            TDirectory *regDirSys = (TDirectory*)fVar->Get(Form("R0%i",radius));
+            TDirectory *regDirSys;
+            if(systematics_names[name].Contains("rf")) regDirSys = (TDirectory*)fVar->Get("R02");
+            else regDirSys = (TDirectory*)fVar->Get(Form("R0%i",radius));
             TDirectory *regSys;
             TH1D *normUnfoldedSys;
             if(systematics_names[name] == "allunfolding" && variations[name].at(i).Contains("SVD")){
@@ -166,22 +135,19 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
                 regSys    = (TDirectory*)regDirSys->Get(Form("reg%i",regnumBayes));
                 normUnfoldedSys = (TH1D*)regSys->Get(Form("normalized_reg%i",regnumBayes));
             }
-            TH1D *ratioUnfoldedSys = (TH1D*)normUnfolded02->Clone(Form("ratioUnfoldedSys_%s_file%i", systematics_names[name].Data(),i));
-            ratioUnfoldedSys->Divide(normUnfolded02,normUnfoldedSys);
-            syshistos[name].push_back(ratioUnfoldedSys);
+            syshistos[name].push_back(normUnfoldedSys);
         }
     }
 
-    const char* nameOutput = Form("%s/ratio/systematics_R02R0%i.root",rootfileout.Data(),radius);
-    gSystem->Exec("mkdir -p "+rootfileout+"/ratio");
+    const char* nameOutput = Form("%s/systematics_R0%i.root",rootfileout.Data(), radius);
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
     ////////////////////////// Get Statistical Error ///////////////////////////
 
-    TH1D *statError = (TH1D*)ratioOrig->Clone("ratio");
-    TH1D *ratioUnfoldedOrig_e0 = (TH1D*)ratioOrig->Clone("zero_error_orig");
-    for(int i = 0; i < ratioUnfoldedOrig_e0->GetNbinsX(); i++) ratioUnfoldedOrig_e0->SetBinError(i,0);
-    statError->Divide(ratioOrig,ratioUnfoldedOrig_e0);
+    TH1D *statError = (TH1D*)normUnfoldedOrig->Clone("ratio");
+    TH1D *normUnfoldedOrig_e0 = (TH1D*)normUnfoldedOrig->Clone("zero_error_orig");
+    for(int i = 0; i < normUnfoldedOrig_e0->GetNbinsX(); i++) normUnfoldedOrig_e0->SetBinError(i,0);
+    statError->Divide(normUnfoldedOrig,normUnfoldedOrig_e0);
     SetStyleHistoTH1ForGraphs(statError,"","p_{T} (GeV/c)","Var/Orig",0.03,0.04,0.03,0.04,1,1.2);
     statError->GetXaxis()->SetRangeUser(minPt,maxPt);
     statError->GetYaxis()->SetRangeUser(0.85,1.15);
@@ -226,8 +192,9 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         // Format and plot systematics
         for(int j = 0; j < syshistos[name].size(); j++){
             TH1D *sysRatio;
-            sysRatio = (TH1D*)ratioOrig->Clone(Form("syshist_%i",j));
-            sysRatio->Divide(syshistos[name].at(j),ratioOrig,1,1,"B");
+            sysRatio = (TH1D*)normUnfoldedOrig->Clone(Form("syshist_%i",j));
+            if(systematics_names[name].Contains("rf")) sysRatio->Divide(syshistos[name].at(j),normUnfoldedOrig02,1,1,"B");
+            else sysRatio->Divide(syshistos[name].at(j),normUnfoldedOrig,1,1,"B");
             sysRatio->SetMarkerStyle(stylesfilled[j+1]);
             sysRatio->SetLineColor(colors[j+1]);
             sysRatio->SetLineWidth(2);
@@ -245,20 +212,32 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
 
         // Get average of all variations for each systematic, format, and plot
         TH1D *sysAvg = (TH1D*)normUnfoldedOrig->Clone("syshist_avg");
-        for(int l = 0; l < binvals[0].size(); l++){
-            Double_t valsum = 0;
-            Double_t avg = 0;
-            Double_t errsum = 0;
-            Double_t toterr = 0;
-            for(int m = 0; m < syshistos[name].size(); m++){
-                valsum += binvals[m].at(l);
-                errsum += pow(binerrs[m].at(l),2);
+        if(systematics_names[name] == "allunfolding"){
+            for(int l = 0; l < binvals[0].size(); l++){
+                Double_t valmax = 0;
+                Double_t errmax = 0;
+                for(int m = 0; m < syshistos[name].size(); m++){
+                    if(binvals[m].at(l) > valmax) valmax = binvals[m].at(l);
+                    if(binvals[m].at(l) > valmax) errmax = binerrs[m].at(l);
+                }
+                avgbinvals.push_back(valmax);
+                avgbinerrs.push_back(errmax);
             }
-            avg = valsum/syshistos[name].size();
-            avgbinvals.push_back(avg);
-            toterr = sqrt(errsum)/syshistos[name].size();
-            avgbinerrs.push_back(toterr);
-
+        }else{
+            for(int l = 0; l < binvals[0].size(); l++){
+                Double_t valsum = 0;
+                Double_t avg = 0;
+                Double_t errsum = 0;
+                Double_t toterr = 0;
+                for(int m = 0; m < syshistos[name].size(); m++){
+                    valsum += binvals[m].at(l);
+                    errsum += pow(binerrs[m].at(l),2);
+                }
+                avg = valsum/syshistos[name].size();
+                avgbinvals.push_back(avg);
+                toterr = sqrt(errsum)/syshistos[name].size();
+                avgbinerrs.push_back(toterr);
+            }
         }
         for(int k = 0; k < sysAvg->GetNbinsX(); k++){
             sysAvg->SetBinContent(k,avgbinvals.at(k));
@@ -283,7 +262,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("%s",plot_names[name].Data()),0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
 
-        TString savestring1 = Form("%s/Systematics/ratios/R02R0%i/%s_%s_R02R0%i_reg%i.%s",out.Data(),radius,systematics_names[name].Data(),type.Data(),radius,regnumBayes,fileType.Data());
+        TString savestring1 = Form("%s/Systematics/R0%i/%s_%s_R0%i_reg%i.%s",out.Data(),radius,systematics_names[name].Data(),type.Data(),radius,regnumBayes,fileType.Data());
 
         //if (!fs::is_directory(savestring1 || !fs::exists(savestring1)) { // Check if src folder exists
         //    fs::create_directory(savestring1); // create src folder
@@ -307,17 +286,18 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
 
         // Set up axes
         sysAvg->GetXaxis()->SetRangeUser(minPt,maxPt);
-        if(radius <= 3){
-            if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,13);
+        sysAvg->GetYaxis()->SetRangeUser(0,10);
+        /*if(radius <= 3){
+            if(systematics_names[name] == "tracking" || systematics_names[name] == "unfolding") sysAvg->GetYaxis()->SetRangeUser(0,13);
             else sysAvg->GetYaxis()->SetRangeUser(0,3);
         }else if(radius == 4){
-            if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,14);
+            if(systematics_names[name] == "tracking" || systematics_names[name].Contains("unfolding") || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,14);
             else sysAvg->GetYaxis()->SetRangeUser(0,5);
         }else{
-            if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,17);
+            if(systematics_names[name] == "tracking" || systematics_names[name].Contains("rf") || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,17);
             else sysAvg->GetYaxis()->SetRangeUser(0,15);
         }
-
+*/
         TF1  *sysFit;
         TF1  *pol0;
         TF1  *pol1;
@@ -331,7 +311,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         pol1 = new TF1("pol1","[0]+[1]*x",minPt,maxPt);
         pol2 = new TF1("pol2","[0]+[1]*x+[2]*x*x",minPt,maxPt);
         pol3 = new TF1("pol3","[0]+[1]*x+[2]*x*x+[3]*x*x*x",minPt,maxPt);
-        pol4 = new TF1("pol4","0.3+[1]*x*x*x*x",minPt,maxPt);
+        pol4 = new TF1("pol4","[0]+[1]*x*x*x*x",minPt,maxPt);
         exp0 = new TF1("exp0","[0]+[1]/expo([2]*x)",minPt,maxPt);
         if(fitfunc[name] == ""){
             pol0->SetLineColor(colors[2]);
@@ -360,9 +340,19 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
             else if(fitfunc[name] == "pol3") sysFit = (TF1*)pol3->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "pol4") sysFit = (TF1*)pol4->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "exp0") sysFit = (TF1*)exp0->Clone(Form("sysfit_%i",name));
-            else if(fitfunc[name] == "binwise") cout << "Using binwise errors for " << systematics_names[name] << endl;
+            else if(fitfunc[name] == "binwise"){
+                cout << "Using binwise errors for " << systematics_names[name] << endl;
+                sysFit = NULL;
+            }
             else{ cout << "Invalid fit function!" << endl; return; }
-            sysFit->SetLineColor((Color_t)colors[name+1]);
+            if(fitfunc[name] != "binwise") sysFit->SetLineColor((Color_t)colors[name+1]);
+
+            if(systematics_names[name].Contains("rf")){
+                for(int bin=1; bin<sysAvg->GetNbinsX()+1; bin++){
+                    if(sysAvg->GetBinLowEdge(bin) >= 30.) sysAvg->SetBinContent(bin,sqrt(pow(val,2) + pow((1.34/66.99)*100,2)));
+                    if(sysAvg->GetBinLowEdge(bin) >= 60.) sysAvg->SetBinContent(bin,sqrt(pow(val,2) + pow((2.33/94.42)*100,2)));
+                }
+            }
 
             smooth = (TH1D*)sysAvg->Clone(Form("smooth_%s",systematics_names[name].Data()));
             if(fitfunc[name] != "binwise"){
@@ -392,7 +382,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Variation: %s",plot_names[name].Data()),0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
 
-        TString savestring2 = Form("%s/Systematics/ratios/R02R0%i/fits/fit_%s_%s_R02R0%i_reg%i.%s",out.Data(),radius,systematics_names[name].Data(),type.Data(),radius,regnumBayes,fileType.Data());
+        TString savestring2 = Form("%s/Systematics/R0%i/fits/%s_%s_R0%i_reg%i.%s",out.Data(),radius,systematics_names[name].Data(),type.Data(),radius,regnumBayes,fileType.Data());
 
         c->SaveAs(savestring2);
         vecSys.push_back(smooth);
@@ -430,7 +420,6 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         }
     }
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){
-        hTotal->SetBinContent(j,hTotal->GetBinContent(j) + pow(sysUnfolding->GetBinContent(j),2) + pow(sysTriggerSwap->GetBinContent(j),2) + pow(sysUnfolding02->GetBinContent(j),2) + pow(sysTriggerSwap02->GetBinContent(j),2));
         hTotal->SetBinContent(j,sqrt(hTotal->GetBinContent(j)));
     }
     hTotal->SetMarkerStyle(stylesfilled[0]);
@@ -439,15 +428,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     hTotal->SetMarkerSize(2.5);
     hTotal->SetMarkerColor(colors[0]);
     hTotal->Draw("p,same");
-    sysUnfolding->Draw("p,same");
-    sysTriggerSwap->Draw("p,same");
-    sysUnfolding02->Draw("p,same");
-    sysTriggerSwap02->Draw("p,same");
     legend->AddEntry(hTotal, "Total Sys. Unc.", "p");
-    legend->AddEntry(sysUnfolding, Form("Unfolding, R = 0.%i",radius), "p");
-    legend->AddEntry(sysUnfolding02, "Unfolding, R = 0.2", "p");
-    legend->AddEntry(sysTriggerSwap, Form("Trigger Swap, R = 0.%i",radius), "p");
-    legend->AddEntry(sysTriggerSwap02, "Trigger Swap, R = 0.2", "p");
     legend->Draw();
     hTotal->Write();
 
@@ -455,7 +436,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.13,0.87, 0.03);
     drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.13,0.83, 0.03);
 
-    TString savestring3 = Form("%s/Systematics/ratios/TotalSystematics_R02R0%i.%s",out.Data(),radius,fileType.Data());
+    TString savestring3 = Form("%s/Systematics/TotalSystematics_R0%i.%s",out.Data(),radius,fileType.Data());
     //if (!fs::is_directory(savestring3) || !fs::exists(savestring3)) { // Check if src folder exists
     //    fs::create_directory(savestring3); // create src folder
     //}
