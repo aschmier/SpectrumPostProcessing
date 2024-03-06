@@ -25,7 +25,7 @@ TGraphErrors* xTScale(TGraphErrors *g1, TGraphErrors *g2, double energyIN, doubl
     powerlaw_g2->SetParLimits(1, -5.5, -4.5);
     powerlaw_g2->FixParameter(2, 0);
     g2->Fit(powerlaw_g2, "", "", 20, 240);
-    g2->Draw();
+    //g2->Draw();
 
     const int npoints = g1->GetN();
     std::array<Point, 11> points1;
@@ -36,17 +36,36 @@ TGraphErrors* xTScale(TGraphErrors *g1, TGraphErrors *g2, double energyIN, doubl
         g1->GetPoint(i, x, y);
         ex = g1->GetErrorX(i);
         ey = g1->GetErrorY(i);
-        points1[i] = {x, y, ex, ey};
-        points2[i] = {x, powerlaw_g2->Eval(x), ex, 0};
+        points1[i] = {2*x/energyOUT, y, ex, ey};
+        points2[i] = {2*x/energyIN, powerlaw_g2->Eval(x), ex, 0};
     }
 
+    // Fill new TGraphErrors with scaled points
+    //TGraphErrors *g2Scaled = new TGraphErrors;
+    //int ip(0);
+    //for(auto p : points2){
+    //    g2Scaled->SetPoint(ip, p.fX, p.fY);
+        //g2Scaled->SetPointError(ip, p.fEX, TMath::Sqrt(TMath::Power(p.fEY/p.fY, 2) + TMath::Power(points2.at(ip).fEY/points2.at(ip).fY, 2)));
+    //    ip++;
+    //}
+    //g1->Draw();
+    //g2Scaled->Draw("same");
+
     TGraphErrors *nXT = new TGraphErrors;
-    int ip(0);
-    for(auto p : points1){
-        nXT->SetPoint(ip, 2*points1.at(ip).fX/energyIN, log(points1.at(ip).fY / points2.at(ip).fY)/log(energyIN/energyOUT));
-        nXT->SetPointError(ip, 2*points1.at(ip).fEX/energyIN, TMath::Sqrt(TMath::Power(points1.at(ip).fEY/points1.at(ip).fY, 2) + TMath::Power(points2.at(ip).fEY/points2.at(ip).fY, 2))/log(energyIN/energyOUT));
-        ip++;
+    int ip1(0);
+    int ip2(0);
+    for(auto p1 : points1){
+        for(auto p2 : points2){
+            if(points1.at(ip1).fX == points2.at(ip2).fX){
+                nXT->SetPoint(ip1, points1.at(ip1).fX, log(points1.at(ip1).fY / points2.at(ip2).fY)/log(energyOUT/energyIN));
+            }
+            ip2++;
+        }
+        //nXT->SetPoint(ip, points1.at(ip).fX, log(points1.at(ip).fY / points2.at(ip).fY)/log(energyOUT/energyIN));
+        //nXT->SetPointError(ip, 2*points1.at(ip).fEX/energyIN, TMath::Sqrt(TMath::Power(points1.at(ip).fEY/points1.at(ip).fY, 2) + TMath::Power(points2.at(ip).fEY/points2.at(ip).fY, 2))/log(energyIN/energyOUT));
+        ip1++;
     }
+    nXT->Draw();
 /*
     TGraphErrors *specIN = new TGraphErrors;
     int ip(0);
@@ -267,13 +286,13 @@ cout << __LINE__ << endl;
     // xT scaling
     for(int i = 0; i < vecSpectrum[0].size(); i++){
 
-        TGraphErrors *gN1 = xTScale(vecSpectrum[0].at(i), vecSpectrum[1].at(i), E1, E2);
+        TGraphErrors *gN1 = xTScale(vecSpectrum[0].at(i), vecSpectrum[1].at(i), E2, E1);
         //TGraphErrors *gN2 = xTScale(vecSpectrum[0].at(i), vecSpectrum[2].at(i), E1, E3);
 
-        vecXT[0].push_back(gN1);
+        //vecXT[0].push_back(gN1);
         //vecXT[1].push_back(gN2);
     }
-
+/*
     // Set up canvases and legends for plotting
     TCanvas *cSpectrum   = new TCanvas("cSpectrum", "", 800, 1000);
     DrawPaperCanvasSettings(cSpectrum,0.15,0.025,0.025,0.08);
@@ -327,4 +346,5 @@ cout << __LINE__ << endl;
     }
 
     cRatio->SaveAs(Form("%s/nCalc.%s", output.Data(), filetype.Data()));
+    */
 }

@@ -39,7 +39,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     vector<TString> fitfunc;
 
     TString outputDir                 = Form("%s/Systematics/ratios/R02R0%i", out.Data(), radius);
-    TString outputDirRootFile         = Form("%s/ratio",rootfileout.Data());
+    TString outputDirRootFile         = Form("%s/ratio", rootfileout.Data());
 
     gSystem->Exec("mkdir -p "+outputDir);
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
@@ -172,7 +172,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         }
     }
 
-    const char* nameOutput = Form("%s/ratio/systematics_R02R0%i.root",rootfileout.Data(),radius);
+    const char* nameOutput = Form("%s/ratio/systematics_R02R0%i.root", rootfileout.Data(), radius);
     gSystem->Exec("mkdir -p "+rootfileout+"/ratio");
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 

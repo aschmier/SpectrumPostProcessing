@@ -67,9 +67,9 @@ void plotJES(TString jes_file, TString outputdir, TString run = "", TString file
         legend->AddEntry(vecMean.at(radius-minradius), Form("R=0.%i",radius), "p");
     }
     legend->Draw();
-    drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.63,0.88, 0.03, false, false, false);
+    drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.6,0.88, 0.03, false, false, false);
     //drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.63,0.88, 0.03, false, false, false);
-    drawLatexAdd(Form("%s Jets", jetType.Data()),0.63,0.84, 0.03, false, false, false);
+    drawLatexAdd(Form("%s Jets", jetType.Data()),0.6,0.84, 0.03, false, false, false);
     if(run=="") canvas->SaveAs(Form("%s/EnergyScale/EnergyScaleMean.%s", outputdir.Data(),fileType.Data()));
     else canvas->SaveAs(Form("%s/EnergyScale/Runwise/EnergyScaleMean_%s.%s", outputdir.Data(),run.Data(),fileType.Data()));
     legend->Clear();
@@ -90,9 +90,9 @@ void plotJES(TString jes_file, TString outputdir, TString run = "", TString file
         legend->AddEntry(vecMedian.at(radius-minradius), Form("R=0.%i",radius), "p");
     }
     legend->Draw();
-    //drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.63,0.88, 0.03, false, false, false);
+    //drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.6,0.88, 0.03, false, false, false);
     drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.63,0.88, 0.03, false, false, false);
-    drawLatexAdd(Form("%s Jets", jetType.Data()),0.63,0.84, 0.03, false, false, false);
+    drawLatexAdd(Form("%s Jets", jetType.Data()),0.6,0.84, 0.03, false, false, false);
     if(run=="") canvas->SaveAs(Form("%s/EnergyScale/EnergyScaleMedian.%s", outputdir.Data(),fileType.Data()));
     else canvas->SaveAs(Form("%s/EnergyScale/Runwise/EnergyScaleMedian_%s.%s", outputdir.Data(),run.Data(),fileType.Data()));
     legend->Clear();
@@ -114,7 +114,7 @@ void plotJES(TString jes_file, TString outputdir, TString run = "", TString file
     }
     legend->Draw();
     //drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.63,0.88, 0.03, false, false, false);
-    drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.63,0.88, 0.03, false, false, false);
-    drawLatexAdd(Form("%s Jets", jetType.Data()),0.63,0.84, 0.03, false, false, false);
+    drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.6,0.88, 0.03, false, false, false);
+    drawLatexAdd(Form("%s Jets", jetType.Data()),0.6,0.84, 0.03, false, false, false);
     if(run=="") canvas->SaveAs(Form("%s/EnergyScale/EnergyScaleWidth.%s", outputdir.Data(),fileType.Data()));
     else canvas->SaveAs(Form("%s/EnergyScale/Runwise/EnergyScaleWidth_%s.%s", outputdir.Data(),run.Data(),fileType.Data()));}

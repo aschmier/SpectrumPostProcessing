@@ -37,18 +37,24 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     TFile *fmc  = TFile::Open(mcfile);
     if(!fmc || fmc->IsZombie()) return;
 
+    // create output directory
+    gSystem->Exec(Form("mkdir -p %s/RejectionFactors",output.Data()));
+    gSystem->Exec(Form("mkdir -p %s/RejectionFactors/ClustersData",output.Data()));
+    gSystem->Exec(Form("mkdir -p %s/RejectionFactors/ClustersMC",output.Data()));
+    gSystem->Exec(Form("mkdir -p %s/RejectionFactors/ClusterTE",output.Data()));    
+
     // initialize vectors. EMC7 trigger is used twice because we need one with course binning and one with fine binning
     vector<TFile*> files{fmb,femc7,femc7,feje};
     vector<double> binningFine   = getJetPtBinningRejectionFactorsFine();
     vector<double> binningCourse = getJetPtBinningRejectionFactorsCourse();
     //vector<double> binningFine   = getJetPtBinningRejectionFactorsFineVar("option4");
     //vector<double> binningCourse = getJetPtBinningRejectionFactorsCourseVar("option4");
-    //vector<TString> triggers{"INT7","EMC7","EMC7","EJE"};
-    //vector<TString> triggersMC{"INT7","INT7","EMC7","EMC7","EJE"};
+    vector<TString> triggers{"INT7","EMC7","EMC7","EJE"};
+    vector<TString> triggersMC{"INT7","INT7","EMC7","EMC7","EJE"};
     //vector<TString> triggers{"INT7","EJ2","EJ2","EJ1"};
     //vector<TString> triggersMC{"INT7","INT7","EJ2","EJ2","EJ1"};
-    vector<TString> triggers{"INT7","EG2","EG2","EG1"};
-    vector<TString> triggersMC{"INT7","INT7","EJ2","EJ2","EJ1"};
+    //vector<TString> triggers{"INT7","EG2","EG2","EG1"};
+    //vector<TString> triggersMC{"INT7","INT7","EJ2","EJ2","EJ1"};
     vector<vector<double>> binnings{binningCourse,binningCourse,binningFine,binningFine};
     vector<vector<double>> binningsMC{binningCourse,binningFine,binningCourse,binningFine,binningFine};
     vector<TH1D*> vecClusters;
@@ -134,170 +140,158 @@ void plotRejectionFactor(TString mbfile, TString emc7file, TString ejefile, TStr
     DrawPaperCanvasSettings(c,0.1,0.025,0.025,0.1);
     gStyle->SetOptStat(0);
     c->SetLogy(1);
-    //c->SetLogx(0);
+    c->SetLogx(0);
 
-    TLegend *legendClus =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.31,0.86,textSize,1);
+    TH1D *dummyRF = new TH1D("dummyRF","",260,2,261);
+    dummyRF->GetYaxis()->SetRangeUser(40,120);
+    SetStyleHistoTH1ForGraphs(dummyRF,"","#it{p}_{T} (GeV/c)","#it{RF}",0.03,0.04,0.03,0.04,1,1);
 
+    TH1D *dummyCluster = new TH1D("dummyCluster","",210,0,210);
+    dummyCluster->GetYaxis()->SetRangeUser(1e-9,1);
+    SetStyleHistoTH1ForGraphs(dummyCluster,"","p_{T} (GeV/#it{c})","#frac{1}{#it{N}^{trig}}#frac{d#it{N}^{cl}}{d#it{p}_{T}^{cl}}",0.03,0.04,0.03,0.04,1,1);
+
+    TH1D *dummyEff = new TH1D("dummyEff","",258,2,260);
+    dummyEff->GetYaxis()->SetRangeUser(0.87,1.05);
+    SetStyleHistoTH1ForGraphs(dummyEff,"","p_{T} (GeV/#it{c})","Trigger Efficiency",0.03,0.04,0.03,0.04,1,1);
+
+    TLegend *legendClus =  GetAndSetLegend2(0.34,(0.94-(4)*textSize),0.54,0.94,textSize,1);
+    TLegend *legendEff =  GetAndSetLegend2(0.13,(0.93-(3)*textSize),0.33,0.93,textSize,1);
+    TLegend *legendRF =  GetAndSetLegend2(0.12,(0.93-(2)*textSize),0.35,0.93,textSize,1);
+
+    dummyCluster->Draw("axis");
     for(int i=0; i<vecClusters.size(); i++){
-        vecClusters.at(i)->GetXaxis()->SetRangeUser(10,200);
-        vecClusters.at(i)->GetYaxis()->SetRangeUser(1e-9,10);
-        //vecClusters.at(i)->GetYaxis()->SetRangeUser(5,100);
-        SetStyleHistoTH1ForGraphs(vecClusters.at(i),"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-
+        vecClusters.at(i)->GetXaxis()->SetRangeUser(5,200);
         vecClusters.at(i)->SetMarkerStyle(styles[i]);
         vecClusters.at(i)->SetMarkerColor(colors[i]);
         vecClusters.at(i)->SetLineColor(colors[i]);
         vecClusters.at(i)->SetMarkerSize(2);
-        legendClus->AddEntry(vecClusters.at(i), triggers.at(i).Data(), "p");
-
-        TString save = ((i==0)? "p,e" : "p,e,same");
-        vecClusters.at(i)->Draw(save.Data());
+        if(i==1) legendClus->AddEntry(vecClusters.at(i), "EMC7 Course Binning", "p");
+        else if(i==2) legendClus->AddEntry(vecClusters.at(i), "EMC7 Fine Binning", "p");
+        else legendClus->AddEntry(vecClusters.at(i), triggers.at(i).Data(), "p");
+        vecClusters.at(i)->Draw("p,e,same");
     }
+    legendClus->Draw("same");
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.9, textSize,false, false, true);
+    drawLatexAdd("EMCal Clusters",0.94,0.86, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{E}^{cl} > 0.3 GeV; |#it{#eta}^{cl}| < 0.7",0.94,0.82, textSize,kFALSE, kFALSE, true);
     c->SaveAs(Form("%s/RejectionFactors/ClustersData/clusters_R0%i.%s",output.Data(),radius,fileType.Data()));
 
+    dummyCluster->Draw("axis");
     for(int i=0; i<vecClustersMC.size(); i++){
-        vecClustersMC.at(i)->GetXaxis()->SetRangeUser(10,200);
-        vecClustersMC.at(i)->GetYaxis()->SetRangeUser(1e-9,10);
-        //vecClustersMC.at(i)->GetYaxis()->SetRangeUser(5,100);
-        SetStyleHistoTH1ForGraphs(vecClustersMC.at(i),"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-
+        vecClustersMC.at(i)->GetXaxis()->SetRangeUser(5,200);
         vecClustersMC.at(i)->SetMarkerStyle(styles[i]);
         vecClustersMC.at(i)->SetMarkerColor(colors[i]);
         vecClustersMC.at(i)->SetLineColor(colors[i]);
         vecClustersMC.at(i)->SetMarkerSize(2);
-        TString save = ((i==0)? "p,e" : "p,e,same");
-        vecClustersMC.at(i)->Draw(save.Data());
+        vecClustersMC.at(i)->Draw("p,e,same");
     }
+    legendClus->Draw("same");
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.9, textSize,false, false, true);
+    drawLatexAdd("EMCal Clusters",0.94,0.86, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{E}^{cl} > 0.3 GeV; |#it{#eta}^{cl}| < 0.7",0.94,0.82, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Simulated PYTHIA8+GEANT4",0.94,0.78, textSize,kFALSE, kFALSE, true);
     c->SaveAs(Form("%s/RejectionFactors/ClustersMC/clustersMC_R0%i.%s",output.Data(),radius,fileType.Data()));
-
-    for(int i=0; i<vecClustersMC.size(); i++){
-        vecClustersMC.at(i)->GetXaxis()->SetRangeUser(10,200);
-        vecClustersMC.at(i)->GetYaxis()->SetRangeUser(1e-9,10);
-        //vecClustersMC.at(i)->GetYaxis()->SetRangeUser(5,100);
-        SetStyleHistoTH1ForGraphs(vecClustersMC.at(i),"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-
-        vecClustersMC.at(i)->SetMarkerStyle(styles[i]);
-        vecClustersMC.at(i)->SetMarkerColor(colors[i]);
-        vecClustersMC.at(i)->SetLineColor(colors[i]);
-        vecClustersMC.at(i)->SetMarkerSize(2);
-        TString save = ((i==0)? "p,e" : "p,e,same");
-        vecClustersMC.at(i)->Draw(save.Data());
-    }
-    c->SaveAs(Form("%s/RejectionFactors/clustersMC_R0%i.%s",output.Data(),radius,fileType.Data()));
-
-    c->SetLogy(0);
-    //c->SetLogx(0);
-
-    TLine * l = new TLine (0,1,200,1);
-    l->SetLineColor(14);
-    l->SetLineWidth(3);
-    l->SetLineStyle(7);
-
-    effScaleCourseEMC7->GetXaxis()->SetRangeUser(0,200);
-    effScaleCourseEMC7->GetYaxis()->SetRangeUser(0,1.4);
-    SetStyleHistoTH1ForGraphs(effScaleCourseEMC7,"","p_{T} (GeV/c)","EMC7 Trig. Eff. (Clusters)",0.03,0.04,0.03,0.04,1,1.2);
-    effScaleCourseEMC7->Draw("p,e");
-    l->Draw("same");
-    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/EMC7course_R0%i.%s",output.Data(),radius,fileType.Data()));
-
-    effScaleFineEMC7->GetXaxis()->SetRangeUser(0,200);
-    effScaleFineEMC7->GetYaxis()->SetRangeUser(0,1.4);
-    SetStyleHistoTH1ForGraphs(effScaleFineEMC7,"","p_{T} (GeV/c)","EMC7 Trig. Eff. (Clusters)",0.03,0.04,0.03,0.04,1,1.2);
-    effScaleFineEMC7->Draw("p,e");
-    l->Draw("same");
-    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/EMC7fine_R0%i.%s",output.Data(),radius,fileType.Data()));
-
-    effScaleFineEJE->GetXaxis()->SetRangeUser(0,200);
-    effScaleFineEJE->GetYaxis()->SetRangeUser(0,1.4);
-    SetStyleHistoTH1ForGraphs(effScaleFineEJE,"","p_{T} (GeV/c)","EJE Trig. Eff. (Clusters)",0.03,0.04,0.03,0.04,1,1.2);
-    effScaleFineEJE->Draw("p,e");
-    l->Draw("same");
-    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/EJEfine_R0%i.%s",output.Data(),radius,fileType.Data()));
 
     c->SetLogy(0);
     c->SetLogx(1);
 
-    TLegend *legend =  GetAndSetLegend2(0.52,(0.86-(2)*textSize),0.82,0.86,textSize,1);
+    TLine * l = new TLine (2,1,261,1);
+    l->SetLineColor(14);
+    l->SetLineWidth(3);
+    l->SetLineStyle(7);
 
-    TH1D *dummy = (TH1D*)RFacLow->Clone("dummy");
-    dummy->GetXaxis()->SetRangeUser(1,200);
-    dummy->GetYaxis()->SetRangeUser(0,160);
+    effScaleCourseEMC7->GetXaxis()->SetRangeUser(2,200);
+    effScaleCourseEMC7->SetMarkerStyle(styles[0]);
+    effScaleCourseEMC7->SetMarkerColor(colors[0]);
+    effScaleCourseEMC7->SetLineColor(colors[0]);
+    legendEff->AddEntry(effScaleCourseEMC7, "EMC7 Course Binning", "p");
+    effScaleFineEMC7->GetXaxis()->SetRangeUser(2,200);
+    effScaleFineEMC7->SetMarkerStyle(styles[1]);
+    effScaleFineEMC7->SetMarkerColor(colors[1]);
+    effScaleFineEMC7->SetLineColor(colors[1]);
+    legendEff->AddEntry(effScaleFineEMC7, "EMC7 Fine Binning", "p");
+    effScaleFineEJE->GetXaxis()->SetRangeUser(10,200);
+    effScaleFineEJE->SetMarkerStyle(styles[2]);
+    effScaleFineEJE->SetMarkerColor(colors[2]);
+    effScaleFineEJE->SetLineColor(colors[2]);
+    legendEff->AddEntry(effScaleFineEJE, "EJE", "p");
+    dummyEff->Draw("axis");
+    effScaleCourseEMC7->Draw("p,e,same");
+    effScaleFineEMC7->Draw("p,e,same");
+    effScaleFineEJE->Draw("p,e,same");
 
-    RFacLow->GetXaxis()->SetMoreLogLabels();
-    RFacLow->GetXaxis()->SetRangeUser(0,40);
-    RFacLow->GetYaxis()->SetRangeUser(5,210);
+    l->Draw("same");
+    legendEff->Draw("same");
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.9, textSize,false, false, true);
+    drawLatexAdd("EMCal Clusters",0.94,0.86, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("#it{E}^{cl} > 0.3 GeV; |#it{#eta}^{cl}| < 0.7",0.94,0.82, textSize,kFALSE, kFALSE, true);
+    drawLatexAdd("Simulated PYTHIA8+GEANT4",0.94,0.78, textSize,kFALSE, kFALSE, true);
+    c->SaveAs(Form("%s/RejectionFactors/ClusterTE/ClusterTriggerEfficiencies_R0%i.%s",output.Data(),radius,fileType.Data()));
+
+    c->SetLogy(0);
+    c->SetLogx(1);
+
+    RFacLow->GetXaxis()->SetRangeUser(2.5,40);
     RFacLow->SetMarkerStyle(styles[0]);
     RFacLow->SetMarkerColor(colors[0]);
     RFacLow->SetLineColor(colors[0]);
     RFacLow->SetMarkerSize(2);
     RFacLow->Sumw2();
 
-    RFacLow->GetXaxis()->SetRangeUser(0,90);
+    RFacHigh->GetXaxis()->SetRangeUser(7,200);
     RFacHigh->SetMarkerStyle(styles[7]);
     RFacHigh->SetMarkerColor(colors[2]);
     RFacHigh->SetLineColor(colors[2]);
     RFacHigh->SetMarkerSize(2);
     RFacHigh->Sumw2();
 
-    SetStyleHistoTH1ForGraphs(RFacLow,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-    SetStyleHistoTH1ForGraphs(RFacHigh,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-
-    TGraphErrors *RFacLowGraph = new TGraphErrors(RFacLow);
-    TGraphErrors *RFacHighGraph = new TGraphErrors(RFacHigh);
-
-    dummy->Draw("axis");
+    dummyRF->Draw("axis");
     RFacLow->Draw("p,e,same");
     RFacHigh->Draw("p,e,same");
 
-    legend->AddEntry(RFacLow, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLow,errLow), "p");
-    legend->AddEntry(RFacHigh, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHigh,errHigh), "p");
-    legend->Draw("same");
+    legendRF->AddEntry(RFacLow, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLow,errLow), "p");
+    legendRF->AddEntry(RFacHigh, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHigh,errHigh), "p");
+    legendRF->Draw("same");
 
-    drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.91,0.9, textSize,false, false, true);
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.14,0.8, textSize,false, false, false);
+    drawLatexAdd("EMCal Clusters",0.14,0.76, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("#it{E}^{cl} > 0.3 GeV; |#it{#eta}^{cl}| < 0.7",0.14,0.72, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("Efficiency Scaled",0.14,0.68, textSize,kFALSE, kFALSE, false);
 
     c->SaveAs(Form("%s/RejectionFactors/RF_R0%i.%s",output.Data(),radius,fileType.Data()));
 
-    legend->Clear();
+    legendRF->Clear();
     c->SetLogx(1);
-    //c->SetLogy();
-    TLegend *legend2 =  GetAndSetLegend2(0.12,(0.86-(2)*textSize),0.32,0.86,textSize,1);
+    c->SetLogy(0);
 
+    dummyRF->GetXaxis()->SetRangeUser(1,261);
+    dummyRF->GetYaxis()->SetRangeUser(20,120);
 
-    RFacLowUnscaled->GetXaxis()->SetMoreLogLabels();
-    //RFacLowUnscaled->GetXaxis()->SetRangeUser(1,200);
-    if(system=="pp") RFacLowUnscaled->GetYaxis()->SetRangeUser(5,110);
-    if(system=="pPb") RFacLowUnscaled->GetYaxis()->SetRangeUser(0,600);
+    RFacLowUnscaled->GetXaxis()->SetRangeUser(1.5,40);
     RFacLowUnscaled->SetMarkerStyle(styles[0]);
     RFacLowUnscaled->SetMarkerColor(colors[0]);
     RFacLowUnscaled->SetLineColor(colors[0]);
     RFacLowUnscaled->SetMarkerSize(2);
     RFacLowUnscaled->Sumw2();
 
+    RFacHighUnscaled->GetXaxis()->SetRangeUser(6,200);
     RFacHighUnscaled->SetMarkerStyle(styles[7]);
     RFacHighUnscaled->SetMarkerColor(colors[2]);
     RFacHighUnscaled->SetLineColor(colors[2]);
     RFacHighUnscaled->SetMarkerSize(2);
     RFacHighUnscaled->Sumw2();
 
-    SetStyleHistoTH1ForGraphs(RFacLowUnscaled,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-    SetStyleHistoTH1ForGraphs(RFacHighUnscaled,"","p_{T} (GeV/c)","RF",0.03,0.04,0.03,0.04,1,1.2);
-
-    RFacLowUnscaled->Draw("p,e");
+    dummyRF->Draw("axis");
+    RFacLowUnscaled->Draw("p,e,same");
     RFacHighUnscaled->Draw("p,e,same");
 
-    if(system=="pp"){
-        legend2->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
-        legend2->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
-    }
-    if(system=="pPb"){
-        legend2->AddEntry(RFacLowUnscaled, Form("EG2/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
-        legend2->AddEntry(RFacHighUnscaled, Form("EG1/EG2 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
-    }
-    legend2->Draw("same");
+    legendRF->AddEntry(RFacLowUnscaled, Form("EMC7/INT7 RF = %1.2f #pm %1.2f",valLowUnscaled,errLowUnscaled), "p");
+    legendRF->AddEntry(RFacHighUnscaled, Form("EJE/EMC7 RF = %1.2f #pm %1.2f",valHighUnscaled,errHighUnscaled), "p");
+    legendRF->Draw("same");
 
-    if(system=="pp") drawLatexAdd(Form("pp #it{#sqrt{s_{NN}}} = 8 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
-    if(system=="pPb") drawLatexAdd(Form("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV; Full Jets, R = 0.%i",radius),0.14,0.9, textSize,false, false, false);
-
+    drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.14,0.8, textSize,false, false, false);
+    drawLatexAdd("EMCal Clusters",0.14,0.76, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("#it{E}^{cl} > 0.3 GeV; |#it{#eta}^{cl}| < 0.7",0.14,0.72, textSize,kFALSE, kFALSE, false);
     c->SaveAs(Form("%s/RejectionFactors/RF_R0%i_Unscaled.%s",output.Data(),radius,fileType.Data()));
 
 }

@@ -1,0 +1,8 @@
+ppFiles_NewBinning/output_rfbinvar/bayes_HighRFBinVarOption1_2422.root (Low=default,High=option1)
+ppFiles_NewBinning/output_rfbinvar/bayes_HighRFBinVarOption2_2422.root (Low=default,High=option2)
+ppFiles_NewBinning/output_rfbinvar/bayes_HighRFBinVarOption3_2422.root (Low=default,High=option3)
+ppFiles_NewBinning/output_rfbinvar/bayes_HighRFBinVarOption4_2422.root (Low=default,High=option4)
+ppFiles_NewBinning/output_rfbinvar/bayes_LowRFBinVarOption1_2422.root (Low=option1,High=default)
+ppFiles_NewBinning/output_rfbinvar/bayes_LowRFBinVarOption2_2422.root (Low=option2,High=default)
+ppFiles_NewBinning/output_rfbinvar/bayes_LowRFBinVarOption3_2422.root (Low=option3,High=default)
+ppFiles_NewBinning/output_rfbinvar/bayes_LowRFBinVarOption4_2422.root (Low=option4,High=default)

@@ -22,7 +22,7 @@ void plotTrackQA(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString
     vector<TH1D*> vecHMinus;
     vector<TString> fileNamesData{nfileINT7, nfileEMC7, nfileEJE};
     vector<TString> triggers{"INT7","EMC7","EJE"};
-    vector<double> detLevelBin = getJetPtBinningNonLinSmearPoor();
+    vector<double> detLevelBin = getJetPtBinningNonLinSmear8TeV();
 
     TCanvas* canvas       = new TCanvas("canvas","",10,10,750,500);
     double leftMargin   = 0.12;
@@ -55,10 +55,10 @@ void plotTrackQA(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString
         sparse->GetAxis(6)->SetRangeUser(-1,-1e-5);
         TH1D *hminus = (TH1D*)sparse->Projection(0);
         //TH1D *hminus = (TH1D*)hminusfine->Rebin(detLevelBin.size()-1, Form("hminus_rebin_%s",triggers.at(t).Data()), detLevelBin.data());
-        hminus->Scale(1.,"width");
+        //hminus->Scale(1.,"width");
         if(triggers[t]=="INT7") hminus->GetXaxis()->SetRangeUser(5,30);
-        else if(triggers[t]=="EMC7") hminus->GetXaxis()->SetRangeUser(30,60);
-        else hminus->GetXaxis()->SetRangeUser(60,320);
+        else if(triggers[t]=="EMC7") hminus->GetXaxis()->SetRangeUser(30,50);
+        else hminus->GetXaxis()->SetRangeUser(50,320);
         vecHMinus.push_back(hminus);
     }
 
@@ -76,10 +76,10 @@ void plotTrackQA(TString nfileINT7, TString nfileEMC7, TString nfileEJE, TString
         sparse->GetAxis(6)->SetRangeUser(1e-5,1);
         TH1D *hplus = (TH1D*)sparse->Projection(0);
         //TH1D *hplus = (TH1D*)hplusfine->Rebin(detLevelBin.size()-1, Form("hplus_rebin_%s",triggers.at(t).Data()), detLevelBin.data());
-        hplus->Scale(1.,"width");
+        //hplus->Scale(1.,"width");
         if(triggers[t]=="INT7") hplus->GetXaxis()->SetRangeUser(5,30);
-        else if(triggers[t]=="EMC7") hplus->GetXaxis()->SetRangeUser(30,60);
-        else hplus->GetXaxis()->SetRangeUser(60,320);
+        else if(triggers[t]=="EMC7") hplus->GetXaxis()->SetRangeUser(30,50);
+        else hplus->GetXaxis()->SetRangeUser(50,320);
         vecHPlus.push_back(hplus);
     }
 

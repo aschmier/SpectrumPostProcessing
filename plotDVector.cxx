@@ -12,7 +12,7 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 
-void plotDVector(TString file, TString output, TString fileType)
+void plotDVector(TString file, TString output, TString fileType, TString system)
 {
     // Define variables
     Double_t textSize     = 0.03;
@@ -57,8 +57,9 @@ void plotDVector(TString file, TString output, TString fileType)
 
         vecDVec.at(radius-minradius)->Draw("b");
 
-        drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-        drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
+        if(system == "pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+        else drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+        drawLatexAdd(Form("Full Jets, #it{R} = 0.%i", radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd("D-Vector Iterations Comparison",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
         canvas->SaveAs(Form("%s/DVector/DVector_R0%i.%s",output.Data(),radius,fileType.Data()));
     }

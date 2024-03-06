@@ -1,0 +1,4 @@
+ppFiles_NewBinning/output_binvar/bayes_binvaroption1_2422.root Option1
+ppFiles_NewBinning/output_binvar/bayes_binvaroption2_2422.root Option2
+ppFiles_NewBinning/output_binvar/bayes_binvaroption3_2422.root Option3
+ppFiles_NewBinning/output_binvar/bayes_binvaroption4_2422.root Option4

@@ -49,7 +49,7 @@ void compareDpT(TString file1, TString file2, TString outputdir, TString fileTyp
     for(int radius = minradius; radius <= maxradius; radius++){
         TDirectory *baseRad1     = (TDirectory*)f1->Get(Form("R0%i",radius));
         TDirectory *baseRad2     = (TDirectory*)f2->Get(Form("R0%i",radius));
-        for(int reg = 1; reg <= 10; reg++){
+        for(int reg = 6; reg <= 6; reg++){
             TDirectory *baseReg1 = (TDirectory*)baseRad1->Get(Form("reg%i",reg));
             TH1D *specUnf1       = (TH1D*)baseReg1->Get(Form("normalized_reg%i",reg));
             TDirectory *baseReg2 = (TDirectory*)baseRad2->Get(Form("reg%i",reg));
@@ -63,19 +63,7 @@ void compareDpT(TString file1, TString file2, TString outputdir, TString fileTyp
             ratio->SetMarkerColor(1);
             ratio->SetLineColor(1);
             ratio->GetXaxis()->SetRangeUser(20,240);
-/*
-            TLine *l20 = new TLine (20,0,20,1.05);
-            l20->SetLineColor(14);
-            l20->SetLineWidth(3);
-            l20->SetLineStyle(7);
-            l20->Draw("same");
 
-            TLine *l320 = new TLine (240,0,240,1.05);
-            l320->SetLineColor(14);
-            l320->SetLineWidth(3);
-            l320->SetLineStyle(7);
-            l320->Draw("same");
-*/
             dummy->Draw("axis");
             ratio->Draw("p,e,same");
 

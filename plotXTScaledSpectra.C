@@ -136,8 +136,14 @@ void plotXTScaledSpectra(TString file1, TString file2, TString folder3, TString 
     }
 
     TFile *fOutput = new TFile(Form("%s/pp_FullJet_Spectra.root",rootfiledir.Data()),"RECREATE");
+    fOutput->mkdir("pp2p76TeV");
+    fOutput->mkdir("pp8TeV");
+    fOutput->mkdir("pp5TeV");
+    fOutput->mkdir("pp13TeV");
 
     // E1 (base energy)
+    fOutput->cd("pp8TeV");
+    auto basedir = static_cast<TDirectory *>(gDirectory);
     for(int radius = minradius; radius <= maxradius; radius++){
         TDirectory *rdir           = (TDirectory*)fE1->Get(Form("R0%i",radius));
         TGraphErrors *spectrumStat = (TGraphErrors*)rdir->Get(Form("finalSpectrum_R0%i",radius));
@@ -162,13 +168,16 @@ void plotXTScaledSpectra(TString file1, TString file2, TString folder3, TString 
         vecSpectrum[0].push_back((TGraphErrors*)spectrumStat);
         vecSpectrumSys[0].push_back((TGraphErrors*)spectrumSys);
 
-        fOutput->mkdir(Form("R0%i",radius));
-        fOutput->cd(Form("R0%i",radius));
-        spectrumSys->Write("spectrumSys_8TeV");
-        spectrumStat->Write("spectrumStat_8TeV");
+        basedir->mkdir(Form("R0%i",radius));
+        basedir->cd(Form("R0%i",radius));
+
+        spectrumSys->Write("spectrumSys");
+        spectrumStat->Write("spectrumStat");
     }
 
     // E2
+    fOutput->cd("pp13TeV");
+    basedir = static_cast<TDirectory *>(gDirectory);
     for(int radius = minradius; radius <= maxradius; radius++){
         TDirectory *rdir                 = (TDirectory*)fE2->Get(Form("R0%i",radius));
         if(!rdir) cout << "R0" << radius << " not found!" << endl;
@@ -217,12 +226,16 @@ void plotXTScaledSpectra(TString file1, TString file2, TString folder3, TString 
         vecSpectrum[1].push_back((TGraphErrors*)spectrumStat);
         vecSpectrumSys[1].push_back((TGraphErrors*)spectrumSys);
 
-        fOutput->cd(Form("R0%i",radius));
-        spectrumSys->Write("spectrumSys_13TeV");
-        spectrumStat->Write("spectrumStat_13TeV");
+        basedir->mkdir(Form("R0%i",radius));
+        basedir->cd(Form("R0%i",radius));
+
+        spectrumSys->Write("spectrumSys");
+        spectrumStat->Write("spectrumStat");
     }
 
     // E3
+    fOutput->cd("pp5TeV");
+    basedir = static_cast<TDirectory *>(gDirectory);
     for(int radius = minradius; radius <=maxradius; radius++){
         TString tableNameSpec = Form("%s/%s.tsv", folder3.Data(), (mapSpectrum5TeV[radius]).Data());
         TGraphAsymmErrors *spectrumStat  = ParseHEPData(tableNameSpec, 12, 0, 1, 2, 3, 4, 5, kFALSE, kTRUE);
@@ -260,12 +273,16 @@ void plotXTScaledSpectra(TString file1, TString file2, TString folder3, TString 
         vecSpectrum[2].push_back((TGraphErrors*)spectrumStat);
         vecSpectrumSys[2].push_back((TGraphErrors*)spectrumSys);
 
-        fOutput->cd(Form("R0%i",radius));
-        spectrumSys->Write("spectrumSys_5TeV");
-        spectrumStat->Write("spectrumStat_5TeV");
+        basedir->mkdir(Form("R0%i",radius));
+        basedir->cd(Form("R0%i",radius));
+
+        spectrumSys->Write("spectrumSys");
+        spectrumStat->Write("spectrumStat");
     }
 
     // E4
+    fOutput->cd("pp2p76TeV");
+    basedir = static_cast<TDirectory *>(gDirectory);
     for(int radius = minradius; radius <=maxradius; radius++){
         if(radius != 2 && radius != 4) continue;
         TString tableNameSpec = Form("%s/%s.tsv", folder4.Data(), radius == 2? spectrum2p76TeVR02.Data() : spectrum2p76TeVR04.Data());
@@ -295,9 +312,11 @@ void plotXTScaledSpectra(TString file1, TString file2, TString folder3, TString 
         //vecSpectrum[3].push_back(spectrumStat);
         //vecSpectrumSys[3].push_back(spectrumSys);
 
-        fOutput->cd(Form("R0%i",radius));
-        spectrumSys->Write("spectrumSys_2p76TeV");
-        spectrumStat->Write("spectrumStat_2p76TeV");
+        basedir->mkdir(Form("R0%i",radius));
+        basedir->cd(Form("R0%i",radius));
+        
+        spectrumSys->Write("spectrumSys");
+        spectrumStat->Write("spectrumStat");
     }
 
     fOutput->Close();

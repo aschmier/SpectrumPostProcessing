@@ -1,0 +1,2 @@
+ppFiles_NewBinning/output_clusterizer/bayes_3x3_2246.root 3x3
+ppFiles_NewBinning/output_clusterizer/bayes_5x5_2245.root 5x5

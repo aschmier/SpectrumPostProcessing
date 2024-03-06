@@ -1,0 +1,4 @@
+ppFiles_NewBinning/output_truncation/bayes_trunc_lowerloose_2422.root LowerLoose
+ppFiles_NewBinning/output_truncation/bayes_trunc_lowerstrong_2422.root LowerStrong
+ppFiles_NewBinning/output_truncation/bayes_trunc_upperloose_2422.root UpperLoose
+ppFiles_NewBinning/output_truncation/bayes_trunc_upperstrong_2422.root UpperStrong

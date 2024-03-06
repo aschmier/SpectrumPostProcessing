@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Train runs
+booldefaultnew=true #
 booldefaultbayes=false #
+boolptscheme=false #
 booldefaultbayessys=false #
 booldefaultsvd=false #
 booldefaultsvdsys=false #
@@ -20,10 +22,10 @@ boolMaxTrackPt125=false #
 boolMaxTrackPt150=false #
 boolMaxTrackPt175=false #
 boolMaxTrackPt225=false #
-boolMaxClusterE125=true
-boolMaxClusterE150=true
-boolMaxClusterE175=true
-boolMaxClusterE225=true
+boolMaxClusterE125=false #
+boolMaxClusterE150=false #
+boolMaxClusterE175=false #
+boolMaxClusterE225=false #
 boolF07=false # incorrect response name
 boolMIP=false # incorrect response name
 boolS275C75=false # incorrect response name
@@ -39,12 +41,19 @@ boolQPtShift=false
 boolEmbedding=false #
 boolEJ2LumiUnc=false
 boolEJ1LumiUnc=false
+boorequirel0=false
 
 datatrains="/media/austin/mightymouse/data/pPb8TeV_data/merged"
+ptschemetrains="/media/austin/mightymouse/data/pPb8TeV_data/ptscheme_trains/merged"
 mctrains="/media/austin/mightymouse/data/pPb8TeV_MC/merged"
+mcptschemetrains="/media/austin/mightymouse/data/pPb8TeV_MC/ptscheme_trains/merged"
 priorsfile="/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/pPbFiles/output_default/bayes_pPb_defaultsys.root"
 lumilow=67523.2
+lumilowptscheme=65079.2
 lumihigh=1379980
+lumihighptscheme=1335920
+lumilowrho02=68477.8
+lumihighrho02=1402380
 
 lumilowUnc=0.927477
 lumihighUnc=0.985066
@@ -61,11 +70,29 @@ swaphigh=50
 
 inputResponseFile="/home/austin/alice/SpectrumPostProcessing/FilteredResponse/filteredResponse.root"
 
+# New default
+if $booldefaultnew
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb_Lumi.cpp("'$ptschemetrains'/default/EJ1.root","'$ptschemetrains'/default/EJ1.root","'$ptschemetrains'/default/EJ1.root","'$mcptschemetrains'/default/AnalysisResults.root","default",'$lumilowrho02','$lumihighrho02','$swaplow','$swaphigh',"default",-1,false,true)'
+fi
+
 # default
 if $booldefaultbayes
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb_Lumi.cpp("'$datatrains'/default/INT7.root","'$datatrains'/default/EJ2.root","'$datatrains'/default/EJ1.root","'$mctrains'/default/AnalysisResults.root","default",'$lumilow','$lumihigh','$swaplow','$swaphigh',"default",-1,false,true)'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb_Lumi.cpp("'$datatrains'/default_lumi/EJ1.root","'$datatrains'/default_lumi/EJ1.root","'$datatrains'/default_lumi/EJ1.root","'$mctrains'/ESchemeFix/AnalysisResults.root","runlistEJ1",'$lumilow','$lumihigh','$swaplow','$swaphigh',"default",-1,false,true)'
 fi
+
+# ptscheme
+if $boolptscheme
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb_Lumi.cpp("'$datatrains'/PtScheme/INT7.root","'$datatrains'/PtScheme/EJ2.root","'$datatrains'/PtScheme/EJ1.root","'$mctrains'/PtScheme/AnalysisResults.root","ptscheme",'$lumilowptscheme','$lumihighptscheme','$swaplow','$swaphigh',"default",-1,false,true)'
+fi
+
+# RequireL0
+#if $boolrequirel0
+#then
+#    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_pPb_Lumi.cpp("'$datatrains'/default/INT7.root","'$datatrains'/default/EJ1.root","'$datatrains'/default/EJ1.root","'$mctrains'/RequireL0/AnalysisResults.root","RequireL0",'$lumilow','$lumihigh','$swaplow','$swaphigh',"RequireL0",-1,false,true)'
+#fi
 
 # defaultsys (defaultskim)
 if $booldefaultbayessys

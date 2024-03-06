@@ -31,7 +31,7 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 10;
+    int varNSys = 11;
     //if(radius != 2) varNSys = varNSys - 1;
     const int nSys = varNSys;
     vector<TString> plot_names;
@@ -49,12 +49,12 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
     gSystem->Exec("mkdir -p "+outputDirRootFile);
 
-    plot_names.insert(plot_names.end(), {"Unfolding","Embedding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","Luminosity Scaling"});
-    systematics_names.insert(systematics_names.end(), {"allunfolding","embedding","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","tracking","triggerswap","lumi"});
-    variation_original.insert(variation_original.end(), {"default","RandomCones","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,50GeV)","default"});
-    if(radius == 4) fitfunc.insert(fitfunc.end(), {"binwise","exp0","pol1","pol0","pol0","pol0","pol0","pol1","binwise","binwise"});
-    else if(radius == 5) fitfunc.insert(fitfunc.end(), {"binwise","pol3","pol1","pol0","pol0","pol0","pol0","pol1","binwise","binwise"});
-    else fitfunc.insert(fitfunc.end(), {"binwise","exp0","pol2","pol0","pol0","pol0","pol0","pol1","binwise","binwise"});
+    plot_names.insert(plot_names.end(), {"Unfolding","Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Trigger Swap p_{T}","Luminosity Scaling","Embedding"});
+    systematics_names.insert(systematics_names.end(), {"allunfolding","embedding2","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","tracking","triggerswap","lumi","embedding"});
+    variation_original.insert(variation_original.end(), {"default","NoShift","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","(30GeV,50GeV)","default","RandomCones"});
+    if(radius == 4) fitfunc.insert(fitfunc.end(), {"binwise","pol2","pol1","pol0","pol0","pol0","pol0","pol1","binwise","binwise","exp0"});
+    else if(radius == 5) fitfunc.insert(fitfunc.end(), {"binwise","pol2","pol1","pol0","pol0","pol0","pol0","pol1","binwise","binwise","pol3"});
+    else fitfunc.insert(fitfunc.end(), {"binwise","pol2","pol2","pol0","pol0","pol0","pol0","pol1","binwise","binwise","pol3"});
 
     TString systematicsFile;
 
@@ -140,6 +140,7 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
     }
 
     const char* nameOutput = Form("%s/systematics_R0%i.root",rootfileout.Data(), radius);
+    gSystem->Exec("mkdir -p "+rootfileout);
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
     ////////////////////////// Get Statistical Error ///////////////////////////
@@ -258,7 +259,7 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
 
         // Add text to plot and save
         drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-        drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+        drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("%s",plot_names[name].Data()),0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
 
@@ -286,7 +287,7 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
 
         // Set up axes
         sysAvg->GetXaxis()->SetRangeUser(minPt,maxPt);
-        sysAvg->GetYaxis()->SetRangeUser(0,10);
+        sysAvg->GetYaxis()->SetRangeUser(0,24);
         /*if(radius <= 3){
             if(systematics_names[name] == "tracking" || systematics_names[name] == "unfolding") sysAvg->GetYaxis()->SetRangeUser(0,13);
             else sysAvg->GetYaxis()->SetRangeUser(0,3);
@@ -378,7 +379,7 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
         else sysAvg->Write();
 
         drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-        drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+        drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Variation: %s",plot_names[name].Data()),0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
 
@@ -392,11 +393,13 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
     }
 
     Double_t sysUpperRange;
-    if(radius <= 4) sysUpperRange = 13;
-    else sysUpperRange = 23;
+    if(radius == 2) sysUpperRange = 20;
+    else if(radius == 3) sysUpperRange = 25;
+    else if(radius == 4) sysUpperRange = 30;
+    else sysUpperRange = 45;
 
     //.12,.63
-    legend =  GetAndSetLegend2(0.5,0.57,.93,0.57-((nSys+2)*1.5*textSize)/2,textSize,2);
+    legend =  GetAndSetLegend2(0.5,0.93,.93,0.93-((nSys+2)*1.5*textSize)/2,textSize,2);
     TH1D *hTotal = (TH1D*)vecSys.at(0)->Clone("hTotal");
     hTotal->GetYaxis()->SetRangeUser(0,sysUpperRange);
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){
@@ -432,9 +435,9 @@ void plotSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t radiu
     legend->Draw();
     hTotal->Write();
 
-    drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.13,0.91, 0.03);
-    drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.13,0.87, 0.03);
-    drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.13,0.83, 0.03);
+    drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.23,0.91, 0.03);
+    drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.23,0.87, 0.03);
+    drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.23,0.83, 0.03);
 
     TString savestring3 = Form("%s/Systematics/TotalSystematics_R0%i.%s",out.Data(),radius,fileType.Data());
     //if (!fs::is_directory(savestring3) || !fs::exists(savestring3)) { // Check if src folder exists

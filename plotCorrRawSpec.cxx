@@ -27,8 +27,9 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
         triggers[1] = "EMCal-L1 (EJ2)";
         triggers[2] = "EMCal-L1 (EJ1)";
     }
-    int styles[10] = {8,21,33,34,41,43,45,47,48,49};
-    int colors[10] = {1,2,4,8,9,30,40,41,46,49};
+    int styles[11] = {4,25,27,28,35,36,38,40,42,44,46};
+    double sizes[11] = {1.6,1.5,2,1.7,2,2,2,2,2,2,2};
+    Color_t colors[14] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4};
     double xsec = 55.8;
 
         gSystem->Exec("mkdir -p "+output+"/CorrRawSpec");
@@ -81,128 +82,73 @@ void plotCorrRawSpec(TString file, TString output, TString fileType, TString sys
         }
     }
 
-    TCanvas* canvas             = new TCanvas("canvas","",10,10,750,500);  // gives the page size
-    Double_t leftMargin         = 0.11;
+    TCanvas* canvas             = new TCanvas("canvas","",10,10,800,1000);  // gives the page size
+    Double_t leftMargin         = 0.15;
     Double_t rightMargin        = 0.02;
-    Double_t topMargin          = 0.04;
+    Double_t topMargin          = 0.01;
     Double_t bottomMargin       = 0.1;
     DrawPaperCanvasSettings(canvas,leftMargin,rightMargin,topMargin,bottomMargin);
     gStyle->SetOptStat(0);
     canvas->SetLogy();
 
-    TLegend *legend =  GetAndSetLegend2(0.81,(0.76-(maxradius-minradius+1)*textSize),0.96,0.76,textSize,2);
+    TLegend *legend =  GetAndSetLegend2(0.7,(0.88-(maxradius-minradius)*textSize),0.96,0.88,textSize,2);
+    TLegend *legend2 =  GetAndSetLegend2(0.75,(0.78-(3)*textSize),0.93,0.78,textSize);
 
-    TH1D *dummy = (TH1D*)vecMB.at(0)->Clone("dummy");
-    dummy->GetXaxis()->SetRangeUser(0,350);
-    if(system=="pp") dummy->GetYaxis()->SetRangeUser(1e-12,2e-2);
-    if(system=="pPb") dummy->GetYaxis()->SetRangeUser(1e-7,0.3);
 
-    SetStyleHistoTH1ForGraphs(dummy,"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
+    TH1D *dummy = new TH1D("dummy","",260,0,260);
+    dummy->GetXaxis()->SetRangeUser(0,260);
+    if(system=="pp") dummy->GetYaxis()->SetRangeUser(1e-9,7e-4);
+    if(system=="pPb") dummy->GetYaxis()->SetRangeUser(2e-5,8);
 
-    for(int radius = minradius; radius <= maxradius; radius++){
-        //if(radius==minradius){
-            vecMB.at(radius-minradius)->GetXaxis()->SetRangeUser(0,30);
-            //vecMB.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
-            //SetStyleHistoTH1ForGraphs(vecMB.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        //}
-        vecMB.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
-        vecMB.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
-        vecMB.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
+    SetStyleHistoTH1ForGraphs(dummy,"","#it{p}_{T}^{jet}","#frac{1}{#it{N}^{trig}} #frac{d#it{N}}{d#it{p}_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.5);
+    dummy->Draw("axis");
 
-        legend->AddEntry(vecMB.at(radius-minradius), Form("R=0.%i", radius), "p");
-
-        //vecMB.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
-        if(radius == minradius) dummy->Draw("AXIS");
-        vecMB.at(radius-minradius)->Draw("p,e1,same");
-    }
-    legend->Draw();
-    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    if(system=="pPb") drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("Min. Bias (INT7)",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
-    canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_INT7.%s",output.Data(),fileType.Data()));
-    legend->Clear();
 
     for(int radius = minradius; radius <= maxradius; radius++){
-        //if(radius==minradius){
+        vecMB.at(radius-minradius)->GetXaxis()->SetRangeUser(20,30);
+        if(system == "pPb"){
+            vecEMC7.at(radius-minradius)->GetXaxis()->SetRangeUser(30,50);
+            if(radius==2 || radius==3) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(50,240);
+            if(radius==4) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(50,120);
+        }else{
             vecEMC7.at(radius-minradius)->GetXaxis()->SetRangeUser(30,60);
-        //    vecEMC7.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
-        //    SetStyleHistoTH1ForGraphs(vecEMC7.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        //}
-        vecEMC7.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
-        vecEMC7.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
-        vecEMC7.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
-
-        legend->AddEntry(vecEMC7.at(radius-minradius), Form("R=0.%i", radius), "p");
-
-        //vecEMC7.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
-        if(radius == minradius) dummy->Draw("AXIS");
-        vecEMC7.at(radius-minradius)->Draw("p,e1,same");
-    }
-    legend->Draw();
-    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    if(system=="pPb") drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-
-    drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("EMCal-L0 (EMC7)",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
-    canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_EMC7.%s",output.Data(),fileType.Data()));
-    legend->Clear();
-
-    for(int radius = minradius; radius <= maxradius; radius++){
-        //if(radius==minradius){
-            //vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,240);
             if(radius==2 || radius==3 || radius==4) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,240);
             if(radius==5) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,160);
             if(radius==6) vecEJE.at(radius-minradius)->GetXaxis()->SetRangeUser(60,120);
-        //    vecEJE.at(radius-minradius)->GetYaxis()->SetRangeUser(1e-11,2e-4);
-        //    SetStyleHistoTH1ForGraphs(vecEJE.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        //}
-        vecEJE.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
+        }
+            
+        vecMB.at(radius-minradius)->SetMarkerStyle(styles[0]);
+        vecMB.at(radius-minradius)->SetMarkerSize(sizes[0]);
+        vecMB.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
+        vecMB.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
+
+        vecEMC7.at(radius-minradius)->SetMarkerStyle(styles[1]);
+        vecEMC7.at(radius-minradius)->SetMarkerSize(sizes[1]);
+        vecEMC7.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
+        vecEMC7.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
+
+        vecEJE.at(radius-minradius)->SetMarkerStyle(styles[2]);
+        vecEJE.at(radius-minradius)->SetMarkerSize(sizes[2]);
         vecEJE.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
         vecEJE.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
 
-        legend->AddEntry(vecEJE.at(radius-minradius), Form("R=0.%i", radius), "p");
+        legend->AddEntry(vecMB.at(radius-minradius), Form("R=0.%i", radius), "p");
 
-        //vecEJE.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
-        if(radius == minradius) dummy->Draw("AXIS");
+        vecMB.at(radius-minradius)->Draw("p,e1,same");
+        vecEMC7.at(radius-minradius)->Draw("p,e1,same");
         vecEJE.at(radius-minradius)->Draw("p,e1,same");
     }
+    legend2->AddEntry(vecMB.at(0), "Min. Bias", "p");
+    if(system == "pPb") legend2->AddEntry(vecEMC7.at(0), "EJ2", "p");
+    else legend2->AddEntry(vecEMC7.at(0), "EMC7", "p");
+    if(system == "pPb") legend2->AddEntry(vecEJE.at(0), "EJ1", "p");
+    else legend2->AddEntry(vecEJE.at(0), "EJE", "p");
+
     legend->Draw();
-    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    if(system=="p--Pb") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-
-    drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("EMCal-L1 (EJE)",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
-    canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_EJE.%s",output.Data(),fileType.Data()));
-    legend->Clear();
-
-    for(int radius = minradius; radius <= maxradius; radius++){
-        //if(radius==minradius){
-            //vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
-            //vecCombined.at(radius-minradius)->GetYaxis()->SetRangeUser(3e-10,2e-3);
-            //SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-        //}
-        if(radius==2 || radius==3 || radius==4) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,240);
-        if(radius==5) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,160);
-        if(radius==6) vecCombined.at(radius-minradius)->GetXaxis()->SetRangeUser(20,120);
-        SetStyleHistoTH1ForGraphs(vecCombined.at(radius-minradius),"","p_{T}^{jet}","#frac{1}{N^{trig}} #frac{dN}{dp_{T}^{jet}}",0.03,0.04,0.03,0.04,1,1.2);
-
-        vecCombined.at(radius-minradius)->SetMarkerStyle(styles[radius-minradius]);
-        vecCombined.at(radius-minradius)->SetMarkerColor(colors[radius-minradius]);
-        vecCombined.at(radius-minradius)->SetLineColor(colors[radius-minradius]);
-
-        legend->AddEntry(vecCombined.at(radius-minradius), Form("R=0.%i", radius), "p");
-
-        //vecCombined.at(radius-minradius)->Draw(radius==minradius? "p,e" : "p,e,same");
-        if(radius == minradius) dummy->Draw("AXIS");
-        vecCombined.at(radius-minradius)->Draw("p,e1,same");
-    }
-    legend->Draw();
-    if(system=="pp") drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-    if(system=="pPb") drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
-
-    drawLatexAdd("Full Jets",0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
-    drawLatexAdd("Combined Raw Spectrum",0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
-    canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec_Combined.%s",output.Data(),fileType.Data()));
+    legend2->Draw();
+    if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.95,0.92, 0.03,kFALSE, kFALSE, kTRUE);
+    if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.95,0.92, 0.03,kFALSE, kFALSE, kTRUE);
+    drawLatexAdd("Full Jets",0.95,0.89, 0.03,kFALSE, kFALSE, kTRUE);
+    canvas->SaveAs(Form("%s/CorrRawSpec/corrRawSpec.%s",output.Data(),fileType.Data()));
     legend->Clear();
 }

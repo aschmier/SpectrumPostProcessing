@@ -31,28 +31,25 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 8;
+    int varNSys = 9;
     const int nSys = varNSys;
     vector<TString> plot_names;
     vector<TString> systematics_names;
     vector<TString> variation_original;
     vector<TString> fitfunc;
 
-    TString outputDir         = "";
-    TString outputDirRootFile = "";
-
-    outputDir                 = Form("%s/Systematics/ratios/R02R0%i", out.Data(), radius);
-    outputDirRootFile         = Form("%s/ratio", rootfileout.Data());
+    TString outputDir                 = Form("%s/Systematics/ratios/R02R0%i", out.Data(), radius);
+    TString outputDirRootFile         = Form("%s/ratio", rootfileout.Data());
 
     gSystem->Exec("mkdir -p "+outputDir);
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
     gSystem->Exec("mkdir -p "+outputDirRootFile);
 
-    plot_names.insert(plot_names.end(), {"Embedding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Luminosity Scaling"});
-    systematics_names.insert(systematics_names.end(), {"embedding","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","tracking","lumi"});
-    variation_original.insert(variation_original.end(), {"RandomCones","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","default"});
-    if(radius == 5) fitfunc.insert(fitfunc.end(), {"pol1","pol3","pol0","pol0","pol0","pol0","pol1","binwise"});
-    else fitfunc.insert(fitfunc.end(), {"pol0","pol3","pol0","pol0","pol0","pol0","pol1","binwise"});
+    plot_names.insert(plot_names.end(), {"Q/pT Shift","Embedding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Luminosity Scaling"});
+    systematics_names.insert(systematics_names.end(), {"embedding2","embedding","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","tracking","lumi"});
+    variation_original.insert(variation_original.end(), {"default","RandomCones","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","default"});
+    if(radius == 5) fitfunc.insert(fitfunc.end(), {"pol1","pol1","pol3","pol0","pol0","pol0","pol0","pol1","binwise"});
+    else fitfunc.insert(fitfunc.end(), {"pol1","pol0","pol3","pol0","pol0","pol0","pol0","pol1","binwise"});
 
 
     TString systematicsFile;
@@ -132,10 +129,10 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
     ratioOrig_low->Divide(spec02_low,specOrig_low);
 
     //files[0].push_back(fSysConfig);
-    variations[0].push_back(Form("reg=%i",regnumBayes+3));
-    variations[0].push_back(Form("reg=%i",regnumBayes-2));
-    syshistos[0].push_back(ratioOrig_high);
-    syshistos[0].push_back(ratioOrig_low);
+    //variations[0].push_back(Form("reg=%i",regnumBayes+3));
+    //variations[0].push_back(Form("reg=%i",regnumBayes-2));
+    //syshistos[0].push_back(ratioOrig_high);
+    //syshistos[0].push_back(ratioOrig_low);
 
     // Save the file names and variations for each uncertainty into vectors
     for(int name=0; name<nSys; name++){
@@ -174,7 +171,7 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
         }
     }
 
-    const char* nameOutput = Form("/%s/ratio/systematics_R02R0%i.root", rootfileout.Data(), radius);
+    const char* nameOutput = Form("%s/ratio/systematics_R02R0%i.root", rootfileout.Data(), radius);
     gSystem->Exec("mkdir -p "+rootfileout+"/ratio");
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
@@ -281,7 +278,7 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
 
         // Add text to plot and save
         drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-        drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+        drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("%s",plot_names[name].Data()),0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
 
@@ -309,7 +306,7 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
 
         // Set up axes
         sysAvg->GetXaxis()->SetRangeUser(minPt,maxPt);
-        sysAvg->GetYaxis()->SetRangeUser(0,10);
+        sysAvg->GetYaxis()->SetRangeUser(0,15);
         /*if(radius <= 3){
             if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,13);
             else sysAvg->GetYaxis()->SetRangeUser(0,3);
@@ -391,7 +388,7 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
         else sysAvg->Write();
 
         drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.95,0.91, 0.03,kFALSE, kFALSE, kTRUE);
-        drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
+        drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.95,0.87, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.95,0.83, 0.03,kFALSE, kFALSE, kTRUE);
         drawLatexAdd(Form("Variation: %s",plot_names[name].Data()),0.95,0.79, 0.03,kFALSE, kFALSE, kTRUE);
 
@@ -405,11 +402,11 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
     }
 
     Double_t sysUpperRange;
-    if(radius <= 4) sysUpperRange = 13;
-    else sysUpperRange = 23;
+    if(radius <= 4) sysUpperRange = 30;
+    else sysUpperRange = 45;
 
     //.12,.63
-    legend =  GetAndSetLegend2(0.5,0.57,.93,0.57-((nSys+2)*1.5*textSize)/2,textSize,2);
+    legend =  GetAndSetLegend2(0.5,0.93,.93,0.93-((nSys+2)*1.5*textSize)/2,textSize,2);
     TH1D *hTotal = (TH1D*)vecSys.at(0)->Clone("hTotal");
     hTotal->GetYaxis()->SetRangeUser(0,sysUpperRange);
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){
@@ -455,7 +452,7 @@ void plotRatioSystematicsCorrelated_pPb(TString fSysConfig, TString type, Int_t 
     hTotal->Write();
 
     drawLatexAdd(Form("%s Unfolding, Reg %i",typeCAP.Data(),regnumBayes),0.13,0.91, 0.03);
-    drawLatexAdd("pp #it{#sqrt{s_{NN}}} = 8 TeV",0.13,0.87, 0.03);
+    drawLatexAdd("p--Pb #it{#sqrt{s_{NN}}} = 8.16 TeV",0.13,0.87, 0.03);
     drawLatexAdd(Form("Full Jets, R = 0.%i",radius),0.13,0.83, 0.03);
 
     TString savestring3 = Form("%s/Systematics/ratios/TotalSystematics_R02R0%i.%s",out.Data(),radius,fileType.Data());

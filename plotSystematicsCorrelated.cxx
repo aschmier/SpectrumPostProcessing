@@ -146,7 +146,7 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
         }
     }
 
-    const char* nameOutput = Form("%s/systematics_R0%i.root",rootfileout.Data(),radius);
+    const char* nameOutput = Form("%s/systematics_R0%i.root",rootfileout.Data(), radius);
     gSystem->Exec("mkdir -p "+rootfileout);
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
@@ -399,11 +399,14 @@ void plotSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, T
     }
 
     Double_t sysUpperRange;
-    if(radius <= 4) sysUpperRange = 13;
-    else sysUpperRange = 23;
+    if(radius == 2) sysUpperRange = 20;
+    else if(radius == 3) sysUpperRange = 25;
+    else if(radius == 4) sysUpperRange = 30;
+    else if(radius == 5) sysUpperRange = 23;
+    else sysUpperRange = 30;
 
     //.12,.63
-    legend =  GetAndSetLegend2(0.5,0.57,.93,0.57-((nSys+2)*1.5*textSize)/2,textSize,2);
+    legend =  GetAndSetLegend2(0.5,0.93,.93,0.93-((nSys+2)*1.5*textSize)/2,textSize,2);
     TH1D *hTotal = (TH1D*)vecSys.at(0)->Clone("hTotal");
     hTotal->GetYaxis()->SetRangeUser(0,sysUpperRange);
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){

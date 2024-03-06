@@ -8,7 +8,7 @@
 #include "TPaveText.h"
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "fstream"
-//#include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
+#include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 //#include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningZg.C"
 
 std::vector<double> getRebin(){
@@ -35,6 +35,10 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
     vector<TH2D*> vecNEFMC[maxradius-minradius+1];
     vector<TH2D*> vecZchMC[maxradius-minradius+1];
     vector<TH2D*> vecZneMC[maxradius-minradius+1];
+
+    vector<double> rebinningINT7 = getNEFRebinINT7();
+    vector<double> rebinningEMC1 = getNEFRebinEMC1();
+    vector<double> rebinningEMC2 = getNEFRebinEMC2();
 
     vector<double> detLevelRebin = getRebin();
 
@@ -109,6 +113,45 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
 
     TLegend *legend =  GetAndSetLegend2(0.73,0.63,0.97,0.63+(((6)*textSize*1.5)/2),textSize,2);
 
+    TH1D *dummy = new TH1D("dummy","",260,0,260);
+    SetStyleHistoTH1ForGraphs(dummy,"","#it{p}_{T}^{jet}","<#it{f}_{n}>",0.03,0.04,0.03,0.04,1,0.9);
+    dummy->GetYaxis()->SetRangeUser(0,1);
+
+    for(int radius = minradius; radius <= maxradius; radius++){
+        dummy->Draw("axis");
+        for(int trigger = 0; trigger < triggers.size(); trigger++){
+            TProfile *prof = (TProfile*)vecNEF[radius-minradius].at(trigger)->ProfileX(Form("profNEF_%s_R0%i", triggers.at(trigger).Data(), radius));
+            TH1 *profrebin;
+            if(trigger == 0) profrebin = (TH1*)prof->Rebin(rebinningINT7.size()-1, Form("prof_%i_%i",trigger,radius), rebinningINT7.data());
+            if(trigger == 1) profrebin = (TH1*)prof->Rebin(rebinningEMC1.size()-1, Form("prof_%i_%i",trigger,radius), rebinningEMC1.data());
+            if(trigger == 2) profrebin = (TH1*)prof->Rebin(rebinningEMC2.size()-1, Form("prof_%i_%i",trigger,radius), rebinningEMC2.data());
+            profrebin->Scale(1, "width");
+            if(system == "pPb"){
+                if(trigger == 0) profrebin->GetXaxis()->SetRangeUser(9,80);
+                if(trigger == 1) profrebin->GetXaxis()->SetRangeUser(14,120);
+                if(trigger == 2) profrebin->GetXaxis()->SetRangeUser(19,240);
+            }
+            if(system == "pp"){
+                if(trigger == 0) profrebin->GetXaxis()->SetRangeUser(5,80);
+                if(trigger == 1) profrebin->GetXaxis()->SetRangeUser(8,120);
+                if(trigger == 2) profrebin->GetXaxis()->SetRangeUser(11,240);
+            }
+            profrebin->SetMarkerStyle(styles[trigger]);
+            profrebin->SetMarkerColor(colors[trigger]);
+            profrebin->SetLineColor(colors[trigger]);
+            legend->AddEntry(profrebin,triggers.at(trigger).Data(),"p");
+            profrebin->Draw("p,e,same");
+        }
+        legend->Draw();
+        if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
+        if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.94,0.88, 0.03, false, false, true);
+
+        drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.94,0.84, 0.03, false, false, true);
+        canvas->SaveAs(Form("%s/TriggerBias/NEF/All/mean_NEF_R0%i.%s", outputdir.Data(),radius,fileType.Data()));
+
+        legend->Clear();
+    }
+
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int binPt = 0; binPt < nPtBins; binPt++){
             for(int trigger = 0; trigger < triggers.size(); trigger++){
@@ -136,13 +179,13 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
 
                 if(trigger==0) hNEF->Draw("p,e");
                 else hNEF->Draw("p,e,same");
-                //hNEFMC->Draw("p,e,same");
+                hNEFMC->Draw("p,e,same");
                 legend->AddEntry(hNEF,triggers.at(trigger).Data(),"p");
-                //legend->AddEntry(hNEFMC,Form("%s - MC", triggers.at(trigger).Data()),"p");
+                legend->AddEntry(hNEFMC,Form("%s - MC", triggers.at(trigger).Data()),"p");
             }
 
             legend->Draw();
-            if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}_{NN}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
+            if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.94,0.88, 0.03, false, false, true);
             if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.94,0.88, 0.03, false, false, true);
 
             drawLatexAdd(Form("%s Jets, #it{R}=0.%i", jetType.Data(), radius),0.94,0.84, 0.03, false, false, true);
@@ -150,7 +193,7 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
             canvas->SaveAs(Form("%s/TriggerBias/NEF/All/hNEF_%i-%iGeV_R0%i.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,fileType.Data()));
 
             legend->Clear();
-
+/*
             for(int trigger = 0; trigger < triggers.size(); trigger++){
                 TH1D *hZch = vecZch[radius-minradius].at(trigger)->ProjectionY(Form("hZch_%s_R0%i_%i-%iGeV", triggers.at(trigger).Data(), radius, binsPt[binPt], binsPt[binPt+1]),binsPt[binPt],binsPt[binPt+1]);
                 hZch->Rebin(5);
@@ -196,6 +239,7 @@ void plotTriggerBiasAll(TString mb_file, TString emc7_file, TString eje_file, TS
             canvas->SaveAs(Form("%s/TriggerBias/Zne/All/hZne_%i-%iGeV_R0%i.%s", outputdir.Data(),binsPt[binPt],binsPt[binPt+1],radius,fileType.Data()));
 
             legend->Clear();
+*/
         }
     }
 

@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # Train runs
+booldefaultnew=true
 booldefaultbayes=false
 booldefaultsvd=false
+boolptscheme=false
 booldefaultbayesfinal=false
 booldefaultsvdfinal=false
 boolbinvar1=false
@@ -30,7 +32,7 @@ boolF07=false
 boolMIP=false
 boolseed275=false
 boolseed350=false
-boolTracking=true
+boolTracking=false
 boolLowTriggerSwapLow=false
 boolLowTriggerSwapHigh=false
 boolHighTriggerSwapLow=false
@@ -53,6 +55,7 @@ boolClosureBayes=false
 boolClosureSVD=false
 boolQPtShift=false
 
+defaultnew=2636
 default=2422
 defaultfinal=2423
 clus3=2246
@@ -64,6 +67,7 @@ MIP=2257
 seed275=2230
 seed350=2231
 QPtShift=2440
+ptscheme=2636
 
 
 #ppRFLow=65.78
@@ -81,6 +85,12 @@ ppSwapHigh=60
 
 inputResponseFile="/home/austin/alice/SpectrumPostProcessing/FilteredResponse/filteredResponse.root"
 
+# New default
+if $booldefaultnew
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/ptscheme_trains/GA'$defaultnew'_ptscheme_default/EJE.root","/media/austin/mightymouse/data/pp8TeV_data/ptscheme_trains/GA'$defaultnew'_ptscheme_default/EJE.root","/media/austin/mightymouse/data/pp8TeV_data/ptscheme_trains/GA'$defaultnew'_ptscheme_default/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/ptscheme_trains/merged/default/AnalysisResults.root",'$defaultnew',"runlistEJE", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+fi
+
 # Default
 if $booldefaultsvd
 then
@@ -95,12 +105,18 @@ fi
 # Default final (correct emcal corrections)
 if $booldefaultbayesfinal
 then
-    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_ResponseFilter_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"default_final", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default",-1,false,"'$inputResponseFile'")'
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"runlistEJE", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 if $booldefaultsvdfinal
 then
     root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$defaultfinal'_default_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_default_final/AnalysisResults.root",'$defaultfinal',"default_final", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
+fi
+
+# pT Scheme
+if $boolptscheme
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("/media/austin/mightymouse/data/pp8TeV_data/GA'$ptscheme'_ptscheme_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$ptscheme'_ptscheme_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA'$ptscheme'_ptscheme_final/EJE.root","/media/austin/mightymouse/data/pp8TeV_MC/mergedGA_LHC16c2/LHC16c2_ptscheme_final/AnalysisResults.root",'$ptscheme',"ptscheme", '$ppRFLow', '$ppRFHigh','$ppSwapLow','$ppSwapHigh',"default")'
 fi
 
 # Bin Variation

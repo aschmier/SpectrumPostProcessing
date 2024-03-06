@@ -25,7 +25,7 @@ TH1D *ProcessSimHisto(TH1D *spectrum, vector<double> vecBins, int r, TString out
     return hRebinned;
 }
 
-void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematicsDir, TString type, TString output, TString fileType)
+void plotFinalSpectrum(TString spectrumFile, TString fPYTHIA, TString fPOWHEG, TString systematicsDir, TString type, TString output, TString fileType)
 {
     Double_t textSize     = 0.03;
     Int_t regnum          = 6;
@@ -59,7 +59,8 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     vector<TH1D*> vecSystematicsRatios;
     vector<TH1D*> vecRatio;
     vector<TH1D*> vecRatioSys;
-    vector<TH1D*> vecSpectrumSim[nOutlier];
+    vector<TH1D*> vecSpectrumSimPythia[nOutlier];
+    vector<TH1D*> vecSpectrumSimPowheg;
     vector<TH1D*> vecAllUnfolding;
     vector<TH1D*> vecTriggerSwap;
     vector<TGraphErrors*> vecSpectrumGraph;
@@ -74,7 +75,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     gSystem->Exec("mkdir -p "+output+"/MCGen");
     gSystem->Exec("mkdir -p "+output+"/MCGen/ratioDataMC");
 
-    const char* nameOutput = Form("%s/FinalResults_NewBinning_pp8TeV.root",outputDirRootFile.Data());
+    const char* nameOutput = Form("%s/FinalResults_pp8TeV.root",outputDirRootFile.Data());
     TFile* fOutput = new TFile(nameOutput,"RECREATE");
 
     // Open root files
@@ -84,9 +85,15 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
         return;
     }
 
-    TFile *fSim = TFile::Open(simFile);
-    if(!fSim || fSim->IsZombie()){
-        cout << "Simulation file not found!" << endl;
+    TFile *fSimPythia = TFile::Open(fPYTHIA);
+    if(!fSimPythia || fSimPythia->IsZombie()){
+        cout << "Generated PYTHIA file not found!" << endl;
+        return;
+    }
+
+    TFile *fSimPowheg = TFile::Open(fPOWHEG);
+    if(!fSimPowheg || fSimPowheg->IsZombie()){
+        cout << "Generated POWHEG file not found!" << endl;
         return;
     }
 
@@ -142,7 +149,7 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     // Get generated pythia for comparisons
     for(int radius = minradius; radius <= maxradius; radius++){
         for(int outlier = 0; outlier < nOutlier; outlier++){
-          TList *simBase = (TList*)fSim->Get(Form("PartLevelJetResultsFullJetR0%i_%s",radius,outliers[outlier].Data()));
+          TList *simBase = (TList*)fSimPythia->Get(Form("PartLevelJetResultsFullJetR0%i_%s",radius,outliers[outlier].Data()));
           if(!simBase){
             cout << Form("PartLevelJetResultsFullJetR0%i_%s",radius,outliers[outlier].Data()) << endl;
             cout << "No sim base found!" << endl;
@@ -150,8 +157,17 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
           }
           TH1D *hSpec = (TH1D*)simBase->FindObject("hJetPt");
           TH1D *hSim = (TH1D*)ProcessSimHisto( hSpec, trueRebin, radius, outliers[outlier], stylesempty[radius-minradius+1], colors[radius-minradius+1], sizesempty[radius-minradius+1] );
-          vecSpectrumSim[outlier].push_back(hSim);
+          vecSpectrumSimPythia[outlier].push_back(hSim);
         }
+    }
+
+    // Get generated powheg for comparisons
+    for(int radius = minradius; radius <= maxradius; radius++){
+        TH1D *hSpec = (TH1D*)fSimPowheg->Get(Form("InclusiveJetXSection_R%i",radius));
+        TH1D *hEvent = (TH1D*)fSimPowheg->Get("hNEvent");
+        hSpec->Scale(1./hEvent->GetBinContent(1));
+        TH1D *hSim = (TH1D*)ProcessSimHisto( hSpec, trueRebin, radius, "na", stylesempty[radius-minradius+2], colors[radius-minradius+2], sizesempty[radius-minradius+2] );
+        vecSpectrumSimPowheg.push_back(hSim);
     }
 
     // Set up graphs for spectra and ratios
@@ -294,9 +310,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
     TLegend *legendSpectrum =  GetAndSetLegend2(0.73,0.79-(maxradius-minradius+1)*textSize,0.93,0.79,textSize);
     TLegend *legendRatio    = GetAndSetLegend2(0.73,0.94-(maxradius-minradius)*textSize,0.93,0.94,textSize);
-    TLegend *legendSim      =  GetAndSetLegend2(0.63,0.79-2*textSize,0.88,0.79,textSize);
-    TLegend *legendSimRatio = GetAndSetLegend2(0.65,0.94-2*textSize,0.9,0.94,textSize);
-    TLegend *legendSimRatioCombined = GetAndSetLegend2(0.323,0.11,0.883,0.11+((9)*textSize)/3,textSize,3);
+    TLegend *legendSim      =  GetAndSetLegend2(0.63,0.79-3*textSize,0.88,0.79,textSize);
+    TLegend *legendSimRatio = GetAndSetLegend2(0.65,0.94-3*textSize,0.9,0.94,textSize);
+    TLegend *legendSimRatioCombined = GetAndSetLegend2(0.165,0.11,0.925,0.11+((9)*textSize)/3,textSize,4);
 
     TLegend *legendErrorKey =  GetAndSetLegend2(0.19,0.11,0.39,0.11+2*textSize,textSize);
     legendErrorKey->AddEntry(vecSpectrumSysGraph.at(0), "Systematic Uncertainty", "f");
@@ -572,68 +588,118 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
 
             TGraphErrors *finalSpectrum = (TGraphErrors*)vecSpectrumGraph.at(radius-minradius)->Clone(Form("finalSpectrum_R0%i_%s", radius, outliers[outlier].Data()));
             TGraphErrors *finalSpectrumSys = (TGraphErrors*)vecSpectrumSysGraph.at(radius-minradius)->Clone(Form("finalSpectrumSys_R0%i_%s", radius, outliers[outlier].Data()));
-            TGraphErrors *graphSim  = new TGraphErrors(vecSpectrumSim[outlier].at(radius-minradius));
+            TGraphErrors *graphSimPythia  = new TGraphErrors(vecSpectrumSimPythia[outlier].at(radius-minradius));
+            TGraphErrors *graphSimPowheg  = new TGraphErrors(vecSpectrumSimPowheg.at(radius-minradius));
 
-            graphSim->SetMarkerColor(colors[11]);
-            graphSim->SetLineColor(colors[11]);
 
-            TH1D *ratiosimdata = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdatalower_%i_%i",radius,outlier));
-            ratiosimdata->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
-            SetStyleHistoTH1ForGraphs(ratiosimdata,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
-            ratiosimdata->GetYaxis()->SetRangeUser(0.96,2.4);
-            TGraphErrors *ratiosimdata_graph = new TGraphErrors(ratiosimdata);
+            graphSimPythia->SetMarkerColor(colors[11]);
+            graphSimPythia->SetLineColor(colors[11]);
 
-            ratiosimdata_graph->SetFillColor(colors[11]);
-            ratiosimdata_graph->SetLineColor(colors[11]);
-            ratiosimdata_graph->SetMarkerStyle(graphSim->GetMarkerStyle());
-            ratiosimdata_graph->SetMarkerSize(graphSim->GetMarkerSize());
-            ratiosimdata_graph->SetMarkerColor(colors[11]);
+            graphSimPowheg->SetMarkerColor(colors[12]);
+            graphSimPowheg->SetLineColor(colors[12]);
 
-            TH1D *ratiosimdataSys = (TH1D*)vecSpectrumSys.at(radius-minradius)->Clone(Form("ratiosimdatalowersys_%i_%i",radius,outlier));
-            ratiosimdataSys->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrumSys.at(radius-minradius),1,1);
-            SetStyleHistoTH1ForGraphs(ratiosimdataSys,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
-            ratiosimdataSys->GetYaxis()->SetRangeUser(0.96,2.4);
-            TGraphErrors *ratiosimdatasys_graph = new TGraphErrors(ratiosimdataSys);
+            TH1D *ratiosimdataPythia = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdatalowerPythia_%i_%i",radius,outlier));
+            ratiosimdataPythia->Divide(vecSpectrumSimPythia[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
+            SetStyleHistoTH1ForGraphs(ratiosimdataPythia,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
+            ratiosimdataPythia->GetYaxis()->SetRangeUser(0.96,2.4);
+            TGraphErrors *ratiosimdataPythia_graph = new TGraphErrors(ratiosimdataPythia);
 
-            ratiosimdatasys_graph->SetFillColor(colors[11]);
-            ratiosimdatasys_graph->SetLineColor(colors[11]);
-            ratiosimdatasys_graph->SetFillStyle(1);
+            TH1D *ratiosimdataPowheg = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdatalowerPowheg_%i_%i",radius,outlier));
+            ratiosimdataPowheg->Divide(vecSpectrumSimPowheg.at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
+            SetStyleHistoTH1ForGraphs(ratiosimdataPowheg,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
+            ratiosimdataPowheg->GetYaxis()->SetRangeUser(0.96,2.4);
+            TGraphErrors *ratiosimdataPowheg_graph = new TGraphErrors(ratiosimdataPowheg);
 
-            for(int point = (ratiosimdatasys_graph->GetN())-1; point >= 0; point--){
-                ratiosimdatasys_graph->SetPointError(point, ratiosimdatasys_graph->GetErrorX(point), ((vecSpectrumSys.at(radius-minradius)->GetBinError(point))/(vecSpectrumSys.at(radius-minradius)->GetBinContent(point)))*ratiosimdatasys_graph->GetPointY(point));
+            ratiosimdataPythia_graph->SetFillColor(colors[11]);
+            ratiosimdataPythia_graph->SetLineColor(colors[11]);
+            ratiosimdataPythia_graph->SetMarkerStyle(graphSimPythia->GetMarkerStyle());
+            ratiosimdataPythia_graph->SetMarkerSize(graphSimPythia->GetMarkerSize());
+            ratiosimdataPythia_graph->SetMarkerColor(colors[11]);
+
+            ratiosimdataPowheg_graph->SetFillColor(colors[12]);
+            ratiosimdataPowheg_graph->SetLineColor(colors[12]);
+            ratiosimdataPowheg_graph->SetMarkerStyle(graphSimPowheg->GetMarkerStyle());
+            ratiosimdataPowheg_graph->SetMarkerSize(graphSimPowheg->GetMarkerSize());
+            ratiosimdataPowheg_graph->SetMarkerColor(colors[12]);
+
+            TH1D *ratiosimdataPythiaSys = (TH1D*)vecSpectrumSys.at(radius-minradius)->Clone(Form("ratiosimdatalowerPythiasys_%i_%i",radius,outlier));
+            ratiosimdataPythiaSys->Divide(vecSpectrumSimPythia[outlier].at(radius-minradius), vecSpectrumSys.at(radius-minradius),1,1);
+            SetStyleHistoTH1ForGraphs(ratiosimdataPythiaSys,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
+            ratiosimdataPythiaSys->GetYaxis()->SetRangeUser(0.96,2.4);
+            TGraphErrors *ratiosimdataPythiasys_graph = new TGraphErrors(ratiosimdataPythiaSys);
+
+            TH1D *ratiosimdataPowhegSys = (TH1D*)vecSpectrumSys.at(radius-minradius)->Clone(Form("ratiosimdatalowerPowhegsys_%i_%i",radius,outlier));
+            ratiosimdataPowhegSys->Divide(vecSpectrumSimPowheg.at(radius-minradius), vecSpectrumSys.at(radius-minradius),1,1);
+            SetStyleHistoTH1ForGraphs(ratiosimdataPowhegSys,"","#it{p}_{T} (GeV/#it{c})","Ratio",textSize,0.04,textSize,0.04,1,1.5);
+            ratiosimdataPowhegSys->GetYaxis()->SetRangeUser(0.96,2.4);
+            TGraphErrors *ratiosimdataPowhegsys_graph = new TGraphErrors(ratiosimdataPowhegSys);
+
+            ratiosimdataPythiasys_graph->SetFillColor(colors[11]);
+            ratiosimdataPythiasys_graph->SetLineColor(colors[11]);
+            ratiosimdataPythiasys_graph->SetFillStyle(1);
+
+            ratiosimdataPowhegsys_graph->SetFillColor(colors[12]);
+            ratiosimdataPowhegsys_graph->SetLineColor(colors[12]);
+            ratiosimdataPowhegsys_graph->SetFillStyle(1);
+
+            for(int point = (ratiosimdataPythiasys_graph->GetN())-1; point >= 0; point--){
+                ratiosimdataPythiasys_graph->SetPointError(point, ratiosimdataPythiasys_graph->GetErrorX(point), ((vecSpectrumSys.at(radius-minradius)->GetBinError(point))/(vecSpectrumSys.at(radius-minradius)->GetBinContent(point)))*ratiosimdataPythiasys_graph->GetPointY(point));
             }
 
-            for(int point = (graphSim->GetN())-1; point >= 0; point--){
-                if(graphSim->GetPointX(point) > 240) graphSim->RemovePoint(point);
-                if(graphSim->GetPointX(point) < 20) graphSim->RemovePoint(point);
+            for(int point = (ratiosimdataPowhegsys_graph->GetN())-1; point >= 0; point--){
+                ratiosimdataPowhegsys_graph->SetPointError(point, ratiosimdataPowhegsys_graph->GetErrorX(point), ((vecSpectrumSys.at(radius-minradius)->GetBinError(point))/(vecSpectrumSys.at(radius-minradius)->GetBinContent(point)))*ratiosimdataPowhegsys_graph->GetPointY(point));
             }
 
-            for(int point = (ratiosimdata_graph->GetN())-1; point >= 0; point--){
-                if(ratiosimdata_graph->GetPointX(point) > 240){
-                    ratiosimdata_graph->RemovePoint(point);
-                    ratiosimdatasys_graph->RemovePoint(point);
+            for(int point = (graphSimPythia->GetN())-1; point >= 0; point--){
+                if(graphSimPythia->GetPointX(point) > 240) graphSimPythia->RemovePoint(point);
+                if(graphSimPythia->GetPointX(point) < 20) graphSimPythia->RemovePoint(point);
+            }
+
+            for(int point = (graphSimPowheg->GetN())-1; point >= 0; point--){
+                if(graphSimPowheg->GetPointX(point) > 240) graphSimPowheg->RemovePoint(point);
+                if(graphSimPowheg->GetPointX(point) < 20) graphSimPowheg->RemovePoint(point);
+            }
+
+            for(int point = (ratiosimdataPythia_graph->GetN())-1; point >= 0; point--){
+                if(ratiosimdataPythia_graph->GetPointX(point) > 240){
+                    ratiosimdataPythia_graph->RemovePoint(point);
+                    ratiosimdataPythiasys_graph->RemovePoint(point);
                 }
-                if(ratiosimdata_graph->GetPointX(point) < 20){
-                    ratiosimdata_graph->RemovePoint(point);
-                    ratiosimdatasys_graph->RemovePoint(point);
+                if(ratiosimdataPythia_graph->GetPointX(point) < 20){
+                    ratiosimdataPythia_graph->RemovePoint(point);
+                    ratiosimdataPythiasys_graph->RemovePoint(point);
                 }
             }
-            legendSimNew = GetAndSetLegend2(0.63,0.68-2*textsizeLabelsWidth*0.8,0.88,0.68,textsizeLabelsWidth*0.8);
+
+            for(int point = (ratiosimdataPowheg_graph->GetN())-1; point >= 0; point--){
+                if(ratiosimdataPowheg_graph->GetPointX(point) > 240){
+                    ratiosimdataPowheg_graph->RemovePoint(point);
+                    ratiosimdataPowhegsys_graph->RemovePoint(point);
+                }
+                if(ratiosimdataPowheg_graph->GetPointX(point) < 20){
+                    ratiosimdataPowheg_graph->RemovePoint(point);
+                    ratiosimdataPowhegsys_graph->RemovePoint(point);
+                }
+            }
+
+            legendSimNew = GetAndSetLegend2(0.63,0.68-3*textsizeLabelsWidth*0.8,0.88,0.68,textsizeLabelsWidth*0.8);
             legendErrorKeyNew =  GetAndSetLegend2(0.19,0.04,0.39,0.04+2*textsizeLabelsWidth*0.8,textsizeLabelsWidth*0.8);
 
             legendErrorKeyNew->AddEntry(vecSpectrumSysGraph.at(0), "Systematic Uncertainty", "f");
             legendErrorKeyNew->AddEntry(vecSpectrumGraph.at(0), "Statistical Uncertainty", "e");
 
             legendSimNew->AddEntry(finalSpectrum, "ALICE Data", "p");
-            legendSimNew->AddEntry(graphSim, "PYTHIA8 Monash", "p");
+            legendSimNew->AddEntry(graphSimPythia, "PYTHIA8 Monash", "p");
+            legendSimNew->AddEntry(graphSimPowheg, "POWHEG+PYTHIA8", "p");
 
             finalSpectrumSys->Draw("e2,same");
             finalSpectrum->Draw("p,e1,same");
-            graphSim->Draw("p,e1,same");
+            graphSimPythia->Draw("p,e1,same");
+            graphSimPowheg->Draw("p,e1,same");
             legendSimNew->Draw();
             legendErrorKeyNew->Draw();
 
-            drawLatexAdd("ALICE Preliminary",0.93,0.92, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
+            //drawLatexAdd("ALICE Preliminary",0.93,0.92, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
             drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.87, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
             drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.%i",radius),0.93,0.82, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
             drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.77, 0.85*textsizeLabelsWidth,kFALSE, kFALSE, true);
@@ -653,8 +719,10 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
                                       textsizeLabelsComp, 1, 0.65/(textsizeFacComp*margin),512,505,42,42);
             dummyHistLower->DrawCopy();
 
-            ratiosimdatasys_graph->Draw("e2,same");
-            ratiosimdata_graph->Draw("p,e1,same");
+            ratiosimdataPythiasys_graph->Draw("e2,same");
+            ratiosimdataPythia_graph->Draw("p,e1,same");
+            ratiosimdataPowhegsys_graph->Draw("e2,same");
+            ratiosimdataPowheg_graph->Draw("p,e1,same");
             DrawGammaLines(0.,260.,1.,1.,8.,16,9);
 
             canvas->Update();
@@ -680,29 +748,43 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
       for(int outlier = 0; outlier < nOutlier; outlier++){
           TGraphErrors *finalRatio = (TGraphErrors*)vecRatioGraph.at(radius-minradius-1)->Clone(Form("finalSpectrum_R0%i_%s", radius, outliers[outlier].Data()));
           TGraphErrors *finalRatioSys = (TGraphErrors*)vecRatioSysGraph.at(radius-minradius-1)->Clone(Form("finalSpectrumSys_R0%i_%s", radius, outliers[outlier].Data()));
-          TH1D *dummyratiosim = (TH1D*)vecSpectrumSim[outlier].at(0)->Clone(Form("dummyratiosim_%i_%i",radius,outlier));
-          dummyratiosim->Divide(vecSpectrumSim[outlier].at(0), vecSpectrumSim[outlier].at(radius-minradius),1,1);
-          TGraphErrors *dummyratiosim_graph = new TGraphErrors(dummyratiosim);
+          
+          TH1D *dummyratiosimPythia = (TH1D*)vecSpectrumSimPythia[outlier].at(0)->Clone(Form("dummyratiosimPythia_%i_%i",radius,outlier));
+          dummyratiosimPythia->Divide(vecSpectrumSimPythia[outlier].at(0), vecSpectrumSimPythia[outlier].at(radius-minradius),1,1);
+          TGraphErrors *dummyratiosimPythia_graph = new TGraphErrors(dummyratiosimPythia);
 
-          for(int point = (dummyratiosim_graph->GetN())-1; point >= 0; point--){
-              if(dummyratiosim_graph->GetPointX(point) > 240) dummyratiosim_graph->RemovePoint(point);
-              if(dummyratiosim_graph->GetPointX(point) < 20) dummyratiosim_graph->RemovePoint(point);
+          TH1D *dummyratiosimPowheg = (TH1D*)vecSpectrumSimPowheg.at(0)->Clone(Form("dummyratiosimPowheg_%i_%i",radius,outlier)); 
+          dummyratiosimPowheg->Divide(vecSpectrumSimPowheg.at(0), vecSpectrumSimPowheg.at(radius-minradius),1,1);
+          TGraphErrors *dummyratiosimPowheg_graph = new TGraphErrors(dummyratiosimPowheg);
+
+          for(int point = (dummyratiosimPythia_graph->GetN())-1; point >= 0; point--){
+              if(dummyratiosimPythia_graph->GetPointX(point) > 240) dummyratiosimPythia_graph->RemovePoint(point);
+              if(dummyratiosimPythia_graph->GetPointX(point) < 20) dummyratiosimPythia_graph->RemovePoint(point);
           }
+
+            for(int point = (dummyratiosimPowheg_graph->GetN())-1; point >= 0; point--){
+                if(dummyratiosimPowheg_graph->GetPointX(point) > 240) dummyratiosimPowheg_graph->RemovePoint(point);
+                if(dummyratiosimPowheg_graph->GetPointX(point) < 20) dummyratiosimPowheg_graph->RemovePoint(point);
+            }
 
           dummyRatio->Draw("axis");
           finalRatioSys->Draw("e2,same");
           finalRatio->Draw("p,e1,same");
 
           legendSimRatio->AddEntry(finalRatio, "ALICE Data", "p");
-          legendSimRatio->AddEntry(dummyratiosim_graph, "PYTHIA8 Monash", "p");
-          dummyratiosim_graph->SetMarkerColor(colors[11]);
-          dummyratiosim_graph->SetLineColor(colors[11]);
-          dummyratiosim_graph->Draw("p,e1,same");
+          legendSimRatio->AddEntry(dummyratiosimPythia_graph, "PYTHIA8 Monash", "p");
+          legendSimRatio->AddEntry(dummyratiosimPowheg_graph, "POWHEG+PYTHIA8", "p");
+          dummyratiosimPythia_graph->SetMarkerColor(colors[11]);
+          dummyratiosimPythia_graph->SetLineColor(colors[11]);
+          dummyratiosimPythia_graph->Draw("p,e1,same");
+          dummyratiosimPowheg_graph->SetMarkerColor(colors[12]);
+          dummyratiosimPowheg_graph->SetLineColor(colors[12]);
+          dummyratiosimPowheg_graph->Draw("p,e1,same");
           line->Draw("same");
           legendSimRatio->Draw();
           legendErrorKeyRatio->Draw();
 
-          drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+          //drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
           drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
           drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R}=0.2/#it{R}=0.%i",radius),0.17,0.84, textSize,kFALSE, kFALSE, false);
           drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
@@ -723,24 +805,49 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     for(int radius = minradius+1; radius <= maxradius; radius++){
           TGraphErrors *finalRatio = (TGraphErrors*)vecRatioGraph.at(radius-minradius-1)->Clone(Form("finalSpectrum_R0%i_%s", radius, outliers[outlier].Data()));
           TGraphErrors *finalRatioSys = (TGraphErrors*)vecRatioSysGraph.at(radius-minradius-1)->Clone(Form("finalSpectrumSys_R0%i_%s", radius, outliers[outlier].Data()));
-          TH1D *dummyratiosim = (TH1D*)vecSpectrumSim[outlier].at(0)->Clone(Form("dummyratiosim_%i_%i",radius,outlier));
-          dummyratiosim->Divide(vecSpectrumSim[outlier].at(0), vecSpectrumSim[outlier].at(radius-minradius),1,1);
-          TGraphErrors *dummyratiosim_graph = new TGraphErrors(dummyratiosim);
-          dummyratiosim_graph->SetFillColorAlpha(colors[14-radius],0.35);
-          dummyratiosim_graph->SetLineColor(colors[14-radius]);
+          
+          TH1D *dummyratiosimPythia = (TH1D*)vecSpectrumSimPythia[outlier].at(0)->Clone(Form("dummyratiosimPythia_%i_%i",radius,outlier));
+          dummyratiosimPythia->Divide(vecSpectrumSimPythia[outlier].at(0), vecSpectrumSimPythia[outlier].at(radius-minradius),1,1);
+          TGraphErrors *dummyratiosimPythia_graph = new TGraphErrors(dummyratiosimPythia);
+          dummyratiosimPythia_graph->SetFillColorAlpha(colors[14-radius],0.35);
+          dummyratiosimPythia_graph->SetLineColor(colors[14-radius]);
 
-          //for(int point = (dummyratiosim_graph->GetN())-1; point >= 0; point--){
-        //      if(dummyratiosim_graph->GetPointX(point) > 240) dummyratiosim_graph->RemovePoint(point);
-        //      if(dummyratiosim_graph->GetPointX(point) < 20) dummyratiosim_graph->RemovePoint(point);
-          //}
+          TH1D *dummyratiosimPowheg = (TH1D*)vecSpectrumSimPowheg.at(0)->Clone(Form("dummyratiosimPowheg_%i_%i",radius,outlier));
+          dummyratiosimPowheg->Divide(vecSpectrumSimPowheg.at(0), vecSpectrumSimPowheg.at(radius-minradius),1,1);
+          TGraphErrors *dummyratiosimPowheg_graph = new TGraphErrors(dummyratiosimPowheg);
+          dummyratiosimPowheg_graph->SetFillColorAlpha(colors[10-radius],0.35);
+          dummyratiosimPowheg_graph->SetLineColor(colors[10-radius]);
+
+          for(int point = (dummyratiosimPythia_graph->GetN())-1; point >= 0; point--){
+              if(radius==5){
+                if(dummyratiosimPythia_graph->GetPointX(point) > 160) dummyratiosimPythia_graph->RemovePoint(point);
+              }else{
+                if(dummyratiosimPythia_graph->GetPointX(point) > 240) dummyratiosimPythia_graph->RemovePoint(point);
+              }
+              if(dummyratiosimPythia_graph->GetPointX(point) < 20) dummyratiosimPythia_graph->RemovePoint(point);
+          }
+
+          for(int point = (dummyratiosimPowheg_graph->GetN())-1; point >= 0; point--){
+              if(radius==5){
+                if(dummyratiosimPowheg_graph->GetPointX(point) > 160) dummyratiosimPowheg_graph->RemovePoint(point);
+              }else{
+                if(dummyratiosimPowheg_graph->GetPointX(point) > 240) dummyratiosimPowheg_graph->RemovePoint(point);
+              }
+              if(dummyratiosimPowheg_graph->GetPointX(point) < 20) dummyratiosimPowheg_graph->RemovePoint(point);
+          }
 
           finalRatioSys->Draw("e2,same");
           finalRatio->Draw("p,e1,same");
 
+          dummyratiosimPythia_graph->SetLineWidth(3);
+          dummyratiosimPowheg_graph->SetLineWidth(3);
+
           legendSimRatioCombined->AddEntry(finalRatio, Form("R = 0.2/0.%i |", radius), "");
-          legendSimRatioCombined->AddEntry(finalRatio, "         |   ", "p");
-          legendSimRatioCombined->AddEntry(dummyratiosim_graph, "    ", "l");
-          dummyratiosim_graph->Draw("l,e3,same");
+          legendSimRatioCombined->AddEntry(finalRatio, "          |   ", "p");
+          legendSimRatioCombined->AddEntry(dummyratiosimPythia_graph, "        |    ", "l");
+          legendSimRatioCombined->AddEntry(dummyratiosimPowheg_graph, "    ", "l");
+          dummyratiosimPythia_graph->Draw("l,e3,same");
+          dummyratiosimPowheg_graph->Draw("l,e3,same");
 
     }
 
@@ -748,9 +855,9 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     legendSimRatioCombined->Draw("same");
     legendErrorKeyRatioCombined->Draw("same");
 
-    drawLatexAdd("ALICE Data   | PYTHIA8 Monash",0.535,0.21, textSize,kFALSE, kFALSE, false);
+    drawLatexAdd("ALICE Data       | PYTHIA8 Monash | POWHEG+PYTHIA8",0.4,0.21, textSize/1.3,kFALSE, kFALSE, false);
 
-    drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+    //drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.17,0.84, textSize,kFALSE, kFALSE, false);
     drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.8, textSize,kFALSE, kFALSE, false);
@@ -765,14 +872,21 @@ void plotFinalSpectrum(TString spectrumFile, TString simFile, TString systematic
     ///////////////////////////////////////
     for(int radius = minradius; radius <= maxradius; radius++){
       for(int outlier = 0; outlier < nOutlier; outlier++){
-        TH1D *ratiosimdata = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdata_%i_%i",radius,outlier));
-        ratiosimdata->Divide(vecSpectrumSim[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
-        SetStyleHistoTH1ForGraphs(ratiosimdata,"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{sim}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
-        ratiosimdata->GetYaxis()->SetRangeUser(0.96,2.4);
-        TGraphErrors *ratiosimdata_graph = new TGraphErrors(ratiosimdata);
+        TH1D *ratiosimdataPythia = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdataPythia_%i_%i",radius,outlier));
+        ratiosimdataPythia->Divide(vecSpectrumSimPythia[outlier].at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
+        SetStyleHistoTH1ForGraphs(ratiosimdataPythia,"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{sim}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
+        ratiosimdataPythia->GetYaxis()->SetRangeUser(0.96,2.4);
+        TGraphErrors *ratiosimdataPythia_graph = new TGraphErrors(ratiosimdataPythia);
+
+        TH1D *ratiosimdataPowheg = (TH1D*)vecSpectrum.at(radius-minradius)->Clone(Form("ratiosimdataPowheg_%i_%i",radius,outlier));
+        ratiosimdataPowheg->Divide(vecSpectrumSimPowheg.at(radius-minradius), vecSpectrum.at(radius-minradius),1,1);
+        SetStyleHistoTH1ForGraphs(ratiosimdataPowheg,"","#it{p}_{T} (GeV/#it{c})","#frac{d#it{#sigma}^{sim}}{d#it{p}_{T}d#it{#eta}} / #frac{d#it{#sigma}^{data}}{d#it{p}_{T}d#it{#eta}}",textSize,0.04,textSize,0.04,1,1.5);
+        ratiosimdataPowheg->GetYaxis()->SetRangeUser(0.96,2.4);
+        TGraphErrors *ratiosimdataPowheg_graph = new TGraphErrors(ratiosimdataPowheg);
 
         dummyRatioSimData->Draw("axis");
-        ratiosimdata_graph->Draw("p,e,same");
+        ratiosimdataPythia_graph->Draw("p,e,same");
+        ratiosimdataPowheg_graph->Draw("p,e,same");
         line->Draw("same");
 
         drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.19,0.91, textSize,kFALSE, kFALSE, false);

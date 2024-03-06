@@ -1,4 +1,4 @@
-output_triggerswap/bayes_LowTriggerSwapLow_2422.root (25GeV,60GeV)
-output_triggerswap/bayes_LowTriggerSwapHigh_2422.root (35GeV,60GeV)
-output_triggerswap/bayes_HighTriggerSwapLow_2422.root (30GeV,50GeV)
-output_triggerswap/bayes_HighTriggerSwapHigh_2422.root (30GeV,70GeV)
+output_triggerswap/bayes_LowTriggerSwapLow_2422.root (25GeV,50GeV)
+output_triggerswap/bayes_LowTriggerSwapHigh_2422.root (40GeV,50GeV)
+output_triggerswap/bayes_HighTriggerSwapLow_2422.root (30GeV,40GeV)
+output_triggerswap/bayes_HighTriggerSwapHigh_2422.root (30GeV,60GeV)

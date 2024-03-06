@@ -36,7 +36,7 @@ void plotTriggerEfficiencies(TString resultsFile, TString output, TString fileTy
 
     TLegend *legend = GetAndSetLegend2(0.39,0.81,0.59,0.81+((rmax-rmin+1)*textSize*1.5)/2,textSize,2);
 
-    TLine * l = new TLine (0,1,260,1);
+    TLine * l = new TLine (20,1,240,1);
     l->SetLineColor(14);
     l->SetLineWidth(3);
     l->SetLineStyle(7);
