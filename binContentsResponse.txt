@@ -1,0 +1,8077 @@
+
+Processing getBinContentsResponse.cxx("/home/austin/alice/SpectrumPostProcessing/Unfolding/UnfoldingResults/output_default/bayes_default_final_2423.root")...
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 0 - 5
+Bin contents: 955.055
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 5 - 10
+Bin contents: 28720.6
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 10 - 15
+Bin contents: 143242
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 15 - 20
+Bin contents: 19264.3
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 20 - 25
+Bin contents: 4324.1
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 25 - 30
+Bin contents: 1196.36
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 30 - 40
+Bin contents: 539.079
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 40 - 50
+Bin contents: 89.0759
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 50 - 60
+Bin contents: 19.1902
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 60 - 75
+Bin contents: 6.37757
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 75 - 90
+Bin contents: 1.45641
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 90 - 105
+Bin contents: 0.437419
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 105 - 120
+Bin contents: 0.132814
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 120 - 140
+Bin contents: 0.0730752
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 140 - 160
+Bin contents: 0.0267329
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 160 - 200
+Bin contents: 0.0169621
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 200 - 240
+Bin contents: 0.00504349
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 240 - 280
+Bin contents: 0.00141761
+
+Radius: 0.2
+Det level bin: 10 - 12
+Part level bin: 280 - 320
+Bin contents: 0.000491558
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 0 - 5
+Bin contents: 185.288
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 5 - 10
+Bin contents: 4372.05
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 10 - 15
+Bin contents: 64850.1
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 15 - 20
+Bin contents: 22097
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 20 - 25
+Bin contents: 5283.65
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 25 - 30
+Bin contents: 1584.96
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 30 - 40
+Bin contents: 704.514
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 40 - 50
+Bin contents: 112.742
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 50 - 60
+Bin contents: 24.3464
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 60 - 75
+Bin contents: 8.38651
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 75 - 90
+Bin contents: 1.87554
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 90 - 105
+Bin contents: 0.503879
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 105 - 120
+Bin contents: 0.189399
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 120 - 140
+Bin contents: 0.0792882
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 140 - 160
+Bin contents: 0.028776
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 160 - 200
+Bin contents: 0.0196332
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 200 - 240
+Bin contents: 0.00526921
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 240 - 280
+Bin contents: 0.00164807
+
+Radius: 0.2
+Det level bin: 12 - 14
+Part level bin: 280 - 320
+Bin contents: 0.000586574
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 0 - 5
+Bin contents: 38.31
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 5 - 10
+Bin contents: 953.569
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 10 - 15
+Bin contents: 17356.8
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 15 - 20
+Bin contents: 28411.8
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 20 - 25
+Bin contents: 6209.32
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 25 - 30
+Bin contents: 1886.61
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 30 - 40
+Bin contents: 889.143
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 40 - 50
+Bin contents: 143.362
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 50 - 60
+Bin contents: 32.0954
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 60 - 75
+Bin contents: 10.7107
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 75 - 90
+Bin contents: 2.16711
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 90 - 105
+Bin contents: 0.697009
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 105 - 120
+Bin contents: 0.232183
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 120 - 140
+Bin contents: 0.100528
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 140 - 160
+Bin contents: 0.0405339
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 160 - 200
+Bin contents: 0.0248277
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 200 - 240
+Bin contents: 0.00584724
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 240 - 280
+Bin contents: 0.00183377
+
+Radius: 0.2
+Det level bin: 14 - 16
+Part level bin: 280 - 320
+Bin contents: 0.0007532
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 0 - 5
+Bin contents: 11.3669
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 5 - 10
+Bin contents: 218.134
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 10 - 15
+Bin contents: 2411.83
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 15 - 20
+Bin contents: 21091.9
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 20 - 25
+Bin contents: 6970.65
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 25 - 30
+Bin contents: 2240.46
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 30 - 40
+Bin contents: 1085.68
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 40 - 50
+Bin contents: 181.977
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 50 - 60
+Bin contents: 39.8388
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 60 - 75
+Bin contents: 12.9856
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 75 - 90
+Bin contents: 2.7399
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 90 - 105
+Bin contents: 0.764339
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 105 - 120
+Bin contents: 0.277173
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 120 - 140
+Bin contents: 0.126047
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 140 - 160
+Bin contents: 0.0458063
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 160 - 200
+Bin contents: 0.0260188
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 200 - 240
+Bin contents: 0.00663516
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 240 - 280
+Bin contents: 0.00209036
+
+Radius: 0.2
+Det level bin: 16 - 18
+Part level bin: 280 - 320
+Bin contents: 0.000861559
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 0 - 5
+Bin contents: 2.35294
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 5 - 10
+Bin contents: 81.1486
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 10 - 15
+Bin contents: 565.809
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 15 - 20
+Bin contents: 9447.73
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 20 - 25
+Bin contents: 8030
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 25 - 30
+Bin contents: 2543.2
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 30 - 40
+Bin contents: 1287.55
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 40 - 50
+Bin contents: 222.192
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 50 - 60
+Bin contents: 48.818
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 60 - 75
+Bin contents: 15.9374
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 75 - 90
+Bin contents: 3.28328
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 90 - 105
+Bin contents: 0.950615
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 105 - 120
+Bin contents: 0.299592
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 120 - 140
+Bin contents: 0.147332
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 140 - 160
+Bin contents: 0.0529696
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 160 - 200
+Bin contents: 0.0333563
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 200 - 240
+Bin contents: 0.00799717
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 240 - 280
+Bin contents: 0.00253082
+
+Radius: 0.2
+Det level bin: 18 - 20
+Part level bin: 280 - 320
+Bin contents: 0.00113375
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 1.82045
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 44.6028
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 10 - 15
+Bin contents: 258.771
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 15 - 20
+Bin contents: 2210.72
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 20 - 25
+Bin contents: 14600.4
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 25 - 30
+Bin contents: 7584.5
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 30 - 40
+Bin contents: 4032.93
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 40 - 50
+Bin contents: 749.099
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 50 - 60
+Bin contents: 169.979
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 60 - 75
+Bin contents: 56.6519
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 75 - 90
+Bin contents: 11.435
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 90 - 105
+Bin contents: 3.17341
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 105 - 120
+Bin contents: 1.05457
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 120 - 140
+Bin contents: 0.50539
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 140 - 160
+Bin contents: 0.17449
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 160 - 200
+Bin contents: 0.107331
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 200 - 240
+Bin contents: 0.0255565
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 240 - 280
+Bin contents: 0.00778353
+
+Radius: 0.2
+Det level bin: 20 - 25
+Part level bin: 280 - 320
+Bin contents: 0.00285711
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.324155
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 3.70545
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 10 - 15
+Bin contents: 24.0601
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 15 - 20
+Bin contents: 121.116
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 20 - 25
+Bin contents: 934.624
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 25 - 30
+Bin contents: 5741.77
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 30 - 40
+Bin contents: 5080.49
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 40 - 50
+Bin contents: 1051.68
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 50 - 60
+Bin contents: 252.519
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 60 - 75
+Bin contents: 84.3937
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 75 - 90
+Bin contents: 17.0684
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 90 - 105
+Bin contents: 4.44355
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 105 - 120
+Bin contents: 1.48572
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 120 - 140
+Bin contents: 0.70906
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 140 - 160
+Bin contents: 0.250268
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 160 - 200
+Bin contents: 0.138129
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 200 - 240
+Bin contents: 0.0336581
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 240 - 280
+Bin contents: 0.0103972
+
+Radius: 0.2
+Det level bin: 25 - 30
+Part level bin: 280 - 320
+Bin contents: 0.0038306
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 0 - 5
+Bin contents: 0.147613
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 5 - 10
+Bin contents: 0.681816
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 10 - 15
+Bin contents: 3.41341
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 15 - 20
+Bin contents: 16.9584
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 20 - 25
+Bin contents: 65.657
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 25 - 30
+Bin contents: 505.347
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 30 - 40
+Bin contents: 5920.89
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 40 - 50
+Bin contents: 2816.94
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 50 - 60
+Bin contents: 772.361
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 60 - 75
+Bin contents: 275.98
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 75 - 90
+Bin contents: 57.7391
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 90 - 105
+Bin contents: 14.9812
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 105 - 120
+Bin contents: 4.89835
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 120 - 140
+Bin contents: 2.2297
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 140 - 160
+Bin contents: 0.740382
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 160 - 200
+Bin contents: 0.437353
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 200 - 240
+Bin contents: 0.102133
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 240 - 280
+Bin contents: 0.0312078
+
+Radius: 0.2
+Det level bin: 30 - 40
+Part level bin: 280 - 320
+Bin contents: 0.0114683
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.0176349
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.066282
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 10 - 15
+Bin contents: 0.157241
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 15 - 20
+Bin contents: 0.664196
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 20 - 25
+Bin contents: 1.75073
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 25 - 30
+Bin contents: 7.31915
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 30 - 40
+Bin contents: 184.502
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 40 - 50
+Bin contents: 1694.47
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 50 - 60
+Bin contents: 1005.73
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 60 - 75
+Bin contents: 422.474
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 75 - 90
+Bin contents: 96.4039
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 90 - 105
+Bin contents: 25.5304
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 105 - 120
+Bin contents: 8.21973
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 120 - 140
+Bin contents: 3.66651
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 140 - 160
+Bin contents: 1.20431
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 160 - 200
+Bin contents: 0.673649
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 200 - 240
+Bin contents: 0.154324
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 240 - 280
+Bin contents: 0.0467109
+
+Radius: 0.2
+Det level bin: 40 - 50
+Part level bin: 280 - 320
+Bin contents: 0.0166751
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.00625657
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.00986353
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 10 - 15
+Bin contents: 0.0281448
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 15 - 20
+Bin contents: 0.0510172
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 20 - 25
+Bin contents: 0.151974
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 25 - 30
+Bin contents: 0.31072
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 4.70038
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 40 - 50
+Bin contents: 74.3049
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 50 - 60
+Bin contents: 581.645
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 60 - 75
+Bin contents: 504.418
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 75 - 90
+Bin contents: 134.845
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 90 - 105
+Bin contents: 38.9236
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 105 - 120
+Bin contents: 12.585
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 120 - 140
+Bin contents: 5.60223
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 140 - 160
+Bin contents: 1.78958
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 160 - 200
+Bin contents: 0.978837
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 200 - 240
+Bin contents: 0.217152
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 240 - 280
+Bin contents: 0.0630885
+
+Radius: 0.2
+Det level bin: 50 - 60
+Part level bin: 280 - 320
+Bin contents: 0.0229169
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 0 - 5
+Bin contents: 0.00324783
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 5 - 10
+Bin contents: 0.00483964
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 10 - 15
+Bin contents: 0.00633779
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 15 - 20
+Bin contents: 0.0114202
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 20 - 25
+Bin contents: 0.0387222
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 25 - 30
+Bin contents: 0.0585042
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 30 - 40
+Bin contents: 1.04975
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 40 - 50
+Bin contents: 3.16093
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 50 - 60
+Bin contents: 34.3698
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 60 - 75
+Bin contents: 383.177
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 75 - 90
+Bin contents: 236.128
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 90 - 105
+Bin contents: 80.0663
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 105 - 120
+Bin contents: 28.5958
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 120 - 140
+Bin contents: 12.8199
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 140 - 160
+Bin contents: 4.10502
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 160 - 200
+Bin contents: 2.22743
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 200 - 240
+Bin contents: 0.470271
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 240 - 280
+Bin contents: 0.135745
+
+Radius: 0.2
+Det level bin: 60 - 75
+Part level bin: 280 - 320
+Bin contents: 0.0483685
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 0 - 5
+Bin contents: 0.000406479
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 5 - 10
+Bin contents: 0.00149658
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 10 - 15
+Bin contents: 0.00140875
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 15 - 20
+Bin contents: 0.00161941
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 20 - 25
+Bin contents: 0.00220601
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 25 - 30
+Bin contents: 0.0101794
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 30 - 40
+Bin contents: 0.0947097
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 40 - 50
+Bin contents: 0.435483
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 50 - 60
+Bin contents: 0.795474
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 60 - 75
+Bin contents: 13.8025
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 75 - 90
+Bin contents: 115.067
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 90 - 105
+Bin contents: 86.1268
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 105 - 120
+Bin contents: 36.4727
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 120 - 140
+Bin contents: 18.1702
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 140 - 160
+Bin contents: 6.09987
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 160 - 200
+Bin contents: 3.28088
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 200 - 240
+Bin contents: 0.683506
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 240 - 280
+Bin contents: 0.187637
+
+Radius: 0.2
+Det level bin: 75 - 90
+Part level bin: 280 - 320
+Bin contents: 0.0652728
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 0 - 5
+Bin contents: 0.000149704
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 5 - 10
+Bin contents: 0.000345307
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 10 - 15
+Bin contents: 0.000346953
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 15 - 20
+Bin contents: 0.000511395
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 20 - 25
+Bin contents: 0.00047562
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 25 - 30
+Bin contents: 0.000635223
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 30 - 40
+Bin contents: 0.067645
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 40 - 50
+Bin contents: 0.093781
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 50 - 60
+Bin contents: 0.117685
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 60 - 75
+Bin contents: 0.571788
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 75 - 90
+Bin contents: 5.86294
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 90 - 105
+Bin contents: 41.2437
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 105 - 120
+Bin contents: 34.9672
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 120 - 140
+Bin contents: 20.7694
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 140 - 160
+Bin contents: 7.91048
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 160 - 200
+Bin contents: 4.44087
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 200 - 240
+Bin contents: 0.933598
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 240 - 280
+Bin contents: 0.256659
+
+Radius: 0.2
+Det level bin: 90 - 105
+Part level bin: 280 - 320
+Bin contents: 0.0871521
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 0 - 5
+Bin contents: 0.000168481
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 5 - 10
+Bin contents: 7.70486e-05
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 10 - 15
+Bin contents: 0.000200913
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 15 - 20
+Bin contents: 0.000123948
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 20 - 25
+Bin contents: 0.000128555
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 25 - 30
+Bin contents: 0.000168664
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0671981
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 40 - 50
+Bin contents: 0.0514196
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 50 - 60
+Bin contents: 0.0812524
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 60 - 75
+Bin contents: 0.119704
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 75 - 90
+Bin contents: 0.336537
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 90 - 105
+Bin contents: 2.67715
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 105 - 120
+Bin contents: 16.1984
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 120 - 140
+Bin contents: 18.7237
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 140 - 160
+Bin contents: 8.57784
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 160 - 200
+Bin contents: 5.43763
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 200 - 240
+Bin contents: 1.17932
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 240 - 280
+Bin contents: 0.328937
+
+Radius: 0.2
+Det level bin: 105 - 120
+Part level bin: 280 - 320
+Bin contents: 0.108782
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 0 - 5
+Bin contents: 0.000104217
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 5 - 10
+Bin contents: 1.40127e-05
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 10 - 15
+Bin contents: 7.70486e-05
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 15 - 20
+Bin contents: 6.89051e-05
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 20 - 25
+Bin contents: 7.2655e-05
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 25 - 30
+Bin contents: 7.03225e-05
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 30 - 40
+Bin contents: 0.000367876
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 40 - 50
+Bin contents: 0.064093
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 50 - 60
+Bin contents: 0.0133451
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 60 - 75
+Bin contents: 0.0644445
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 75 - 90
+Bin contents: 0.104301
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 90 - 105
+Bin contents: 0.196148
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 105 - 120
+Bin contents: 1.42594
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 120 - 140
+Bin contents: 10.7124
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 140 - 160
+Bin contents: 9.65427
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 160 - 200
+Bin contents: 7.68406
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 200 - 240
+Bin contents: 1.92132
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 240 - 280
+Bin contents: 0.549089
+
+Radius: 0.2
+Det level bin: 120 - 140
+Part level bin: 280 - 320
+Bin contents: 0.184523
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 0 - 5
+Bin contents: 1.96479e-05
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 5 - 10
+Bin contents: 1.67549e-05
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 10 - 15
+Bin contents: 8.37747e-06
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 15 - 20
+Bin contents: 3.35099e-05
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 20 - 25
+Bin contents: 8.37747e-06
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 25 - 30
+Bin contents: 1.67549e-05
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 30 - 40
+Bin contents: 3.92958e-05
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 40 - 50
+Bin contents: 0.000555295
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 50 - 60
+Bin contents: 0.0251019
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 60 - 75
+Bin contents: 0.0326691
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 75 - 90
+Bin contents: 0.0311451
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 90 - 105
+Bin contents: 0.0346098
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 105 - 120
+Bin contents: 0.0842937
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 120 - 140
+Bin contents: 0.709655
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 140 - 160
+Bin contents: 3.88352
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 160 - 200
+Bin contents: 6.33585
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 200 - 240
+Bin contents: 2.08876
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 240 - 280
+Bin contents: 0.65072
+
+Radius: 0.2
+Det level bin: 140 - 160
+Part level bin: 280 - 320
+Bin contents: 0.225133
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 5 - 10
+Bin contents: 2.23901e-05
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 10 - 15
+Bin contents: 8.37747e-06
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 15 - 20
+Bin contents: 8.37747e-06
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 20 - 25
+Bin contents: 8.37747e-06
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 25 - 30
+Bin contents: 0.0221435
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 30 - 40
+Bin contents: 0.00184444
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 40 - 50
+Bin contents: 0.0127475
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 50 - 60
+Bin contents: 0.0158187
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 60 - 75
+Bin contents: 0.033162
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 75 - 90
+Bin contents: 0.0372252
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 90 - 105
+Bin contents: 0.0416816
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 105 - 120
+Bin contents: 0.0395722
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 120 - 140
+Bin contents: 0.0788275
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 140 - 160
+Bin contents: 0.383606
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 160 - 200
+Bin contents: 4.08544
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 200 - 240
+Bin contents: 3.20919
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 240 - 280
+Bin contents: 1.33481
+
+Radius: 0.2
+Det level bin: 160 - 200
+Part level bin: 280 - 320
+Bin contents: 0.517849
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 0 - 5
+Bin contents: 774.108
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 5 - 10
+Bin contents: 27131.6
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 10 - 15
+Bin contents: 187119
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 15 - 20
+Bin contents: 30669.3
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 20 - 25
+Bin contents: 5675.29
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 25 - 30
+Bin contents: 1299.38
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 30 - 40
+Bin contents: 467.241
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 40 - 50
+Bin contents: 62.3959
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 50 - 60
+Bin contents: 11.9915
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 60 - 75
+Bin contents: 3.97432
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 75 - 90
+Bin contents: 0.797381
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 90 - 105
+Bin contents: 0.252536
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 105 - 120
+Bin contents: 0.0770256
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 120 - 140
+Bin contents: 0.0370274
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 140 - 160
+Bin contents: 0.0164756
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 160 - 200
+Bin contents: 0.0101543
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 200 - 240
+Bin contents: 0.00220622
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 240 - 280
+Bin contents: 0.000801959
+
+Radius: 0.3
+Det level bin: 10 - 12
+Part level bin: 280 - 320
+Bin contents: 0.000205604
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 0 - 5
+Bin contents: 105.36
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 5 - 10
+Bin contents: 3370.97
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 10 - 15
+Bin contents: 73426.2
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 15 - 20
+Bin contents: 36656.4
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 20 - 25
+Bin contents: 7389.06
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 25 - 30
+Bin contents: 1797.55
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 30 - 40
+Bin contents: 688.86
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 40 - 50
+Bin contents: 88.3745
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 50 - 60
+Bin contents: 16.909
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 60 - 75
+Bin contents: 5.18357
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 75 - 90
+Bin contents: 1.18757
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 90 - 105
+Bin contents: 0.305398
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 105 - 120
+Bin contents: 0.111071
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 120 - 140
+Bin contents: 0.0510728
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 140 - 160
+Bin contents: 0.0188724
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 160 - 200
+Bin contents: 0.0115566
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 200 - 240
+Bin contents: 0.00295788
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 240 - 280
+Bin contents: 0.000953397
+
+Radius: 0.3
+Det level bin: 12 - 14
+Part level bin: 280 - 320
+Bin contents: 0.000348581
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 0 - 5
+Bin contents: 17.7229
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 5 - 10
+Bin contents: 575.9
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 10 - 15
+Bin contents: 15649.3
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 15 - 20
+Bin contents: 38996.8
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 20 - 25
+Bin contents: 9002.44
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 25 - 30
+Bin contents: 2406.97
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 30 - 40
+Bin contents: 892.514
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 40 - 50
+Bin contents: 117.826
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 50 - 60
+Bin contents: 24.1663
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 60 - 75
+Bin contents: 7.50738
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 75 - 90
+Bin contents: 1.43501
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 90 - 105
+Bin contents: 0.403124
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 105 - 120
+Bin contents: 0.147196
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 120 - 140
+Bin contents: 0.062557
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 140 - 160
+Bin contents: 0.022218
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 160 - 200
+Bin contents: 0.0141461
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 200 - 240
+Bin contents: 0.00322224
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 240 - 280
+Bin contents: 0.000950255
+
+Radius: 0.3
+Det level bin: 14 - 16
+Part level bin: 280 - 320
+Bin contents: 0.000331266
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 0 - 5
+Bin contents: 3.48966
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 5 - 10
+Bin contents: 122.658
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 10 - 15
+Bin contents: 1872.96
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 15 - 20
+Bin contents: 23805.8
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 20 - 25
+Bin contents: 10604.6
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 25 - 30
+Bin contents: 2980.82
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 30 - 40
+Bin contents: 1225.51
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 40 - 50
+Bin contents: 161.64
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 50 - 60
+Bin contents: 31.2874
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 60 - 75
+Bin contents: 9.40154
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 75 - 90
+Bin contents: 1.7745
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 90 - 105
+Bin contents: 0.535183
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 105 - 120
+Bin contents: 0.162097
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 120 - 140
+Bin contents: 0.0754658
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 140 - 160
+Bin contents: 0.0271083
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 160 - 200
+Bin contents: 0.0163866
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 200 - 240
+Bin contents: 0.00384049
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 240 - 280
+Bin contents: 0.00129759
+
+Radius: 0.3
+Det level bin: 16 - 18
+Part level bin: 280 - 320
+Bin contents: 0.000400087
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 0 - 5
+Bin contents: 0.98364
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 5 - 10
+Bin contents: 49.2747
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 10 - 15
+Bin contents: 393.041
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 15 - 20
+Bin contents: 8939.33
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 20 - 25
+Bin contents: 11328.7
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 25 - 30
+Bin contents: 3471.63
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 30 - 40
+Bin contents: 1517.14
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 40 - 50
+Bin contents: 212.192
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 50 - 60
+Bin contents: 40.5344
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 60 - 75
+Bin contents: 11.924
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 75 - 90
+Bin contents: 2.39498
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 90 - 105
+Bin contents: 0.626805
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 105 - 120
+Bin contents: 0.208063
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 120 - 140
+Bin contents: 0.0956559
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 140 - 160
+Bin contents: 0.0310179
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 160 - 200
+Bin contents: 0.0212114
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 200 - 240
+Bin contents: 0.00458787
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 240 - 280
+Bin contents: 0.0015098
+
+Radius: 0.3
+Det level bin: 18 - 20
+Part level bin: 280 - 320
+Bin contents: 0.000659076
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.940407
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 21.1147
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 10 - 15
+Bin contents: 146.952
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 15 - 20
+Bin contents: 1753.9
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 20 - 25
+Bin contents: 15359.9
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 25 - 30
+Bin contents: 10312.6
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 30 - 40
+Bin contents: 5196.95
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 40 - 50
+Bin contents: 779.591
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 50 - 60
+Bin contents: 150.722
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 60 - 75
+Bin contents: 44.0648
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 75 - 90
+Bin contents: 8.3264
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 90 - 105
+Bin contents: 2.26883
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 105 - 120
+Bin contents: 0.740585
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 120 - 140
+Bin contents: 0.321648
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 140 - 160
+Bin contents: 0.11847
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 160 - 200
+Bin contents: 0.0688894
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 200 - 240
+Bin contents: 0.0163235
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 240 - 280
+Bin contents: 0.0047199
+
+Radius: 0.3
+Det level bin: 20 - 25
+Part level bin: 280 - 320
+Bin contents: 0.00201538
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.144932
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 1.02883
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 10 - 15
+Bin contents: 7.80941
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 15 - 20
+Bin contents: 65.1477
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 20 - 25
+Bin contents: 728.442
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 25 - 30
+Bin contents: 5605.66
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 30 - 40
+Bin contents: 6496.86
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 40 - 50
+Bin contents: 1186.48
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 50 - 60
+Bin contents: 245.06
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 60 - 75
+Bin contents: 73.792
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 75 - 90
+Bin contents: 13.0592
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 90 - 105
+Bin contents: 3.279
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 105 - 120
+Bin contents: 1.05573
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 120 - 140
+Bin contents: 0.497303
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 140 - 160
+Bin contents: 0.172589
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 160 - 200
+Bin contents: 0.0930174
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 200 - 240
+Bin contents: 0.0215569
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 240 - 280
+Bin contents: 0.00735059
+
+Radius: 0.3
+Det level bin: 25 - 30
+Part level bin: 280 - 320
+Bin contents: 0.00243256
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 0 - 5
+Bin contents: 0.0577758
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 5 - 10
+Bin contents: 0.335244
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 10 - 15
+Bin contents: 2.09254
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 15 - 20
+Bin contents: 6.87706
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 20 - 25
+Bin contents: 45.2067
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 25 - 30
+Bin contents: 379.105
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 30 - 40
+Bin contents: 5916.5
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 40 - 50
+Bin contents: 3268.58
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 50 - 60
+Bin contents: 824.934
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 60 - 75
+Bin contents: 266.687
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 75 - 90
+Bin contents: 48.7727
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 90 - 105
+Bin contents: 11.5049
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 105 - 120
+Bin contents: 3.61734
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 120 - 140
+Bin contents: 1.58902
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 140 - 160
+Bin contents: 0.519096
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 160 - 200
+Bin contents: 0.295304
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 200 - 240
+Bin contents: 0.0672253
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 240 - 280
+Bin contents: 0.0206045
+
+Radius: 0.3
+Det level bin: 30 - 40
+Part level bin: 280 - 320
+Bin contents: 0.00774604
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.0195682
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.0541888
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 10 - 15
+Bin contents: 0.0867822
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 15 - 20
+Bin contents: 0.240579
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 20 - 25
+Bin contents: 0.692586
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 25 - 30
+Bin contents: 4.48343
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 30 - 40
+Bin contents: 134.672
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 40 - 50
+Bin contents: 1569
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 50 - 60
+Bin contents: 1102.1
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 60 - 75
+Bin contents: 445.508
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 75 - 90
+Bin contents: 88.7981
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 90 - 105
+Bin contents: 21.7868
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 105 - 120
+Bin contents: 6.45496
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 120 - 140
+Bin contents: 2.77617
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 140 - 160
+Bin contents: 0.875619
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 160 - 200
+Bin contents: 0.47223
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 200 - 240
+Bin contents: 0.107645
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 240 - 280
+Bin contents: 0.0319479
+
+Radius: 0.3
+Det level bin: 40 - 50
+Part level bin: 280 - 320
+Bin contents: 0.011696
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.00315564
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.0114685
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 10 - 15
+Bin contents: 0.0113084
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 15 - 20
+Bin contents: 0.0227769
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 20 - 25
+Bin contents: 0.0799904
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 25 - 30
+Bin contents: 0.232071
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 2.87726
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 40 - 50
+Bin contents: 50.9248
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 50 - 60
+Bin contents: 506.768
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 60 - 75
+Bin contents: 524.161
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 75 - 90
+Bin contents: 134.943
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 90 - 105
+Bin contents: 35.7283
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 105 - 120
+Bin contents: 10.7202
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 120 - 140
+Bin contents: 4.50822
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 140 - 160
+Bin contents: 1.36171
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 160 - 200
+Bin contents: 0.730757
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 200 - 240
+Bin contents: 0.154724
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 240 - 280
+Bin contents: 0.0442383
+
+Radius: 0.3
+Det level bin: 50 - 60
+Part level bin: 280 - 320
+Bin contents: 0.0151082
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 0 - 5
+Bin contents: 0.00200714
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 5 - 10
+Bin contents: 0.00325274
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 10 - 15
+Bin contents: 0.00592037
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 15 - 20
+Bin contents: 0.00567503
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 20 - 25
+Bin contents: 0.0074802
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 25 - 30
+Bin contents: 0.0276226
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 30 - 40
+Bin contents: 0.780911
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 40 - 50
+Bin contents: 2.15989
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 50 - 60
+Bin contents: 23.8466
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 60 - 75
+Bin contents: 333.474
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 75 - 90
+Bin contents: 236.528
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 90 - 105
+Bin contents: 78.746
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 105 - 120
+Bin contents: 26.1594
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 120 - 140
+Bin contents: 10.9826
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 140 - 160
+Bin contents: 3.29625
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 160 - 200
+Bin contents: 1.70915
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 200 - 240
+Bin contents: 0.345319
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 240 - 280
+Bin contents: 0.0964023
+
+Radius: 0.3
+Det level bin: 60 - 75
+Part level bin: 280 - 320
+Bin contents: 0.0333878
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 0 - 5
+Bin contents: 0.00035338
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 5 - 10
+Bin contents: 0.000949207
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 10 - 15
+Bin contents: 0.000768629
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 15 - 20
+Bin contents: 0.00154862
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 20 - 25
+Bin contents: 0.00133719
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 25 - 30
+Bin contents: 0.00170187
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 30 - 40
+Bin contents: 0.0339852
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 40 - 50
+Bin contents: 0.326074
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 50 - 60
+Bin contents: 0.633626
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 60 - 75
+Bin contents: 9.20061
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 75 - 90
+Bin contents: 96.1878
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 90 - 105
+Bin contents: 83.4807
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 105 - 120
+Bin contents: 35.3508
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 120 - 140
+Bin contents: 16.7249
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 140 - 160
+Bin contents: 5.27154
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 160 - 200
+Bin contents: 2.65338
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 200 - 240
+Bin contents: 0.515171
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 240 - 280
+Bin contents: 0.139636
+
+Radius: 0.3
+Det level bin: 75 - 90
+Part level bin: 280 - 320
+Bin contents: 0.0475808
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 0 - 5
+Bin contents: 0.00015699
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 5 - 10
+Bin contents: 0.000283591
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 10 - 15
+Bin contents: 0.000409985
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 15 - 20
+Bin contents: 0.000314937
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 20 - 25
+Bin contents: 0.000215715
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 25 - 30
+Bin contents: 0.000338273
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 30 - 40
+Bin contents: 0.00277811
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 40 - 50
+Bin contents: 0.0727107
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 50 - 60
+Bin contents: 0.0728513
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 60 - 75
+Bin contents: 0.430236
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 75 - 90
+Bin contents: 4.01386
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 90 - 105
+Bin contents: 33.6868
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 105 - 120
+Bin contents: 32.8296
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 120 - 140
+Bin contents: 19.9269
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 140 - 160
+Bin contents: 7.15753
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 160 - 200
+Bin contents: 3.80966
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 200 - 240
+Bin contents: 0.734349
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 240 - 280
+Bin contents: 0.193801
+
+Radius: 0.3
+Det level bin: 90 - 105
+Part level bin: 280 - 320
+Bin contents: 0.0639612
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 0 - 5
+Bin contents: 2.51324e-05
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 5 - 10
+Bin contents: 6.31866e-05
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 10 - 15
+Bin contents: 7.82902e-05
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 15 - 20
+Bin contents: 0.000103573
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 20 - 25
+Bin contents: 5.48091e-05
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 25 - 30
+Bin contents: 0.000604703
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0635436
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 40 - 50
+Bin contents: 0.0449327
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 50 - 60
+Bin contents: 0.0785519
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 60 - 75
+Bin contents: 0.104569
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 75 - 90
+Bin contents: 0.237998
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 90 - 105
+Bin contents: 1.89645
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 105 - 120
+Bin contents: 12.8645
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 120 - 140
+Bin contents: 17.3347
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 140 - 160
+Bin contents: 8.01133
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 160 - 200
+Bin contents: 4.8247
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 200 - 240
+Bin contents: 0.966508
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 240 - 280
+Bin contents: 0.255803
+
+Radius: 0.3
+Det level bin: 105 - 120
+Part level bin: 280 - 320
+Bin contents: 0.0814984
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 0 - 5
+Bin contents: 2.51324e-05
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 5 - 10
+Bin contents: 1.67549e-05
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 10 - 15
+Bin contents: 5.19162e-05
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 15 - 20
+Bin contents: 3.64028e-05
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 20 - 25
+Bin contents: 4.75226e-05
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 25 - 30
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 30 - 40
+Bin contents: 0.000105308
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 40 - 50
+Bin contents: 0.0336622
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 50 - 60
+Bin contents: 0.0408937
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 60 - 75
+Bin contents: 0.0373064
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 75 - 90
+Bin contents: 0.0825617
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 90 - 105
+Bin contents: 0.13056
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 105 - 120
+Bin contents: 0.99631
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 120 - 140
+Bin contents: 8.57019
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 140 - 160
+Bin contents: 8.9256
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 160 - 200
+Bin contents: 7.09036
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 200 - 240
+Bin contents: 1.64144
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 240 - 280
+Bin contents: 0.441476
+
+Radius: 0.3
+Det level bin: 120 - 140
+Part level bin: 280 - 320
+Bin contents: 0.141452
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 5 - 10
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 10 - 15
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 15 - 20
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 20 - 25
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 25 - 30
+Bin contents: 2.23901e-05
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 30 - 40
+Bin contents: 1.84063e-05
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 40 - 50
+Bin contents: 1.84063e-05
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 50 - 60
+Bin contents: 0.0159807
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 60 - 75
+Bin contents: 0.021863
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 75 - 90
+Bin contents: 0.0223433
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 90 - 105
+Bin contents: 0.0343772
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 105 - 120
+Bin contents: 0.0621222
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 120 - 140
+Bin contents: 0.481109
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 140 - 160
+Bin contents: 3.08727
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 160 - 200
+Bin contents: 5.75049
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 200 - 240
+Bin contents: 1.89233
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 240 - 280
+Bin contents: 0.550893
+
+Radius: 0.3
+Det level bin: 140 - 160
+Part level bin: 280 - 320
+Bin contents: 0.179928
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 15 - 20
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 20 - 25
+Bin contents: 8.37747e-06
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 25 - 30
+Bin contents: 0.0221268
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 30 - 40
+Bin contents: 0.000506121
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 40 - 50
+Bin contents: 0.0108151
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 50 - 60
+Bin contents: 0.0154097
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 60 - 75
+Bin contents: 0.0305223
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 75 - 90
+Bin contents: 0.0287333
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 90 - 105
+Bin contents: 0.0277807
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 105 - 120
+Bin contents: 0.0277954
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 120 - 140
+Bin contents: 0.0592621
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 140 - 160
+Bin contents: 0.269718
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 160 - 200
+Bin contents: 3.35248
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 200 - 240
+Bin contents: 2.92562
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 240 - 280
+Bin contents: 1.18972
+
+Radius: 0.3
+Det level bin: 160 - 200
+Part level bin: 280 - 320
+Bin contents: 0.439899
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 0 - 5
+Bin contents: 476.071
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 5 - 10
+Bin contents: 20622.1
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 10 - 15
+Bin contents: 195848
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 15 - 20
+Bin contents: 36682
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 20 - 25
+Bin contents: 5543.63
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 25 - 30
+Bin contents: 1049.08
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 30 - 40
+Bin contents: 343.216
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 40 - 50
+Bin contents: 35.9527
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 50 - 60
+Bin contents: 6.53648
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 60 - 75
+Bin contents: 1.86021
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 75 - 90
+Bin contents: 0.403879
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 90 - 105
+Bin contents: 0.121625
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 105 - 120
+Bin contents: 0.0267037
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 120 - 140
+Bin contents: 0.0158438
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 140 - 160
+Bin contents: 0.00730196
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 160 - 200
+Bin contents: 0.00349441
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 200 - 240
+Bin contents: 0.00134853
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 240 - 280
+Bin contents: 0.000240209
+
+Radius: 0.4
+Det level bin: 10 - 12
+Part level bin: 280 - 320
+Bin contents: 7.53972e-05
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 0 - 5
+Bin contents: 64.434
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 5 - 10
+Bin contents: 2166.64
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 10 - 15
+Bin contents: 67385.9
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 15 - 20
+Bin contents: 43861
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 20 - 25
+Bin contents: 7811.95
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 25 - 30
+Bin contents: 1560.42
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 30 - 40
+Bin contents: 505.149
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 40 - 50
+Bin contents: 52.7173
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 50 - 60
+Bin contents: 9.79734
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 60 - 75
+Bin contents: 2.55969
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 75 - 90
+Bin contents: 0.521666
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 90 - 105
+Bin contents: 0.170651
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 105 - 120
+Bin contents: 0.046386
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 120 - 140
+Bin contents: 0.0244127
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 140 - 160
+Bin contents: 0.00772281
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 160 - 200
+Bin contents: 0.00502607
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 200 - 240
+Bin contents: 0.00148298
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 240 - 280
+Bin contents: 0.000449266
+
+Radius: 0.4
+Det level bin: 12 - 14
+Part level bin: 280 - 320
+Bin contents: 0.000105308
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 0 - 5
+Bin contents: 20.2439
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 5 - 10
+Bin contents: 375.964
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 10 - 15
+Bin contents: 11597.5
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 15 - 20
+Bin contents: 40573.2
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 20 - 25
+Bin contents: 10071.2
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 25 - 30
+Bin contents: 2266.91
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 30 - 40
+Bin contents: 734.371
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 40 - 50
+Bin contents: 82.5067
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 50 - 60
+Bin contents: 13.7035
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 60 - 75
+Bin contents: 3.7384
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 75 - 90
+Bin contents: 0.698585
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 90 - 105
+Bin contents: 0.176337
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 105 - 120
+Bin contents: 0.0621958
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 120 - 140
+Bin contents: 0.027955
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 140 - 160
+Bin contents: 0.0110047
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 160 - 200
+Bin contents: 0.00768214
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 200 - 240
+Bin contents: 0.00137585
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 240 - 280
+Bin contents: 0.000475529
+
+Radius: 0.4
+Det level bin: 14 - 16
+Part level bin: 280 - 320
+Bin contents: 0.000127698
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 0 - 5
+Bin contents: 2.1585
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 5 - 10
+Bin contents: 79.8522
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 10 - 15
+Bin contents: 1341.56
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 15 - 20
+Bin contents: 20788.4
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 20 - 25
+Bin contents: 11568.2
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 25 - 30
+Bin contents: 3011.92
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 30 - 40
+Bin contents: 1035.17
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 40 - 50
+Bin contents: 113.997
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 50 - 60
+Bin contents: 17.7431
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 60 - 75
+Bin contents: 5.30655
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 75 - 90
+Bin contents: 1.02851
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 90 - 105
+Bin contents: 0.264853
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 105 - 120
+Bin contents: 0.0794086
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 120 - 140
+Bin contents: 0.0400218
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 140 - 160
+Bin contents: 0.0129499
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 160 - 200
+Bin contents: 0.00771004
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 200 - 240
+Bin contents: 0.00181039
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 240 - 280
+Bin contents: 0.000533685
+
+Radius: 0.4
+Det level bin: 16 - 18
+Part level bin: 280 - 320
+Bin contents: 0.000253126
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 0 - 5
+Bin contents: 0.880628
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 5 - 10
+Bin contents: 19.7454
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 10 - 15
+Bin contents: 212.947
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 15 - 20
+Bin contents: 6469.59
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 20 - 25
+Bin contents: 11647.5
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 25 - 30
+Bin contents: 3583.13
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 30 - 40
+Bin contents: 1326.02
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 40 - 50
+Bin contents: 156.344
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 50 - 60
+Bin contents: 26.1155
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 60 - 75
+Bin contents: 6.82503
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 75 - 90
+Bin contents: 1.23041
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 90 - 105
+Bin contents: 0.302497
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 105 - 120
+Bin contents: 0.107836
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 120 - 140
+Bin contents: 0.0514045
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 140 - 160
+Bin contents: 0.0163861
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 160 - 200
+Bin contents: 0.00884669
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 200 - 240
+Bin contents: 0.00204695
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 240 - 280
+Bin contents: 0.000533035
+
+Radius: 0.4
+Det level bin: 18 - 20
+Part level bin: 280 - 320
+Bin contents: 0.000247725
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.316381
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 9.38018
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 10 - 15
+Bin contents: 70.5874
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 15 - 20
+Bin contents: 1156.44
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 20 - 25
+Bin contents: 12432.7
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 25 - 30
+Bin contents: 10327
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 30 - 40
+Bin contents: 4853.03
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 40 - 50
+Bin contents: 619.933
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 50 - 60
+Bin contents: 104.334
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 60 - 75
+Bin contents: 27.0864
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 75 - 90
+Bin contents: 4.50903
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 90 - 105
+Bin contents: 1.21651
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 105 - 120
+Bin contents: 0.353929
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 120 - 140
+Bin contents: 0.163663
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 140 - 160
+Bin contents: 0.0524053
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 160 - 200
+Bin contents: 0.0326149
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 200 - 240
+Bin contents: 0.00701662
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 240 - 280
+Bin contents: 0.00202893
+
+Radius: 0.4
+Det level bin: 20 - 25
+Part level bin: 280 - 320
+Bin contents: 0.000838998
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.0625761
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 0.909051
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 10 - 15
+Bin contents: 5.38439
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 15 - 20
+Bin contents: 29.4202
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 20 - 25
+Bin contents: 468.16
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 25 - 30
+Bin contents: 4371.19
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 30 - 40
+Bin contents: 6054.95
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 40 - 50
+Bin contents: 1016.27
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 50 - 60
+Bin contents: 182.535
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 60 - 75
+Bin contents: 48.5222
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 75 - 90
+Bin contents: 7.8447
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 90 - 105
+Bin contents: 1.8822
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 105 - 120
+Bin contents: 0.552721
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 120 - 140
+Bin contents: 0.242103
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 140 - 160
+Bin contents: 0.0823099
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 160 - 200
+Bin contents: 0.0456575
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 200 - 240
+Bin contents: 0.00956429
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 240 - 280
+Bin contents: 0.00322262
+
+Radius: 0.4
+Det level bin: 25 - 30
+Part level bin: 280 - 320
+Bin contents: 0.00102262
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 0 - 5
+Bin contents: 0.0506223
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 5 - 10
+Bin contents: 0.166994
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 10 - 15
+Bin contents: 0.83609
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 15 - 20
+Bin contents: 4.57074
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 20 - 25
+Bin contents: 26.4451
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 25 - 30
+Bin contents: 230.264
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 30 - 40
+Bin contents: 4719.88
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 40 - 50
+Bin contents: 2910.04
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 50 - 60
+Bin contents: 684.317
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 60 - 75
+Bin contents: 201.233
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 75 - 90
+Bin contents: 31.2284
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 90 - 105
+Bin contents: 6.75509
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 105 - 120
+Bin contents: 2.05334
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 120 - 140
+Bin contents: 0.827651
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 140 - 160
+Bin contents: 0.268916
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 160 - 200
+Bin contents: 0.148119
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 200 - 240
+Bin contents: 0.0318195
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 240 - 280
+Bin contents: 0.00918828
+
+Radius: 0.4
+Det level bin: 30 - 40
+Part level bin: 280 - 320
+Bin contents: 0.00363315
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.0173387
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.0190728
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 10 - 15
+Bin contents: 0.0318779
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 15 - 20
+Bin contents: 0.0914406
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 20 - 25
+Bin contents: 0.340142
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 25 - 30
+Bin contents: 2.64295
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 30 - 40
+Bin contents: 84.5488
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 40 - 50
+Bin contents: 1197.7
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 50 - 60
+Bin contents: 949.276
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 60 - 75
+Bin contents: 369.833
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 75 - 90
+Bin contents: 65.0679
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 90 - 105
+Bin contents: 14.2458
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 105 - 120
+Bin contents: 3.94161
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 120 - 140
+Bin contents: 1.57962
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 140 - 160
+Bin contents: 0.478875
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 160 - 200
+Bin contents: 0.250769
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 200 - 240
+Bin contents: 0.0514373
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 240 - 280
+Bin contents: 0.0153698
+
+Radius: 0.4
+Det level bin: 40 - 50
+Part level bin: 280 - 320
+Bin contents: 0.00550571
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.002627
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.00750277
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 10 - 15
+Bin contents: 0.0044005
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 15 - 20
+Bin contents: 0.00734876
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 20 - 25
+Bin contents: 0.0304132
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 25 - 30
+Bin contents: 0.135104
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 1.83598
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 40 - 50
+Bin contents: 30.5407
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 50 - 60
+Bin contents: 377.168
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 60 - 75
+Bin contents: 443.569
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 75 - 90
+Bin contents: 108.742
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 90 - 105
+Bin contents: 25.6847
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 105 - 120
+Bin contents: 7.01729
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 120 - 140
+Bin contents: 2.73479
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 140 - 160
+Bin contents: 0.801755
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 160 - 200
+Bin contents: 0.398288
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 200 - 240
+Bin contents: 0.0803478
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 240 - 280
+Bin contents: 0.0214044
+
+Radius: 0.4
+Det level bin: 50 - 60
+Part level bin: 280 - 320
+Bin contents: 0.00776226
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 0 - 5
+Bin contents: 0.00115572
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 5 - 10
+Bin contents: 0.00337124
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 10 - 15
+Bin contents: 0.00222854
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 15 - 20
+Bin contents: 0.0037068
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 20 - 25
+Bin contents: 0.00441611
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 25 - 30
+Bin contents: 0.0103733
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 30 - 40
+Bin contents: 0.19163
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 40 - 50
+Bin contents: 1.42382
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 50 - 60
+Bin contents: 15.0547
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 60 - 75
+Bin contents: 249.799
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 75 - 90
+Bin contents: 197.383
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 90 - 105
+Bin contents: 62.1553
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 105 - 120
+Bin contents: 19.0858
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 120 - 140
+Bin contents: 7.54579
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 140 - 160
+Bin contents: 2.07617
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 160 - 200
+Bin contents: 0.998741
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 200 - 240
+Bin contents: 0.192913
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 240 - 280
+Bin contents: 0.0515175
+
+Radius: 0.4
+Det level bin: 60 - 75
+Part level bin: 280 - 320
+Bin contents: 0.0173481
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 0 - 5
+Bin contents: 0.000167184
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 5 - 10
+Bin contents: 0.000497698
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 10 - 15
+Bin contents: 0.000541829
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 15 - 20
+Bin contents: 0.000519761
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 20 - 25
+Bin contents: 0.000517257
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 25 - 30
+Bin contents: 0.00502419
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 30 - 40
+Bin contents: 0.0481986
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 40 - 50
+Bin contents: 0.127311
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 50 - 60
+Bin contents: 0.287378
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 60 - 75
+Bin contents: 5.89325
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 75 - 90
+Bin contents: 73.0516
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 90 - 105
+Bin contents: 68.8513
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 105 - 120
+Bin contents: 28.2975
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 120 - 140
+Bin contents: 12.5831
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 140 - 160
+Bin contents: 3.62304
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 160 - 200
+Bin contents: 1.69922
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 200 - 240
+Bin contents: 0.300283
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 240 - 280
+Bin contents: 0.0781736
+
+Radius: 0.4
+Det level bin: 75 - 90
+Part level bin: 280 - 320
+Bin contents: 0.0265545
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 0 - 5
+Bin contents: 3.07676e-05
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 5 - 10
+Bin contents: 0.000154482
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 10 - 15
+Bin contents: 0.000156303
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 15 - 20
+Bin contents: 0.000108761
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 20 - 25
+Bin contents: 6.61628e-05
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 25 - 30
+Bin contents: 5.08253e-05
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 30 - 40
+Bin contents: 0.000942708
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 40 - 50
+Bin contents: 0.0250193
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 50 - 60
+Bin contents: 0.0682744
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 60 - 75
+Bin contents: 0.284987
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 75 - 90
+Bin contents: 2.59039
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 90 - 105
+Bin contents: 24.8952
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 105 - 120
+Bin contents: 26.7538
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 120 - 140
+Bin contents: 15.8771
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 140 - 160
+Bin contents: 5.3612
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 160 - 200
+Bin contents: 2.62468
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 200 - 240
+Bin contents: 0.459298
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 240 - 280
+Bin contents: 0.116046
+
+Radius: 0.4
+Det level bin: 90 - 105
+Part level bin: 280 - 320
+Bin contents: 0.0369211
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 0 - 5
+Bin contents: 1.40127e-05
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 5 - 10
+Bin contents: 3.51612e-05
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 10 - 15
+Bin contents: 6.08483e-05
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 15 - 20
+Bin contents: 2.51324e-05
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 20 - 25
+Bin contents: 5.02648e-05
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 25 - 30
+Bin contents: 2.70177e-05
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0633086
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 40 - 50
+Bin contents: 0.0444817
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 50 - 60
+Bin contents: 0.00428296
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 60 - 75
+Bin contents: 0.0624689
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 75 - 90
+Bin contents: 0.150706
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 90 - 105
+Bin contents: 1.23271
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 105 - 120
+Bin contents: 9.62599
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 120 - 140
+Bin contents: 13.9958
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 140 - 160
+Bin contents: 6.4254
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 160 - 200
+Bin contents: 3.57591
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 200 - 240
+Bin contents: 0.651403
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 240 - 280
+Bin contents: 0.159419
+
+Radius: 0.4
+Det level bin: 105 - 120
+Part level bin: 280 - 320
+Bin contents: 0.0495666
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 10 - 15
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 15 - 20
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 20 - 25
+Bin contents: 1.84063e-05
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 25 - 30
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 30 - 40
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 40 - 50
+Bin contents: 0.00364724
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 50 - 60
+Bin contents: 0.0328549
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 60 - 75
+Bin contents: 0.0263608
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 75 - 90
+Bin contents: 0.0412948
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 90 - 105
+Bin contents: 0.0833539
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 105 - 120
+Bin contents: 0.650264
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 120 - 140
+Bin contents: 6.43079
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 140 - 160
+Bin contents: 7.22203
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 160 - 200
+Bin contents: 5.55661
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 200 - 240
+Bin contents: 1.185
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 240 - 280
+Bin contents: 0.29492
+
+Radius: 0.4
+Det level bin: 120 - 140
+Part level bin: 280 - 320
+Bin contents: 0.0902473
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 5 - 10
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 30 - 40
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 40 - 50
+Bin contents: 0.00935881
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 50 - 60
+Bin contents: 0.0126136
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 60 - 75
+Bin contents: 0.0146406
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 75 - 90
+Bin contents: 0.0120652
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 90 - 105
+Bin contents: 0.0176186
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 105 - 120
+Bin contents: 0.0366155
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 120 - 140
+Bin contents: 0.333606
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 140 - 160
+Bin contents: 2.31619
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 160 - 200
+Bin contents: 4.6231
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 200 - 240
+Bin contents: 1.45006
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 240 - 280
+Bin contents: 0.391857
+
+Radius: 0.4
+Det level bin: 140 - 160
+Part level bin: 280 - 320
+Bin contents: 0.122531
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 5 - 10
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 25 - 30
+Bin contents: 0.0221352
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 30 - 40
+Bin contents: 8.37747e-06
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 40 - 50
+Bin contents: 0.000142341
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 50 - 60
+Bin contents: 0.00786789
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 60 - 75
+Bin contents: 0.0103618
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 75 - 90
+Bin contents: 0.0229366
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 90 - 105
+Bin contents: 0.0204265
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 105 - 120
+Bin contents: 0.0143482
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 120 - 140
+Bin contents: 0.0362743
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 140 - 160
+Bin contents: 0.172824
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 160 - 200
+Bin contents: 2.59476
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 200 - 240
+Bin contents: 2.34392
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 240 - 280
+Bin contents: 0.923443
+
+Radius: 0.4
+Det level bin: 160 - 200
+Part level bin: 280 - 320
+Bin contents: 0.322911
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 0 - 5
+Bin contents: 168.668
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 5 - 10
+Bin contents: 11291.2
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 10 - 15
+Bin contents: 151558
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 15 - 20
+Bin contents: 33223.7
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 20 - 25
+Bin contents: 4273.13
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 25 - 30
+Bin contents: 694.366
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 30 - 40
+Bin contents: 193.112
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 40 - 50
+Bin contents: 19.6647
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 50 - 60
+Bin contents: 3.6776
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 60 - 75
+Bin contents: 0.839089
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 75 - 90
+Bin contents: 0.226376
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 90 - 105
+Bin contents: 0.0556326
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 105 - 120
+Bin contents: 0.0109341
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 120 - 140
+Bin contents: 0.00692894
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 140 - 160
+Bin contents: 0.00336203
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 160 - 200
+Bin contents: 0.00108272
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 200 - 240
+Bin contents: 0.000369366
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 240 - 280
+Bin contents: 0.000142271
+
+Radius: 0.5
+Det level bin: 10 - 12
+Part level bin: 280 - 320
+Bin contents: 5.02648e-05
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 0 - 5
+Bin contents: 24.7028
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 5 - 10
+Bin contents: 1050.58
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 10 - 15
+Bin contents: 46132.9
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 15 - 20
+Bin contents: 37718.4
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 20 - 25
+Bin contents: 6327.73
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 25 - 30
+Bin contents: 1139.04
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 30 - 40
+Bin contents: 313.589
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 40 - 50
+Bin contents: 30.163
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 50 - 60
+Bin contents: 5.42311
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 60 - 75
+Bin contents: 1.39411
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 75 - 90
+Bin contents: 0.256426
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 90 - 105
+Bin contents: 0.101598
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 105 - 120
+Bin contents: 0.0240833
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 120 - 140
+Bin contents: 0.00889549
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 140 - 160
+Bin contents: 0.00379183
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 160 - 200
+Bin contents: 0.00225406
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 200 - 240
+Bin contents: 0.000778392
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 240 - 280
+Bin contents: 0.000246852
+
+Radius: 0.5
+Det level bin: 12 - 14
+Part level bin: 280 - 320
+Bin contents: 7.2655e-05
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 0 - 5
+Bin contents: 3.2507
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 5 - 10
+Bin contents: 204.945
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 10 - 15
+Bin contents: 6562.05
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 15 - 20
+Bin contents: 30663.6
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 20 - 25
+Bin contents: 8440.28
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 25 - 30
+Bin contents: 1676.07
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 30 - 40
+Bin contents: 484.888
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 40 - 50
+Bin contents: 46.4999
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 50 - 60
+Bin contents: 7.57124
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 60 - 75
+Bin contents: 2.08081
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 75 - 90
+Bin contents: 0.333545
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 90 - 105
+Bin contents: 0.0784966
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 105 - 120
+Bin contents: 0.0328277
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 120 - 140
+Bin contents: 0.0168367
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 140 - 160
+Bin contents: 0.00533448
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 160 - 200
+Bin contents: 0.0036695
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 200 - 240
+Bin contents: 0.000637823
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 240 - 280
+Bin contents: 0.000211944
+
+Radius: 0.5
+Det level bin: 14 - 16
+Part level bin: 280 - 320
+Bin contents: 3.64028e-05
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 0 - 5
+Bin contents: 1.1386
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 5 - 10
+Bin contents: 59.8637
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 10 - 15
+Bin contents: 634.474
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 15 - 20
+Bin contents: 13578.5
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 20 - 25
+Bin contents: 9456.05
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 25 - 30
+Bin contents: 2280.24
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 30 - 40
+Bin contents: 731.048
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 40 - 50
+Bin contents: 66.4996
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 50 - 60
+Bin contents: 9.85528
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 60 - 75
+Bin contents: 2.6943
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 75 - 90
+Bin contents: 0.53195
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 90 - 105
+Bin contents: 0.136554
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 105 - 120
+Bin contents: 0.0391499
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 120 - 140
+Bin contents: 0.0177675
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 140 - 160
+Bin contents: 0.0078245
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 160 - 200
+Bin contents: 0.00428598
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 200 - 240
+Bin contents: 0.00105346
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 240 - 280
+Bin contents: 0.000238968
+
+Radius: 0.5
+Det level bin: 16 - 18
+Part level bin: 280 - 320
+Bin contents: 0.000114542
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 0 - 5
+Bin contents: 0.161136
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 5 - 10
+Bin contents: 10.9647
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 10 - 15
+Bin contents: 89.0049
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 15 - 20
+Bin contents: 3409.75
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 20 - 25
+Bin contents: 8601.26
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 25 - 30
+Bin contents: 2725.11
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 30 - 40
+Bin contents: 943.702
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 40 - 50
+Bin contents: 93.2208
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 50 - 60
+Bin contents: 15.8305
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 60 - 75
+Bin contents: 3.88167
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 75 - 90
+Bin contents: 0.65026
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 90 - 105
+Bin contents: 0.161768
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 105 - 120
+Bin contents: 0.0425369
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 120 - 140
+Bin contents: 0.0296758
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 140 - 160
+Bin contents: 0.00701987
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 160 - 200
+Bin contents: 0.00450876
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 200 - 240
+Bin contents: 0.000982818
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 240 - 280
+Bin contents: 0.000204103
+
+Radius: 0.5
+Det level bin: 18 - 20
+Part level bin: 280 - 320
+Bin contents: 0.000120178
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.147174
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 2.90745
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 10 - 15
+Bin contents: 43.2176
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 15 - 20
+Bin contents: 577.476
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 20 - 25
+Bin contents: 7402.19
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 25 - 30
+Bin contents: 7357.23
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 30 - 40
+Bin contents: 3559.69
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 40 - 50
+Bin contents: 404.391
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 50 - 60
+Bin contents: 64.0573
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 60 - 75
+Bin contents: 15.4162
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 75 - 90
+Bin contents: 2.35841
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 90 - 105
+Bin contents: 0.606424
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 105 - 120
+Bin contents: 0.176771
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 120 - 140
+Bin contents: 0.0889191
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 140 - 160
+Bin contents: 0.0256289
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 160 - 200
+Bin contents: 0.0167968
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 200 - 240
+Bin contents: 0.00362986
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 240 - 280
+Bin contents: 0.00107328
+
+Radius: 0.5
+Det level bin: 20 - 25
+Part level bin: 280 - 320
+Bin contents: 0.000424514
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.071693
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 0.132084
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 10 - 15
+Bin contents: 2.35337
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 15 - 20
+Bin contents: 10.5671
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 20 - 25
+Bin contents: 220.576
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 25 - 30
+Bin contents: 2535.73
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 30 - 40
+Bin contents: 4131.44
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 40 - 50
+Bin contents: 709.212
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 50 - 60
+Bin contents: 114.789
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 60 - 75
+Bin contents: 29.0458
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 75 - 90
+Bin contents: 4.33433
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 90 - 105
+Bin contents: 1.02667
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 105 - 120
+Bin contents: 0.311264
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 120 - 140
+Bin contents: 0.125584
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 140 - 160
+Bin contents: 0.0461796
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 160 - 200
+Bin contents: 0.0253208
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 200 - 240
+Bin contents: 0.00537157
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 240 - 280
+Bin contents: 0.00172671
+
+Radius: 0.5
+Det level bin: 25 - 30
+Part level bin: 280 - 320
+Bin contents: 0.000531316
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 0 - 5
+Bin contents: 0.0119716
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 5 - 10
+Bin contents: 0.144239
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 10 - 15
+Bin contents: 0.17886
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 15 - 20
+Bin contents: 0.798502
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 20 - 25
+Bin contents: 11.3663
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 25 - 30
+Bin contents: 110.972
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 30 - 40
+Bin contents: 2763.52
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 40 - 50
+Bin contents: 1949.12
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 50 - 60
+Bin contents: 461.383
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 60 - 75
+Bin contents: 126.078
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 75 - 90
+Bin contents: 18.5318
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 90 - 105
+Bin contents: 3.93722
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 105 - 120
+Bin contents: 1.11909
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 120 - 140
+Bin contents: 0.468936
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 140 - 160
+Bin contents: 0.146358
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 160 - 200
+Bin contents: 0.0789711
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 200 - 240
+Bin contents: 0.0165479
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 240 - 280
+Bin contents: 0.00511458
+
+Radius: 0.5
+Det level bin: 30 - 40
+Part level bin: 280 - 320
+Bin contents: 0.00197162
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.00432015
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.0680502
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 10 - 15
+Bin contents: 0.00778866
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 15 - 20
+Bin contents: 0.0535228
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 20 - 25
+Bin contents: 0.143918
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 25 - 30
+Bin contents: 0.609962
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 30 - 40
+Bin contents: 38.3326
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 40 - 50
+Bin contents: 671.587
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 50 - 60
+Bin contents: 603.868
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 60 - 75
+Bin contents: 245.274
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 75 - 90
+Bin contents: 41.0605
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 90 - 105
+Bin contents: 8.81739
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 105 - 120
+Bin contents: 2.32354
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 120 - 140
+Bin contents: 0.901893
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 140 - 160
+Bin contents: 0.274053
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 160 - 200
+Bin contents: 0.138621
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 200 - 240
+Bin contents: 0.0291727
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 240 - 280
+Bin contents: 0.008462
+
+Radius: 0.5
+Det level bin: 40 - 50
+Part level bin: 280 - 320
+Bin contents: 0.0033612
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0.000920721
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 0.00133132
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 10 - 15
+Bin contents: 0.00346758
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 15 - 20
+Bin contents: 0.00706592
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 20 - 25
+Bin contents: 0.00541113
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 25 - 30
+Bin contents: 0.021511
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 0.706006
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 40 - 50
+Bin contents: 14.3929
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 50 - 60
+Bin contents: 204.878
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 60 - 75
+Bin contents: 282.272
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 75 - 90
+Bin contents: 69.7282
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 90 - 105
+Bin contents: 15.7534
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 105 - 120
+Bin contents: 4.32908
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 120 - 140
+Bin contents: 1.54606
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 140 - 160
+Bin contents: 0.461175
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 160 - 200
+Bin contents: 0.228936
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 200 - 240
+Bin contents: 0.0455547
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 240 - 280
+Bin contents: 0.0117232
+
+Radius: 0.5
+Det level bin: 50 - 60
+Part level bin: 280 - 320
+Bin contents: 0.00423292
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 0 - 5
+Bin contents: 0.000615939
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 5 - 10
+Bin contents: 0.000770608
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 10 - 15
+Bin contents: 0.000547478
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 15 - 20
+Bin contents: 0.0010972
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 20 - 25
+Bin contents: 0.00056781
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 25 - 30
+Bin contents: 0.002027
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 30 - 40
+Bin contents: 0.0427035
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 40 - 50
+Bin contents: 0.735905
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 50 - 60
+Bin contents: 7.437
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 60 - 75
+Bin contents: 137.15
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 75 - 90
+Bin contents: 122.311
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 90 - 105
+Bin contents: 39.3561
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 105 - 120
+Bin contents: 11.8037
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 120 - 140
+Bin contents: 4.56552
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 140 - 160
+Bin contents: 1.23117
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 160 - 200
+Bin contents: 0.576669
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 200 - 240
+Bin contents: 0.109438
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 240 - 280
+Bin contents: 0.0294389
+
+Radius: 0.5
+Det level bin: 60 - 75
+Part level bin: 280 - 320
+Bin contents: 0.00986884
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 0 - 5
+Bin contents: 2.23901e-05
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 5 - 10
+Bin contents: 0.000168368
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 10 - 15
+Bin contents: 0.000118804
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 15 - 20
+Bin contents: 8.73788e-05
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 20 - 25
+Bin contents: 0.000237805
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 25 - 30
+Bin contents: 0.000145438
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 30 - 40
+Bin contents: 0.0265287
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 40 - 50
+Bin contents: 0.0824772
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 50 - 60
+Bin contents: 0.156452
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 60 - 75
+Bin contents: 3.29964
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 75 - 90
+Bin contents: 39.8951
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 90 - 105
+Bin contents: 41.5426
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 105 - 120
+Bin contents: 17.6386
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 120 - 140
+Bin contents: 7.72835
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 140 - 160
+Bin contents: 2.16067
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 160 - 200
+Bin contents: 1.009
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 200 - 240
+Bin contents: 0.172936
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 240 - 280
+Bin contents: 0.0445659
+
+Radius: 0.5
+Det level bin: 75 - 90
+Part level bin: 280 - 320
+Bin contents: 0.0142832
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 5 - 10
+Bin contents: 5.10592e-05
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 10 - 15
+Bin contents: 7.53074e-05
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 15 - 20
+Bin contents: 1.84063e-05
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 20 - 25
+Bin contents: 7.1111e-05
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 25 - 30
+Bin contents: 4.07964e-05
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 30 - 40
+Bin contents: 0.00034923
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 40 - 50
+Bin contents: 0.0011248
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 50 - 60
+Bin contents: 0.020793
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 60 - 75
+Bin contents: 0.157
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 75 - 90
+Bin contents: 1.20804
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 90 - 105
+Bin contents: 12.9305
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 105 - 120
+Bin contents: 15.5698
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 120 - 140
+Bin contents: 9.79434
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 140 - 160
+Bin contents: 3.23817
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 160 - 200
+Bin contents: 1.56913
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 200 - 240
+Bin contents: 0.268131
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 240 - 280
+Bin contents: 0.0645131
+
+Radius: 0.5
+Det level bin: 90 - 105
+Part level bin: 280 - 320
+Bin contents: 0.0203022
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 5 - 10
+Bin contents: 1.67549e-05
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 15 - 20
+Bin contents: 1.00288e-05
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 20 - 25
+Bin contents: 1.00288e-05
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 25 - 30
+Bin contents: 1.67549e-05
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 30 - 40
+Bin contents: 0.0631637
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 40 - 50
+Bin contents: 3.28229e-05
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 50 - 60
+Bin contents: 0.00203776
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 60 - 75
+Bin contents: 0.021995
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 75 - 90
+Bin contents: 0.0814739
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 90 - 105
+Bin contents: 0.642706
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 105 - 120
+Bin contents: 4.89064
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 120 - 140
+Bin contents: 8.22241
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 140 - 160
+Bin contents: 3.94663
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 160 - 200
+Bin contents: 2.15469
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 200 - 240
+Bin contents: 0.382823
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 240 - 280
+Bin contents: 0.0920427
+
+Radius: 0.5
+Det level bin: 105 - 120
+Part level bin: 280 - 320
+Bin contents: 0.027978
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 5 - 10
+Bin contents: 8.37747e-06
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 25 - 30
+Bin contents: 1.67549e-05
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 30 - 40
+Bin contents: 8.37747e-06
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 40 - 50
+Bin contents: 0.000284605
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 50 - 60
+Bin contents: 0.00058694
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 60 - 75
+Bin contents: 0.0124238
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 75 - 90
+Bin contents: 0.0215941
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 90 - 105
+Bin contents: 0.0358861
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 105 - 120
+Bin contents: 0.31636
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 120 - 140
+Bin contents: 3.37112
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 140 - 160
+Bin contents: 4.15813
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 160 - 200
+Bin contents: 3.36233
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 200 - 240
+Bin contents: 0.694074
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 240 - 280
+Bin contents: 0.17041
+
+Radius: 0.5
+Det level bin: 120 - 140
+Part level bin: 280 - 320
+Bin contents: 0.0521451
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 5 - 10
+Bin contents: 8.37747e-06
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 40 - 50
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 50 - 60
+Bin contents: 0.0126152
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 60 - 75
+Bin contents: 0.0038063
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 75 - 90
+Bin contents: 0.00688173
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 90 - 105
+Bin contents: 0.00720329
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 105 - 120
+Bin contents: 0.0237438
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 120 - 140
+Bin contents: 0.168802
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 140 - 160
+Bin contents: 1.20553
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 160 - 200
+Bin contents: 2.68342
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 200 - 240
+Bin contents: 0.862609
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 240 - 280
+Bin contents: 0.230819
+
+Radius: 0.5
+Det level bin: 140 - 160
+Part level bin: 280 - 320
+Bin contents: 0.0697672
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 40 - 50
+Bin contents: 1.86402e-05
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 50 - 60
+Bin contents: 0
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 60 - 75
+Bin contents: 4.56579e-05
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 75 - 90
+Bin contents: 0.00904952
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 90 - 105
+Bin contents: 0.00836056
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 105 - 120
+Bin contents: 0.00980486
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 120 - 140
+Bin contents: 0.0160624
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 140 - 160
+Bin contents: 0.0866205
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 160 - 200
+Bin contents: 1.39792
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 200 - 240
+Bin contents: 1.36452
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 240 - 280
+Bin contents: 0.544948
+
+Radius: 0.5
+Det level bin: 160 - 200
+Part level bin: 280 - 320
+Bin contents: 0.188415
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 0 - 5
+Bin contents: 36.455
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 5 - 10
+Bin contents: 2976.91
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 10 - 15
+Bin contents: 68710.4
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 15 - 20
+Bin contents: 16706.2
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 20 - 25
+Bin contents: 1768.95
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 25 - 30
+Bin contents: 259.685
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 30 - 40
+Bin contents: 58.9432
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 40 - 50
+Bin contents: 6.06934
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 50 - 60
+Bin contents: 1.2124
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 60 - 75
+Bin contents: 0.234378
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 75 - 90
+Bin contents: 0.0451089
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 90 - 105
+Bin contents: 0.0141258
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 105 - 120
+Bin contents: 0.00244021
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 120 - 140
+Bin contents: 0.00229855
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 140 - 160
+Bin contents: 0.00143062
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 160 - 200
+Bin contents: 0.000383138
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 200 - 240
+Bin contents: 4.83169e-05
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 240 - 280
+Bin contents: 2.51324e-05
+
+Radius: 0.6
+Det level bin: 10 - 12
+Part level bin: 280 - 320
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 0 - 5
+Bin contents: 5.52554
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 5 - 10
+Bin contents: 190.202
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 10 - 15
+Bin contents: 19028.8
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 15 - 20
+Bin contents: 18737.3
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 20 - 25
+Bin contents: 2981.48
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 25 - 30
+Bin contents: 406.264
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 30 - 40
+Bin contents: 106.09
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 40 - 50
+Bin contents: 9.73515
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 50 - 60
+Bin contents: 1.36114
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 60 - 75
+Bin contents: 0.408587
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 75 - 90
+Bin contents: 0.060677
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 90 - 105
+Bin contents: 0.0225888
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 105 - 120
+Bin contents: 0.00402821
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 120 - 140
+Bin contents: 0.00241991
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 140 - 160
+Bin contents: 0.00117863
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 160 - 200
+Bin contents: 0.000637994
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 200 - 240
+Bin contents: 0.00027588
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 240 - 280
+Bin contents: 4.47803e-05
+
+Radius: 0.6
+Det level bin: 12 - 14
+Part level bin: 280 - 320
+Bin contents: 1.67549e-05
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 0 - 5
+Bin contents: 0.00467565
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 5 - 10
+Bin contents: 12.2459
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 10 - 15
+Bin contents: 2419.82
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 15 - 20
+Bin contents: 13545.7
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 20 - 25
+Bin contents: 4117.67
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 25 - 30
+Bin contents: 727.917
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 30 - 40
+Bin contents: 195.113
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 40 - 50
+Bin contents: 15.6044
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 50 - 60
+Bin contents: 2.5409
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 60 - 75
+Bin contents: 0.62246
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 75 - 90
+Bin contents: 0.0756188
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 90 - 105
+Bin contents: 0.0285472
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 105 - 120
+Bin contents: 0.00765646
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 120 - 140
+Bin contents: 0.00442529
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 140 - 160
+Bin contents: 0.00172026
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 160 - 200
+Bin contents: 0.000916232
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 200 - 240
+Bin contents: 0.00035729
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 240 - 280
+Bin contents: 6.31866e-05
+
+Radius: 0.6
+Det level bin: 14 - 16
+Part level bin: 280 - 320
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 0 - 5
+Bin contents: 0.00404583
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 5 - 10
+Bin contents: 3.88054
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 10 - 15
+Bin contents: 187.639
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 15 - 20
+Bin contents: 5701.25
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 20 - 25
+Bin contents: 4579.36
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 25 - 30
+Bin contents: 999.879
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 30 - 40
+Bin contents: 291.02
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 40 - 50
+Bin contents: 21.854
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 50 - 60
+Bin contents: 3.54929
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 60 - 75
+Bin contents: 0.793007
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 75 - 90
+Bin contents: 0.168411
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 90 - 105
+Bin contents: 0.0422816
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 105 - 120
+Bin contents: 0.0134996
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 120 - 140
+Bin contents: 0.00552895
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 140 - 160
+Bin contents: 0.00251327
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 160 - 200
+Bin contents: 0.00107682
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 200 - 240
+Bin contents: 0.000464196
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 240 - 280
+Bin contents: 8.21475e-05
+
+Radius: 0.6
+Det level bin: 16 - 18
+Part level bin: 280 - 320
+Bin contents: 4.18874e-05
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 0 - 5
+Bin contents: 0.0123127
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 5 - 10
+Bin contents: 4.0378
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 10 - 15
+Bin contents: 29.5454
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 15 - 20
+Bin contents: 1153.36
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 20 - 25
+Bin contents: 3760.79
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 25 - 30
+Bin contents: 1291.45
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 30 - 40
+Bin contents: 412.554
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 40 - 50
+Bin contents: 38.1558
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 50 - 60
+Bin contents: 5.21148
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 60 - 75
+Bin contents: 1.34796
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 75 - 90
+Bin contents: 0.206935
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 90 - 105
+Bin contents: 0.0647257
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 105 - 120
+Bin contents: 0.0196213
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 120 - 140
+Bin contents: 0.00796137
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 140 - 160
+Bin contents: 0.00199236
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 160 - 200
+Bin contents: 0.00170696
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 200 - 240
+Bin contents: 0.000302506
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 240 - 280
+Bin contents: 6.15352e-05
+
+Radius: 0.6
+Det level bin: 18 - 20
+Part level bin: 280 - 320
+Bin contents: 5.59e-05
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 0 - 5
+Bin contents: 0.0044015
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 5 - 10
+Bin contents: 2.09807
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 10 - 15
+Bin contents: 9.86574
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 15 - 20
+Bin contents: 171.731
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 20 - 25
+Bin contents: 2825.15
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 25 - 30
+Bin contents: 3275.13
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 30 - 40
+Bin contents: 1560.53
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 40 - 50
+Bin contents: 157.483
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 50 - 60
+Bin contents: 24.0418
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 60 - 75
+Bin contents: 5.46388
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 75 - 90
+Bin contents: 0.832111
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 90 - 105
+Bin contents: 0.209337
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 105 - 120
+Bin contents: 0.0677162
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 120 - 140
+Bin contents: 0.0332809
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 140 - 160
+Bin contents: 0.00905904
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 160 - 200
+Bin contents: 0.00528908
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 200 - 240
+Bin contents: 0.00117129
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 240 - 280
+Bin contents: 0.000314472
+
+Radius: 0.6
+Det level bin: 20 - 25
+Part level bin: 280 - 320
+Bin contents: 0.00013419
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 0 - 5
+Bin contents: 0.00016364
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 5 - 10
+Bin contents: 0.0159029
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 10 - 15
+Bin contents: 0.300374
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 15 - 20
+Bin contents: 5.65715
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 20 - 25
+Bin contents: 61.7521
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 25 - 30
+Bin contents: 917.093
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 30 - 40
+Bin contents: 1786.23
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 40 - 50
+Bin contents: 299.667
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 50 - 60
+Bin contents: 45.0227
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 60 - 75
+Bin contents: 10.9528
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 75 - 90
+Bin contents: 1.67489
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 90 - 105
+Bin contents: 0.377976
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 105 - 120
+Bin contents: 0.108945
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 120 - 140
+Bin contents: 0.0490588
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 140 - 160
+Bin contents: 0.0168899
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 160 - 200
+Bin contents: 0.00634868
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 200 - 240
+Bin contents: 0.00201305
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 240 - 280
+Bin contents: 0.000625388
+
+Radius: 0.6
+Det level bin: 25 - 30
+Part level bin: 280 - 320
+Bin contents: 0.000201854
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 0 - 5
+Bin contents: 0.000682766
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 5 - 10
+Bin contents: 0.00365334
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 10 - 15
+Bin contents: 0.0527483
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 15 - 20
+Bin contents: 0.0268654
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 20 - 25
+Bin contents: 2.86254
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 25 - 30
+Bin contents: 29.5701
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 30 - 40
+Bin contents: 997.516
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 40 - 50
+Bin contents: 827.004
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 50 - 60
+Bin contents: 196.358
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 60 - 75
+Bin contents: 52.448
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 75 - 90
+Bin contents: 7.19101
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 90 - 105
+Bin contents: 1.45895
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 105 - 120
+Bin contents: 0.44157
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 120 - 140
+Bin contents: 0.176883
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 140 - 160
+Bin contents: 0.0514289
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 160 - 200
+Bin contents: 0.0286357
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 200 - 240
+Bin contents: 0.00607839
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 240 - 280
+Bin contents: 0.00189555
+
+Radius: 0.6
+Det level bin: 30 - 40
+Part level bin: 280 - 320
+Bin contents: 0.000661144
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 0 - 5
+Bin contents: 0.000325414
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 5 - 10
+Bin contents: 0.000157929
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 10 - 15
+Bin contents: 0.00189831
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 15 - 20
+Bin contents: 0.00214634
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 20 - 25
+Bin contents: 0.00446702
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 25 - 30
+Bin contents: 0.31796
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 30 - 40
+Bin contents: 10.7536
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 40 - 50
+Bin contents: 245.794
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 50 - 60
+Bin contents: 245.906
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 60 - 75
+Bin contents: 103.139
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 75 - 90
+Bin contents: 16.7939
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 90 - 105
+Bin contents: 3.4613
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 105 - 120
+Bin contents: 0.890117
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 120 - 140
+Bin contents: 0.338575
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 140 - 160
+Bin contents: 0.106821
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 160 - 200
+Bin contents: 0.0522179
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 200 - 240
+Bin contents: 0.010803
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 240 - 280
+Bin contents: 0.00316291
+
+Radius: 0.6
+Det level bin: 40 - 50
+Part level bin: 280 - 320
+Bin contents: 0.00122982
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 5 - 10
+Bin contents: 4.56579e-05
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 10 - 15
+Bin contents: 0.000262131
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 15 - 20
+Bin contents: 0.000117796
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 20 - 25
+Bin contents: 0.000337523
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 25 - 30
+Bin contents: 0.000176157
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 30 - 40
+Bin contents: 0.034048
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 40 - 50
+Bin contents: 5.10934
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 50 - 60
+Bin contents: 70.2254
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 60 - 75
+Bin contents: 113.257
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 75 - 90
+Bin contents: 28.4468
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 90 - 105
+Bin contents: 6.41943
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 105 - 120
+Bin contents: 1.77422
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 120 - 140
+Bin contents: 0.597924
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 140 - 160
+Bin contents: 0.169206
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 160 - 200
+Bin contents: 0.0885028
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 200 - 240
+Bin contents: 0.017404
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 240 - 280
+Bin contents: 0.00462736
+
+Radius: 0.6
+Det level bin: 50 - 60
+Part level bin: 280 - 320
+Bin contents: 0.00172636
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 5 - 10
+Bin contents: 3.07676e-05
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 10 - 15
+Bin contents: 0.000139365
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 15 - 20
+Bin contents: 2.67838e-05
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 20 - 25
+Bin contents: 1.67549e-05
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 25 - 30
+Bin contents: 4.91739e-05
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 30 - 40
+Bin contents: 0.0332206
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 40 - 50
+Bin contents: 0.158147
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 50 - 60
+Bin contents: 2.29304
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 60 - 75
+Bin contents: 48.549
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 75 - 90
+Bin contents: 48.4273
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 90 - 105
+Bin contents: 16.7034
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 105 - 120
+Bin contents: 4.83547
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 120 - 140
+Bin contents: 1.8035
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 140 - 160
+Bin contents: 0.485329
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 160 - 200
+Bin contents: 0.232828
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 200 - 240
+Bin contents: 0.0417338
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 240 - 280
+Bin contents: 0.0106094
+
+Radius: 0.6
+Det level bin: 60 - 75
+Part level bin: 280 - 320
+Bin contents: 0.00360321
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 0 - 5
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 5 - 10
+Bin contents: 5.6352e-06
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 10 - 15
+Bin contents: 1.00288e-05
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 15 - 20
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 20 - 25
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 25 - 30
+Bin contents: 5.6352e-06
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 30 - 40
+Bin contents: 0.0223032
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 40 - 50
+Bin contents: 0.00027593
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 50 - 60
+Bin contents: 0.0671986
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 60 - 75
+Bin contents: 0.916197
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 75 - 90
+Bin contents: 13.6402
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 90 - 105
+Bin contents: 16.2296
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 105 - 120
+Bin contents: 7.15134
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 120 - 140
+Bin contents: 3.1596
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 140 - 160
+Bin contents: 0.881245
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 160 - 200
+Bin contents: 0.396774
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 200 - 240
+Bin contents: 0.0674572
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 240 - 280
+Bin contents: 0.0171109
+
+Radius: 0.6
+Det level bin: 75 - 90
+Part level bin: 280 - 320
+Bin contents: 0.0052859
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 40 - 50
+Bin contents: 1.5664e-05
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 50 - 60
+Bin contents: 0.0173667
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 60 - 75
+Bin contents: 0.0326331
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 75 - 90
+Bin contents: 0.292181
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 90 - 105
+Bin contents: 4.37312
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 105 - 120
+Bin contents: 5.91015
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 120 - 140
+Bin contents: 3.88336
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 140 - 160
+Bin contents: 1.30759
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 160 - 200
+Bin contents: 0.633594
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 200 - 240
+Bin contents: 0.104983
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 240 - 280
+Bin contents: 0.0248736
+
+Radius: 0.6
+Det level bin: 90 - 105
+Part level bin: 280 - 320
+Bin contents: 0.00752847
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 40 - 50
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 50 - 60
+Bin contents: 0.00133558
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 60 - 75
+Bin contents: 0.00475609
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 75 - 90
+Bin contents: 0.0196281
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 90 - 105
+Bin contents: 0.158696
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 105 - 120
+Bin contents: 1.66865
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 120 - 140
+Bin contents: 3.11492
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 140 - 160
+Bin contents: 1.57913
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 160 - 200
+Bin contents: 0.854448
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 200 - 240
+Bin contents: 0.153344
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 240 - 280
+Bin contents: 0.034958
+
+Radius: 0.6
+Det level bin: 105 - 120
+Part level bin: 280 - 320
+Bin contents: 0.0107644
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 40 - 50
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 50 - 60
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 60 - 75
+Bin contents: 0.00807254
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 75 - 90
+Bin contents: 0.00831435
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 90 - 105
+Bin contents: 0.00759658
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 105 - 120
+Bin contents: 0.0900649
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 120 - 140
+Bin contents: 1.17425
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 140 - 160
+Bin contents: 1.56448
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 160 - 200
+Bin contents: 1.31782
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 200 - 240
+Bin contents: 0.27604
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 240 - 280
+Bin contents: 0.0654497
+
+Radius: 0.6
+Det level bin: 120 - 140
+Part level bin: 280 - 320
+Bin contents: 0.0208717
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 40 - 50
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 50 - 60
+Bin contents: 0.00327042
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 60 - 75
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 75 - 90
+Bin contents: 0.00328585
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 90 - 105
+Bin contents: 0.0028972
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 105 - 120
+Bin contents: 0.00775156
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 120 - 140
+Bin contents: 0.0458842
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 140 - 160
+Bin contents: 0.411067
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 160 - 200
+Bin contents: 1.00259
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 200 - 240
+Bin contents: 0.337873
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 240 - 280
+Bin contents: 0.0899719
+
+Radius: 0.6
+Det level bin: 140 - 160
+Part level bin: 280 - 320
+Bin contents: 0.0277392
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 0 - 5
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 5 - 10
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 10 - 15
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 15 - 20
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 20 - 25
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 25 - 30
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 30 - 40
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 40 - 50
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 50 - 60
+Bin contents: 0
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 60 - 75
+Bin contents: 8.37747e-06
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 75 - 90
+Bin contents: 0.00344874
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 90 - 105
+Bin contents: 0.00187077
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 105 - 120
+Bin contents: 0.00429998
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 120 - 140
+Bin contents: 0.00523382
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 140 - 160
+Bin contents: 0.0266514
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 160 - 200
+Bin contents: 0.483301
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 200 - 240
+Bin contents: 0.517044
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 240 - 280
+Bin contents: 0.211973
+
+Radius: 0.6
+Det level bin: 160 - 200
+Part level bin: 280 - 320
+Bin contents: 0.0720127
+

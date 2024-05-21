@@ -1,0 +1,4 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxtrackpt/bayes_pPb_MaxTrackPt125.root 125GeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxtrackpt/bayes_pPb_MaxTrackPt150.root 150GeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxtrackpt/bayes_pPb_MaxTrackPt175.root 175GeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxtrackpt/bayes_pPb_MaxTrackPt225.root 225GeV

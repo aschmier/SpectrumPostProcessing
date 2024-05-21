@@ -1,0 +1,4 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_triggerswap/bayes_pPb_HighTriggerSwapHigh.root (30GeV,60GeV)
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_triggerswap/bayes_pPb_HighTriggerSwapLow.root (30GeV,40GeV)
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_triggerswap/bayes_pPb_LowTriggerSwapHigh.root (35GeV,50GeV)
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_triggerswap/bayes_pPb_LowTriggerSwapLow.root (25GeV,50GeV)

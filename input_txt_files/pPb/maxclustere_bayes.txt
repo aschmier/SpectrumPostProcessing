@@ -1,0 +1,4 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxclustere/bayes_pPb_MaxClusterE125.root 125GeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxclustere/bayes_pPb_MaxClusterE150.root 150GeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxclustere/bayes_pPb_MaxClusterE175.root 175GeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_maxclustere/bayes_pPb_MaxClusterE225.root 225GeV

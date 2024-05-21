@@ -1,0 +1,2 @@
+/home/austin/alice/FinalResultsRootFiles/HEPData_ATLAS_8TeV/Table7_edit.tsv 6 atlas8TeVeta05
+/home/austin/alice/FinalResultsRootFiles/HEPData_ATLAS_8TeV/Table8_edit.tsv 6 atlas8TeVeta51

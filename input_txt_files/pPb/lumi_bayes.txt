@@ -1,0 +1,2 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_lumi/bayes_pPb_lumilow.root EJ2LumiVar
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_lumi/bayes_pPb_lumihigh.root EJ1LumiVar

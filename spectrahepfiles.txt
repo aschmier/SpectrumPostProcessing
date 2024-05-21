@@ -1,0 +1,3 @@
+/home/austin/alice/FinalResultsRootFiles/ATLAS_2p76TeV_R04_eta03/Table1.tsv 12 atlas2p76TeV
+/home/austin/alice/FinalResultsRootFiles/FileTooLarge/ATLAS_7TeV_R04/Table1.tsv 142 atlas7TeV
+/home/austin/alice/FinalResultsRootFiles/FileTooLarge/CMS_13TeV_R04/xsec_ybin1.tsv 64 cms13TeV

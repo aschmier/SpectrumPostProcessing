@@ -1,0 +1,10 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_default/svd_pPb_default.root SVDUnfolding
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_truncation/bayes_pPb_trunclowerloose.root TruncLowerLoose
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_truncation/bayes_pPb_trunclowerstrong.root TruncLowerStrong
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_truncation/bayes_pPb_truncupperloose.root TruncUpperLoose
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_truncation/bayes_pPb_truncupperstrong.root TruncUpperStrong
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_priors/bayes_pPb_priors.root PriorVariation
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_binvar/bayes_pPb_binvaroption1.root BinVarOption1
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_binvar/bayes_pPb_binvaroption2.root BinVarOption2
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_binvar/bayes_pPb_binvaroption3.root BinVarOption3
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_binvar/bayes_pPb_binvaroption4.root BinVarOption4

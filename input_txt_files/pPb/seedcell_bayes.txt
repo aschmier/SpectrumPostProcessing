@@ -1,0 +1,2 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_seedcell/bayes_pPb_S275C75.root Seed/Cell=275/75MeV
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_seedcell/bayes_pPb_S350C100.root Seed/Cell=350/100MeV

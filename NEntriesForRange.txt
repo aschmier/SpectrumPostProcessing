@@ -1,0 +1,574 @@
+
+Processing getNEntriesForRange.cxx("/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/INT7.root","/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/EMC7.root","/media/austin/mightymouse/data/pp8TeV_data/GA2423_default_final/EJE.root")...
+
+////////// INT7 ////////// R = 0.2 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 5 --> 10 has 311378 entries for trigger INT7
+Bin for pt 10 --> 15 has 29395 entries for trigger INT7
+Bin for pt 15 --> 20 has 7301 entries for trigger INT7
+Bin for pt 20 --> 25 has 2716 entries for trigger INT7
+Bin for pt 25 --> 30 has 1212 entries for trigger INT7
+Bin for pt 30 --> 40 has 876 entries for trigger INT7
+Bin for pt 40 --> 50 has 292 entries for trigger INT7
+Bin for pt 50 --> 60 has 114 entries for trigger INT7
+Bin for pt 60 --> 70 has 61 entries for trigger INT7
+Bin for pt 70 --> 80 has 32 entries for trigger INT7
+Low Statistics!
+Bin for pt 80 --> 90 has 5 entries for trigger INT7
+Low Statistics!
+Bin for pt 90 --> 100 has 12 entries for trigger INT7
+Low Statistics!
+Bin for pt 100 --> 110 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 110 --> 120 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 120 --> 130 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 130 --> 140 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 140 --> 160 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 160 --> 180 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 180 --> 200 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 200 --> 240 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 240 --> 280 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger INT7
+Low Statistics!
+
+////////// EMC7 ////////// R = 0.2 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 5 --> 10 has 3.11522e+06 entries for trigger EMC7
+Bin for pt 10 --> 15 has 460796 entries for trigger EMC7
+Bin for pt 15 --> 20 has 138815 entries for trigger EMC7
+Bin for pt 20 --> 25 has 54807 entries for trigger EMC7
+Bin for pt 25 --> 30 has 24835 entries for trigger EMC7
+Bin for pt 30 --> 40 has 19467 entries for trigger EMC7
+Bin for pt 40 --> 50 has 6563 entries for trigger EMC7
+Bin for pt 50 --> 60 has 2554 entries for trigger EMC7
+Bin for pt 60 --> 70 has 1084 entries for trigger EMC7
+Bin for pt 70 --> 80 has 517 entries for trigger EMC7
+Bin for pt 80 --> 90 has 280 entries for trigger EMC7
+Bin for pt 90 --> 100 has 165 entries for trigger EMC7
+Bin for pt 100 --> 110 has 84 entries for trigger EMC7
+Bin for pt 110 --> 120 has 54 entries for trigger EMC7
+Bin for pt 120 --> 130 has 46 entries for trigger EMC7
+Low Statistics!
+Bin for pt 130 --> 140 has 27 entries for trigger EMC7
+Low Statistics!
+Bin for pt 140 --> 160 has 32 entries for trigger EMC7
+Low Statistics!
+Bin for pt 160 --> 180 has 11 entries for trigger EMC7
+Low Statistics!
+Bin for pt 180 --> 200 has 6 entries for trigger EMC7
+Low Statistics!
+Bin for pt 200 --> 240 has 8 entries for trigger EMC7
+Low Statistics!
+Bin for pt 240 --> 280 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EMC7
+Low Statistics!
+
+////////// EJE ////////// R = 0.2 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EJE
+Low Statistics!
+Bin for pt 5 --> 10 has 910150 entries for trigger EJE
+Bin for pt 10 --> 15 has 943345 entries for trigger EJE
+Bin for pt 15 --> 20 has 670975 entries for trigger EJE
+Bin for pt 20 --> 25 has 402684 entries for trigger EJE
+Bin for pt 25 --> 30 has 234612 entries for trigger EJE
+Bin for pt 30 --> 40 has 217491 entries for trigger EJE
+Bin for pt 40 --> 50 has 81236 entries for trigger EJE
+Bin for pt 50 --> 60 has 33856 entries for trigger EJE
+Bin for pt 60 --> 70 has 15608 entries for trigger EJE
+Bin for pt 70 --> 80 has 7840 entries for trigger EJE
+Bin for pt 80 --> 90 has 4111 entries for trigger EJE
+Bin for pt 90 --> 100 has 2281 entries for trigger EJE
+Bin for pt 100 --> 110 has 1361 entries for trigger EJE
+Bin for pt 110 --> 120 has 847 entries for trigger EJE
+Bin for pt 120 --> 130 has 558 entries for trigger EJE
+Bin for pt 130 --> 140 has 342 entries for trigger EJE
+Bin for pt 140 --> 160 has 394 entries for trigger EJE
+Bin for pt 160 --> 180 has 171 entries for trigger EJE
+Bin for pt 180 --> 200 has 100 entries for trigger EJE
+Bin for pt 200 --> 240 has 91 entries for trigger EJE
+Bin for pt 240 --> 280 has 27 entries for trigger EJE
+Low Statistics!
+Bin for pt 280 --> 320 has 9 entries for trigger EJE
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EJE
+Low Statistics!
+
+////////// INT7 ////////// R = 0.3 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 5 --> 10 has 356730 entries for trigger INT7
+Bin for pt 10 --> 15 has 34803 entries for trigger INT7
+Bin for pt 15 --> 20 has 8440 entries for trigger INT7
+Bin for pt 20 --> 25 has 2938 entries for trigger INT7
+Bin for pt 25 --> 30 has 1254 entries for trigger INT7
+Bin for pt 30 --> 40 has 887 entries for trigger INT7
+Bin for pt 40 --> 50 has 273 entries for trigger INT7
+Bin for pt 50 --> 60 has 92 entries for trigger INT7
+Bin for pt 60 --> 70 has 52 entries for trigger INT7
+Bin for pt 70 --> 80 has 27 entries for trigger INT7
+Low Statistics!
+Bin for pt 80 --> 90 has 3 entries for trigger INT7
+Low Statistics!
+Bin for pt 90 --> 100 has 11 entries for trigger INT7
+Low Statistics!
+Bin for pt 100 --> 110 has 3 entries for trigger INT7
+Low Statistics!
+Bin for pt 110 --> 120 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 120 --> 130 has 3 entries for trigger INT7
+Low Statistics!
+Bin for pt 130 --> 140 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 140 --> 160 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 160 --> 180 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 180 --> 200 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 200 --> 240 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 240 --> 280 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger INT7
+Low Statistics!
+
+////////// EMC7 ////////// R = 0.3 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 5 --> 10 has 2.91419e+06 entries for trigger EMC7
+Bin for pt 10 --> 15 has 494896 entries for trigger EMC7
+Bin for pt 15 --> 20 has 148691 entries for trigger EMC7
+Bin for pt 20 --> 25 has 56570 entries for trigger EMC7
+Bin for pt 25 --> 30 has 25346 entries for trigger EMC7
+Bin for pt 30 --> 40 has 19045 entries for trigger EMC7
+Bin for pt 40 --> 50 has 6075 entries for trigger EMC7
+Bin for pt 50 --> 60 has 2333 entries for trigger EMC7
+Bin for pt 60 --> 70 has 1017 entries for trigger EMC7
+Bin for pt 70 --> 80 has 452 entries for trigger EMC7
+Bin for pt 80 --> 90 has 239 entries for trigger EMC7
+Bin for pt 90 --> 100 has 147 entries for trigger EMC7
+Bin for pt 100 --> 110 has 71 entries for trigger EMC7
+Bin for pt 110 --> 120 has 45 entries for trigger EMC7
+Low Statistics!
+Bin for pt 120 --> 130 has 38 entries for trigger EMC7
+Low Statistics!
+Bin for pt 130 --> 140 has 20 entries for trigger EMC7
+Low Statistics!
+Bin for pt 140 --> 160 has 24 entries for trigger EMC7
+Low Statistics!
+Bin for pt 160 --> 180 has 14 entries for trigger EMC7
+Low Statistics!
+Bin for pt 180 --> 200 has 4 entries for trigger EMC7
+Low Statistics!
+Bin for pt 200 --> 240 has 9 entries for trigger EMC7
+Low Statistics!
+Bin for pt 240 --> 280 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EMC7
+Low Statistics!
+
+////////// EJE ////////// R = 0.3 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EJE
+Low Statistics!
+Bin for pt 5 --> 10 has 351435 entries for trigger EJE
+Bin for pt 10 --> 15 has 488913 entries for trigger EJE
+Bin for pt 15 --> 20 has 506317 entries for trigger EJE
+Bin for pt 20 --> 25 has 346978 entries for trigger EJE
+Bin for pt 25 --> 30 has 213609 entries for trigger EJE
+Bin for pt 30 --> 40 has 201502 entries for trigger EJE
+Bin for pt 40 --> 50 has 73825 entries for trigger EJE
+Bin for pt 50 --> 60 has 30511 entries for trigger EJE
+Bin for pt 60 --> 70 has 13625 entries for trigger EJE
+Bin for pt 70 --> 80 has 6765 entries for trigger EJE
+Bin for pt 80 --> 90 has 3505 entries for trigger EJE
+Bin for pt 90 --> 100 has 1951 entries for trigger EJE
+Bin for pt 100 --> 110 has 1147 entries for trigger EJE
+Bin for pt 110 --> 120 has 712 entries for trigger EJE
+Bin for pt 120 --> 130 has 452 entries for trigger EJE
+Bin for pt 130 --> 140 has 298 entries for trigger EJE
+Bin for pt 140 --> 160 has 299 entries for trigger EJE
+Bin for pt 160 --> 180 has 155 entries for trigger EJE
+Bin for pt 180 --> 200 has 66 entries for trigger EJE
+Bin for pt 200 --> 240 has 77 entries for trigger EJE
+Bin for pt 240 --> 280 has 22 entries for trigger EJE
+Low Statistics!
+Bin for pt 280 --> 320 has 6 entries for trigger EJE
+Low Statistics!
+Bin for pt 320 --> 600 has 1 entries for trigger EJE
+Low Statistics!
+
+////////// INT7 ////////// R = 0.4 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 5 --> 10 has 353015 entries for trigger INT7
+Bin for pt 10 --> 15 has 34407 entries for trigger INT7
+Bin for pt 15 --> 20 has 7696 entries for trigger INT7
+Bin for pt 20 --> 25 has 2584 entries for trigger INT7
+Bin for pt 25 --> 30 has 1088 entries for trigger INT7
+Bin for pt 30 --> 40 has 706 entries for trigger INT7
+Bin for pt 40 --> 50 has 230 entries for trigger INT7
+Bin for pt 50 --> 60 has 74 entries for trigger INT7
+Bin for pt 60 --> 70 has 38 entries for trigger INT7
+Low Statistics!
+Bin for pt 70 --> 80 has 16 entries for trigger INT7
+Low Statistics!
+Bin for pt 80 --> 90 has 5 entries for trigger INT7
+Low Statistics!
+Bin for pt 90 --> 100 has 4 entries for trigger INT7
+Low Statistics!
+Bin for pt 100 --> 110 has 5 entries for trigger INT7
+Low Statistics!
+Bin for pt 110 --> 120 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 120 --> 130 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 130 --> 140 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 140 --> 160 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 160 --> 180 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 180 --> 200 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 200 --> 240 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 240 --> 280 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger INT7
+Low Statistics!
+
+////////// EMC7 ////////// R = 0.4 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 5 --> 10 has 2.3141e+06 entries for trigger EMC7
+Bin for pt 10 --> 15 has 433355 entries for trigger EMC7
+Bin for pt 15 --> 20 has 128250 entries for trigger EMC7
+Bin for pt 20 --> 25 has 47644 entries for trigger EMC7
+Bin for pt 25 --> 30 has 20704 entries for trigger EMC7
+Bin for pt 30 --> 40 has 15424 entries for trigger EMC7
+Bin for pt 40 --> 50 has 4781 entries for trigger EMC7
+Bin for pt 50 --> 60 has 1794 entries for trigger EMC7
+Bin for pt 60 --> 70 has 775 entries for trigger EMC7
+Bin for pt 70 --> 80 has 338 entries for trigger EMC7
+Bin for pt 80 --> 90 has 189 entries for trigger EMC7
+Bin for pt 90 --> 100 has 111 entries for trigger EMC7
+Bin for pt 100 --> 110 has 61 entries for trigger EMC7
+Bin for pt 110 --> 120 has 37 entries for trigger EMC7
+Low Statistics!
+Bin for pt 120 --> 130 has 32 entries for trigger EMC7
+Low Statistics!
+Bin for pt 130 --> 140 has 9 entries for trigger EMC7
+Low Statistics!
+Bin for pt 140 --> 160 has 16 entries for trigger EMC7
+Low Statistics!
+Bin for pt 160 --> 180 has 10 entries for trigger EMC7
+Low Statistics!
+Bin for pt 180 --> 200 has 5 entries for trigger EMC7
+Low Statistics!
+Bin for pt 200 --> 240 has 4 entries for trigger EMC7
+Low Statistics!
+Bin for pt 240 --> 280 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 280 --> 320 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EMC7
+Low Statistics!
+
+////////// EJE ////////// R = 0.4 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EJE
+Low Statistics!
+Bin for pt 5 --> 10 has 161364 entries for trigger EJE
+Bin for pt 10 --> 15 has 220133 entries for trigger EJE
+Bin for pt 15 --> 20 has 305906 entries for trigger EJE
+Bin for pt 20 --> 25 has 237479 entries for trigger EJE
+Bin for pt 25 --> 30 has 156421 entries for trigger EJE
+Bin for pt 30 --> 40 has 152567 entries for trigger EJE
+Bin for pt 40 --> 50 has 57159 entries for trigger EJE
+Bin for pt 50 --> 60 has 23392 entries for trigger EJE
+Bin for pt 60 --> 70 has 10503 entries for trigger EJE
+Bin for pt 70 --> 80 has 5155 entries for trigger EJE
+Bin for pt 80 --> 90 has 2689 entries for trigger EJE
+Bin for pt 90 --> 100 has 1462 entries for trigger EJE
+Bin for pt 100 --> 110 has 878 entries for trigger EJE
+Bin for pt 110 --> 120 has 538 entries for trigger EJE
+Bin for pt 120 --> 130 has 341 entries for trigger EJE
+Bin for pt 130 --> 140 has 243 entries for trigger EJE
+Bin for pt 140 --> 160 has 198 entries for trigger EJE
+Bin for pt 160 --> 180 has 113 entries for trigger EJE
+Bin for pt 180 --> 200 has 56 entries for trigger EJE
+Bin for pt 200 --> 240 has 54 entries for trigger EJE
+Bin for pt 240 --> 280 has 18 entries for trigger EJE
+Low Statistics!
+Bin for pt 280 --> 320 has 3 entries for trigger EJE
+Low Statistics!
+Bin for pt 320 --> 600 has 1 entries for trigger EJE
+Low Statistics!
+
+////////// INT7 ////////// R = 0.5 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 5 --> 10 has 270294 entries for trigger INT7
+Bin for pt 10 --> 15 has 27285 entries for trigger INT7
+Bin for pt 15 --> 20 has 5744 entries for trigger INT7
+Bin for pt 20 --> 25 has 1732 entries for trigger INT7
+Bin for pt 25 --> 30 has 741 entries for trigger INT7
+Bin for pt 30 --> 40 has 469 entries for trigger INT7
+Bin for pt 40 --> 50 has 145 entries for trigger INT7
+Bin for pt 50 --> 60 has 40 entries for trigger INT7
+Low Statistics!
+Bin for pt 60 --> 70 has 25 entries for trigger INT7
+Low Statistics!
+Bin for pt 70 --> 80 has 14 entries for trigger INT7
+Low Statistics!
+Bin for pt 80 --> 90 has 4 entries for trigger INT7
+Low Statistics!
+Bin for pt 90 --> 100 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 100 --> 110 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 110 --> 120 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 120 --> 130 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 130 --> 140 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 140 --> 160 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 160 --> 180 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 180 --> 200 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 200 --> 240 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 240 --> 280 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger INT7
+Low Statistics!
+
+////////// EMC7 ////////// R = 0.5 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 5 --> 10 has 1.37885e+06 entries for trigger EMC7
+Bin for pt 10 --> 15 has 293614 entries for trigger EMC7
+Bin for pt 15 --> 20 has 85321 entries for trigger EMC7
+Bin for pt 20 --> 25 has 30892 entries for trigger EMC7
+Bin for pt 25 --> 30 has 13028 entries for trigger EMC7
+Bin for pt 30 --> 40 has 9403 entries for trigger EMC7
+Bin for pt 40 --> 50 has 2784 entries for trigger EMC7
+Bin for pt 50 --> 60 has 1059 entries for trigger EMC7
+Bin for pt 60 --> 70 has 453 entries for trigger EMC7
+Bin for pt 70 --> 80 has 196 entries for trigger EMC7
+Bin for pt 80 --> 90 has 102 entries for trigger EMC7
+Bin for pt 90 --> 100 has 61 entries for trigger EMC7
+Bin for pt 100 --> 110 has 31 entries for trigger EMC7
+Low Statistics!
+Bin for pt 110 --> 120 has 24 entries for trigger EMC7
+Low Statistics!
+Bin for pt 120 --> 130 has 11 entries for trigger EMC7
+Low Statistics!
+Bin for pt 130 --> 140 has 8 entries for trigger EMC7
+Low Statistics!
+Bin for pt 140 --> 160 has 7 entries for trigger EMC7
+Low Statistics!
+Bin for pt 160 --> 180 has 4 entries for trigger EMC7
+Low Statistics!
+Bin for pt 180 --> 200 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 200 --> 240 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 240 --> 280 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EMC7
+Low Statistics!
+
+////////// EJE ////////// R = 0.5 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EJE
+Low Statistics!
+Bin for pt 5 --> 10 has 66778 entries for trigger EJE
+Bin for pt 10 --> 15 has 78262 entries for trigger EJE
+Bin for pt 15 --> 20 has 137601 entries for trigger EJE
+Bin for pt 20 --> 25 has 121221 entries for trigger EJE
+Bin for pt 25 --> 30 has 84611 entries for trigger EJE
+Bin for pt 30 --> 40 has 86055 entries for trigger EJE
+Bin for pt 40 --> 50 has 32920 entries for trigger EJE
+Bin for pt 50 --> 60 has 13521 entries for trigger EJE
+Bin for pt 60 --> 70 has 5925 entries for trigger EJE
+Bin for pt 70 --> 80 has 2984 entries for trigger EJE
+Bin for pt 80 --> 90 has 1453 entries for trigger EJE
+Bin for pt 90 --> 100 has 820 entries for trigger EJE
+Bin for pt 100 --> 110 has 487 entries for trigger EJE
+Bin for pt 110 --> 120 has 286 entries for trigger EJE
+Bin for pt 120 --> 130 has 207 entries for trigger EJE
+Bin for pt 130 --> 140 has 124 entries for trigger EJE
+Bin for pt 140 --> 160 has 116 entries for trigger EJE
+Bin for pt 160 --> 180 has 43 entries for trigger EJE
+Low Statistics!
+Bin for pt 180 --> 200 has 25 entries for trigger EJE
+Low Statistics!
+Bin for pt 200 --> 240 has 30 entries for trigger EJE
+Low Statistics!
+Bin for pt 240 --> 280 has 6 entries for trigger EJE
+Low Statistics!
+Bin for pt 280 --> 320 has 2 entries for trigger EJE
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EJE
+Low Statistics!
+
+////////// INT7 ////////// R = 0.6 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 5 --> 10 has 134840 entries for trigger INT7
+Bin for pt 10 --> 15 has 14923 entries for trigger INT7
+Bin for pt 15 --> 20 has 3086 entries for trigger INT7
+Bin for pt 20 --> 25 has 868 entries for trigger INT7
+Bin for pt 25 --> 30 has 342 entries for trigger INT7
+Bin for pt 30 --> 40 has 212 entries for trigger INT7
+Bin for pt 40 --> 50 has 49 entries for trigger INT7
+Low Statistics!
+Bin for pt 50 --> 60 has 21 entries for trigger INT7
+Low Statistics!
+Bin for pt 60 --> 70 has 11 entries for trigger INT7
+Low Statistics!
+Bin for pt 70 --> 80 has 5 entries for trigger INT7
+Low Statistics!
+Bin for pt 80 --> 90 has 2 entries for trigger INT7
+Low Statistics!
+Bin for pt 90 --> 100 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 100 --> 110 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 110 --> 120 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 120 --> 130 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 130 --> 140 has 1 entries for trigger INT7
+Low Statistics!
+Bin for pt 140 --> 160 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 160 --> 180 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 180 --> 200 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 200 --> 240 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 240 --> 280 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger INT7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger INT7
+Low Statistics!
+
+////////// EMC7 ////////// R = 0.6 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 5 --> 10 has 531689 entries for trigger EMC7
+Bin for pt 10 --> 15 has 133340 entries for trigger EMC7
+Bin for pt 15 --> 20 has 39031 entries for trigger EMC7
+Bin for pt 20 --> 25 has 13764 entries for trigger EMC7
+Bin for pt 25 --> 30 has 5676 entries for trigger EMC7
+Bin for pt 30 --> 40 has 3817 entries for trigger EMC7
+Bin for pt 40 --> 50 has 1135 entries for trigger EMC7
+Bin for pt 50 --> 60 has 396 entries for trigger EMC7
+Bin for pt 60 --> 70 has 164 entries for trigger EMC7
+Bin for pt 70 --> 80 has 82 entries for trigger EMC7
+Bin for pt 80 --> 90 has 35 entries for trigger EMC7
+Low Statistics!
+Bin for pt 90 --> 100 has 15 entries for trigger EMC7
+Low Statistics!
+Bin for pt 100 --> 110 has 8 entries for trigger EMC7
+Low Statistics!
+Bin for pt 110 --> 120 has 8 entries for trigger EMC7
+Low Statistics!
+Bin for pt 120 --> 130 has 3 entries for trigger EMC7
+Low Statistics!
+Bin for pt 130 --> 140 has 3 entries for trigger EMC7
+Low Statistics!
+Bin for pt 140 --> 160 has 4 entries for trigger EMC7
+Low Statistics!
+Bin for pt 160 --> 180 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 180 --> 200 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 200 --> 240 has 1 entries for trigger EMC7
+Low Statistics!
+Bin for pt 240 --> 280 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 280 --> 320 has 0 entries for trigger EMC7
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EMC7
+Low Statistics!
+
+////////// EJE ////////// R = 0.6 //////////
+
+Bin for pt 0 --> 5 has 0 entries for trigger EJE
+Low Statistics!
+Bin for pt 5 --> 10 has 18331 entries for trigger EJE
+Bin for pt 10 --> 15 has 22097 entries for trigger EJE
+Bin for pt 15 --> 20 has 43666 entries for trigger EJE
+Bin for pt 20 --> 25 has 42591 entries for trigger EJE
+Bin for pt 25 --> 30 has 30842 entries for trigger EJE
+Bin for pt 30 --> 40 has 32632 entries for trigger EJE
+Bin for pt 40 --> 50 has 12493 entries for trigger EJE
+Bin for pt 50 --> 60 has 5073 entries for trigger EJE
+Bin for pt 60 --> 70 has 2221 entries for trigger EJE
+Bin for pt 70 --> 80 has 1139 entries for trigger EJE
+Bin for pt 80 --> 90 has 514 entries for trigger EJE
+Bin for pt 90 --> 100 has 286 entries for trigger EJE
+Bin for pt 100 --> 110 has 177 entries for trigger EJE
+Bin for pt 110 --> 120 has 103 entries for trigger EJE
+Bin for pt 120 --> 130 has 74 entries for trigger EJE
+Bin for pt 130 --> 140 has 33 entries for trigger EJE
+Low Statistics!
+Bin for pt 140 --> 160 has 43 entries for trigger EJE
+Low Statistics!
+Bin for pt 160 --> 180 has 12 entries for trigger EJE
+Low Statistics!
+Bin for pt 180 --> 200 has 12 entries for trigger EJE
+Low Statistics!
+Bin for pt 200 --> 240 has 11 entries for trigger EJE
+Low Statistics!
+Bin for pt 240 --> 280 has 2 entries for trigger EJE
+Low Statistics!
+Bin for pt 280 --> 320 has 1 entries for trigger EJE
+Low Statistics!
+Bin for pt 320 --> 600 has 0 entries for trigger EJE
+Low Statistics!

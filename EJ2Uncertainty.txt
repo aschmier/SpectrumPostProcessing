@@ -1,0 +1,37 @@
+
+Processing getTriggerLuminosity.cxx("EJ2")...
+Getting luminosity for EJ2
+122
+124
+126
+128
+EmcalTriggerNormNormalizationpPb
+TKey
+132
+134
+136
+138
+Auto-detected year 2016
+Auto-detected collsion system p-Pb, 8.16 TeV
+140
+Correction CENTNOPMD: 1.02467
+Correction CENTNOTRD: 1.2047
+Combined Correction:  1.23442
+Trigger class INT7: raw counts 3.35877e+07, corrected counts 3.35877e+07, luminosity 1.60707e-05 pb-1
+Trigger class EMC7: raw counts 2.69262e+08, corrected counts 2.75905e+08, luminosity 0.000132012 pb-1
+Trigger class EG1: raw counts 2.33955e+09, corrected counts 2.88799e+09, luminosity 0.00138182 pb-1
+Trigger class EG2: raw counts 1.54753e+08, corrected counts 1.58571e+08, luminosity 7.58714e-05 pb-1
+Trigger class EJ1: raw counts 2.33955e+09, corrected counts 2.88799e+09, luminosity 0.00138182 pb-1
+Trigger class EJ2: raw counts 1.54753e+08, corrected counts 1.58571e+08, luminosity 7.58714e-05 pb-1
+Trigger class DMC7: raw counts 2.69262e+08, corrected counts 2.75905e+08, luminosity 0.000132012 pb-1
+Trigger class DG1: raw counts 2.33955e+09, corrected counts 2.88799e+09, luminosity 0.00138182 pb-1
+Trigger class DG2: raw counts 1.54753e+08, corrected counts 1.58571e+08, luminosity 7.58714e-05 pb-1
+Trigger class DJ1: raw counts 2.33955e+09, corrected counts 2.88799e+09, luminosity 0.00138182 pb-1
+Trigger class DJ2: raw counts 1.54753e+08, corrected counts 1.58571e+08, luminosity 7.58714e-05 pb-1
+Trigger class EDMC7: raw counts 2.69262e+08, corrected counts 2.75905e+08, luminosity 0.000132012 pb-1
+Trigger class EDG1: raw counts 2.33955e+09, corrected counts 2.88799e+09, luminosity 0.00138182 pb-1
+Trigger class EDG2: raw counts 1.54753e+08, corrected counts 1.58571e+08, luminosity 7.58714e-05 pb-1
+Trigger class EDJ1: raw counts 2.33955e+09, corrected counts 2.88799e+09, luminosity 0.00138182 pb-1
+Trigger class EDJ2: raw counts 1.54753e+08, corrected counts 1.58571e+08, luminosity 7.58714e-05 pb-1
+//////////////////////////////////////
+0.927477

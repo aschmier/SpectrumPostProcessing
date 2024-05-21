@@ -1,0 +1,3 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_hadcorr/bayes_pPb_F07.root F=0.7
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_hadcorr/bayes_pPb_MIP.root MIP
+
