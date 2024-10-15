@@ -11,7 +11,7 @@
 
 //namespace fs = std::filesystem;
 
-void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, TString type, Int_t radius, TString fileType, TString out, TString rootfileoutpp, TString rootfileout, TString inputtxtfilespp, TString inputtxtfilespPb)
+void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, TString fDefaultRhoScalepp, TString fDefaultRhoScalepPb, TString type, Int_t radius, TString fileType, TString out, TString rootfileoutpp, TString rootfileout, TString inputtxtfilespp, TString inputtxtfilespPb)
 {
     //////////////////////////// Define Variables //////////////////////////////
 
@@ -31,7 +31,7 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 7;
+    int varNSys = 9;
     const int nSys = varNSys;
     vector<TString> plot_names;
     vector<TString> systematics_names;
@@ -48,12 +48,12 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
    // gSystem->Exec("mkdir -p "+outputDirRootFile);
 
-    plot_names.insert(plot_names.end(), {"Q/pT Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency"});
-    systematics_names.insert(systematics_names.end(), {"qpt","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","trackeff"});
-    variation_original.insert(variation_original.end(), {"NoShift","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%"});
-    if(radius == 3) fitfunc.insert(fitfunc.end(), {"pol1","pol0","pol0","pol0","pol0","pol0","pol1"});
-    if(radius == 4) fitfunc.insert(fitfunc.end(), {"pol1","pol0","pol0","pol0","pol0","pol0","pol0"});
-    else fitfunc.insert(fitfunc.end(), {"pol1","pol0","pol0","pol0","pol0","pol0","pol0"});
+    plot_names.insert(plot_names.end(), {"Q/pT Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","RhoScale","Embedding"});
+    systematics_names.insert(systematics_names.end(), {"qpt","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","trackeff","rhoscale","embedding"});
+    variation_original.insert(variation_original.end(), {"NoShift","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","Default","RandomCones"});
+    if(radius == 3) fitfunc.insert(fitfunc.end(), {"binwise","pol0","pol0","pol0","pol0","pol0","pol1","pol0","binwise"});
+    if(radius == 4) fitfunc.insert(fitfunc.end(), {"binwise","pol0","pol0","pol0","pol0","pol0","pol0","pol0","binwise"});
+    else fitfunc.insert(fitfunc.end(), {"binwise","pol0","pol0","pol0","pol0","pol0","pol0","pol0","binwise"});
 
 
 
@@ -96,11 +96,11 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
     }
     TH1D *sysUnfoldingpPb   = (TH1D*)fSyspPb->Get("smooth_allunfolding");
     TH1D *sysTriggerSwappPb = (TH1D*)fSyspPb->Get("smooth_triggerswap");
-    TH1D *sysEmbeddingpPb   = (TH1D*)fSyspPb->Get("smooth_embedding");
+    //TH1D *sysEmbeddingpPb   = (TH1D*)fSyspPb->Get("smooth_embedding");
     TH1D *sysLumiScalingpPb = (TH1D*)fSyspPb->Get("smooth_lumi");
     sysUnfoldingpPb->SetMarkerColor(colors[11]);
     sysTriggerSwappPb->SetMarkerColor(colors[10]);
-    sysEmbeddingpPb->SetMarkerColor(colors[9]);
+    //sysEmbeddingpPb->SetMarkerColor(colors[9]);
     sysLumiScalingpPb->SetMarkerColor(colors[8]);
 
 
@@ -113,9 +113,19 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
         return;
     }
 
+    TFile *fChDefpp = TFile::Open(fDefaultRhoScalepp);
+    if(!fChDefpp || fChDefpp->IsZombie()){
+        cout << "Default pp file not found!" << endl;
+        return;
+    }
+
     TDirectory *dRadOrigpp = (TDirectory*)fOrigpp->Get(Form("R0%i",radius));
     TDirectory *dRegOrigpp    = (TDirectory*)dRadOrigpp->Get(Form("reg%i",regnumBayes));
     TH1D *normUnfoldedOrigpp = (TH1D*)dRegOrigpp->Get(Form("normalized_reg%i",regnumBayes));
+
+    TDirectory *dRadChDefpp = (TDirectory*)fChDefpp->Get(Form("R0%i",radius));
+    TDirectory *dRegChDefpp    = (TDirectory*)dRadChDefpp->Get(Form("reg%i",regnumBayes));
+    TH1D *normUnfoldedChDefpp = (TH1D*)dRegChDefpp->Get(Form("normalized_reg%i",regnumBayes));
 
     // Open the default file and get default histogram
     TFile *fOrigpPb = TFile::Open(fSysConfigpPb);
@@ -124,12 +134,25 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
         return;
     }
 
+    TFile *fChDefpPb = TFile::Open(fDefaultRhoScalepPb);
+    if(!fChDefpPb || fChDefpPb->IsZombie()){
+        cout << "Default pPb file not found!" << endl;
+        return;
+    }
+
     TDirectory *dRadOrigpPb = (TDirectory*)fOrigpPb->Get(Form("R0%i",radius));
     TDirectory *dRegOrigpPb    = (TDirectory*)dRadOrigpPb->Get(Form("reg%i",regnumBayes));
     TH1D *normUnfoldedOrigpPb = (TH1D*)dRegOrigpPb->Get(Form("normalized_reg%i",regnumBayes));
 
+    TDirectory *dRadChDefpPb = (TDirectory*)fChDefpPb->Get(Form("R0%i",radius));
+    TDirectory *dRegChDefpPb    = (TDirectory*)dRadChDefpPb->Get(Form("reg%i",regnumBayes));
+    TH1D *normUnfoldedChDefpPb = (TH1D*)dRegChDefpPb->Get(Form("normalized_reg%i",regnumBayes));
+
     TH1D *ratioOrig = (TH1D*)normUnfoldedOrigpPb->Clone("ratioOrig");
     ratioOrig->Divide(normUnfoldedOrigpPb,normUnfoldedOrigpp);
+
+    TH1D *ratioOrigCh = (TH1D*)normUnfoldedChDefpPb->Clone("ratioChDef");
+    ratioOrigCh->Divide(normUnfoldedChDefpPb,normUnfoldedChDefpp);
 
     // Save the file names and variations for each uncertainty into vectors
     for(int name=0; name<nSys; name++){
@@ -139,7 +162,7 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
         TString sfile, var;
 
         while(sysfile >> sfile >> var){
-            sfile = "unfolding/results_pp/" + sfile;
+            sfile = "unfolding/results_pp_pPbBinning/" + sfile;
             filespp[name].push_back(sfile);
             variations[name].push_back(var);
         }
@@ -239,9 +262,9 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
 
         // Format and plot systematics
         for(int j = 0; j < syshistos[name].size(); j++){
-            TH1D *sysRatio;
-            sysRatio = (TH1D*)ratioOrig->Clone(Form("syshist_%i",j));
-            sysRatio->Divide(syshistos[name].at(j),ratioOrig,1,1,"B");
+            TH1D *sysRatio = (TH1D*)ratioOrig->Clone(Form("syshist_%i",j));
+            if(systematics_names[name].Contains("rhoscale") || systematics_names[name].Contains("embedding")) sysRatio->Divide(syshistos[name].at(j),ratioOrigCh,1,1,"B");
+            else sysRatio->Divide(syshistos[name].at(j),ratioOrig,1,1,"B");
             sysRatio->SetMarkerStyle(stylesfilled[j+1]);
             sysRatio->SetLineColor(colors[j+1]);
             sysRatio->SetLineWidth(2);
@@ -375,9 +398,12 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
             else if(fitfunc[name] == "pol3") sysFit = (TF1*)pol3->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "pol4") sysFit = (TF1*)pol4->Clone(Form("sysfit_%i",name));
             else if(fitfunc[name] == "exp0") sysFit = (TF1*)exp0->Clone(Form("sysfit_%i",name));
-            else if(fitfunc[name] == "binwise") cout << "Using binwise errors for " << systematics_names[name] << endl;
+            else if(fitfunc[name] == "binwise"){
+                cout << "Using binwise errors for " << systematics_names[name] << endl;
+                sysFit = NULL;
+            }
             else{ cout << "Invalid fit function!" << endl; return; }
-            sysFit->SetLineColor((Color_t)colors[name+1]);
+            if(fitfunc[name] != "binwise") sysFit->SetLineColor((Color_t)colors[name+1]);
 
             smooth = (TH1D*)sysAvg->Clone(Form("smooth_%s",systematics_names[name].Data()));
             if(fitfunc[name] != "binwise"){
@@ -424,7 +450,7 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
     else sysUpperRange = 45;
 
     //.12,.63
-    legend =  GetAndSetLegend2(0.5,0.57,.93,0.57-((nSys+2)*1.5*textSize)/2,textSize,2);
+    legend =  GetAndSetLegend2(0.5,0.93,.93,0.93-((nSys+2)*1.5*textSize)/2,textSize,2);
     TH1D *hTotal = (TH1D*)vecSys.at(0)->Clone("hTotal");
     hTotal->GetYaxis()->SetRangeUser(0,sysUpperRange);
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){
@@ -448,7 +474,7 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
         }
     }
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){
-        hTotal->SetBinContent(j,hTotal->GetBinContent(j) + pow(sysUnfoldingpp->GetBinContent(j),2) + pow(sysTriggerSwappp->GetBinContent(j),2) + pow(sysUnfoldingpPb->GetBinContent(j),2) + pow(sysTriggerSwappPb->GetBinContent(j),2) + pow(sysRFFitpp->GetBinContent(j),2) + pow(sysEmbeddingpPb->GetBinContent(j),2) + pow(sysLumiScalingpPb->GetBinContent(j),2));
+        hTotal->SetBinContent(j,hTotal->GetBinContent(j) + pow(sysUnfoldingpp->GetBinContent(j),2) + pow(sysTriggerSwappp->GetBinContent(j),2) + pow(sysUnfoldingpPb->GetBinContent(j),2) + pow(sysTriggerSwappPb->GetBinContent(j),2) + pow(sysRFFitpp->GetBinContent(j),2) /*+ pow(sysEmbeddingpPb->GetBinContent(j),2)*/ + pow(sysLumiScalingpPb->GetBinContent(j),2));
         hTotal->SetBinContent(j,sqrt(hTotal->GetBinContent(j)));
     }
     hTotal->SetMarkerStyle(stylesfilled[0]);
@@ -462,14 +488,14 @@ void plotSystematicsCorrelatedRpPb(TString fSysConfigpp, TString fSysConfigpPb, 
     sysRFFitpp->Draw("p,same");
     sysUnfoldingpPb->Draw("p,same");
     sysTriggerSwappPb->Draw("p,same");
-    sysEmbeddingpPb->Draw("p,same");
+    //sysEmbeddingpPb->Draw("p,same");
     sysLumiScalingpPb->Draw("p,same");
     legend->AddEntry(hTotal, "Total Sys. Unc.", "p");
     legend->AddEntry(sysUnfoldingpp, "Unfolding, pp", "p");
     legend->AddEntry(sysUnfoldingpPb, "Unfolding, p--Pb", "p");
     legend->AddEntry(sysTriggerSwappp, "Trigger Swap, pp", "p");
     legend->AddEntry(sysTriggerSwappPb, "Trigger Swap, p--Pb", "p");
-    legend->AddEntry(sysEmbeddingpPb, "Embedding, p--Pb", "p");
+    //legend->AddEntry(sysEmbeddingpPb, "Embedding, p--Pb", "p");
     legend->AddEntry(sysLumiScalingpPb, "Lumi Scaling, p--Pb", "p");
     legend->AddEntry(sysRFFitpp, "RF Fit, pp", "p");
     legend->Draw();

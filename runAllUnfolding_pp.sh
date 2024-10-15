@@ -1,43 +1,48 @@
 #!/bin/bash
 
 # Train runs
-booldefaultbayes=true
+booldefaultbayesnobgsub=false
+booldefaultbayesfullrho=false
+booldefaultbayeschargedrho=false
 booldefaultsvd=false
-boolbinvar1=true
-boolbinvar2=true
-boolbinvar3=true
-boolbinvar4=true
-boolpriors=true
-boollowerloose=true
-boolupperloose=true
-boollowerstrong=true
-boolupperstrong=true
-bool3x3=true
-bool5x5=true
-boolMaxTrackPt125=true
-boolMaxTrackPt150=true
-boolMaxTrackPt175=true
-boolMaxTrackPt225=true
-boolMaxClusterE125=true
-boolMaxClusterE150=true
-boolMaxClusterE175=true
-boolMaxClusterE225=true
-boolF07=true
-boolMIP=true
-boolS275C75=true
-boolS350C100=true
-boolTrackEff=true
-boolLowTriggerSwapLow=true
-boolLowTriggerSwapHigh=true
-boolHighTriggerSwapLow=true
-boolHighTriggerSwapHigh=true
-boolLowRFFitLow=true
-boolLowRFFitHigh=true
-boolHighRFFitLow=true
-boolHighRFFitHigh=true
+boolrhoscalevarhigh=false
+boolrhoscalevarlow=false
+boolEmbedding=true
+boolbinvar1=false
+boolbinvar2=false
+boolbinvar3=false
+boolbinvar4=false
+boolpriors=false
+boollowerloose=false
+boolupperloose=false
+boollowerstrong=false
+boolupperstrong=false
+bool3x3=false
+bool5x5=false
+boolMaxTrackPt125=false
+boolMaxTrackPt150=false
+boolMaxTrackPt175=false
+boolMaxTrackPt225=false
+boolMaxClusterE125=false
+boolMaxClusterE150=false
+boolMaxClusterE175=false
+boolMaxClusterE225=false
+boolF07=false
+boolMIP=false
+boolS275C75=false
+boolS350C100=false
+boolTrackEff=false
+boolLowTriggerSwapLow=false
+boolLowTriggerSwapHigh=false
+boolHighTriggerSwapLow=false
+boolHighTriggerSwapHigh=false
+boolLowRFFitLow=false
+boolLowRFFitHigh=false
+boolHighRFFitLow=false
+boolHighRFFitHigh=false
 boolClosureBayes=false
 boolClosureSVD=false
-boolQpT=true
+boolQpT=false
 
 default=2702
 c3x3=2646
@@ -70,15 +75,43 @@ inputResponseFile="/home/austin/alice/SpectrumPostProcessing/FilteredResponse/fi
 priorsfile="/home/austin/alice/SpectrumPostProcessing/unfolding/results_pp/output_default/bayes_default_$default.root"
 
 # Default Bayes
-if $booldefaultbayes
+if $booldefaultbayesnobgsub
 then
     root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"default", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"default",-1,5)'
+fi
+
+# Default Bayes (not run yet)
+if $booldefaultbayesfullrho
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_fullrho/AnalysisResults.root","'$datatrains'/default_fullrho/AnalysisResults.root","'$datatrains'/default_fullrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"default", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"default",-1,5)'
+fi
+
+if $booldefaultbayeschargedrho
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"DefaultScaleVal", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"DefaultScaleVal",-1,5)'
 fi
 
 # Default SVD
 if $booldefaultsvd
 then
     root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"default", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"default",-1,5)'
+fi
+
+# Rho Scale Variation
+if $boolrhoscalevarhigh
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"HighScaleVal", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"HighScaleVal",-1,5)'
+fi
+
+if $boolrhoscalevarlow
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"LowScaleVal", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"LowScaleVal",-1,5)'
+fi
+
+# embedding
+if $boolEmbedding
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_Embedding.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"embed",'$LowRFDefault','$HighRFDefault','$ppSwapLow','$ppSwapHigh',"DefaultScaleVal",-1,5,"fine",false,true)'
 fi
 
 # Bin Variation

@@ -12,12 +12,10 @@
 #include "fstream"
 #include "/home/austin/alice/SubstructureAnalysis/unfolding/binnings/binningPt1D.C"
 
-void plotKinEff(TString file, TString output, TString fileType, TString system)
+void plotKinEff(TString file, TString output, TString fileType, TString system, int minradius = 2, int maxradius = 5)
 {
     // Define variables
     Double_t textSize     = 0.03;
-    int minradius = 2;
-    int maxradius = 5;
 
     int styles[10] = {8,21,33,34,41,43,45,47,48,49};
     int colors[10] = {1,2,4,8,9,30,40,41,46,49};

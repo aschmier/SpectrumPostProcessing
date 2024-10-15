@@ -1,0 +1,2 @@
+output_clusterizer/bayes_3x3_2646.root 3x3
+output_clusterizer/bayes_5x5_2647.root 5x5

@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # Train runs
-booldefaultbayes=false
+booldefaultbayesnobgsub=false
+booldefaultbayesfullrho=false
+booldefaultbayeschargedrho=false
 booldefaultsvd=false
+boolrhoscalevarhigh=false
+boolrhoscalevarlow=false
+boolEmbedding=true
 boolbinvar1=false
 boolbinvar2=false
 boolbinvar3=false
@@ -35,7 +40,7 @@ boolLowRFFitLow=false
 boolLowRFFitHigh=false
 boolHighRFFitLow=false
 boolHighRFFitHigh=false
-boolClosureBayes=true
+boolClosureBayes=false
 boolClosureSVD=false
 boolQpT=false
 
@@ -70,15 +75,43 @@ inputResponseFile="/home/austin/alice/SpectrumPostProcessing/FilteredResponse/fi
 priorsfile="/home/austin/alice/SpectrumPostProcessing/unfolding/results_pp/output_default/bayes_default_$default.root"
 
 # Default Bayes
-if $booldefaultbayes
+if $booldefaultbayesnobgsub
 then
     root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"default", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"default",-1,4,"coarse")'
+fi
+
+    # Default Bayes (not run yet)
+if $booldefaultbayesfullrho
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_fullrho/AnalysisResults.root","'$datatrains'/default_fullrho/AnalysisResults.root","'$datatrains'/default_fullrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"default", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"default",-1,4,"coarse")'
+fi
+
+if $booldefaultbayeschargedrho
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"DefaultScaleVal", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"DefaultScaleVal",-1,4,"coarse")'
 fi
 
 # Default SVD
 if $booldefaultsvd
 then
     root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/SVD/runCorrectionChain1DSVD_SpectrumTaskSimplePoor_CorrectEffPure_8TeV.cpp("'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$datatrains'/default/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"default", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"default",-1,4,"coarse")'
+fi
+
+    # Rho Scale Variation
+if $boolrhoscalevarhigh
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"HighScaleVal", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"HighScaleVal",-1,4,"coarse")'
+fi
+
+if $boolrhoscalevarlow
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_BGSub.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"LowScaleVal", '$LowRFDefault', '$HighRFDefault','$ppSwapLow','$ppSwapHigh',"LowScaleVal",-1,4,"coarse")'
+fi
+
+# embedding
+if $boolEmbedding
+then
+    root -x -q -l -b '/home/austin/alice/SubstructureAnalysis/unfolding/1D/Bayes/runCorrectionChain1DBayes_SpectrumTaskSimplePoor_CorrectEffPure_8TeV_Embedding.cpp("'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$datatrains'/default_chargedrho/AnalysisResults.root","'$mctrains'/default/AnalysisResults.root",'$default',"embed",'$LowRFDefault','$HighRFDefault','$ppSwapLow','$ppSwapHigh',"DefaultScaleVal",-1,4,"coarse",false,true)'
 fi
 
 # Bin Variation

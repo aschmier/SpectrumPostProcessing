@@ -257,6 +257,10 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
         return;
     }
 
+    const char* nameOutput = "/home/austin/alice/FinalResultsRootFiles/pp_energy_comparison.root";
+    TFile* fOutput = new TFile(nameOutput,"RECREATE");
+    for(int radius : {2, 3, 4, 5}) fOutput->mkdir(Form("R0%i",radius));
+
     // 2.76 TeV
     for(int radius : {2, 4}){
         TString tableNameSpec = Form("%s/%s.tsv", hepdatafolder2p76TeV.Data(), radius == 2? spectrum2p76TeVR02.Data() : spectrum2p76TeVR04.Data());
@@ -387,8 +391,8 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
     // 8 TeV
     for(int radius = minradius; radius <= maxradius; radius++){
         TDirectory *rdir = (TDirectory*)fresults->Get(Form("R0%i",radius));
-        TGraphErrors *spectrum     = (TGraphErrors*)rdir->Get(Form("finalSpectrum_R0%i",radius));
-        TGraphErrors *spectrumSys  = (TGraphErrors*)rdir->Get(Form("finalSpectrumSys_R0%i",radius));
+        TGraphErrors *spectrum     = (TGraphErrors*)rdir->Get(Form("spectrumStat_R0%i",radius));
+        TGraphErrors *spectrumSys  = (TGraphErrors*)rdir->Get(Form("spectrumSyst_R0%i",radius));
 
         for(int point = 0; point < spectrum->GetN(); point++){
             double staterror = spectrum->GetErrorY(point);
@@ -410,8 +414,8 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
         vecSpectrumSys8TeV.push_back(spectrumSys);
 
         if(radius != minradius){
-            TGraphErrors *ratio        = (TGraphErrors*)rdir->Get(Form("finalRatio_R0%i",radius));
-            TGraphErrors *ratioSys     = (TGraphErrors*)rdir->Get(Form("finalRatioSys_R0%i",radius));
+            TGraphErrors *ratio        = (TGraphErrors*)rdir->Get(Form("ratioStat_R0%i",radius));
+            TGraphErrors *ratioSys     = (TGraphErrors*)rdir->Get(Form("ratioSyst_R0%i",radius));
 
             for(int point = 0; point < ratio->GetN(); point++){
                 double staterror = ratio->GetErrorY(point);
@@ -611,14 +615,26 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
         legendSpectrum->Draw("same");
         legendErrorKey->Draw("same");
 
-        drawLatexAdd("ALICE Preliminary",0.93,0.93, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R} = 0.%i", radius),0.93,0.9, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.87, textSize,kFALSE, kFALSE, true);
-        drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.84, textSize,kFALSE, kFALSE, true);
+        //drawLatexAdd("ALICE Preliminary",0.93,0.93, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R} = 0.%i", radius),0.93,0.93, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+        drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.87, textSize,kFALSE, kFALSE, true);
 
         cSpectrum->SaveAs(Form("%s/EnergyComparisons/SpectrumComparison_R0%i.%s",output.Data(),radius,fileType.Data()));
 
         legendSpectrum->Clear();
+
+        fOutput->cd(Form("R0%i",radius));
+        finalSpectrum8TeV->Write();
+        finalSpectrumSys8TeV->Write();
+        finalSpectrum5TeV->Write();
+        finalSpectrumSys5TeV->Write();
+        finalSpectrum13TeV->Write();
+        finalSpectrumSys13TeV->Write();
+        if(radius == 2 || radius == 4){
+            finalSpectrum2p76TeV->Write();
+            finalSpectrumSys2p76TeV->Write();
+        }
     }
 /*
     legendSpectrum->Draw("same");
@@ -677,14 +693,26 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
         legendRatio->Draw("same");
         legendErrorKeyRatio->Draw("same");
 
-        drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R} = 0.2/0.%i", radius),0.17,0.88, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.84, textSize,kFALSE, kFALSE, false);
-        drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.8, textSize,kFALSE, kFALSE, false);
+        //drawLatexAdd("ALICE Preliminary",0.17,0.92, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R} = 0.2/0.%i", radius),0.17,0.92, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.17,0.88, textSize,kFALSE, kFALSE, false);
+        drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.17,0.84, textSize,kFALSE, kFALSE, false);
 
         cRatio->SaveAs(Form("%s/EnergyComparisons/RatioComparison_R0%i.%s",output.Data(),radius,fileType.Data()));
 
         legendRatio->Clear();
+
+        fOutput->cd(Form("R02R0%i",radius));
+        finalRatio8TeV->Write();
+        finalRatioSys8TeV->Write();
+        finalRatio5TeV->Write();
+        finalRatioSys5TeV->Write();
+        finalRatio13TeV->Write();
+        finalRatioSys13TeV->Write();
+        if(radius == 4){
+            finalRatio2p76TeV->Write();
+            finalRatioSys2p76TeV->Write();
+        }
     }
 /*
     line->Draw("same");
@@ -1372,7 +1400,7 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
         legendErrorKeySqrtS->Draw("same");
         legendFitSqrtS->Draw("same");
 
-        drawLatexAdd("ALICE Preliminary",0.93,0.2, textSize,kFALSE, kFALSE, true);
+        //drawLatexAdd("ALICE Preliminary",0.93,0.2, textSize,kFALSE, kFALSE, true);
         drawLatexAdd(Form("Full Jets, Anti-#it{k}_{T}, #it{R} = 0.%i", rSqrtS),0.93,0.17, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.14, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.11, textSize,kFALSE, kFALSE, true);
@@ -1382,6 +1410,24 @@ void plotEnergyComparison(TString analysisresults8TeV, TString hepdatafolder2p76
         legendSqrtS->Clear();
         legendErrorKeySqrtS->Clear();
         legendFitSqrtS->Clear();
+
+        fOutput->cd(Form("R0%i",rSqrtS));
+        sqrtSComp35stat->Write();
+        sqrtSComp45stat->Write();
+        sqrtSComp55stat->Write();
+        sqrtSComp90stat->Write();
+        sqrtSComp130stat->Write();
+        sqrtSComp35Sys->Write();
+        sqrtSComp45Sys->Write();
+        sqrtSComp55Sys->Write();
+        sqrtSComp90Sys->Write();
+        sqrtSComp130Sys->Write();
+        PLFit35->Write();
+        PLFit45->Write();
+        PLFit55->Write();
+        PLFit90->Write();
+        PLFit130->Write();
+
     }
 
 }

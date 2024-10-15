@@ -24,7 +24,7 @@ void getScaleFactorPythiaGen(TString ppFile, TString pPbFile, TString rootfiledi
 
     double textSize = 0.03;
 
-    vector<double> partlevelbin = getJetPtBinningNonLinTrue8TeV();
+    vector<double> partlevelbin = getJetPtBinningNonLinTrue8TeVCourse();
 
     TFile *fpp = TFile::Open(ppFile);
     if(!fpp || fpp->IsZombie()){

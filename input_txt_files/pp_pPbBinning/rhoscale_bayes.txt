@@ -1,0 +1,2 @@
+output_rhoscale/bayes_HighScaleVal_BGSub_2785.root High
+output_rhoscale/bayes_LowScaleVal_BGSub_2785.root Low

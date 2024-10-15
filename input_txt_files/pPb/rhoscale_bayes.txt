@@ -1,0 +1,2 @@
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_rhoscale/bayes_pPb_highchargedrho.root High
+/home/austin/alice/SpectrumPostProcessing/unfolding/results_pPb/output_rhoscale/bayes_pPb_lowchargedrho.root Low

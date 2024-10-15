@@ -11,7 +11,7 @@
 
 //namespace fs = std::filesystem;
 
-void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString inputtxtfiles)
+void plotRatioSystematicsCorrelated(TString fSysConfig, TString fDefaultRhoScale, TString type, Int_t radius, TString fileType, TString out, TString rootfileout, TString inputtxtfiles, TString binning = "fine")
 {
     //////////////////////////// Define Variables //////////////////////////////
 
@@ -31,7 +31,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     int stylesempty[15] = {4,25,27,28,35,36,38,40,42,44,46,26,30,32,37};
     Color_t colors[15] = {kBlack, kRed+2, kYellow+2, kGreen+2, kCyan+2, kBlue+2, kMagenta+2, kOrange+7, kSpring+8, kTeal+1, kAzure-4, kViolet+5, kPink-4, kRed-1, kGray+1};
 
-    int varNSys = 7;
+    int varNSys = 9;
     const int nSys = varNSys;
     vector<TString> plot_names;
     vector<TString> systematics_names;
@@ -45,12 +45,12 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     gSystem->Exec("mkdir -p "+outputDir+"/fits");
     gSystem->Exec("mkdir -p "+outputDirRootFile);
 
-    plot_names.insert(plot_names.end(), {"Q/p_{T} Shift","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency"});
-    systematics_names.insert(systematics_names.end(), {"qpt","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","trackeff"});
-    variation_original.insert(variation_original.end(), {"default","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%"});
-    if(radius == 2) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol4","pol4","pol0","pol0","binwise"});
-    if(radius == 3 || radius == 4) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol4","pol4","pol0","pol0","pol1"});
-    if(radius == 5 || radius == 6) fitfunc.insert(fitfunc.end(), {"pol2","pol0","pol0","pol0","pol0","pol0","pol1"});
+    plot_names.insert(plot_names.end(), {"Q/p_{T} Shift","Embedding","Clusterizer","Max Track p_{T}","Max Cluster E","Hadronic Correction","Seed/Cell Energy","Tracking Efficiency","Rho Scale"});
+    systematics_names.insert(systematics_names.end(), {"qpt","embedding","clusterizer","maxtrackpt","maxclustere","hadcorr","seedcell","trackeff","rhoscale"});
+    variation_original.insert(variation_original.end(), {"default","RandomCones","Clusterizerv2","200GeV","200GeV","F=1","300MeV","100%","Default"});
+    if(radius == 2) fitfunc.insert(fitfunc.end(), {"pol2","binwise","pol1","pol4","pol4","pol0","pol0","binwise","pol0"});
+    if(radius == 3 || radius == 4) fitfunc.insert(fitfunc.end(), {"pol2","binwise","pol1","pol4","pol4","pol0","pol0","pol1","pol0"});
+    if(radius == 5 || radius == 6) fitfunc.insert(fitfunc.end(), {"pol2","binwise","pol0","pol0","pol0","pol0","pol0","pol1","pol0"});
 
     TString systematicsFile;
 
@@ -98,6 +98,12 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         return;
     }
 
+    TFile *fChDef = TFile::Open(fDefaultRhoScale);
+    if(!fChDef || fChDef->IsZombie()){
+        cout << "Default file not found!" << endl;
+        return;
+    }
+
     // Get 0.2 spectra
     TDirectory *dRad02 = (TDirectory*)fOrig->Get("R02");
     TDirectory *dReg02    = (TDirectory*)dRad02->Get(Form("reg%i",regnumBayes));
@@ -108,6 +114,11 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     TH1D *spec02_high      = (TH1D*)dReg02_high->Get(Form("normalized_reg%i",regnumBayes+3));
     TDirectory* dReg02_low  = (TDirectory*)dRad02->Get(Form("reg%i",regnumBayes-2));
     TH1D *spec02_low       = (TH1D*)dReg02_low->Get(Form("normalized_reg%i",regnumBayes-2));
+
+    // Charged rho
+    TDirectory *dRadCh02 = (TDirectory*)fChDef->Get(Form("R0%i",radius));
+    TDirectory *dRegCh02    = (TDirectory*)dRadCh02->Get(Form("reg%i",regnumBayes));
+    TH1D *normUnfoldedCh02 = (TH1D*)dRegCh02->Get(Form("normalized_reg%i",regnumBayes));
 
     // Get other radii
     TDirectory *dRadOrig = (TDirectory*)fOrig->Get(Form("R0%i",radius));
@@ -120,6 +131,11 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     TDirectory* dRegOrig_low  = (TDirectory*)dRadOrig->Get(Form("reg%i",regnumBayes-2));
     TH1D *specOrig_low       = (TH1D*)dRegOrig_low->Get(Form("normalized_reg%i",regnumBayes-2));
 
+    // Charged rho
+    TDirectory *dRadChOrig = (TDirectory*)fChDef->Get(Form("R0%i",radius));
+    TDirectory *dRegChOrig    = (TDirectory*)dRadChOrig->Get(Form("reg%i",regnumBayes));
+    TH1D *normUnfoldedChOrig = (TH1D*)dRegChOrig->Get(Form("normalized_reg%i",regnumBayes));
+
     // Regularization ratios
     TH1D *ratioOrig = (TH1D*)normUnfolded02->Clone("ratioOrig");
     ratioOrig->Divide(normUnfolded02,normUnfoldedOrig);
@@ -127,6 +143,8 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     ratioOrig_high->Divide(spec02_high,specOrig_high);
     TH1D *ratioOrig_low = (TH1D*)spec02_low->Clone("ratioOrig_low");
     ratioOrig_low->Divide(spec02_low,specOrig_low);
+    TH1D *ratioOrigCh = (TH1D*)normUnfoldedCh02->Clone("ratioOrigCh");
+    ratioOrigCh->Divide(normUnfoldedCh02,normUnfoldedChOrig);
 
     //files[0].push_back(fSysConfig);
     variations[0].push_back(Form("reg=%i",regnumBayes+3));
@@ -142,7 +160,10 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         TString sfile, var;
 
         while(sysfile >> sfile >> var){
-            sfile = "unfolding/results_pp/" + sfile;
+            if(binning == "fine") sfile = "unfolding/results_pp/" + sfile;
+            else if(binning == "course") sfile = "unfolding/results_pp_pPbBinning/" + sfile;
+            else cout << "Binning option not recognized!" << endl;
+            cout << sfile << " " << var << endl;
             files[name].push_back(sfile);
             variations[name].push_back(var);
         }
@@ -151,7 +172,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     // Get the variation histos for all systematics
     for(int name=0; name<nSys; name++){
         for(int i = 0; i < files[name].size(); i++){
-            TFile *fVar = TFile::Open(files[name].at(i));
+            TFile *fVar = TFile::Open(files[name].at(i),"read");
             if(!fVar || fVar->IsZombie()){
                 cout << "Error: File " << files[name].at(i) << " not found!" << endl;
                 return;
@@ -167,7 +188,8 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
                 normUnfoldedSys = (TH1D*)regSys->Get(Form("normalized_reg%i",regnumBayes));
             }
             TH1D *ratioUnfoldedSys = (TH1D*)normUnfolded02->Clone(Form("ratioUnfoldedSys_%s_file%i", systematics_names[name].Data(),i));
-            ratioUnfoldedSys->Divide(normUnfolded02,normUnfoldedSys);
+            if(systematics_names[name].Contains("rhoscale") || systematics_names[name].Contains("embedding")) ratioUnfoldedSys->Divide(normUnfoldedCh02,normUnfoldedSys,1,1,"B");
+            else ratioUnfoldedSys->Divide(normUnfolded02,normUnfoldedSys,1,1,"B");
             syshistos[name].push_back(ratioUnfoldedSys);
         }
     }
@@ -225,9 +247,9 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
 
         // Format and plot systematics
         for(int j = 0; j < syshistos[name].size(); j++){
-            TH1D *sysRatio;
-            sysRatio = (TH1D*)ratioOrig->Clone(Form("syshist_%i",j));
-            sysRatio->Divide(syshistos[name].at(j),ratioOrig,1,1,"B");
+            TH1D *sysRatio = (TH1D*)ratioOrig->Clone(Form("syshist_%i",j));
+            if(systematics_names[name].Contains("rhoscale") || systematics_names[name].Contains("embedding")) sysRatio->Divide(syshistos[name].at(j),ratioOrigCh,1,1,"B");
+            else sysRatio->Divide(syshistos[name].at(j),ratioOrig,1,1,"B");
             sysRatio->SetMarkerStyle(stylesfilled[j+1]);
             sysRatio->SetLineColor(colors[j+1]);
             sysRatio->SetLineWidth(2);
@@ -309,7 +331,7 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
         sysAvg->GetXaxis()->SetRangeUser(minPt,maxPt);
         if(radius <= 3){
             if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,13);
-            else sysAvg->GetYaxis()->SetRangeUser(0,3);
+            else sysAvg->GetYaxis()->SetRangeUser(0,5);
         }else if(radius == 4){
             if(systematics_names[name] == "tracking" || systematics_names[name] == "qoverptshift") sysAvg->GetYaxis()->SetRangeUser(0,14);
             else sysAvg->GetYaxis()->SetRangeUser(0,5);
@@ -402,11 +424,11 @@ void plotRatioSystematicsCorrelated(TString fSysConfig, TString type, Int_t radi
     }
 
     Double_t sysUpperRange;
-    if(radius <= 4) sysUpperRange = 13;
+    if(radius <= 4) sysUpperRange = 23;
     else sysUpperRange = 23;
 
     //.12,.63
-    legend =  GetAndSetLegend2(0.5,0.57,.93,0.57-((nSys+2)*1.5*textSize)/2,textSize,2);
+    legend =  GetAndSetLegend2(0.5,0.93,.93,0.93-((nSys+2)*1.5*textSize)/2,textSize,2);
     TH1D *hTotal = (TH1D*)vecSys.at(0)->Clone("hTotal");
     hTotal->GetYaxis()->SetRangeUser(0,sysUpperRange);
     for(int j=1; j<hTotal->GetNbinsX()+1; j++){

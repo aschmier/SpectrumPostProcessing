@@ -150,7 +150,7 @@ void constructRpPb(TString ppRootFile, TString pPbRootFile, TString scaleFactorR
         drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.14,0.16, textSize,kFALSE, kFALSE, false);
         drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.14,0.12, textSize,kFALSE, kFALSE, false);
 
-        cRatio->SaveAs(Form("%s/RpPb/ptscheme/new/RpPb_R0%i.%s",output.Data(),radius,fileType.Data()));
+        cRatio->SaveAs(Form("%s/RpPb/RpPb_R0%i.%s",output.Data(),radius,fileType.Data()));
     }
 
 }

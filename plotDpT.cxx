@@ -8,14 +8,19 @@
 #include "/home/austin/alice/RandomPrograms/paperPlotsHeader.h"
 #include "fstream"
 
-void plotDpT(TString filename, TString outputdir, TString fileType, TString suffix, int minradius, int maxradius, TString datafile)
+void plotDpT(TString filename, TString outputdir, TString fileType, TString suffix, int minradius, int maxradius, TString datafile, TString system)
 {
     double textSize  = 0.03;
     TString jetType  = "Full";
 
     int styles[11]   = {4,25,27,28,35,36,38,40,42,44,46};
     int colors[14]   = {1,2,209,4,6,7,8,9,28,30,40,41,46,49};
-    TString triggers[3] = {"INT7","EJ2","EJ1"};
+    TString triggers[3];
+    triggers[0] = "INT7";
+    if(system=="pPb") triggers[1] = "EJ2";
+    if(system=="pp") triggers[1] = "EMC7";
+    if(system=="pPb") triggers[2] = "EJ1";
+    if(system=="pp") triggers[2] = "EJE";
     double nEvt[3];
 
     gSystem->Exec("mkdir -p "+outputdir);
@@ -82,7 +87,7 @@ void plotDpT(TString filename, TString outputdir, TString fileType, TString suff
     gStyle->SetOptStat(0);
     canvas->SetLogy();
 
-    TLegend *legend =  GetAndSetLegend2(0.73,0.78-(4)*textSize,0.88,0.78,textSize);
+    TLegend *legend =  GetAndSetLegend2(0.73,0.74-(4)*textSize,0.88,0.74,textSize);
     TLegend *legendmean = GetAndSetLegend2(0.13,0.28-(3)*textSize,0.33,0.28,textSize);
     // loop over radii
     for(int radius = minradius; radius <= maxradius; radius++){
@@ -107,11 +112,13 @@ void plotDpT(TString filename, TString outputdir, TString fileType, TString suff
         }
         legend->Draw("same");
         // draw text
-        drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+        if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+        if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.87, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.84, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
         drawLatexAdd(Form("R = 0.%i", radius),0.93,0.78,textSize,kFALSE, kFALSE, true);
+        drawLatexAdd(Form("%s", suffix=="default" ? "Full (EMCal) Rho" : "Charged (TPC) Rho"),0.93,0.75,textSize,kFALSE, kFALSE, true);
         canvas->SaveAs(Form("%s/plotDpT_R0%i.%s",outputdir.Data(),radius,fileType.Data()));
         legend->Clear();
 
@@ -141,11 +148,13 @@ void plotDpT(TString filename, TString outputdir, TString fileType, TString suff
         legendmean->Draw("same");
         legend->Draw("same");
         // draw text
-        drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+        if(system=="pPb") drawLatexAdd("p--Pb #sqrt{#it{s}_{NN}} = 8.16 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
+        if(system=="pp") drawLatexAdd("pp #sqrt{#it{s}} = 8 TeV",0.93,0.9, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("Full Jets, Anti-#it{k}_{T}",0.93,0.87, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("#it{p}_{T}^{ch} > 0.15 GeV/#it{c}, #it{E}^{cl} > 0.3 GeV",0.93,0.84, textSize,kFALSE, kFALSE, true);
         drawLatexAdd("|#it{#eta}^{tr}| < 0.7, |#it{#eta}^{cl}| < 0.7, |#it{#eta}^{jet}| < 0.7 - #it{R}",0.93,0.81, textSize,kFALSE, kFALSE, true);
         drawLatexAdd(Form("R = 0.%i", radius),0.93,0.78,textSize,kFALSE, kFALSE, true);
+        drawLatexAdd(Form("%s", suffix=="default" ? "Full (EMCal) Rho" : "Charged (TPC) Rho"),0.93,0.75,textSize,kFALSE, kFALSE, true);
         canvas->SaveAs(Form("%s/plotRho_R0%i.%s",outputdir.Data(),radius,fileType.Data()));
         legendmean->Clear();
         legend->Clear();
